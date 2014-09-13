@@ -1,0 +1,1 @@
+<p>Message from <?php echo $name . ': ' . $message ?></p>
