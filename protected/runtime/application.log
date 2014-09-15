@@ -1,0 +1,1433 @@
+2014/07/23 01:12:23 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1286 Unknown table engine 'InnoDB'. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 01:12:23 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 01:37:11 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1286 Unknown table engine 'InnoDB'. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 01:37:11 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 01:54:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 02:04:58 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1286 Unknown table engine 'InnoDB'. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 02:04:58 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 02:09:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1286 Unknown table engine 'InnoDB'. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 02:09:40 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 02:09:52 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1286 Unknown table engine 'InnoDB'. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 02:09:52 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 02:25:25 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "/var/www/html/JobFair/assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in /var/www/html/JobFair/framework/web/CAssetManager.php:138
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CAssetManager.php(123): CAssetManager->setBasePath('/var/www/html/J...')
+#1 /var/www/html/JobFair/framework/web/CAssetManager.php(217): CAssetManager->getBasePath()
+#2 /var/www/html/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(306): CAssetManager->publish('/var/www/html/J...', true, -1, false)
+#3 /var/www/html/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(50): Bootstrap->getAssetsUrl()
+#4 /var/www/html/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(81): Bootstrap->registerCoreCss()
+#5 /var/www/html/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(115): Bootstrap->registerAllCss()
+#6 /var/www/html/JobFair/themes/bootstrap/views/layouts/main.php(16): Bootstrap->register()
+#7 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#8 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', Array, true)
+#9 /var/www/html/JobFair/framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/J...', Array, true)
+#10 /var/www/html/JobFair/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#11 /var/www/html/JobFair/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#12 /var/www/html/JobFair/framework/web/CBaseController.php(206): COutputProcessor->run()
+#13 /var/www/html/JobFair/framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#14 /var/www/html/JobFair/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#15 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#16 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', Array, true)
+#17 /var/www/html/JobFair/framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/J...', Array, true)
+#18 /var/www/html/JobFair/protected/controllers/SiteController.php(118): CController->render('login', Array)
+#19 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#20 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#21 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#22 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('login')
+#24 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#25 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#26 /var/www/html/JobFair/index.php(14): CApplication->run()
+#27 {main}
+REQUEST_URI=/JobFair/index.php/site/login
+---
+2014/07/23 16:07:57 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/components/UserIdentity.php(20): User::model()
+#9 /var/www/html/JobFair/protected/models/LoginForm.php(53): UserIdentity->authenticate()
+#10 /var/www/html/JobFair/framework/validators/CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#11 /var/www/html/JobFair/framework/validators/CValidator.php(213): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#12 /var/www/html/JobFair/framework/base/CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#13 /var/www/html/JobFair/protected/controllers/SiteController.php(94): CModel->validate()
+#14 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#15 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#16 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#17 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('login')
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#20 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#21 /var/www/html/JobFair/index.php(14): CApplication->run()
+#22 {main}
+REQUEST_URI=/JobFair/index.php/site/login
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/site/login
+---
+2014/07/23 16:08:02 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(314): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/layouts/main.php(40): User::isStudent('Guest')
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', Array, true)
+#12 /var/www/html/JobFair/framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/J...', Array, true)
+#13 /var/www/html/JobFair/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#14 /var/www/html/JobFair/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#15 /var/www/html/JobFair/framework/web/CBaseController.php(206): COutputProcessor->run()
+#16 /var/www/html/JobFair/framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#17 /var/www/html/JobFair/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#18 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#19 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', Array, true)
+#20 /var/www/html/JobFair/framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/J...', Array, true)
+#21 /var/www/html/JobFair/protected/controllers/SiteController.php(118): CController->render('login', Array)
+#22 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#23 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#24 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#25 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('login')
+#27 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#28 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#29 /var/www/html/JobFair/index.php(14): CApplication->run()
+#30 {main}
+REQUEST_URI=/JobFair/index.php/site/login
+---
+2014/07/23 16:18:21 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 16:18:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 16:18:26 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 16:46:19 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 16:46:19 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /var/www/html/JobFair/framework/db/CDbConnection.php:381
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/JobFair/framework/base/CApplication.php(438): CModule->getComponent('db')
+#4 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CApplication->getDb()
+#5 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#8 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#9 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#10 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#11 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#12 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#13 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#14 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#15 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#16 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#18 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#20 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /var/www/html/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 17:30:41 [error] [php] include(PDO.php): failed to open stream: No such file or directory (/var/www/html/JobFair/framework/YiiBase.php:421)
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(422): spl_autoload_call()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(373): CDbConnection->createPdoInstance()
+#2 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#3 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive()
+#4 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#5 /var/www/html/JobFair/framework/base/CApplication.php(438): CWebApplication->getComponent()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CWebApplication->getDb()
+#7 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): User->getDbConnection()
+#8 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct()
+#9 /var/www/html/JobFair/protected/models/User.php(52): model()
+#10 /var/www/html/JobFair/protected/models/User.php(291): model()
+#11 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): isCurrentUserStudent()
+#12 /var/www/html/JobFair/framework/web/CBaseController.php(126): require()
+#13 /var/www/html/JobFair/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#14 /var/www/html/JobFair/framework/web/CController.php(869): SiteController->renderFile()
+#15 /var/www/html/JobFair/framework/web/CController.php(782): SiteController->renderPartial()
+#16 /var/www/html/JobFair/protected/controllers/SiteController.php(32): SiteController->render()
+#17 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#18 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /var/www/html/JobFair/framework/web/CController.php(286): SiteController->runAction()
+#20 /var/www/html/JobFair/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#21 /var/www/html/JobFair/framework/web/CWebApplication.php(282): SiteController->run()
+#22 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#23 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#24 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 17:41:34 [error] [php] include(PDO.php): failed to open stream: No such file or directory (/var/www/html/JobFair/framework/YiiBase.php:421)
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(422): spl_autoload_call()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(373): CDbConnection->createPdoInstance()
+#2 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#3 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive()
+#4 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#5 /var/www/html/JobFair/framework/base/CApplication.php(438): CWebApplication->getComponent()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CWebApplication->getDb()
+#7 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): User->getDbConnection()
+#8 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct()
+#9 /var/www/html/JobFair/protected/models/User.php(52): model()
+#10 /var/www/html/JobFair/protected/models/User.php(291): model()
+#11 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): isCurrentUserStudent()
+#12 /var/www/html/JobFair/framework/web/CBaseController.php(126): require()
+#13 /var/www/html/JobFair/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#14 /var/www/html/JobFair/framework/web/CController.php(869): SiteController->renderFile()
+#15 /var/www/html/JobFair/framework/web/CController.php(782): SiteController->renderPartial()
+#16 /var/www/html/JobFair/protected/controllers/SiteController.php(32): SiteController->render()
+#17 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#18 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /var/www/html/JobFair/framework/web/CController.php(286): SiteController->runAction()
+#20 /var/www/html/JobFair/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#21 /var/www/html/JobFair/framework/web/CWebApplication.php(282): SiteController->run()
+#22 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#23 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#24 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 17:41:36 [error] [php] include(PDO.php): failed to open stream: No such file or directory (/var/www/html/JobFair/framework/YiiBase.php:421)
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbConnection.php(422): spl_autoload_call()
+#1 /var/www/html/JobFair/framework/db/CDbConnection.php(373): CDbConnection->createPdoInstance()
+#2 /var/www/html/JobFair/framework/db/CDbConnection.php(330): CDbConnection->open()
+#3 /var/www/html/JobFair/framework/db/CDbConnection.php(308): CDbConnection->setActive()
+#4 /var/www/html/JobFair/framework/base/CModule.php(387): CDbConnection->init()
+#5 /var/www/html/JobFair/framework/base/CApplication.php(438): CWebApplication->getComponent()
+#6 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(623): CWebApplication->getDb()
+#7 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(2309): User->getDbConnection()
+#8 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct()
+#9 /var/www/html/JobFair/protected/models/User.php(52): model()
+#10 /var/www/html/JobFair/protected/models/User.php(291): model()
+#11 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): isCurrentUserStudent()
+#12 /var/www/html/JobFair/framework/web/CBaseController.php(126): require()
+#13 /var/www/html/JobFair/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#14 /var/www/html/JobFair/framework/web/CController.php(869): SiteController->renderFile()
+#15 /var/www/html/JobFair/framework/web/CController.php(782): SiteController->renderPartial()
+#16 /var/www/html/JobFair/protected/controllers/SiteController.php(32): SiteController->render()
+#17 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#18 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /var/www/html/JobFair/framework/web/CController.php(286): SiteController->runAction()
+#20 /var/www/html/JobFair/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#21 /var/www/html/JobFair/framework/web/CWebApplication.php(282): SiteController->run()
+#22 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#23 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#24 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 17:41:52 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jobfairdb.user' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `user`.
+in /var/www/html/JobFair/protected/models/User.php (52)
+in /var/www/html/JobFair/protected/models/User.php (291)
+in /var/www/html/JobFair/themes/bootstrap/views/site/index.php (5)
+2014/07/23 17:41:52 [error] [exception.CDbException] exception 'CDbException' with message 'The table "user" for active record class "User" cannot be found in the database.' in /var/www/html/JobFair/framework/db/ar/CActiveRecord.php:2310
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#1 /var/www/html/JobFair/protected/models/User.php(52): CActiveRecord::model('User')
+#2 /var/www/html/JobFair/protected/models/User.php(291): User::model()
+#3 /var/www/html/JobFair/themes/bootstrap/views/site/index.php(5): User::isCurrentUserStudent()
+#4 /var/www/html/JobFair/framework/web/CBaseController.php(126): require('/var/www/html/J...')
+#5 /var/www/html/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/J...', NULL, true)
+#6 /var/www/html/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/var/www/html/J...', NULL, true)
+#7 /var/www/html/JobFair/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#8 /var/www/html/JobFair/protected/controllers/SiteController.php(32): CController->render('index')
+#9 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#10 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/JobFair/
+---
+2014/07/23 18:06:01 [error] [php] iconv(): Detected an illegal character in input string (/var/www/html/JobFair/protected/controllers/JobController.php:206)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
+#1 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /var/www/html/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/search?keyword=java+developer
+in /var/www/html/JobFair/protected/controllers/JobController.php (206)
+in /var/www/html/JobFair/protected/controllers/JobController.php (657)
+in /var/www/html/JobFair/index.php (14)
+2014/07/23 18:06:13 [error] [php] iconv(): Detected an illegal character in input string (/var/www/html/JobFair/protected/controllers/JobController.php:206)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
+#1 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /var/www/html/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/search?keyword=java+developer
+in /var/www/html/JobFair/protected/controllers/JobController.php (206)
+in /var/www/html/JobFair/protected/controllers/JobController.php (657)
+in /var/www/html/JobFair/index.php (14)
+2014/07/23 18:06:41 [error] [php] iconv(): Detected an illegal character in input string (/var/www/html/JobFair/protected/controllers/JobController.php:206)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
+#1 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /var/www/html/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/search?keyword=java+developer
+in /var/www/html/JobFair/protected/controllers/JobController.php (206)
+in /var/www/html/JobFair/protected/controllers/JobController.php (657)
+in /var/www/html/JobFair/index.php (14)
+2014/07/23 18:07:10 [error] [php] iconv(): Detected an illegal character in input string (/var/www/html/JobFair/protected/controllers/JobController.php:206)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
+#1 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /var/www/html/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/search?keyword=java+developer
+in /var/www/html/JobFair/protected/controllers/JobController.php (206)
+in /var/www/html/JobFair/protected/controllers/JobController.php (657)
+in /var/www/html/JobFair/index.php (14)
+2014/07/23 18:09:40 [error] [php] iconv(): Detected an illegal character in input string (/var/www/html/JobFair/protected/controllers/JobController.php:206)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
+#1 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /var/www/html/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/search?keyword=java+developer
+in /var/www/html/JobFair/protected/controllers/JobController.php (206)
+in /var/www/html/JobFair/protected/controllers/JobController.php (657)
+in /var/www/html/JobFair/index.php (14)
+2014/07/24 20:33:57 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/profile/LinkToo.php:138)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): ProfileController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): ProfileController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/ProfileController.php(1292): ProfileController->render()
+#3 /var/www/html/JobFair/protected/controllers/ProfileController.php(1250): ProfileController->actionLinkToo()
+#4 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionFiuAuth()
+#5 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): ProfileController->runAction()
+#7 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): ProfileController->filterAccessControl()
+#10 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#12 /var/www/html/JobFair/framework/web/CController.php(265): ProfileController->runActionWithFilters()
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ProfileController->run()
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/profile/fiuAuth/oauth2callback
+in /var/www/html/JobFair/protected/views/profile/LinkToo.php (138)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1292)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1250)
+2014/07/24 16:34:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "profile".' in /var/www/html/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(270): CController->missingAction('profile')
+#1 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('profile')
+#2 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/profile...')
+#3 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /var/www/html/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/profile/profile/view
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/fiuAuth/oauth2callback
+---
+2014/07/24 21:17:22 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/profile/LinkToo.php:138)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): ProfileController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): ProfileController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/ProfileController.php(1292): ProfileController->render()
+#3 /var/www/html/JobFair/protected/controllers/ProfileController.php(907): ProfileController->actionLinkToo()
+#4 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionGoogleAuth()
+#5 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): ProfileController->runAction()
+#7 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): ProfileController->filterAccessControl()
+#10 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#12 /var/www/html/JobFair/framework/web/CController.php(265): ProfileController->runActionWithFilters()
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ProfileController->run()
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/profile/googleAuth/oauth2callback
+in /var/www/html/JobFair/protected/views/profile/LinkToo.php (138)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1292)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (907)
+2014/07/24 21:44:36 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/profile/LinkToo.php:138)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): ProfileController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): ProfileController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/ProfileController.php(1292): ProfileController->render()
+#3 /var/www/html/JobFair/protected/controllers/ProfileController.php(1250): ProfileController->actionLinkToo()
+#4 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionFiuAuth()
+#5 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): ProfileController->runAction()
+#7 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): ProfileController->filterAccessControl()
+#10 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#12 /var/www/html/JobFair/framework/web/CController.php(265): ProfileController->runActionWithFilters()
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ProfileController->run()
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/profile/fiuAuth/oauth2callback
+in /var/www/html/JobFair/protected/views/profile/LinkToo.php (138)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1292)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1250)
+2014/07/24 21:45:22 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/profile/LinkToo.php:138)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): ProfileController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): ProfileController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/ProfileController.php(1292): ProfileController->render()
+#3 /var/www/html/JobFair/protected/controllers/ProfileController.php(1250): ProfileController->actionLinkToo()
+#4 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionFiuAuth()
+#5 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): ProfileController->runAction()
+#7 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): ProfileController->filterAccessControl()
+#10 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#12 /var/www/html/JobFair/framework/web/CController.php(265): ProfileController->runActionWithFilters()
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ProfileController->run()
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/profile/fiuAuth/oauth2callback
+in /var/www/html/JobFair/protected/views/profile/LinkToo.php (138)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1292)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1250)
+2014/07/24 21:49:23 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/profile/LinkToo.php:138)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): ProfileController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): ProfileController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/ProfileController.php(1292): ProfileController->render()
+#3 /var/www/html/JobFair/protected/controllers/ProfileController.php(1250): ProfileController->actionLinkToo()
+#4 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionFiuAuth()
+#5 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): ProfileController->runAction()
+#7 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): ProfileController->filterAccessControl()
+#10 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#12 /var/www/html/JobFair/framework/web/CController.php(265): ProfileController->runActionWithFilters()
+#13 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ProfileController->run()
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/profile/fiuAuth/oauth2callback
+in /var/www/html/JobFair/protected/views/profile/LinkToo.php (138)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1292)
+in /var/www/html/JobFair/protected/controllers/ProfileController.php (1250)
+2014/07/24 18:54:00 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`jobfairdb`.`saved_queries`, CONSTRAINT `saved_queries_ibfk_1` FOREIGN KEY (`FK_userid`) REFERENCES `user` (`id`)). The SQL statement executed was: DELETE FROM `user` WHERE `user`.`id`=12.
+in /var/www/html/JobFair/protected/models/User.php (286)
+in /var/www/html/JobFair/protected/controllers/UserCrudController.php (100)
+in /var/www/html/JobFair/index.php (14)
+2014/07/24 18:54:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`jobfairdb`.`saved_queries`, CONSTRAINT `saved_queries_ibfk_1` FOREIGN KEY (`FK_userid`) REFERENCES `user` (`id`)). The SQL statement executed was: DELETE FROM `user` WHERE `user`.`id`=12' in /var/www/html/JobFair/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1745): CDbCommand->execute()
+#1 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1168): CActiveRecord->deleteByPk('12')
+#2 /var/www/html/JobFair/protected/models/User.php(286): CActiveRecord->delete()
+#3 /var/www/html/JobFair/protected/controllers/UserCrudController.php(100): User->cascade_delete()
+#4 [internal function]: UserCrudController->actionDelete('12')
+#5 /var/www/html/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(UserCrudController), Array)
+#6 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(UserCrudController), Object(ReflectionMethod), Array)
+#7 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#9 /var/www/html/JobFair/framework/web/CController.php(1116): CFilterChain->run()
+#10 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#11 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#14 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#15 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#17 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('delete')
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('userCrud/delete')
+#20 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#21 /var/www/html/JobFair/index.php(14): CApplication->run()
+#22 {main}
+REQUEST_URI=/JobFair/index.php/userCrud/delete/12?ajax=yw0
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/24 18:54:31 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`jobfairdb`.`saved_queries`, CONSTRAINT `saved_queries_ibfk_1` FOREIGN KEY (`FK_userid`) REFERENCES `user` (`id`)). The SQL statement executed was: DELETE FROM `user` WHERE `user`.`id`=12.
+in /var/www/html/JobFair/protected/models/User.php (286)
+in /var/www/html/JobFair/protected/controllers/UserCrudController.php (100)
+in /var/www/html/JobFair/index.php (14)
+2014/07/24 18:54:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`jobfairdb`.`saved_queries`, CONSTRAINT `saved_queries_ibfk_1` FOREIGN KEY (`FK_userid`) REFERENCES `user` (`id`)). The SQL statement executed was: DELETE FROM `user` WHERE `user`.`id`=12' in /var/www/html/JobFair/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1745): CDbCommand->execute()
+#1 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1168): CActiveRecord->deleteByPk('12')
+#2 /var/www/html/JobFair/protected/models/User.php(286): CActiveRecord->delete()
+#3 /var/www/html/JobFair/protected/controllers/UserCrudController.php(100): User->cascade_delete()
+#4 [internal function]: UserCrudController->actionDelete('12')
+#5 /var/www/html/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(UserCrudController), Array)
+#6 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(UserCrudController), Object(ReflectionMethod), Array)
+#7 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#9 /var/www/html/JobFair/framework/web/CController.php(1116): CFilterChain->run()
+#10 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterPostOnly(Object(CFilterChain))
+#11 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#14 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#15 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#17 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('delete')
+#19 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('userCrud/delete')
+#20 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#21 /var/www/html/JobFair/index.php(14): CApplication->run()
+#22 {main}
+REQUEST_URI=/JobFair/index.php/userCrud/delete/12?ajax=yw0
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 04:38:23 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 syntax error, unexpected '+'. The SQL statement executed was: SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%"embedded programming" embedded programming C C++ embedded %' IN BOOLEAN MODE) AND active = '1'.
+in /var/www/html/JobFair/protected/controllers/JobController.php (78)
+in /var/www/html/JobFair/index.php (14)
+2014/07/25 04:38:23 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 syntax error, unexpected '+'. The SQL statement executed was: SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%"embedded programming" embedded programming C C++ embedded %' IN BOOLEAN MODE) AND active = '1'' in /var/www/html/JobFair/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1527): CDbCommand->queryAll()
+#2 /var/www/html/JobFair/protected/controllers/JobController.php(78): CActiveRecord->findAllBySql('SELECT * FROM j...')
+#3 [internal function]: JobController->actionHome('C C++ embedded', '"embedded progr...', '', '', 'true', '')
+#4 /var/www/html/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(JobController), Array)
+#5 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(JobController), Object(ReflectionMethod), Array)
+#6 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#13 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('home')
+#15 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/home')
+#16 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /var/www/html/JobFair/index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/JobFair/index.php/job/home?allWords=C+C%2B%2B+embedded&phrase=%22embedded+programming%22+embedded+programming&anyWord=&minus=&radioOption=true&city=&tagName=
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/home
+---
+2014/07/25 05:10:58 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/site/login
+---
+2014/07/25 05:11:09 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/home/notificationAdmin
+---
+2014/07/25 05:13:24 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/site/login
+---
+2014/07/25 05:13:49 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 05:13:50 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:13:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:14:09 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:14:11 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('index')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('ApiAuth/index')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/ApiAuth/index
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 05:14:14 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('index')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('ApiAuth/index')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/ApiAuth/index
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/ApiConfig/home
+---
+2014/07/25 05:14:16 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/ApiAuth/index
+---
+2014/07/25 05:14:17 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:14:18 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:17:48 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 05:17:49 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:17:50 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:17:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:17:53 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 05:18:11 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:18:13 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:18:14 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:18:15 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:18:15 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/UserCrud/admin
+---
+2014/07/25 05:18:16 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:18:47 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('index')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('ApiAuth/index')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/ApiAuth/index
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:19:33 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('index')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('ApiAuth/index')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/ApiAuth/index
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/ApiConfig/home
+---
+2014/07/25 05:19:35 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('PostingsAdmin/a...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/PostingsAdmin/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/ApiAuth/index
+---
+2014/07/25 05:19:36 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Skillset/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/Skillset/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/PostingsAdmin/admin
+---
+2014/07/25 05:19:36 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/Skillset/admin
+---
+2014/07/25 05:19:58 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('UserCrud/admin')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/UserCrud/admin
+HTTP_REFERER=http://vjf-dev.cs.fiu.edu/JobFair/index.php/home/notificationAdmin
+---
+2014/07/25 11:52:36 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2014-07-25 11:52:36' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `api_status` (`status`, `date_modified`) VALUES (:yp0, :yp1).
+in /var/www/html/JobFair/protected/controllers/ApiConfigController.php (52)
+in /var/www/html/JobFair/index.php (14)
+2014/07/25 11:52:36 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2014-07-25 11:52:36' for key 'PRIMARY'. The SQL statement executed was: INSERT INTO `api_status` (`status`, `date_modified`) VALUES (:yp0, :yp1)' in /var/www/html/JobFair/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
+#1 /var/www/html/JobFair/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#2 /var/www/html/JobFair/protected/controllers/ApiConfigController.php(52): CActiveRecord->save()
+#3 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): ApiConfigController->actionToggleAPIStatus()
+#4 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /var/www/html/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#6 /var/www/html/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('toggleapistatus')
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('ApiConfig/toggl...')
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/JobFair/index.php/ApiConfig/toggleapistatus?value=1
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/ApiConfig/home
+---
+2014/07/25 14:07:42 [error] [php] Undefined index: ID (/var/www/html/JobFair/protected/controllers/APIController.php:54)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(286): APIController->runAction()
+#1 /var/www/html/JobFair/framework/web/CController.php(265): APIController->runActionWithFilters()
+#2 /var/www/html/JobFair/framework/web/CWebApplication.php(282): APIController->run()
+#3 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#5 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/api/postings/
+in /var/www/html/JobFair/protected/controllers/APIController.php (54)
+in /var/www/html/JobFair/index.php (14)
+2014/07/25 14:18:55 [error] [php] Undefined index: ID (/var/www/html/JobFair/protected/controllers/APIController.php:54)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(286): APIController->runAction()
+#1 /var/www/html/JobFair/framework/web/CController.php(265): APIController->runActionWithFilters()
+#2 /var/www/html/JobFair/framework/web/CWebApplication.php(282): APIController->run()
+#3 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#5 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/api/postings/
+in /var/www/html/JobFair/protected/controllers/APIController.php (54)
+in /var/www/html/JobFair/index.php (14)
+2014/09/10 12:00:51 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/user/ChangeFirstPassword.php:14)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): UserController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): UserController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/UserController.php(798): UserController->render()
+#3 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionChangeFirstPassword()
+#4 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /var/www/html/JobFair/framework/web/CController.php(286): UserController->runAction()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): UserController->run()
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/user/ChangeFirstPassword
+in /var/www/html/JobFair/protected/views/user/ChangeFirstPassword.php (14)
+in /var/www/html/JobFair/protected/controllers/UserController.php (798)
+in /var/www/html/JobFair/index.php (14)
+2014/09/10 12:00:51 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/views/user/MergeAccounts.php:24)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(869): UserController->renderFile()
+#1 /var/www/html/JobFair/framework/web/CController.php(782): UserController->renderPartial()
+#2 /var/www/html/JobFair/protected/controllers/UserController.php(927): UserController->render()
+#3 /var/www/html/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionMergeAccounts()
+#4 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /var/www/html/JobFair/framework/web/CController.php(286): UserController->runAction()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): UserController->run()
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/user/MergeAccounts
+in /var/www/html/JobFair/protected/views/user/MergeAccounts.php (24)
+in /var/www/html/JobFair/protected/controllers/UserController.php (927)
+in /var/www/html/JobFair/index.php (14)
+2014/09/11 10:49:12 [error] [php] Invalid argument supplied for foreach() (/var/www/html/JobFair/protected/controllers/ApiConfigController.php:89)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/JobFair/framework/web/CController.php(286): ApiConfigController->runAction()
+#2 /var/www/html/JobFair/framework/web/CController.php(265): ApiConfigController->runActionWithFilters()
+#3 /var/www/html/JobFair/framework/web/CWebApplication.php(282): ApiConfigController->run()
+#4 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#6 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/ApiConfig/importJobs
+in /var/www/html/JobFair/protected/controllers/ApiConfigController.php (89)
+in /var/www/html/JobFair/protected/controllers/ApiConfigController.php (37)
+in /var/www/html/JobFair/index.php (14)
+2014/09/11 11:04:47 [error] [php] Trying to get property of non-object (/var/www/html/JobFair/protected/controllers/SMSController.php:63)
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(133): SMSController->runAction()
+#1 /var/www/html/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#2 /var/www/html/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#3 /var/www/html/JobFair/framework/web/filters/CInlineFilter.php(58): SMSController->filterAccessControl()
+#4 /var/www/html/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#5 /var/www/html/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#6 /var/www/html/JobFair/framework/web/CController.php(265): SMSController->runActionWithFilters()
+#7 /var/www/html/JobFair/framework/web/CWebApplication.php(282): SMSController->run()
+#8 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /var/www/html/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/SMS/Sendsms
+in /var/www/html/JobFair/protected/controllers/SMSController.php (63)
+in /var/www/html/JobFair/index.php (14)
+2014/09/11 11:09:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "Erick".' in /var/www/html/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/JobFair/framework/web/CController.php(270): CController->missingAction('Erick')
+#1 /var/www/html/JobFair/framework/web/CWebApplication.php(282): CController->run('Erick')
+#2 /var/www/html/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Erick')
+#3 /var/www/html/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /var/www/html/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/profile/Erick
+HTTP_REFERER=http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/view
+---
