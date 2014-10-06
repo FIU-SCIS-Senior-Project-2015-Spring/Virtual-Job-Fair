@@ -1996,3 +1996,31 @@ Stack trace:
 REQUEST_URI=/Virtual-Job-Fair-V4/
 HTTP_REFERER=http://localhost:8888/
 ---
+2014/10/06 15:12:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [1045] Access denied for user 'vjfuser'@'localhost' (using password: YES)' in C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\CDbConnection.php:381
+Stack trace:
+#0 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\base\CModule.php(387): CDbConnection->init()
+#3 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(User))
+#7 C:\wamp\www\Virtual-Job-Fair-Ver-4\protected\models\User.php(52): CActiveRecord::model('User')
+#8 C:\wamp\www\Virtual-Job-Fair-Ver-4\protected\models\User.php(291): User::model()
+#9 C:\wamp\www\Virtual-Job-Fair-Ver-4\themes\bootstrap\views\site\index.php(5): User::isCurrentUserStudent()
+#10 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CBaseController.php(126): require('C:\\wamp\\www\\Vir...')
+#11 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\wamp\\www\\Vir...', NULL, true)
+#12 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CController.php(869): CBaseController->renderFile('C:\\wamp\\www\\Vir...', NULL, true)
+#13 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#14 C:\wamp\www\Virtual-Job-Fair-Ver-4\protected\controllers\SiteController.php(32): CController->render('index')
+#15 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#16 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#17 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#18 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CWebApplication.php(282): CController->run('')
+#20 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#21 C:\wamp\www\Virtual-Job-Fair-Ver-4\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#22 C:\wamp\www\Virtual-Job-Fair-Ver-4\index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/Virtual-Job-Fair-Ver-4/
+---
