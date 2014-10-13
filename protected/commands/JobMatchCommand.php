@@ -327,7 +327,6 @@ class JobMatchCommand extends CConsoleCommand {
             }
             if($send_empl)
             {
-		$count = 1;
                 foreach($jobs as $job)
                 {
                     $message = "";
@@ -340,9 +339,9 @@ class JobMatchCommand extends CConsoleCommand {
                     $job_poster_email = $job_poster_info->email;
                     echo "\n[*] Working on jobid $job->id : $job->title\n";
                     $results = Yii::app()->jobmatch->getJobStudentsMatch($job->id);
-		    if(!isset($results['students']) || count($results) == 0 || $results['students'] == NULL)
+                    if(count($results) == 0)
                     {
-                        echo "[*] No student matches found for: " . $job->title . "\n";
+                        echo "[*] No student matches found\n";
                         continue;
                     }
                     $message .= "The following students matched this job posting:<br/>";

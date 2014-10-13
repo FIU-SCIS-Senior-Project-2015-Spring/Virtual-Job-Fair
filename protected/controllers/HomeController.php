@@ -133,8 +133,9 @@ class HomeController extends Controller
 //        $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
 //        $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
 //        $status['username'] = $user['username'];
-        $this->redirect($this->createUrl('UserCrud/admin'));
-		//$this->render('admin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
+       $this->redirect($this->createUrl('UserCrud/admin'));
+        
+	//	$this->render('admin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
 	}
 
 	
@@ -149,6 +150,8 @@ class HomeController extends Controller
 						'message'=>'Access Denied. Site is unbreakable'),
 		);
 	}
+        
+     
 
 
 	public function filters()
@@ -558,6 +561,7 @@ class HomeController extends Controller
 		$skill->save();
 		$this->redirect("/JobFair/index.php/home/adminhome");
 	}
+      
 	
 	public function actionMergeSkills(){
 		$skillname1 = $_POST['skill1'];
@@ -605,7 +609,8 @@ class HomeController extends Controller
         $status['username'] = $user['username'];
         $this->render('notificationadmin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
     }
-
+   
+   
 
     // synchronize with the careerpath API
     public function actionCareerPathSync()

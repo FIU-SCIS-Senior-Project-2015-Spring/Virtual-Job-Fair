@@ -20,7 +20,8 @@ $this->pageTitle=Yii::app()->name;
 <?php $this->beginWidget('bootstrap.widgets.TbHeroUnit',array(
     'heading'=>CHtml::encode(Yii::app()->name 
     	),)); ?>
-<i>Making Conections</i>
+<i>Making Connections</i>
+
 
 
 <?php $this->widget('bootstrap.widgets.TbCarousel', array(

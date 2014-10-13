@@ -71,6 +71,17 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+        
+        
+        public function actionDashboardCreate()
+        {
+            
+        $model = new User;
+        $this->render('dashboard',array(
+            'model'=>$model,
+            
+        ));
+        }
 
 	/**
 	 * Displays the login page

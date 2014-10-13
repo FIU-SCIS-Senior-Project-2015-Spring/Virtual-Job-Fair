@@ -316,10 +316,81 @@ class User extends CActiveRecord
     		return false;
     	return ($user->FK_usertype == 1);
     }
-
+    
+    //adds comments to here from down 
+    public static function countUsers()
+    {
+        return $count = User::model()->count();
+    }
+    public static function countStudents()
+    {
+        $count = 0;
+        $students= User::model()->findAllByAttributes(array('FK_usertype'=>1));
+        foreach ($students as $student)
+        {
+            $count++;
+        }
+        return $count;
+    }
+     public static function countactiveStudents()
+    {
+        $count = 0;
+        $students= User::model()->findAllByAttributes(array('FK_usertype'=>1,'activated'=>1));
+        foreach ($students as $student)
+        {
+           $count++;
+        }
+        return $count;
+    }
+     public static function countactiveEmployers()
+    {
+        $count = 0;
+        $employers= User::model()->findAllByAttributes(array('FK_usertype'=>2,'activated'=>1));
+        foreach ($employers as $employer)
+        {
+           $count++;
+        }
+        return $count;
+    }
+    
+    public static function countAdmin()
+    {
+        $count = 0;
+        $admin= User::model()->findAllByAttributes(array('FK_usertype'=>3));
+        foreach ($admin as $admin)
+        {
+            $count++;
+        }
+        return $count;
+    }
+     public static function countEmployers()
+    {
+        $count = 0;
+        $employers= User::model()->findAllByAttributes(array('FK_usertype'=>2));
+        foreach ($employers as $employers)
+        {
+            $count++;
+        }
+        return $count;
+    }
+    public static function countJobs()
+    {
+        return $count = Job::model()->count();       
+    }
+     public static function countactiveJobs()
+    {
+        $count = 0;
+        $jobs= Job::model()->findAllByAttributes(array('active'=>1));
+        foreach ($jobs as $jobs)
+        {
+            $count++;
+        }
+        return $count;
+    }
+    //stop here
     public static function sendAllStudentVerificationAlart($id, $username, $email, $message, $link){
 
-
+       
     	$students= User::model()->findAllByAttributes(array('FK_usertype'=>1));
 
     	foreach ($students as $student)

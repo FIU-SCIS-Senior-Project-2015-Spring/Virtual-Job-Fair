@@ -20,6 +20,52 @@ class UserController extends Controller
 	{
 		$this->render('register');
 	}
+        
+        //administration function that creates employers
+        public function actionCreateEmployer()
+        {
+         $model=new User;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['User']))
+        {
+            $model->attributes=$_POST['User'];
+            
+            //if($model->save())
+            //{
+                //$this->redirect(array('view','id'=>$model->id));
+                $this->actionEmployerRegister ();
+            //}
+        }
+       
+        $this->render('EmployerRegister',array(
+            'model'=>$model,
+        ));
+        }
+        
+        //administrator function that creates user
+        public function actionCreate()
+        {
+        $model=new User;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['User']))
+        {
+            $model->attributes=$_POST['User'];
+         
+                $this->actionStudentRegister ();
+         
+        }
+       
+        $this->render('create',array(
+            'model'=>$model,
+        ));
+        }
+      
 	
 	public function actionChangePassword() {
 		$model = User::getCurrentUser();
@@ -79,7 +125,8 @@ class UserController extends Controller
 			//print "<pre>";print_r($model);print "</pre>";return;
 			if($model->validate())
 			{
-				if ($this->actionVerifyEmployerRegistration() != "") {
+				if ($this->actionVerifyEmployerRegistration() != "")
+                                {
 					$this->render('EmployerRegister');
 				}
 				//Form inputs are valid
@@ -198,6 +245,8 @@ class UserController extends Controller
 			//Save user into database. Account still needs to be activated
 			$model->save($runValidation=false);
 			
+                        if(User::isCurrentUserAdmin() == FALSE)
+                        {
 			//added in order to store phone number
 			$basicInfo = new BasicInfo;
 			$basicInfo->attributes = $_POST['BasicInfo'];
@@ -209,6 +258,8 @@ class UserController extends Controller
 				$basicInfo->phone = NULL;
 			}
 			$basicInfo->save(false);
+                        }
+                        
 			$this->actionSendVerificationEmail($model->email);
 			return;
 		}
@@ -251,7 +302,8 @@ class UserController extends Controller
 		return $error;
 	}
 	
-	public function actionVerifyEmployerRegistration(){
+	public function actionVerifyEmployerRegistration()
+                {
 		$user = $_POST['User'];
 		$company = $_POST['CompanyInfo'];
 		$basicInfo = $_POST['BasicInfo'];

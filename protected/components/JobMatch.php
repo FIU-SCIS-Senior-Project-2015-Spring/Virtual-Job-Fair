@@ -200,7 +200,7 @@ class JobMatch extends CApplicationComponent
                 //print_r($result);die;
                 $snippets[$j] = strtolower($result['results']['result']['snippet']);
                 $snippets[$j] = utf8_decode($snippets[$j]);
-                //$snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
                 $result['results']['result']['snippet'] = '';
             }
             else
@@ -209,7 +209,7 @@ class JobMatch extends CApplicationComponent
                 {
                     $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
                     $snippets[$j] = utf8_decode($snippets[$j]);
-                   // $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                    $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
                     $result['results']['result'][$i]['snippet'] = '';
                 }

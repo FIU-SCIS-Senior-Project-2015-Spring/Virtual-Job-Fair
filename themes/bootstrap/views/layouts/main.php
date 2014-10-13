@@ -138,8 +138,12 @@ if (!isset($_GET['keyword'])) {
             'type' => 'list',
             'items' => array(
                 array('label' => 'ADMINISTRATION'),
-//                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
+             //   array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
+                
                 array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
+                array('label' => 'Add Student', 'icon' => 'plus', 'url' => $this->createUrl('user/create'), 'active' => in_array($actionid, array('user/create'))),
+                array('label' => 'Add Employer', 'icon' => 'plus', 'url' => $this->createUrl('user/CreateEmployer'), 'active' => in_array($actionid, array('user/CreateEmployer'))),
+                array('label' => 'Website Statistics', 'icon' => 'globe', 'url' => $this->createUrl('site/DashboardCreate'), 'active' => in_array($actionid, array('site/DashboardCreate'))),
                 array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
                 array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
                 array('label' => 'CAREEPATH API'),
@@ -172,7 +176,7 @@ if (!isset($_GET['keyword'])) {
         <div style="height: 50px"></div>
         <div style="position:fixed; text-align:center; width:100%; height:20px; background-color:white;border-top: 1px solid rgb(206, 206, 206); padding:5px; bottom:0px; ">
 
-           <a target="blank" href="http://fiu.edu">Florida Interational University</a> | Virtual Job Fair - Senior Project 2014
+           <a target="blank" href="http://fiu.edu">Florida International University</a> | Virtual Job Fair - Senior Project 2014
         </div>
 
 </html>

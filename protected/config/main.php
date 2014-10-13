@@ -90,9 +90,9 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=jobfairdb',
 			'emulatePrepare' => true,
 			'username' => 'vjfuser',
-			//'username' => 'root',
+			//'username' => 'jobfairdb',
 			'password' => 's3n10rpr0j3ct',
-			//'password' => '123456',
+			//'password' => 'E!qazxsw2',
 			'charset' => 'utf8',
 		),
 

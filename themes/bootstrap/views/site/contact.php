@@ -4,7 +4,8 @@
 /* @var $form TbActiveForm */
 
 $this->pageTitle=Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs=array(
+$this->breadcrumbs=array
+    (
 	'Contact',
 );
 ?>

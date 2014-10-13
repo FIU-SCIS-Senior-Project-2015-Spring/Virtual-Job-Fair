@@ -136,12 +136,27 @@ $(document).ready(function () {
 	</div>
 	
 
-	
-	
-	<h4 style="margin-left:530px; margin-top:-30px">Company Info.</h4>
-	<div id="regbox" style="margin-left:40px">
-	
+	<?php
+	if(User::isCurrentUserAdmin() == FALSE)
+        {
+            
+        ?>
 
+	<h4 style="margin-left:530px; margin-top:-30px">Company Info.</h4>
+        <div id="regbox" style="margin-left:40px">
+
+        <?php
+        }
+        
+         else
+         {
+          ?>
+           
+            <div id="regbox">
+                <h4>Company Info.</h4>
+            <?php
+         }
+            ?>
 
 		<?php echo $form->labelEx($model->companyInfo,'name'); ?>
 		<?php echo $form->textField($model->companyInfo,'name'); ?>
