@@ -39,7 +39,8 @@ class ProfileController extends Controller
 		$username = Yii::app()->user->name;
 		
 		$user = User::model()->find("username=:username",array(':username'=>$username));
-	    $this->render('ViewEmployer', array('user'=>$user)); 
+                 $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+                $this->render('ViewEmployer', array('user'=>$user,'saveQ'=>$saveQ)); 
 	    	
 	}
 	

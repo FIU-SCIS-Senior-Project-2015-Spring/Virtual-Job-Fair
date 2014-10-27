@@ -102,7 +102,8 @@ if (!isset($_GET['keyword'])) {
                 array('label'=>'Jobs', 'url'=>array("/job/home"), 'visible'=>User::isCUrrentUserStudent()),
     			array('label'=>'Message', 'url'=>array('/message'), 'visible'=>!Yii::app()->user->isGuest ),
                 //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
-                array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
+               // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
+                array('label'=>'Advanced Student Search', 'url'=>array("/job/emphome"), 'visible'=>User::isCurrentUserEmployer()),
                 array('label'=>'SMS', 'url'=>array('/SMS/Sendsms'), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
             ),
         ),$search

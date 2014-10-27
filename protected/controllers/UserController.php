@@ -987,8 +987,10 @@ class UserController extends Controller
 
     public function actionToggleEmailMatch()
     {
+        print_r("its getting here");
         if(isset($_GET['value']))
         {
+           // print_r("its getting here");
             $val = intval($_GET['value']);
             $val = ($val == 0) ? 1 : 0;
             $current_user = User::getCurrentUser();

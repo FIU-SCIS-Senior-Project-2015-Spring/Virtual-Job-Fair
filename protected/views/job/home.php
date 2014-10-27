@@ -68,15 +68,16 @@ if (!isset($_GET['city'])) {
             document.getElementById("searchForm").submit();
         }
     }
-
+    
     function hideError()
     {
         $('#alertEmpty').hide();
         $('#alertBig').hide();
     }
 
+  
     $(document).on('click', '#saveBT', saveQuery);
-
+    
     $(document).on('click', '#btClose', hideError);
 
     $(document).ready(function()
@@ -136,10 +137,41 @@ function getURLParameter(name) {
 
 <div id="fullcontentjob">
 
+ 
 <!-- --------------------- ADVANCED SEARCH ---------------------- -->
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Search  </div>
     <br/><br>
+    <h5> Queries Preferences</h5>
+    <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+        <div style= "text-align:left; clear:both" >
+            <p>Select queries to search for jobs</p>
+
+            <div style= "text-align:left;">
+                <?php foreach ($saveQ as $query) { ?>
+                    <?php if($query['active'] == '1')
+                    {?>
+                        <div class="checkbox">
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
+                        </div>
+                    <?php } else
+                    {?>
+                        <div class="checkbox">
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            </div>           
+    </form>
+
+</div>
+    
     <form method="GET" id="searchForm" action="">
       <h4>Find jobs with... </h4>
         <div>

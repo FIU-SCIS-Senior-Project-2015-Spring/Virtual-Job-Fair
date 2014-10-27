@@ -81,6 +81,7 @@ function uploadpic(){
 
 function toggleJobMatching(){
     var val = $('#myonoffswitch').val();
+    
     if(val == '1')
     {
         $('#myonoffswitch').val('0');
@@ -185,7 +186,7 @@ function toggleJobMatching(){
    'enableAjaxValidation'=>false,
    'htmlOptions' => array('enctype' => 'multipart/form-data',),
 )); ?>		
-	<div class="companyinfo">
+<div class="companyinfo">
     <div class="titlebox">SETTINGS</div><br/><br/>
         <?php
         $checked = '';
@@ -208,8 +209,89 @@ function toggleJobMatching(){
                     <span class="onoffswitch-switch"></span>
                 </label>
             </div>
-        </div><hr>
+        </div>
+          <hr>
+          
+        <h5> Queries Preferences</h5>
+        <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+        <div style= "text-align:left; clear:both" >
+            <p>Select queries to search for jobs</p>
+
+            <div style= "text-align:left;">
+                <?php foreach ($saveQ as $query) { ?>
+                    <?php if($query['active'] == '1')
+                    {?>
+                        <div class="checkbox">
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
+                        </div>
+                    <?php } else
+                    {?>
+                        <div class="checkbox">
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+            <hr>
+            <p>Select email frequency</p>
+            <?php
+                $date = $user->job_int_date;
+                if($date == 1)
+                {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="daily" value="1" checked>
+                        <strong> Send me job postings daily </strong>
+                    </div>
+                <?php }else {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="daily" value="1">
+                        <strong> Send me job postings daily </strong>
+                    </div>
+                <?php } ?>
+                <?php if($date == 7) {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="weekly" value="7" checked>
+                        <strong> Send me job postings weekly </strong>
+                    </div>
+                <?php } else {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="weekly" value="7">
+                        <strong> Send me job postings weekly </strong>
+                    </div>
+                <?php } ?>
+                <?php if($date == 30) {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="monthly" value="30" checked>
+                        <strong> Send me job postings monthly </strong>
+                    </div>
+                <?php } else {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="monthly" value="30">
+                        <strong> Send me job postings monthly </strong>
+                    </div>
+                <?php } ?>
+        </div>
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'label'=>'Save',
+            'type'=>'primary',
+            'htmlOptions'=>array(
+                'data-toggle'=>'modal',
+                'data-target'=>'#myModal',
+                'id' => "saveInterest",
+                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+            ),
+        )); ?>
+    </form>
+</div>   
+<div class="companyinfo">
 	<div class="titlebox">COMPANY INFO</div>
+        
 	<p><a href="#" id="editcompany" class="editbox"><img src='/JobFair/images/ico/editButton.gif'/></a></p>
 	<div style=clear:both></div>
 	<name><?php echo $user->companyInfo->name?></name><br>
@@ -222,7 +304,7 @@ function toggleJobMatching(){
 	<lab>LOCATION:</lab> <?php echo $form->textField($user->companyInfo,'city', array('class'=>'tb5','disabled'=>'true')); ?><br>
 	<lab>STATE:</lab> <?php echo $form->textField($user->companyInfo,'state', array('class'=>'tb5','disabled'=>'true')); ?>
 
-	</div> <!--  END COMPANY INFO -->
+</div> <!--  END COMPANY INFO -->
 	
 <?php $this->endWidget(); ?>
 	
