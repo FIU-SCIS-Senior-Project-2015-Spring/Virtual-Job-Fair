@@ -211,7 +211,19 @@ class User extends CActiveRecord
         $email->setData(array('message' => $message,
             'name' => 'Virtual Job Fair',
             'description' => $email_description));
-        $email->send();
+       
+   
+      if($mail->send())
+     {
+        echo 'mail sucess';
+     }
+    else
+      {
+      echo '<pre>';
+      var_dump($mail->getError());
+      echo '</pre>';
+      exit;
+     }
     }
 
     public function isAStudent(){

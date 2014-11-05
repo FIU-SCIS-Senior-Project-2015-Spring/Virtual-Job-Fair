@@ -288,11 +288,11 @@ class JobMatch extends CApplicationComponent
         if($query != null)
         {
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
-            $indeed = $this->indeed($query, $city);
-            if(intval($indeed['totalresults']) == 0)
-            {
-                $indeed = Array();
-            }
+//            $indeed = $this->indeed($query, $city);
+//            if(intval($indeed['totalresults']) == 0)
+//            {
+//                $indeed = Array();
+//            }
             $cb = $this->careerBuilder($query, $city);
             if(intval($cb[0]) == 0)
             {
