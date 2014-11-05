@@ -426,10 +426,10 @@ class JobController extends Controller {
 
         // calling indeed function
         if (isset($radioOption) && $radioOption != "" && $mi == false) {
-            $result = $this->indeed($query, $city);
-            if ($result['totalresults'] == 0) {
-                $result = "";
-            }
+//            $result = $this->indeed($query, $city);
+//            if ($result['totalresults'] == 0) {
+//                $result = "";
+//            }
             $result2 = $this->careerBuilder($query, $city);
             if ($result2[0] == 0) {
                 $result2 = "";
@@ -988,10 +988,10 @@ class JobController extends Controller {
             // location will be set to "Miami, Florida"
             $loc = "Miami, Florida";
             // call indeed API to get jobs query by user
-            $result = $this->indeed($keyword, $loc);
-            if ($result['totalresults'] == 0) {
-                $result = "";
-            }
+//            $result = $this->indeed($keyword, $loc);
+//            if ($result['totalresults'] == 0) {
+//                $result = "";
+//            }
             $result2 = $this->careerBuilder($keyword, $loc);
             if ($result2[0] == 0) {
                 $result2 = "";
