@@ -27,7 +27,7 @@ namespace careerBuilder;
  *
  */
 class CBAPI {
-    private static $APIKey = "WDHP5VP681NXND0YFBCW";  /* your private CareerBuilder API Developer Key */
+    private static $APIKey = "WDHM52C6ZFN16WXQS7TZ";// "WDHP5VP681NXND0YFBCW";  /* your private CareerBuilder API Developer Key */
     public static $perPage = 25; /* the number of job results to pull back for a results search */
     public static $siteID = ''; /* optional string that can be used to track engagement */
 
