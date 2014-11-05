@@ -434,6 +434,7 @@ class JobController extends Controller {
             if ($result2[0] == 0) {
                 $result2 = "";
             }
+            $result = Array();
             // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
             $this->render('home', array('jobs' => $job, 'result' => $result, 'cbresults' => $result2, 'flag' => $flag,'saveQ'=>$saveQ,'user'=>$user));
         } else {
