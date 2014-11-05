@@ -213,14 +213,14 @@ class User extends CActiveRecord
             'description' => $email_description));
        
    
-      if($mail->send())
+      if($email->send())
      {
         echo 'mail sucess';
      }
     else
       {
       echo '<pre>';
-      var_dump($mail->getError());
+      var_dump($email->getError());
       echo '</pre>';
       exit;
      }
