@@ -298,6 +298,7 @@ class JobMatch extends CApplicationComponent
             {
                 $cb = Array();
             }
+            $indeed = Array();
             return array('careerpath'=>$job, 'indeed'=>$indeed, 'careerbuilder'=>$cb);
         }
     }
