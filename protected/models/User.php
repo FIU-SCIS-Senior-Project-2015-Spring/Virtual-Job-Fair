@@ -212,16 +212,17 @@ class User extends CActiveRecord
             'name' => 'Virtual Job Fair',
             'description' => $email_description));
        
-   
+   //added this to check if it was sending
       if($email->send())
      {
-        echo 'mail sucess';
+        $message = "this send is sending";
+       error_log($message);
+        
      }
     else
       {
-      echo '<pre>';
-      var_dump($email->getError());
-      echo '</pre>';
+      $message = "the sending is failing";
+       error_log($message);
       exit;
      }
     }
