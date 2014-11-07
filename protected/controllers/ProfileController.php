@@ -99,6 +99,12 @@ class ProfileController extends Controller
             {
                 $sq->active = 1;
                 $sq->save(false);
+                
+                //do cron job here.
+                $output = shell_exec('crontab -l  2>&1');
+                var_dump($output);die;
+       
+                
             }
             if(!isset($_GET[$sq->id]))
             {
