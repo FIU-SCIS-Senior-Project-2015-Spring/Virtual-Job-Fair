@@ -401,40 +401,17 @@ function uploadvideo(){
             <p>Select email frequency</p>
             <?php
                 $date = $user->job_int_date;
-                if($date == 1)
-                {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="daily" value="1" checked>
-                        <strong> Send me job postings daily </strong>
-                    </div>
-                <?php }else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="daily" value="1">
-                        <strong> Send me job postings daily </strong>
-                    </div>
-                <?php } ?>
-                <?php if($date == 7) {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="weekly" value="7" checked>
-                        <strong> Send me job postings weekly </strong>
-                    </div>
-                <?php } else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="weekly" value="7">
-                        <strong> Send me job postings weekly </strong>
-                    </div>
-                <?php } ?>
-                <?php if($date == 30) {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="monthly" value="30" checked>
-                        <strong> Send me job postings monthly </strong>
-                    </div>
-                <?php } else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="monthly" value="30">
-                        <strong> Send me job postings monthly </strong>
-                    </div>
-                <?php } ?>
+                
+                $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'day',
+                'id'=>'day',
+                'value'=> $date,
+                'htmlOptions'=>array('value'=> $date,'placeholder' => 'put number of days',
+                    'style'=>'width: 150px;'),));
+               
+                    
+                   ?>
+                
         </div>
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Save',
@@ -740,10 +717,10 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php $this->endWidget(); ?>
 	<hr>
 	<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-    'name'=>'addskillname',
+        'name'=>'addskillname',
 	'id'=>'addskillname',
 	'source'=>Skillset::getNames(),
-    'htmlOptions'=>array(),)); ?>
+        'htmlOptions'=>array(),)); ?>
 
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 		    'label'=>'Add Skill',

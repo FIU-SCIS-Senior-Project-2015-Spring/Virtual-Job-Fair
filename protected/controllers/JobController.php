@@ -366,6 +366,7 @@ class JobController extends Controller {
 
     public function actionHome($allWords = null, $phrase = null, $anyWord = null, $minus = null, $radioOption = null, $city = null) {
 
+       
         $flag = 2;
         $mi = false;
         $query = "";

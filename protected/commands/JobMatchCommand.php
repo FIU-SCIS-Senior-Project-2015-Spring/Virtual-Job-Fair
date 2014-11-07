@@ -232,11 +232,6 @@ class JobMatchCommand extends CConsoleCommand {
                             break;
                         case "-i":
                             $interval = intval($args[$j+1]);
-                            if(!in_array($interval, Array(1,7,30)))
-                            {
-                                echo "[INVALID] Invalid interval value.\n";
-                                $this->getHelp();
-                            }
                             break;
                         case "-h":
                         case "--help":

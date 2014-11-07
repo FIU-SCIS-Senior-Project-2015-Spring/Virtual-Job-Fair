@@ -265,6 +265,7 @@ class JobMatch extends CApplicationComponent
             }
         }
         return $result;
+       
     }
 
     public function careerBuilder($query, $city)
@@ -288,7 +289,8 @@ class JobMatch extends CApplicationComponent
         if($query != null)
         {
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
-//            $indeed = $this->indeed($query, $city);
+//           commented out indeed call
+//             $indeed = $this->indeed($query, $city);
 //            if(intval($indeed['totalresults']) == 0)
 //            {
 //                $indeed = Array();
@@ -298,6 +300,7 @@ class JobMatch extends CApplicationComponent
             {
                 $cb = Array();
             }
+            //empty array needs to be deleted if indeed is back working.
             $indeed = Array();
             return array('careerpath'=>$job, 'indeed'=>$indeed, 'careerbuilder'=>$cb);
         }
