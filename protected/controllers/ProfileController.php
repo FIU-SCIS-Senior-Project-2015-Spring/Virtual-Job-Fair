@@ -101,7 +101,10 @@ class ProfileController extends Controller
                 $sq->save(false);
                 
                 //do cron job here.
-                $output = shell_exec('crontab -l  2>&1');
+                $output = shell_exec('crontab -l 2>&1');
+                var_dump($output);
+                file_put_contents('/tmp/crontab.txt', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);
+                $output = shell_exec('crontab -l 2>&1'); 
                 var_dump($output);die;
        
                 
