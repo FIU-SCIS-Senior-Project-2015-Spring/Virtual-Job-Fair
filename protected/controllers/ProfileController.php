@@ -104,11 +104,15 @@ class ProfileController extends Controller
                // $output = shell_exec('crontab -l 2>&1');
                 $output = file_get_contents("/etc/crontab",true);
                 var_dump($output);
-                file_put_contents('/etc/crontab', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);
+                if (strpos($output,'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date) !== false) 
+                {
+    
+                file_put_contents('/etc/crontab', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);                
                 //shell_exec('sudo crontab -u apache /tmp/crontab.txt');
-                //$output = shell_exec('crontab -l 2>&1'); 
+                //$output = shell_exec('crontab -l 2>&1');       
+                }         
                 $output = file_get_contents("/etc/crontab",true);
-                var_dump($output);die;
+                var_dump($output);
        
                 
             }
