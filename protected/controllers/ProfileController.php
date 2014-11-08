@@ -102,12 +102,12 @@ class ProfileController extends Controller
                 
                 //do cron job here.
                // $output = shell_exec('crontab -l 2>&1');
-                $output = file_get_contents("/etc/crontab.txt",true);
+                $output = file_get_contents("/etc/crontab",true);
                 var_dump($output);
-                file_put_contents('/etc/crontab.txt', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);
+                file_put_contents('/etc/crontab', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);
                 //shell_exec('sudo crontab -u apache /tmp/crontab.txt');
                 //$output = shell_exec('crontab -l 2>&1'); 
-                $output = file_get_contents("/etc/crontab.txt",true);
+                $output = file_get_contents("/etc/crontab",true);
                 var_dump($output);die;
        
                 
