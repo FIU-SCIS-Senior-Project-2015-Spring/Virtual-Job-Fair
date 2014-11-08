@@ -104,6 +104,7 @@ class ProfileController extends Controller
                 $output = shell_exec('crontab -l 2>&1');
                 var_dump($output);
                 file_put_contents('/tmp/crontab.txt', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);
+                shell_exec('sudo crontab -u root /tmp/crontab.txt');
                 $output = shell_exec('crontab -l 2>&1'); 
                 var_dump($output);die;
        
