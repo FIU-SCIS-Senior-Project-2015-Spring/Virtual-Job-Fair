@@ -103,23 +103,44 @@ class ProfileController extends Controller
                 //do cron job here.
                // $output = shell_exec('crontab -l 2>&1');
                 $output = file_get_contents("/etc/crontab",true);
-                var_dump($output);
-                if (strpos($output,'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date) !== false) 
+//              var_dump($output);
+                
+                if (strpos($output,'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date) == false) 
                 {
     
                 file_put_contents('/etc/crontab', $output.'*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date.PHP_EOL);                
                 //shell_exec('sudo crontab -u apache /tmp/crontab.txt');
                 //$output = shell_exec('crontab -l 2>&1');       
                 }         
-                $output = file_get_contents("/etc/crontab",true);
-                var_dump($output);
+//                $output = file_get_contents("/etc/crontab",true);
+//                var_dump($output);
        
                 
             }
             if(!isset($_GET[$sq->id]))
             {
-                $sq->active = 0;
+                $sq->active = 0;               
                 $sq->save(false);
+                $users = User::model()->findBySql("SELECT d.job_int_date
+                                         FROM user d, saved_queries q
+                                          WHERE d.id = q.FK_userid
+                                          AND q.active =1");
+                $count =0;
+                foreach($users as $user)
+                {
+                    if($user->job_int_date !== $date)
+                    {
+                        $count++;
+                    }
+                }
+                if(count($users) == $count)
+                {
+                    $output = file_get_contents("/etc/crontab",true);
+                    str_replace('*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date, "", $output);
+                    file_put_contents('/etc/crontab', $output.PHP_EOL);                
+
+                }
+                
             }
         }
         $suc = true;
