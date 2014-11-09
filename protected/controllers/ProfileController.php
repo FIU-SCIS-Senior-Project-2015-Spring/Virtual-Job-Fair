@@ -121,10 +121,14 @@ class ProfileController extends Controller
             {
                 $sq->active = 0;               
                 $sq->save(false);
+                
+                
                 $users = User::model()->findBySql("SELECT d.job_int_date
                                          FROM user d, saved_queries q
                                           WHERE d.id = q.FK_userid
                                           AND q.active =1");
+                if(is_null($users) == FALSE || count($users) !== 0)
+                {
                 $count =0;
                 foreach($users as $user)
                 {
@@ -141,6 +145,13 @@ class ProfileController extends Controller
 
                 }
                 
+                }
+                else
+                {
+                    $output = file_get_contents("/etc/crontab",true);
+                    str_replace('*/'.$date.' * * * * cd /var/www/html/JobFair/protected/ && php yiic jobmatch -i '.$date, "", $output);
+                    file_put_contents('/etc/crontab', $output.PHP_EOL);                      
+                }
             }
         }
         $suc = true;
