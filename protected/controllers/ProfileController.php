@@ -128,7 +128,7 @@ class ProfileController extends Controller
                 $count =0;
                 foreach($users as $user)
                 {
-                    if($user->job_int_date !== $date)
+                    if($user !== $date)
                     {
                         $count++;
                     }
