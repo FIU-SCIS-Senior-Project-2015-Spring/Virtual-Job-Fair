@@ -709,8 +709,10 @@ class JobController extends Controller {
         {
             $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
         }
+        var_dump(count($job));
         if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "" && count($savedQ2) !== 0 &&$savedQ2 !== NULL) {
-             $query2 = "";
+             
+            $query2 = "";
              foreach ($savedQ2 as $qery) 
              {
                    $query2 =$query2." ".$qery->query;
@@ -772,7 +774,7 @@ class JobController extends Controller {
         }
 
         
-        if ($query !== null) 
+        if ($query !== null && $query !== "") 
         {
           
             $job = Array();
@@ -784,7 +786,7 @@ class JobController extends Controller {
              }
                  
        $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . "%' IN BOOLEAN MODE) AND active = '1'");
-   
+       var_dump(count($job));
         }
         
          if (isset($_GET['user'])){

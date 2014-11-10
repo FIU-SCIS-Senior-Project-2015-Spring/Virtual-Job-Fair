@@ -6318,3 +6318,21 @@ Stack trace:
 REQUEST_URI=/JobFair/index.php/job/home?8=1&allWords=c%2B%2B&phrase=&anyWord=&minus=&city=&tagName=
 HTTP_REFERER=http://localhost/JobFair/index.php/job/home?8=1&allWords=html&phrase=&anyWord=&minus=&city=&tagName=
 ---
+2014/11/10 12:41:42 [error] [php] Undefined variable: count (/Applications/XAMPP/xamppfiles/htdocs/JobFair/protected/controllers/JobController.php:776)
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Applications/XAMPP/xamppfiles/htdocs/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Applications/XAMPP/xamppfiles/htdocs/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/home
+in /Applications/XAMPP/xamppfiles/htdocs/JobFair/protected/controllers/JobController.php (776)
+in /Applications/XAMPP/xamppfiles/htdocs/JobFair/index.php (14)
