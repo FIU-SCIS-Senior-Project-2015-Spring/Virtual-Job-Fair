@@ -879,7 +879,7 @@ class JobController extends Controller {
             }
         }
 
-        $this->render('savedQuerySuc', array('mesg' => $suc));
+        $this->render('savedQuerySuc', array('mesg' => $suc,'user' => $model));
         //$this->actionsavedQuerySuc($suc);
     }
 
