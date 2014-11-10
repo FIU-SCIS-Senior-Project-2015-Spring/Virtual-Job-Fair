@@ -31,28 +31,35 @@ class JobController extends Controller {
     }
 
     public function actionEmphome($allWords = null, $city = null, $ZIPcode = null, $school = null, $major = null, $graduationdate = null, $workedasa = null, $workedin = null) {
+        
+        
+        $username = Yii::app()->user->name;
+        $user = User::model()->find("username=:username",array(':username'=>$username));
+        $saveQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$user->id));
+        
+        foreach($saveQ as $sq)
+        {
+            if(isset($_GET[$sq->id]))
+            {
+                $sq->active = 1;
+                $sq->save(false);
+                
+            }
+            if(!isset($_GET[$sq->id]))
+            {
+                $sq->active = 0;               
+                $sq->save(false);
+            }
+        }
+        
+        $savedQ2 = SavedQuery::model()->findAllBySql("Select * FROM saved_queries d WHERE d.FK_userid = $user->id AND d.active=1");
+        
+        //var_dump($savedQ2);die;
+        
         $student = Array();
-//         
-//           if( $allWords == "" &&  $city == "" &&  $ZIPcode== "" &&  $school== "" &&  $major== "" &&  $graduationdate== "" &&  $workedasa== "" &&  $workedin== "")
-//        {
-//            $student =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
-//            
-//        }
-
+        
         $student = User::model()->findAllByAttributes(array('FK_usertype' => 1, 'activated' => 1));
-        //print_r($student);
-//         //test the api
-//         $html= "";
-//         $url = "http://careers.stackoverflow.com/jobs/feed";
-//         $xml = simplexml_load_file($url);
-//
-//        echo '<h1>'. $xml->channel->title . '</h1>';
-//         
-//    foreach ($xml->channel->item as $item) {
-//   echo '<h2>'. $item->title . '</h2>';
-//   echo "<p>" . $item->pubDate . "</p>";
-//   echo "<p>" . $item->description . "</p>";
-//    } 
+
         $query = Array();
         
         if ($allWords != null) {
@@ -158,7 +165,7 @@ class JobController extends Controller {
         if ($school != null) {
             
             //$school = trim($school);
-            $currschool = School::model()->findAllBySql("SELECT * FROM user u, school d WHERE u.id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
+            $currschool = User::model()->findAllBySql("SELECT u.id FROM user u, school d, education e WHERE u.id = e.FK_user_id AND e.FK_school_id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
 
             foreach ($student as $key => $students) {
                 $count = 0;
@@ -222,7 +229,7 @@ class JobController extends Controller {
         }
 
         if ($workedasa != null) {
-            $workasa = trim($workasa);
+            $workedasa = trim($workedasa);
 
             $workedasaa = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_title LIKE '%" . $workedasa . "%' ");
 
@@ -256,11 +263,330 @@ class JobController extends Controller {
                 }
             }
         }
+        
+        
         if (isset($_GET['user'])){
 			$username = $_GET['user'];			
 		} else {
 			$username = Yii::app()->user->name;
 		}
+                              
+        if(count($savedQ2) !== 0 && $savedQ2 !== NULL)
+          {
+            if($allWords === "" && $city === "" && $ZIPcode === "" && $school ==="" && $major==="" && $graduationdate === "" && $workedasa ==="" && $workedin ==="")
+            {
+            $student = Array();
+            }         
+         
+           // $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
+            
+            foreach($savedQ2 as $sq)
+            {
+           $allWords = "" ;
+           $city = "";
+           $ZIPcode = ""; 
+           $school ="";
+           $major = "";
+           $graduationdate = "";
+           $workedasa = "";
+           $workedin ="";
+               $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
+               $array = explode("~",$sq->query);
+               
+               foreach($array as $arr)
+               {
+                   
+                   if (strpos($arr,'skills') !== false) 
+                            {
+                      // var_dump($arr);die;
+                                $arre = explode(':', $arr);
+                                $allWords = $arre[1];
+                              
+                            }
+                   if (strpos($arr,'city') !== false) 
+                            { 
+                            
+//                                $count = 1;
+                                  $arre = explode(":", $arr);
+                                  $city = $arre[1];
+                                
+                                 
+  //                          }
+                            }
+                   if (strpos($arr,'ZIPcode') !== false) 
+                            {
+                       $arre = explode(':', $arr);
+                                $ZIPcode = $arre[1];
+                            }
+                  if (strpos($arr,'school') !== false) 
+                            {
+                      $arre = explode(':', $arr);
+                                $school = $arre[1];
+                                
+                            }
+                  if (strpos($arr,'major') !== false) 
+                            {
+                      $arre = explode(':', $arr);
+                                $major = $arre[1];
+                            }
+                if (strpos($arr,'graduation') !== false) 
+                            {
+                    $arre = explode(':', $arr);
+                                $graduationdate = $arre[1];
+                            }
+                 if (strpos($arr,'position') !== false) 
+                            {
+                     $arre = explode(':', $arr);
+                                $workedasa = $arre[1];
+                            }
+                if (strpos($arr,'experience') !== false) 
+                            {
+                    $arre = explode(':', $arr);
+                                $workedin = $arre[1];
+                            }
+                            
+                }
+                
+                var_dump($allWords);
+                var_dump($city);
+                if ($allWords != null) 
+                    {
+
+            if (strpos($allWords, '+') !== false) {
+                $allWords = trim($allWords);
+                $pieces = explode("+", $allWords);
+                $count = 0;
+                $piec = Array();
+                $query = "";
+                $amount = 0;
+                
+                foreach ($pieces as $piece) 
+                    {
+                    
+                    if ($count === 0) {
+                        $query .= " s.name = \"$piece\" ";
+                       $count++;
+                    } else {
+                        $query .= " OR s.name = \"$piece\" ";
+                        $count ++;
+                    }
+                }
+             
+               
+                $piec = Skillset::model()->findAllBySql("SELECT s.id FROM skillset s WHERE $query");
+                
+                foreach($student2 as $key=>$stu)
+                {
+                    
+                    $amount = 0;
+                    $result = StudentSkillMap::model()->findAllBySql("SELECT d.skillid FROM student_skill_map d WHERE d.userid = $stu->id");
+                   
+                    foreach($result as $res)
+                    {
+                  
+                        foreach($piec as $pie)
+                        {
+                           
+                            if($res->skillid === $pie->id)
+                            {
+                                $amount++;
+                            
+                            }
+                           
+                        }
+                       
+                    }
+                  
+                   if($count !== $amount)
+                   {
+                       unset($student2[$key]);              
+                   }
+                }
+    
+            } else {
+                $allWords = trim($allWords);
+                $stuskill = User::model()->findAllBySql("SELECT u.id FROM student_skill_map d, user u, skillset s WHERE u.id = d.userid AND d.skillid = s.id AND s.name=:skil_l", array(":skil_l" => $allWords));
+                foreach ($student2 as $key => $students) {
+                    $count = 0;
+
+                    foreach ($stuskill as $skill) {
+                        if ($students->id === $skill->id) {
+                            $count = 1;
+                        }
+                    }
+                    if ($count === 0) {
+                        unset($student2[$key]);
+                    }
+                }
+
+
+                // $query .= "+".str_replace(" ", ' +', $allWords)." "; 
+            }
+        }
+        // var_dump($city);
+//         foreach($student2 as $stu)
+//        {
+//        var_dump($stu->id);
+//        }
+        if ($city != null) {
+
+            //creates a table with students who live in that specified 
+            $studentcity = BasicInfo::model()->findAllBySql("SELECT * FROM user u, basic_info d WHERE u.id = d.userid AND d.city=:ci_ty", array(":ci_ty" => $city));
+
+            $city = trim($city);
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($studentcity as $studentss) 
+                    {
+                   // var_dump($studentss->userid);
+                    if ($students->id === $studentss->userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+//        foreach($student2 as $stu)
+//        {
+//        var_dump($stu->id);
+//        }
+        
+        if ($ZIPcode != null) {
+            
+        }
+
+        //check if school field is empty 
+        
+        if ($school != null) {
+            
+            //$school = trim($school);
+            $currschool = User::model()->findAllBySql("SELECT u.id FROM user u, school d, education e WHERE u.id = e.FK_user_id AND e.FK_school_id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($currschool as $schools) {
+                    if ($students->id === $schools->id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        if ($major != null) {
+            $major = trim($major);
+            $majors = Education::model()->findAllBySql("SELECT * FROM user u, education d WHERE u.id = d.id AND d.major=:ma_jor", array(":ma_jor" => $major));
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($majors as $majorss) {
+                    if ($students->id === $majorss->id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        ///
+        if ($graduationdate != null) {
+            $graduationdate = trim($graduationdate);
+//              $tempstr = "";
+//             if(strpos($graduationdate, "-") !== FALSE)
+//             {
+
+            $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%" . $graduationdate . "%' ");
+
+//             }
+//             else
+//             {
+//                 
+//               $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%".$graduationdate."%' ");  
+//                   
+//             }
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($graduationdates as $grad) {
+                    if ($students->id === $grad->FK_user_id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+
+        if ($workedasa != null) {
+            $workedasa = trim($workedasa);
+
+            $workedasaa = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_title LIKE '%" . $workedasa . "%' ");
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($workedasaa as $work) {
+                    if ($students->id === $work->FK_userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        if ($workedin != null) {
+            $workedin = trim($workedin);
+            $workedinn = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_description LIKE '%" . $workedin . "%' ");
+
+            foreach ($student2 as $key => $students) 
+                {
+                $count = 0;
+
+                foreach ($workedinn as $work) {
+                    if ($students->id === $work->FK_userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+         //var_dump(count($student2));      
+        foreach($student2 as $stu)
+        {
+            $count = 0 ;
+            $tmp = '';
+            foreach($student as $stu2)
+            {
+                if($stu->id === $stu2->id)
+                {
+                   $count = 1; 
+                }
+              
+            }
+              if ($count === 0) 
+                {
+                array_push($student, $stu);
+                }
+           }     
+       }
+        }
+        else
+        {
+            
+        }       
+                
         $user = User::model()->find("username=:username",array(':username'=>$username));
         $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         $this->render('emphome', array('students' => $student,'saveQ' => $saveQ));
@@ -276,72 +602,54 @@ class JobController extends Controller {
             $tag = $tagName;
         }
         if (isset($allWords) && $allWords != "") {
-            if (strpos($allWords, '"') !== false) {
-                $saveQuery = $allwords." ";
-            }    // contains ""
-            else {
-                $saveQuery = "\"$allWords\"" ." ";
-            }                             // add  ""
+            
+                $saveQuery = "~skills:".$allWords." ";
+                                        // add  ""
         }
         if (isset($city) && $city != "") {
-            if (strpos($city, '"') !== false) {
-                $saveQuery .= "-".$city. " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$city\"" . " ";
-            }                             // add  ""
+            
+                $saveQuery .= "~city:".$city." ";
+             
+                                   
         }
         if (isset($ZIPcode) && $ZIPcode != "") {
-            if (strpos($ZIPcode, '"') !== false) {
-                $saveQuery .= "-" . $ZIPcode . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$ZIPcode\"" . " ";
-            }                             // add  ""
+           
+                $saveQuery .= "~ZIPcode:".$ZIPcode. " ";
+                                      // add  ""
         }
         if (isset($school) && $school != "") {
-            if (strpos($school, '"') !== false) {
-                $school .= "-" . $school . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$school\"" . " ";
-            }                             // add  ""
+                  
+                $saveQuery .= "~school:".$school." ";
+                                        // add  ""
         }
-        if (isset($major) && $major != "") {
-            if (strpos($major, '"') !== false) {
-                $saveQuery .= "-" . $major . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$major\"" . " ";
+        if (isset($major) && $major != "") 
+            {
+            
+                $saveQuery .= "~major:".$major." ";
+                
             }
             // add  ""
         if (isset($graduationdate) && $graduationdate != "") {
-            if (strpos($graduationdate, '"') !== false) {
-                $saveQuery .= "-" . $graduationdate . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$graduationdate\"" . " ";
-            }                             // add  ""
+         
+                $saveQuery .= "~graduation:".$graduationdate." ";
+                                       // add  ""
         }
         if (isset($workedasa) && $workedasa != "") {
-            if (strpos($workedasa, '"') !== false) {
-                $saveQuery .= "-" . $workedasa . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$workedasa\"" . " ";
-            }                             // add  ""
+            
+                $saveQuery .= "~position:".$workedasa." ";
+                                      // add  ""
         }
         
-        }
-        if (isset($workedin) && $workedin != "") {
-            if (strpos($workedin, '"') !== false) {
-                $workedin .= "-" . $workedin . " ";
-            }    // contains ""
-            else {
-                $saveQuery .= "\"$workedin\"" . " ";
+        
+        if (isset($workedin) && $workedin != "") 
+            {
+               
+                $saveQuery .= "~experience:".$workedin." ";
+                
             }                             // add  ""
-        }
-        if ($saveQuery != "") {
+        
+        if ($saveQuery != "") 
+        {
             $username = Yii::app()->user->name;
             $model = User::model()->find("username=:username", array(':username' => $username));
             $saved_queries = new SavedQuery();
@@ -358,25 +666,57 @@ class JobController extends Controller {
             }
         }
 
-        $this->render('savedQuerySuc', array('mesg' => $suc));
+        $this->render('savedQuerySuc', array('mesg' => $suc, 'user' => $model));
         print_r($saveQuery);
         
-        
+         
     }
 
     public function actionHome($allWords = null, $phrase = null, $anyWord = null, $minus = null, $radioOption = null, $city = null) {
-
-       
+//
+//        //query search
+        $username = Yii::app()->user->name;
+        $user = User::model()->find("username=:username",array(':username'=>$username));
+        $saveQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$user->id));
+        
+        foreach($saveQ as $sq)
+        {
+            if(isset($_GET[$sq->id]))
+            {
+                $sq->active = 1;
+                $sq->save(false);
+                
+            }
+            if(!isset($_GET[$sq->id]))
+            {
+                $sq->active = 0;               
+                $sq->save(false);
+            }
+        }
+        
+        $savedQ2 = SavedQuery::model()->findAllBySql("Select * FROM saved_queries d WHERE d.FK_userid = $user->id AND d.active=1");
+        
+        
+        //query search
+        
+       // var_dump($allWords);die;
         $flag = 2;
         $mi = false;
         $query = "";
         $job = Array();
 
-        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "") {
+        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "") 
+        {
             $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
         }
-        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus != "") {
-            $mi = true;
+        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "" && count($savedQ2) !== 0 &&$savedQ2 !== NULL) {
+             $query2 = "";
+             foreach ($savedQ2 as $qery) 
+             {
+                   $query2 =$query2." ".$qery->query;
+             }
+            $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+
         }
         if (isset($phrase) && $phrase != "") {
             if (strpos($phrase, '"') !== false) {
@@ -388,8 +728,25 @@ class JobController extends Controller {
             //var_dump($query);die;
         }
         if (isset($allWords) && $allWords != "") {
-            if (strpos($allWords, '+') !== false) {
+            if (strpos($allWords, '+') !== false) 
+             {  
                 $query .= $allWords . " ";
+                $queriess = explode("+", $query);
+                $query = "";
+                $count = 0;
+                foreach($queriess as $quu)
+                {
+                    if($count >= 1)
+                    {
+                    $query .= " +".$quu;
+                    $count++;
+                    }
+                    else
+                    {
+                        $query .= $quu;
+                        $count++;
+                    }
+                }
             } // contains +
             else {
                 $query .= "+" . str_replace(" ", ' +', $allWords) . " ";
@@ -413,20 +770,30 @@ class JobController extends Controller {
                 $query .= "-" . str_replace(" ", ' -', $minus) . " ";
             }     // add -
         }
-        if ($query != null && $mi == false) {
-            //print_r($query); exit;
-            $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . "%' IN BOOLEAN MODE) AND active = '1'");
+
+        
+        if ($query != null) 
+        {
+          
+            $job = Array();
+                    
+            foreach ($savedQ2 as $qery) 
+             {
+                   $query =$query." ".$qery->query;
+             }
+                    
+       $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . "%' IN BOOLEAN MODE) AND active = '1'");
+   
         }
          if (isset($_GET['user'])){
 			$username = $_GET['user'];			
 		} else {
 			$username = Yii::app()->user->name;
 		}
-        $user = User::model()->find("username=:username",array(':username'=>$username));
-        $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+               
 
         // calling indeed function
-        if (isset($radioOption) && $radioOption != "" && $mi == false) {
+        if (isset($radioOption) && $radioOption != "") {
 //            $result = $this->indeed($query, $city);
 //            if ($result['totalresults'] == 0) {
 //                $result = "";

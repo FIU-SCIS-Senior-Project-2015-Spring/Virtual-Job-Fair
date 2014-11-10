@@ -33,6 +33,17 @@ $(document).ready(function()
                 </div>
             <?php } ?>
         </div>
+         <?php if($user->FK_usertype == 2) 
+             {?>
+        <div class="modal-footer">
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'buttonType'=>'link',
+                'type'=>'primary',
+                'label'=>'OK',
+                'url'=>'../job/emphome'
+            )); ?>
+        </div>
+        <?php }else { ?>      
         <div class="modal-footer">
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'=>'link',
@@ -41,6 +52,7 @@ $(document).ready(function()
                 'url'=>'../job/home'
             )); ?>
         </div>
+        <?php } ?>
     </div><!-- /.modal-content -->
 </div><!-- /.modal -->
 

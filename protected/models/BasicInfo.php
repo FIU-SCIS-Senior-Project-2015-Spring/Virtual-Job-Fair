@@ -99,5 +99,40 @@ class BasicInfo extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+                
+                
+	}
+         public static function getAllCity()
+	{
+		$cities = BasicInfo::model()->findAll();
+		$cityNames = array();
+		
+	       foreach($cities as $city)
+               {
+                   
+                  $count = 0 ;                    
+                 foreach($cityNames as $cit)
+                 {                    
+                    if($cit === $city->city)
+                    {                  
+                       $count = 1; 
+                    }    
+                 }
+                if ($count === 0) 
+                {
+                   $cityNames[]= $city->city;
+                }
+			
+               }
+               foreach ($cityNames as $key=> $hello)
+               {
+                   
+                  if($hello === NULL)
+                  {
+                      unset($cityNames[$key]);
+                  }
+               }
+              
+		return $cityNames;	
 	}
 }

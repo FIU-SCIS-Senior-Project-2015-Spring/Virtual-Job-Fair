@@ -406,7 +406,7 @@ function uploadvideo(){
                 'name'=>'day',
                 'id'=>'day',
                 'value'=> $date,
-                'htmlOptions'=>array('value'=> $date,'placeholder' => 'put number of days',
+                'htmlOptions'=>array('value'=> $date,'placeholder' => 'put number ',
                     'style'=>'width: 150px;'),));
                
                     

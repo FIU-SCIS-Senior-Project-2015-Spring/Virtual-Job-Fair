@@ -14,7 +14,7 @@ class ProfileController extends Controller
 		}
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 
-        $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+                $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
 		
 		if ($user->FK_usertype == 2){
 			$this->actionViewEmployer();
@@ -160,6 +160,7 @@ class ProfileController extends Controller
 
     public function actionDeleteInterest()
     {
+
         $model = SavedQuery::model()->findByPk($_GET['id']);
         //var_dump($model);die;
         $model->delete();

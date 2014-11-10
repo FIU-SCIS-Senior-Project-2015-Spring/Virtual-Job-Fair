@@ -141,9 +141,9 @@ function getURLParameter(name) {
 <!-- --------------------- ADVANCED SEARCH ---------------------- -->
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Search  </div>
-    <br/><br>
-    <h5> Queries Preferences</h5>
-    <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+    <br/><br>    
+    <form method="GET" id="searchForm" action="">
+    <h5> Queries Preferences</h5>   
         <div style= "text-align:left; clear:both" >
             <p>Select queries to search for jobs</p>
 
@@ -168,11 +168,11 @@ function getURLParameter(name) {
                     <?php } ?>
                 <?php } ?>
             </div>           
-    </form>
+   
+            
+            
 
 </div>
-    
-    <form method="GET" id="searchForm" action="">
       <h4>Find jobs with... </h4>
         <div>
             <strong>these words:</strong>

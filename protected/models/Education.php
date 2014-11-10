@@ -110,4 +110,25 @@ class Education extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public static function getAllMajors()
+	{
+		$education = Education::model()->findAll();
+		$eduNames = array();
+		
+		foreach($education as $edu)
+			$eduNames[] = $edu->major;
+			
+		return $eduNames;	
+	}
+        public static function getAllGrad()
+	{
+		$grad = Education::model()->findAll();
+		$eduNames = array();
+		
+		foreach($grad as $edu)
+			$eduNames[] = $edu->graduation_date;
+			
+		return $eduNames;	
+	}
 }

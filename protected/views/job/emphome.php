@@ -85,9 +85,10 @@ if (!isset($_GET['tagName'])) {
 
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Student Search  </div>
-    <br/><br>
+    <form method="GET" id="searchForm" action="">
+        <br/><br>
     <h5> Queries Preferences</h5>
-    <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+    
         <div style= "text-align:left; clear:both" >
             <p>Select queries to search for jobs</p>
 
@@ -112,10 +113,7 @@ if (!isset($_GET['tagName'])) {
                     <?php } ?>
                 <?php } ?>
             </div>                    
-        </div>       
- </form>
-    <form method="GET" id="searchForm" action="">
-        
+        </div>  
       <h4>Find students with... </h4>
         <div>
             <strong>these skills:</strong>
@@ -130,6 +128,7 @@ if (!isset($_GET['tagName'])) {
                 'name'=>'city',
                 'id'=>'city',
                 'value'=> $_GET['city'],
+                'source'=> BasicInfo::getAllCity(),
                 'htmlOptions'=>array('value'=> $_GET['city'],'placeholder' => 'write city',
                     'style'=>'width: 200px;'),)); ?>
             <br> <strong>near this zip code:</strong><br>
@@ -144,6 +143,7 @@ if (!isset($_GET['tagName'])) {
                 'name'=>'school',
                 'id'=>'school',
                 'value'=> $_GET['school'],
+                'source'=> School::getAllSchools(),
                 'htmlOptions'=>array('value'=> $_GET['school'],'placeholder' => 'name of the school',
                     'style'=>'width: 200px;'),)); ?>
             <br> <strong> has this major: </strong><br>
@@ -151,6 +151,7 @@ if (!isset($_GET['tagName'])) {
                 'name'=>'major',
                 'id'=>'major',
                 'value'=> $_GET['major'],
+                'source'=> Education::getAllMajors(),
                 'htmlOptions'=>array('value'=> $_GET['major'],'placeholder' => 'major',
                     'style'=>'width: 200px;'),)); ?>
             <br> <strong> Graduation Date: </strong><br>
@@ -158,6 +159,7 @@ if (!isset($_GET['tagName'])) {
                 'name'=>'graduationdate',
                 'id'=>'graduationdate',
                 'value'=> $_GET['graduationdate'],
+                'source'=> Education::getAllGrad(),
                 'htmlOptions'=>array('value'=> $_GET['graduationdate'],'placeholder' => 'Year-Month',
                     'style'=>'width: 200px;'),)); ?>
             <br> <strong> Has experience as a: </strong><br>
