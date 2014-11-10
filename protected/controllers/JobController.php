@@ -772,19 +772,21 @@ class JobController extends Controller {
         }
 
         
-        if ($query != null) 
+        if ($query !== null) 
         {
           
             $job = Array();
                     
             foreach ($savedQ2 as $qery) 
              {
+               
                    $query =$query." ".$qery->query;
              }
-                    
+                 
        $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . "%' IN BOOLEAN MODE) AND active = '1'");
    
         }
+        
          if (isset($_GET['user'])){
 			$username = $_GET['user'];			
 		} else {
