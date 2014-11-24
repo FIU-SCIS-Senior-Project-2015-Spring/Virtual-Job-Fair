@@ -363,23 +363,10 @@ class JobMatchCommand extends CConsoleCommand {
                         $message .= $this->buildTable('employer_custom', $results, $interval);
                         $message .= "<br/>";
                     }
-                    echo "[*] Sending custom search job results email to: $emp->email\n";
-                    User::sendEmail($emp->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                    echo "[*] Sending custom search student results email to: $emp->email\n";
+                    User::sendEmail($emp->email, "Virtual Job Fair | Student Matches", "Your Student Matches", $message);
                 }
-                else
-                {
-                    if(($interval == intval($st->job_int_date)) && $interval > 0)
-                    {
-                        $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
-                        if(count($results) > 0)
-                        {
-                            $message .= "The following jobs matched with your skills:<br/>";
-                            $message .= $this->buildTable('student', $results, $interval);
-                            echo "[*] Sending skill matches results email to: $st->email\n";
-                            User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
-                        }
-                    }
-                }
+                
 
             }
             if($send_empl)

@@ -1,5 +1,8 @@
 <?php
+/* @var $this UserController */
 /* @var $this ProfileController */
+/* @var $form CActiveForm */
+/* @var $user User */
 
 $this->breadcrumbs=array(
 	'Profile'=>array('/profile'),
@@ -31,7 +34,12 @@ $('div[class^=child-]').hide();
 
 <script>
 
-$(document).ready(function() {
+$(document).ready(function() 
+{
+       $("#saveInterest").click(function(e) {
+          $(this).closest('form').submit();
+       });
+
 	$("#edit").click(function(e) { 
 		if($("#BasicInfo_about_me").is(":disabled") && $("#User_email").is(":disabled")
 		&& $("#BasicInfo_phone").is(":disabled")&& $("#BasicInfo_city").is(":disabled")
@@ -67,11 +75,29 @@ $(document).ready(function() {
 			}
 		}); 
 
-
-	
 	
 });
 
+function myFunction()
+ {
+     var data = 'var='+encodeURIComponent('hi');
+     $.ajax({
+         type:'GET',
+         url: '<?php echo Yii::app()->createUrl('profile/SaveInterest');?>',
+         dataType: 'json',
+         data: data,
+         success: function(){
+             alert('success');
+             window.reload();
+         },
+                 error:function(){
+                     alert('error');
+                 }
+     });
+
+       
+      
+  }
 function uploadpic(){
 	document.getElementById("User_image_url").click();
 	document.getElementById("User_image_url").onchange = function() {
@@ -104,8 +130,39 @@ function toggleJobMatching(){
         $("#user_lastmodifieddate").html(data["last_modified"]);
         $("#myonoffswitch").val(data["status"]);
     });
+    }
+    
+    function toggleLookingForJob()
+    {
+        var val = $('#myonoffswitch_1').val();
+        if(val == '1')
+        {
+            var jm = $('#myonoffswitch').val();
+            if(jm == '1')
+            {
+                toggleJobMatching();
+            }
+            $('#myonoffswitch_1').val('0');
+        }
+        else
+        {
+            $('#myonoffswitch_1').val('1');
+        }
+        $.get("/JobFair/index.php/user/toggleLookingForJob", {"value": val}, function(data){
+            data = JSON.parse(data);
+            if(data["status"] == '0')
+            {
+                $("#myonoffswitch_1").prop('checked', false);
+            }
+            else
+            {
+                $("#myonoffswitch_1").prop('checked', true);
+            }
+            $("#myonoffswitch_1").val(data["status"]);
+        });
 }
 
+   
 </script>
 
 
@@ -179,18 +236,20 @@ function toggleJobMatching(){
 
 	
 <div style=clear:both></div>
-
-
-<?php $form = $this->beginWidget('CActiveForm', array(
-   'id'=>'user-EditStudent-form', 'action'=> '/JobFair/index.php/Profile/editCompanyInfo',
-   'enableAjaxValidation'=>false,
-   'htmlOptions' => array('enctype' => 'multipart/form-data',),
-)); ?>		
-<div class="companyinfo">
-    <div class="titlebox">SETTINGS</div><br/><br/>
-        <?php
-        $checked = '';
+<div id="menutools">
+    <div class="titlebox">SETTINGS</div><br><br>
+    <?php
+        $checked = $checked_lfj = '';
         $job_notif = null;
+        $looking_for_job = null;
+        if(isset($user['looking_for_job']))
+        {
+            $looking_for_job = $user->looking_for_job;
+            if($user->looking_for_job == '1')
+            {
+                $checked_lfj = 'checked';
+            }
+        }
         if(isset($user['job_notification']))
         {
             $job_notif = $user->job_notification;
@@ -199,34 +258,30 @@ function toggleJobMatching(){
                 $checked = 'checked';
             }
         }
-        ?>
-        <div style="overflow: hidden;">
-            <div style="float: left;">Email Job Matches:</div>
-            <div style="margin-left: 120px;" class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
-            </div>
+   
+    ?>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Email Student Notifications:</div>
+        <div style="margin-left: 130px;" class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
         </div>
-          <div style="overflow: hidden;">
-        <div style="float: left;">Looking For Job:</div>
-        <div style="margin-left: 120px;" class="onoffswitch">
-            <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch_1" <?php echo $checked; ?> onclick="toggleJobMatching()">
+    </div>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Looking For Student:</div>
+        <div style="margin-left: 130px;" class="onoffswitch">
+            <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $looking_for_job; ?>' id="myonoffswitch_1" <?php echo $checked_lfj; ?> onclick="toggleLookingForJob()">
             <label class="onoffswitch-label" for="myonoffswitch_1">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
             </label>
         </div>
-       </div>
-          
-        
-        <h5> Queries Preferences</h5>
-        <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
-        <div style= "text-align:left; clear:both" >
-            <p>Select queries to search for jobs</p>
-
+    </div>
+     <p>Select queries to search for jobs</p>
+<form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
             <div style= "text-align:left;">
                 <?php foreach ($saveQ as $query) { ?>
                     <?php if($query['active'] == '1')
@@ -248,7 +303,7 @@ function toggleJobMatching(){
                     <?php } ?>
                 <?php } ?>
             </div>
-            <hr>
+     <hr>
             <p>Select email frequency</p>
             <?php
                 $date = $user->job_int_date;
@@ -262,20 +317,32 @@ function toggleJobMatching(){
                
                     
                    ?>
-                
-        </div>
-        <?php $this->widget('bootstrap.widgets.TbButton', array(
+    
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Save',
             'type'=>'primary',
             'htmlOptions'=>array(
                 'data-toggle'=>'modal',
                 'data-target'=>'#myModal',
                 'id' => "saveInterest",
-                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px",
+                //'onclick' => "myFunction()"
             ),
         )); ?>
     </form>
-</div>   
+</div>
+
+     
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+   'id'=>'user-EditStudent-form', 'action'=> '/JobFair/index.php/Profile/editCompanyInfo',
+   'enableAjaxValidation'=>false,
+   'htmlOptions' => array('enctype' => 'multipart/form-data',),
+   
+)); ?>	
+
+
+
 <div class="companyinfo">
 	<div class="titlebox">COMPANY INFO</div>
         

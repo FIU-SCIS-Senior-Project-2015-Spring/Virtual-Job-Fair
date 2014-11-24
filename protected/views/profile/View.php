@@ -95,8 +95,8 @@ $(document).ready(function() {
 		$(this).closest('form').submit();
 	});
 
-    $("#saveInterest").click(function(e) {
-        $(this).closest('form').submit();
+       $("#saveInterest").click(function(e) {
+          $(this).closest('form').submit();
     });
 
 	$("#editEducation").click(function(e) { 

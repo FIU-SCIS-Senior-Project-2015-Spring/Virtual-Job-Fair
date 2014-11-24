@@ -79,7 +79,7 @@ class ProfileController extends Controller
 
     public function actionSaveInterest()
     {
-        //var_dump($_GET);die;
+  
         $suc = false;
         $username = Yii::app()->user->name;
          if(isset($_GET['day']))
@@ -93,10 +93,14 @@ class ProfileController extends Controller
         $model->save(false);
 
         $savedQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$model->id));
+        
         foreach($savedQ as $sq)
         {
+           
             if(isset($_GET[$sq->id]))
             {
+                
+
                 $sq->active = 1;
                 $sq->save(false);
                 
@@ -155,7 +159,14 @@ class ProfileController extends Controller
             }
         }
         $suc = true;
+        if(Yii::app()->user->FK_usertype == 2)
+        {
+          $this->redirect('/JobFair/index.php/profile/viewEmployer')  ;
+        }
+        else
+        {
         $this->redirect('/JobFair/index.php/profile/view');
+        }
     }
 
     public function actionDeleteInterest()
