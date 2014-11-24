@@ -318,7 +318,7 @@ class JobMatch extends CApplicationComponent
            $workedasa = "";
            $workedin ="";
                $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
-               $array = explode("~",$sq->query);
+               $array = explode("~",$sq);
                
                foreach($array as $arr)
                {

@@ -358,7 +358,7 @@ class JobMatchCommand extends CConsoleCommand {
                 {
                     foreach($saved_queries as $query)
                     {
-                        $results = Yii::app()->jobmatch->customEmpSearch(html_entity_decode($query));
+                        $results = Yii::app()->jobmatch->customEmpSearch(html_entity_decode($query->query));
                         $message .= "Matches for query [$query->query]<br/>";
                         $message .= $this->buildTable('employer_custom', $results, $interval);
                         $message .= "<br/>";
