@@ -159,7 +159,7 @@ class ProfileController extends Controller
             }
         }
         $suc = true;
-        if(Yii::app()->user->FK_usertype == 2)
+        if($model->FK_usertype == 2)
         {
           $this->redirect('/JobFair/index.php/profile/viewEmployer')  ;
         }
