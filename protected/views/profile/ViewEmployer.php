@@ -210,8 +210,18 @@ function toggleJobMatching(){
                 </label>
             </div>
         </div>
-          <hr>
+          <div style="overflow: hidden;">
+        <div style="float: left;">Looking For Job:</div>
+        <div style="margin-left: 120px;" class="onoffswitch">
+            <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch_1" <?php echo $checked; ?> onclick="toggleJobMatching()">
+            <label class="onoffswitch-label" for="myonoffswitch_1">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+       </div>
           
+        
         <h5> Queries Preferences</h5>
         <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
         <div style= "text-align:left; clear:both" >
@@ -242,40 +252,17 @@ function toggleJobMatching(){
             <p>Select email frequency</p>
             <?php
                 $date = $user->job_int_date;
-                if($date == 1)
-                {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="daily" value="1" checked>
-                        <strong> Send me job postings daily </strong>
-                    </div>
-                <?php }else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="daily" value="1">
-                        <strong> Send me job postings daily </strong>
-                    </div>
-                <?php } ?>
-                <?php if($date == 7) {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="weekly" value="7" checked>
-                        <strong> Send me job postings weekly </strong>
-                    </div>
-                <?php } else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="weekly" value="7">
-                        <strong> Send me job postings weekly </strong>
-                    </div>
-                <?php } ?>
-                <?php if($date == 30) {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="monthly" value="30" checked>
-                        <strong> Send me job postings monthly </strong>
-                    </div>
-                <?php } else {?>
-                    <div class="radio">
-                        <input type="radio" name="day" id="monthly" value="30">
-                        <strong> Send me job postings monthly </strong>
-                    </div>
-                <?php } ?>
+                
+                $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'day',
+                'id'=>'day',
+                'value'=> $date,
+                'htmlOptions'=>array('value'=> $date,'placeholder' => 'put number ',
+                    'style'=>'width: 150px;'),));
+               
+                    
+                   ?>
+                
         </div>
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Save',

@@ -305,6 +305,295 @@ class JobMatch extends CApplicationComponent
             return array('careerpath'=>$job, 'indeed'=>$indeed, 'careerbuilder'=>$cb);
         }
     }
+    
+    public function customEmpSearch($sq = null)
+    {
+        
+          $allWords = "" ;
+           $city = "";
+           $ZIPcode = ""; 
+           $school ="";
+           $major = "";
+           $graduationdate = "";
+           $workedasa = "";
+           $workedin ="";
+               $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
+               $array = explode("~",$sq->query);
+               
+               foreach($array as $arr)
+               {
+                   
+                   if (strpos($arr,'skills') !== false) 
+                            {
+                      // var_dump($arr);die;
+                                $arre = explode(':', $arr);
+                                $allWords = $arre[1];
+                              
+                            }
+                   if (strpos($arr,'city') !== false) 
+                            { 
+                            
+//                                $count = 1;
+                                  $arre = explode(":", $arr);
+                                  $city = $arre[1];                            
+  //                          }
+                            }
+                   if (strpos($arr,'ZIPcode') !== false) 
+                            {
+                                 $arre = explode(':', $arr);
+                                $ZIPcode = $arre[1];
+                            }
+                  if (strpos($arr,'school') !== false) 
+                            {
+                      $arre = explode(':', $arr);
+                                $school = $arre[1];
+                                
+                            }
+                  if (strpos($arr,'major') !== false) 
+                            {
+                      $arre = explode(':', $arr);
+                                $major = $arre[1];
+                            }
+                if (strpos($arr,'graduation') !== false) 
+                            {
+                    $arre = explode(':', $arr);
+                                $graduationdate = $arre[1];
+                            }
+                 if (strpos($arr,'position') !== false) 
+                            {
+                     $arre = explode(':', $arr);
+                                $workedasa = $arre[1];
+                            }
+                if (strpos($arr,'experience') !== false) 
+                            {
+                    $arre = explode(':', $arr);
+                                $workedin = $arre[1];
+                            }
+                            
+                }
+                
+               // var_dump($allWords);
+               // var_dump($city);
+                if ($allWords != null) 
+                    {
+
+            if (strpos($allWords, '+') !== false) 
+                {
+                $allWords = trim($allWords);
+                $pieces = explode("+", $allWords);
+                $count = 0;
+                $piec = Array();
+                $query = "";
+                $amount = 0;
+                
+                foreach ($pieces as $piece) 
+                    {
+                    
+                    if ($count === 0) {
+                        $query .= " s.name = \"$piece\" ";
+                       $count++;
+                    } else {
+                        $query .= " OR s.name = \"$piece\" ";
+                        $count ++;
+                    }
+                }
+             
+               
+                $piec = Skillset::model()->findAllBySql("SELECT s.id FROM skillset s WHERE $query");
+                
+                foreach($student2 as $key=>$stu)
+                {
+                    
+                    $amount = 0;
+                    $result = StudentSkillMap::model()->findAllBySql("SELECT d.skillid FROM student_skill_map d WHERE d.userid = $stu->id");
+                   
+                    foreach($result as $res)
+                    {
+                  
+                        foreach($piec as $pie)
+                        {
+                           
+                            if($res->skillid === $pie->id)
+                            {
+                                $amount++;
+                            
+                            }
+                           
+                        }
+                       
+                    }
+                  
+                   if($count !== $amount)
+                   {
+                       unset($student2[$key]);              
+                   }
+                }
+    
+                }
+            else {
+                $allWords = trim($allWords);
+                $stuskill = User::model()->findAllBySql("SELECT u.id FROM student_skill_map d, user u, skillset s WHERE u.id = d.userid AND d.skillid = s.id AND s.name=:skil_l", array(":skil_l" => $allWords));
+                foreach ($student2 as $key => $students) {
+                    $count = 0;
+
+                    foreach ($stuskill as $skill) {
+                        if ($students->id === $skill->id) {
+                            $count = 1;
+                        }
+                    }
+                    if ($count === 0) {
+                        unset($student2[$key]);
+                    }
+                }
+
+
+                // $query .= "+".str_replace(" ", ' +', $allWords)." "; 
+            }
+        }
+        // var_dump($city);
+//         foreach($student2 as $stu)
+//        {
+//        var_dump($stu->id);
+//        }
+        if ($city != null) {
+
+            //creates a table with students who live in that specified 
+            $studentcity = BasicInfo::model()->findAllBySql("SELECT * FROM user u, basic_info d WHERE u.id = d.userid AND d.city=:ci_ty", array(":ci_ty" => $city));
+
+            $city = trim($city);
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($studentcity as $studentss) 
+                    {
+                   // var_dump($studentss->userid);
+                    if ($students->id === $studentss->userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+//        foreach($student2 as $stu)
+//        {
+//        var_dump($stu->id);
+//        }
+        
+        if ($ZIPcode != null) {
+            
+        }
+
+        //check if school field is empty 
+        
+        if ($school != null) {
+            
+            //$school = trim($school);
+            $currschool = User::model()->findAllBySql("SELECT u.id FROM user u, school d, education e WHERE u.id = e.FK_user_id AND e.FK_school_id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($currschool as $schools) {
+                    if ($students->id === $schools->id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        if ($major != null) {
+            $major = trim($major);
+            $majors = Education::model()->findAllBySql("SELECT * FROM user u, education d WHERE u.id = d.id AND d.major=:ma_jor", array(":ma_jor" => $major));
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($majors as $majorss) {
+                    if ($students->id === $majorss->id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        ///
+        if ($graduationdate != null) {
+            $graduationdate = trim($graduationdate);
+//              $tempstr = "";
+//             if(strpos($graduationdate, "-") !== FALSE)
+//             {
+
+            $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%" . $graduationdate . "%' ");
+
+//             }
+//             else
+//             {
+//                 
+//               $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%".$graduationdate."%' ");  
+//                   
+//             }
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($graduationdates as $grad) {
+                    if ($students->id === $grad->FK_user_id) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+
+        if ($workedasa != null) {
+            $workedasa = trim($workedasa);
+
+            $workedasaa = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_title LIKE '%" . $workedasa . "%' ");
+
+            foreach ($student2 as $key => $students) {
+                $count = 0;
+
+                foreach ($workedasaa as $work) {
+                    if ($students->id === $work->FK_userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        if ($workedin != null) 
+        {
+            $workedin = trim($workedin);
+            $workedinn = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_description LIKE '%" . $workedin . "%' ");
+
+            foreach ($student2 as $key => $students) 
+                {
+                $count = 0;
+
+                foreach ($workedinn as $work) {
+                    if ($students->id === $work->FK_userid) {
+                        $count = 1;
+                    }
+                }
+                if ($count === 0) {
+                    unset($student2[$key]);
+                }
+            }
+        }
+        
+        return $student2;
+        
+    }
 
 }
 

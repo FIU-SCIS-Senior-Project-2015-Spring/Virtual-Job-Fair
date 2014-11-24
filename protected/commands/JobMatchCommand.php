@@ -164,6 +164,30 @@ class JobMatchCommand extends CConsoleCommand {
                 }
             }
         }
+        elseif($type = "employer_custom")
+        {
+            $table = CHtml::openTag('table', array());
+            $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
+            $table .= CHtml::tag('td', array(), 'Student Name');
+            $table .= CHtml::tag('td', array(), 'Profile');
+            $table .= CHtml::closeTag('tr');
+            
+            foreach($ar as $student)
+            {
+            if($student->looking_for_job == 0)
+                {
+                    continue;
+                }
+                $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
+                $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                $lnk = CHtml::link('Student Profile', Yii::app()->request->hostInfo . '/JobFair/index.php/profile/student/user/' . $student->username);
+                $rating = number_format($student->skillrating, 2, '.', '');
+                $st_name = $student->first_name . ' ' . $student->last_name;
+                $table .= CHtml::tag('td', array(), $st_name);
+                 $table .= CHtml::tag('td', array(), $lnk);
+            }
+            $table .= CHtml::closeTag('table');
+        }       
         else
         {
             $table = CHtml::openTag('table', array());
@@ -254,6 +278,7 @@ class JobMatchCommand extends CConsoleCommand {
         $notfication_status = intval($matchnotification['status']);
         if($notfication_status)
         {
+            //sends email to a specific user
             if($new_active_user)
             {
                 if(isset($nau_info['email']) && $nau_info['email'] != '' && isset($nau_info['username']) && $nau_info['username'] != '')
@@ -275,6 +300,7 @@ class JobMatchCommand extends CConsoleCommand {
                 }
                 return;
             }
+            //sends email for student
             echo "[*] Job Matching Notification is ON\n";
             $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
             #Add fecthing for user not active or validated
@@ -303,6 +329,42 @@ class JobMatchCommand extends CConsoleCommand {
                     echo "[*] Sending custom search job results email to: $st->email\n";
                     User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
 
+                }
+                else
+                {
+                    if(($interval == intval($st->job_int_date)) && $interval > 0)
+                    {
+                        $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
+                        if(count($results) > 0)
+                        {
+                            $message .= "The following jobs matched with your skills:<br/>";
+                            $message .= $this->buildTable('student', $results, $interval);
+                            echo "[*] Sending skill matches results email to: $st->email\n";
+                            User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        }
+                    }
+                }
+
+            }
+            
+           //sends email for employer
+            $employers = User::model()->findAll("FK_usertype = 2 AND job_notification = 1 AND looking_for_job = 1 AND activated = 1 AND disable = 0");
+            foreach($employers as $emp)
+            {
+                $message = "";
+                $results = Array();
+                $saved_queries = SavedQuery::model()->findAll("FK_userid=:id AND active = 1", array(':id'=>$emp->id));
+                if(count($saved_queries) > 0 && ($interval == intval($emp->job_int_date)) && $interval > 0)
+                {
+                    foreach($saved_queries as $query)
+                    {
+                        $results = Yii::app()->jobmatch->customEmpSearch(html_entity_decode($query->query));
+                        $message .= "Matches for query [$query->query]<br/>";
+                        $message .= $this->buildTable('employer_custom', $results, $interval);
+                        $message .= "<br/>";
+                    }
+                    echo "[*] Sending custom search job results email to: $emp->email\n";
+                    User::sendEmail($emp->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                 }
                 else
                 {

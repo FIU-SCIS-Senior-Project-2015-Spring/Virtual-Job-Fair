@@ -308,14 +308,12 @@ class JobController extends Controller {
                             
 //                                $count = 1;
                                   $arre = explode(":", $arr);
-                                  $city = $arre[1];
-                                
-                                 
+                                  $city = $arre[1];                            
   //                          }
                             }
                    if (strpos($arr,'ZIPcode') !== false) 
                             {
-                       $arre = explode(':', $arr);
+                                 $arre = explode(':', $arr);
                                 $ZIPcode = $arre[1];
                             }
                   if (strpos($arr,'school') !== false) 
@@ -347,8 +345,8 @@ class JobController extends Controller {
                             
                 }
                 
-                var_dump($allWords);
-                var_dump($city);
+               // var_dump($allWords);
+               // var_dump($city);
                 if ($allWords != null) 
                     {
 
