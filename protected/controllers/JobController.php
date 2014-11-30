@@ -29,14 +29,17 @@ class JobController extends Controller {
             $this->render('View', array('job' => $job));
         }
     }
-
+    
+    
+  //the function emphome gets called everytime the advance search button is clicked.
     public function actionEmphome($allWords = null, $city = null, $ZIPcode = null, $school = null, $major = null, $graduationdate = null, $workedasa = null, $workedin = null) {
         
-        
+        //gets information for the current user and retrieves all the saved queries for that user.
         $username = Yii::app()->user->name;
         $user = User::model()->find("username=:username",array(':username'=>$username));
         $saveQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$user->id));
         
+        //if the user checked it on the view its gonna save the query as active in the database.
         foreach($saveQ as $sq)
         {
             if(isset($_GET[$sq->id]))
@@ -52,17 +55,25 @@ class JobController extends Controller {
             }
         }
         
+        //an array of all the saved and active queries for that user. 
         $savedQ2 = SavedQuery::model()->findAllBySql("Select * FROM saved_queries d WHERE d.FK_userid = $user->id AND d.active=1");
         
         //var_dump($savedQ2);die;
         
         $student = Array();
         
+        //array of all the students.
         $student = User::model()->findAllByAttributes(array('FK_usertype' => 1, 'activated' => 1));
 
         $query = Array();
         
-        if ($allWords != null) {
+        
+        //checks if the skill slot is empty, if its not empty its gonna check if it contains + if it does it parses the string and searches
+        //for multiple skills if it doesn't contain +, it will trim the word and check which student don't have it
+        // if they don't have it they will be removed from the list of students.
+        
+        if ($allWords != null) 
+            {
 
             if (strpos($allWords, '+') !== false) {
                 $allWords = trim($allWords);
@@ -130,12 +141,10 @@ class JobController extends Controller {
                         unset($student[$key]);
                     }
                 }
-
-
-                // $query .= "+".str_replace(" ", ' +', $allWords)." "; 
             }
         }
-        
+        //checks if the city field is empty or not and queries the database for the students that dont have it
+        //and remove them from the student list.
         if ($city != null) {
 
             //creates a table with students who live in that specified 
@@ -155,14 +164,12 @@ class JobController extends Controller {
                 }
             }
         }
+       
 
-        if ($ZIPcode != null) {
-            
-        }
-
-        //check if school field is empty 
-        
-        if ($school != null) {
+        //check if school field is empty if it isn't its gonna check in database for students that don't belong 
+        //to that school and remove them from the student list        
+        if ($school != null) 
+            {
             
             //$school = trim($school);
             $currschool = User::model()->findAllBySql("SELECT u.id FROM user u, school d, education e WHERE u.id = e.FK_user_id AND e.FK_school_id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
@@ -180,6 +187,8 @@ class JobController extends Controller {
                 }
             }
         }
+        //checks major field and if not empty it removes the student that dont match it form the student
+        //array
         if ($major != null) {
             $major = trim($major);
             $majors = Education::model()->findAllBySql("SELECT * FROM user u, education d WHERE u.id = d.id AND d.major=:ma_jor", array(":ma_jor" => $major));
@@ -197,22 +206,12 @@ class JobController extends Controller {
                 }
             }
         }
-        ///
+       //checks graduation date field if the field is not empty its gonna remove student that don't match this criteria
+       //from the student array
         if ($graduationdate != null) {
             $graduationdate = trim($graduationdate);
-//              $tempstr = "";
-//             if(strpos($graduationdate, "-") !== FALSE)
-//             {
 
             $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%" . $graduationdate . "%' ");
-
-//             }
-//             else
-//             {
-//                 
-//               $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%".$graduationdate."%' ");  
-//                   
-//             }
 
             foreach ($student as $key => $students) {
                 $count = 0;
@@ -227,7 +226,8 @@ class JobController extends Controller {
                 }
             }
         }
-
+        //if the student experience field is not empty is not gonna remove the student that dont match the criteria form
+        //the student array.
         if ($workedasa != null) {
             $workedasa = trim($workedasa);
 
@@ -246,6 +246,8 @@ class JobController extends Controller {
                 }
             }
         }
+        //checks the position field and if the field is not empty it will find all students 
+        //that don't meet the criteria and remove them from the student array.'
         if ($workedin != null) {
             $workedin = trim($workedin);
             $workedinn = Experience::model()->findAllBySql("SELECT * FROM experience WHERE job_description LIKE '%" . $workedin . "%' ");
@@ -263,23 +265,18 @@ class JobController extends Controller {
                 }
             }
         }
-        
-        
-        if (isset($_GET['user'])){
-			$username = $_GET['user'];			
-		} else {
-			$username = Yii::app()->user->name;
-		}
-                              
+
+        //if any queries are selected
         if(count($savedQ2) !== 0 && $savedQ2 !== NULL)
           {
-            if($allWords === "" && $city === "" && $ZIPcode === "" && $school ==="" && $major==="" && $graduationdate === "" && $workedasa ==="" && $workedin ==="")
+            if($allWords === "" && $city === "" && $school ==="" && $major==="" && $graduationdate === "" && $workedasa ==="" && $workedin ==="")
             {
             $student = Array();
             }         
-         
-           // $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
-            
+        
+           //for each query that is selected it will create a student array with the result and merges with the current one
+            //at the end
+       
             foreach($savedQ2 as $sq)
             {
            $allWords = "" ;
@@ -290,9 +287,12 @@ class JobController extends Controller {
            $graduationdate = "";
            $workedasa = "";
            $workedin ="";
+           
+           
                $student2 =  User::model()->findAllByAttributes(array('FK_usertype'=>1, 'activated'=>1));
                $array = explode("~",$sq->query);
                
+               //parse the saved query and add them to the respective fields.
                foreach($array as $arr)
                {
                    
@@ -314,7 +314,7 @@ class JobController extends Controller {
                    if (strpos($arr,'ZIPcode') !== false) 
                             {
                                  $arre = explode(':', $arr);
-                                $ZIPcode = $arre[1];
+                                 $ZIPcode = $arre[1];
                             }
                   if (strpos($arr,'school') !== false) 
                             {
@@ -344,13 +344,15 @@ class JobController extends Controller {
                             }
                             
                 }
-                
-               // var_dump($allWords);
-               // var_dump($city);
-                if ($allWords != null) 
+        //checks if the skill slot is empty, if its not empty its gonna check if it contains + if it does it parses the string and searches
+        //for multiple skills if it doesn't contain +, it will trim the word and check which student don't have it
+        // if they don't have it they will be removed from the list of students.
+                  
+         if ($allWords != null) 
                     {
 
-            if (strpos($allWords, '+') !== false) {
+            if (strpos($allWords, '+') !== false) 
+               {
                 $allWords = trim($allWords);
                 $pieces = explode("+", $allWords);
                 $count = 0;
@@ -415,17 +417,12 @@ class JobController extends Controller {
                     if ($count === 0) {
                         unset($student2[$key]);
                     }
-                }
-
-
-                // $query .= "+".str_replace(" ", ' +', $allWords)." "; 
+                } 
             }
         }
-        // var_dump($city);
-//         foreach($student2 as $stu)
-//        {
-//        var_dump($stu->id);
-//        }
+
+        //checks if the city field is empty or not and queries the database for the students that dont have it
+        //and remove them from the student list.
         if ($city != null) {
 
             //creates a table with students who live in that specified 
@@ -447,20 +444,9 @@ class JobController extends Controller {
                 }
             }
         }
-//        foreach($student2 as $stu)
-//        {
-//        var_dump($stu->id);
-//        }
-        
-        if ($ZIPcode != null) {
-            
-        }
-
-        //check if school field is empty 
         
         if ($school != null) {
-            
-            //$school = trim($school);
+  
             $currschool = User::model()->findAllBySql("SELECT u.id FROM user u, school d, education e WHERE u.id = e.FK_user_id AND e.FK_school_id = d.id AND d.name=:scho_ol", array(":scho_ol" => $school));
 
             foreach ($student2 as $key => $students) {
@@ -493,22 +479,12 @@ class JobController extends Controller {
                 }
             }
         }
-        ///
+
         if ($graduationdate != null) {
             $graduationdate = trim($graduationdate);
-//              $tempstr = "";
-//             if(strpos($graduationdate, "-") !== FALSE)
-//             {
+
 
             $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%" . $graduationdate . "%' ");
-
-//             }
-//             else
-//             {
-//                 
-//               $graduationdates = Education::model()->findAllBySql("SELECT * FROM education WHERE graduation_date LIKE '%".$graduationdate."%' ");  
-//                   
-//             }
 
             foreach ($student2 as $key => $students) {
                 $count = 0;
@@ -560,7 +536,7 @@ class JobController extends Controller {
                 }
             }
         }
-         //var_dump(count($student2));      
+            
         foreach($student2 as $stu)
         {
             $count = 0 ;
@@ -584,11 +560,69 @@ class JobController extends Controller {
         {
             
         }       
-                
+        
+        //if zipcode is selected it will order the results by 
+        if ($ZIPcode  === 'true') 
+        {
+            
+                            $usernameemp = Yii::app()->user->name;	
+		            $useremp = User::model()->find("username=:username",array(':username'=>$usernameemp));
+                            $saveC = CompanyInfo::model()->find("FK_userid=:id", array(':id'=>$useremp->id));
+                            $employerzip = $saveC->zipcode;
+                           
+                             
+                            $orderedstu = Array();
+                            $nozipstu = Array();
+                            
+            foreach($student as $stu)
+            { 
+                            $stukey = $stu->id;                            
+                            $studentinfo = BasicInfo::model()->find("userid=:id",array(':id'=>$stukey));
+                            $studentzip = $studentinfo->zip_code;
+
+                       
+                            if($studentzip != '0')
+                            {
+                                
+                            $response = file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$studentzip/$employerzip/mile");
+                           
+                            $orderedstu[$stukey] = $response;
+                            
+                            }
+                            else
+                            {
+                             $nozipstu[$stukey] = $response;       
+                            }
+                         
+                            
+
+            }
+            asort($orderedstu);
+        
+            foreach($nozipstu as $key=>$zip)
+            {
+                $orderedstu[$key] = $zip;
+            }
+            $student = Array();
+            foreach($orderedstu as $key=>$stud)
+            {
+               $userstu = User::model()->find("id=:username",array(':username'=>$key));
+               $student[] = $userstu;
+               
+            }
+          
+
+            
+        }
+        
         $user = User::model()->find("username=:username",array(':username'=>$username));
         $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         $this->render('emphome', array('students' => $student,'saveQ' => $saveQ));
     }
+    
+    
+    
+    
     public function actionSaveEmpQuery($allWords = null, $city = null, $ZIPcode = null, $school = null, $major = null, $graduationdate = null, $workedasa = null, $workedin = null)
     {
         $tag="";

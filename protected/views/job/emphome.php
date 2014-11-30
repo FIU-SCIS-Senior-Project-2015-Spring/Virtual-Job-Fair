@@ -41,6 +41,7 @@ if (!isset($_GET['workedin'])) {
 if (!isset($_GET['tagName'])) {
     $_GET['tagName'] = '';
 }
+
 ?>
 
 
@@ -131,13 +132,7 @@ if (!isset($_GET['tagName'])) {
                 'source'=> BasicInfo::getAllCity(),
                 'htmlOptions'=>array('value'=> $_GET['city'],'placeholder' => 'write city',
                     'style'=>'width: 200px;'),)); ?>
-            <br> <strong>near this zip code:</strong><br>
-            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'ZIPcode',
-                'id'=>'ZIPcode',
-                'value'=> $_GET['ZIPcode'],
-                'htmlOptions'=>array('value'=> $_GET['ZIPcode'],'placeholder' => 'zip code',
-                    'style'=>'width: 200px;'),)); ?>
+           
             <br> <strong> went to this school: </strong><br>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'school',
@@ -176,14 +171,12 @@ if (!isset($_GET['tagName'])) {
                 'value'=> $_GET['workedin'],
                 'htmlOptions'=>array('value'=> $_GET['workedin'],'placeholder' => 'worked in',
                     'style'=>'width: 200px;'),)); ?>
-            
-            
-            
-            
-            
-            
-            
-        
+            <br> <div>
+                <input type="checkbox" name="ZIPcode" id="radioOption" value="true"
+                    <?php  if($_GET['ZIPcode'] == "true"){echo 'checked="checked"';} ?>  >
+                <strong> Order students by closest to you!</strong>
+            </div>
+
             <!-- search button -->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Search',

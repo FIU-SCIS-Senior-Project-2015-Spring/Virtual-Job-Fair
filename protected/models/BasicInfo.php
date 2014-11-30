@@ -44,10 +44,11 @@ class BasicInfo extends CActiveRecord
 			array('userid', 'numerical', 'integerOnly'=>true),
 			array('phone', 'length', 'max'=>15),
 			array('city, state', 'length', 'max'=>45),
+                        array('zip_code', 'length', 'max' =>15),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('userid, phone, city, state', 'safe', 'on'=>'search'),
+			array('userid, phone, city, state,zip_code', 'safe', 'on'=>'search'),
 		   
 		);
 	}
@@ -73,6 +74,7 @@ class BasicInfo extends CActiveRecord
 			'userid' => 'Userid',
 			'phone' => 'Phone',
 			'city' => 'City',
+                        'zip_code' => 'ZIPcode',
 			'state' => 'State',
 			'about_me' => 'About Me',
 			'hide_phone' => 'Hide phone from students?',

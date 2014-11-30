@@ -39,7 +39,7 @@ class ProfileController extends Controller
 		$username = Yii::app()->user->name;
 		
 		$user = User::model()->find("username=:username",array(':username'=>$username));
-                 $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+                $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
                 $this->render('ViewEmployer', array('user'=>$user,'saveQ'=>$saveQ)); 
 	    	
 	}
@@ -427,7 +427,36 @@ class ProfileController extends Controller
 	{
 		
 		$username = Yii::app()->user->name;
+                
 		$model = User::model()->find("username=:username",array(':username'=>$username));
+                
+                 if(isset($_POST['BasicInfo']['zip_code']))
+                {
+                    $zpcode =$_POST['BasicInfo']['zip_code'];
+          
+                    
+               set_error_handler(
+                create_function
+                        (
+                '$severity, $message, $file, $line',
+                'throw new ErrorException($message, $severity, $severity, $file, $line);'
+                 )       
+                );
+
+            try {
+                
+             file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$zpcode/33125/mile");
+             }
+             catch (Exception $error) 
+             {    
+                 $this->render('errorZip',array('user'=>$model));
+                 exit();
+             }
+
+            restore_error_handler();
+                    
+                }
+                
 		if (!isset($model->basicInfo)) {
 			$model->basicInfo = new BasicInfo;
 			$model->basicInfo->userid = $model->id;
@@ -435,8 +464,8 @@ class ProfileController extends Controller
 		} else {
 			$model->basicInfo->saveAttributes($_POST['BasicInfo']);
 		}
-
-                
+               
+               
 		if(isset($_POST['BasicInfo']['phone']))   // when phone changed set validated to 0
 		{
 			$model->basicInfo->validated = 0;
@@ -466,6 +495,33 @@ class ProfileController extends Controller
 		$username = Yii::app()->user->name;
 		$model = User::model()->find("username=:username",array(':username'=>$username));
 		
+                if(isset($_POST['CompanyInfo']['zipcode']))
+                {
+                    $zpcode =$_POST['CompanyInfo']['zipcode'];
+          
+                    
+               set_error_handler(
+                create_function
+                        (
+                '$severity, $message, $file, $line',
+                'throw new ErrorException($message, $severity, $severity, $file, $line);'
+                 )       
+                );
+
+            try {
+                
+             file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$zpcode/33125/mile");
+             }
+             catch (Exception $error) 
+             {    
+                 $this->render('errorZip',array('user'=>$model));
+                 exit();
+             }
+
+            restore_error_handler();
+                    
+                }
+                
 		if(isset($_POST['CompanyInfo']))
 		{
 			
@@ -565,7 +621,7 @@ class ProfileController extends Controller
 					  'actions'=>array('View', 'ViewEmployer', 'DeleteEducation', 'AddEducation',
 					  		'DeleteExperience', 'AddExperience', 'UploadImage', 
 					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
-                            'LinkToo','LinkNotification','BlankPage','DuplicationError','UserChoice',
+                            'LinkToo','LinkNotification','errorZip','DuplicationError','UserChoice',
 					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
                             'getJobInterest', 'saveInterest', 'DeleteInterest'),
 					  'users'=>array('@')),

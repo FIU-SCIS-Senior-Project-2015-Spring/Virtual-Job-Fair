@@ -62,11 +62,12 @@ $(document).ready(function()
 		$("#editcompany").click(function(e) { 
 			if($("#CompanyInfo_description").is(":disabled")
 			&& $("#CompanyInfo_city").is(":disabled")
-			&& $("#CompanyInfo_state").is(":disabled")) {  
+			&& $("#CompanyInfo_state").is(":disabled") && $("#CompanyInfo_zipcode").is(":disabled")) {  
 				$("#CompanyInfo_description").attr("disabled", false);
 				$("#CompanyInfo_city").attr("disabled", false); 
 				$("#CompanyInfo_website").attr("disabled", false);
 				$("#CompanyInfo_state").attr("disabled", false); 
+                                $("#CompanyInfo_zipcode").attr("disabled", false); 
 				$("#editcompany").attr("name", "yt0");
 				$("#editcompany img").attr("src", "/JobFair/images/ico/done.gif");
 				$("#editcompany").attr("onclick", "$(this).closest('form').submit(); return false;");
@@ -281,7 +282,7 @@ function toggleJobMatching(){
         </div>
     </div>
      <p>Select queries to search for jobs</p>
-<form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+   <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
             <div style= "text-align:left;">
                 <?php foreach ($saveQ as $query) { ?>
                     <?php if($query['active'] == '1')
@@ -334,6 +335,8 @@ function toggleJobMatching(){
 
      
 
+		
+
 <?php $form = $this->beginWidget('CActiveForm', array(
    'id'=>'user-EditStudent-form', 'action'=> '/JobFair/index.php/Profile/editCompanyInfo',
    'enableAjaxValidation'=>false,
@@ -343,8 +346,8 @@ function toggleJobMatching(){
 
 
 
-<div class="companyinfo">
-	<div class="titlebox">COMPANY INFO</div>
+<div class="companyinfo " style="float:right!important; margin-top:-20px;">
+	<div class="titlebox ">COMPANY INFO</div>
         
 	<p><a href="#" id="editcompany" class="editbox"><img src='/JobFair/images/ico/editButton.gif'/></a></p>
 	<div style=clear:both></div>
@@ -357,10 +360,12 @@ function toggleJobMatching(){
 	<lab>WEBSITE:</lab> <?php echo $form->textField($user->companyInfo,'website', array('class'=>'tb5','disabled'=>'true')); ?>
 	<lab>LOCATION:</lab> <?php echo $form->textField($user->companyInfo,'city', array('class'=>'tb5','disabled'=>'true')); ?><br>
 	<lab>STATE:</lab> <?php echo $form->textField($user->companyInfo,'state', array('class'=>'tb5','disabled'=>'true')); ?>
+        <lab>ZIP CODE:</lab> <?php echo $form->textField($user->companyInfo,'zipcode', array('class'=>'tb5','disabled'=>'true')); ?>
 
 </div> <!--  END COMPANY INFO -->
 	
 <?php $this->endWidget(); ?>
+<div style="clear:one"></div>
 	
 	<div class="companyinfo" style="float:right!important; margin-top:-20px;">
 	<div class="titlebox">COMPANY JOBS</div>
