@@ -581,7 +581,6 @@ class JobController extends Controller {
                           
                             $studentzip = $studentinfo->zip_code;
                             
-                              var_dump($studentzip);die;
 
                        
                             if($studentzip != '0')
