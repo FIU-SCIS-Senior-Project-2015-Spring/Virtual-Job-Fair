@@ -591,6 +591,7 @@ class JobController extends Controller {
                             }
                             else
                             {
+                            	$response = 0;
                              $nozipstu[$stukey] = $response;       
                             }
                          
