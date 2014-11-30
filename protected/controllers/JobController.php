@@ -578,8 +578,10 @@ class JobController extends Controller {
             { 
                             $stukey = $stu->id;                            
                             $studentinfo = BasicInfo::model()->find("userid=:id",array(':id'=>$stukey));
-                            var_dump($studentinfo);die;
+                          
                             $studentzip = $studentinfo->zip_code;
+                            
+                              var_dump($studentzip);die;
 
                        
                             if($studentzip != '0')
