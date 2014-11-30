@@ -584,7 +584,7 @@ class JobController extends Controller {
                             if($studentzip != '0')
                             {
                                 
-                            $response = file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$studentzip/$employerzip/mile");
+                            $response = file_get_contents("https://www.zipcodeapi.com/rest/EHEOdXiWNNs3szy72SU5lwrQnfEyz9ieRW25Ul1H8tKB2jI5cCbx9CowR25rcnG4/distance.xml/$studentzip/$employerzip/mile");
                            
                             $orderedstu[$stukey] = $response;
                             
