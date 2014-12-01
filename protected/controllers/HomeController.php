@@ -3,8 +3,9 @@
 class HomeController extends Controller
 {
 	public function actionStudentHome()
-	{
-		$username = Yii::app()->user->name;
+	{                        
+            /////////////////////////////////////////////////////////////////
+                $username = Yii::app()->user->name;
 		$user = User::model()->find("username=:username",array(':username'=>$username)); // pass the user
 		$notification = Notification::model()->getNotificationId($user->id); // pass the notifications
 		$companies = CompanyInfo::getNames(); // pass the companies
@@ -26,11 +27,11 @@ class HomeController extends Controller
 		$i = 0;
 		
 		foreach ($skillids as $sk){
-			$most_wanted_skills[] = Skillset::model()->findByAttributes(array('id'=>$sk->skillid));
-			$i++;
-			if ($i == 5){
-				break;
-			}
+                    $most_wanted_skills[] = Skillset::model()->findByAttributes(array('id'=>$sk->skillid));
+                    $i++;
+                    if ($i == 5){
+                            break;
+                    }
 		}		
 		
 		$countvideo = 0;
@@ -38,29 +39,29 @@ class HomeController extends Controller
 		$countmessages = 0;
 		$countmisc =0;
 		foreach ($notification as $n) {
-					if ($n->importancy == 4 & $n->been_read == 0 ) {
-			$countvideo++;		
-			$key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
-			if($key != null){
-			$n->keyid = $key->session_key;
-			
-			}
-			//print "<pre>"; print_r($key);print "</pre>";return;
-			}
-			else if ($n->importancy == 4 & $n->been_read != 0 ) {
-				//$countvideo++;
-				$key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
-				if($key != null){
-					$n->keyid = $key->session_key;
-					//print "<pre>"; print_r($key);print "</pre>";return;
-				}
-			}
-			elseif($n->importancy == 2 & $n->been_read == 0)
-			$countmachingjobs++;
-			elseif ($n->importancy == 3 & $n->been_read == 0)	
-			$countmessages++;
-			elseif ($n->importancy == 1 & $n->been_read == 0)
-			$countmisc++;
+                    if ($n->importancy == 4 & $n->been_read == 0 ) {
+                        $countvideo++;		
+                        $key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
+                        if($key != null){
+                        $n->keyid = $key->session_key;
+
+                        }
+                        //print "<pre>"; print_r($key);print "</pre>";return;
+                    }
+                    else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                        //$countvideo++;
+                        $key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
+                        if($key != null){
+                                $n->keyid = $key->session_key;
+                                //print "<pre>"; print_r($key);print "</pre>";return;
+                        }
+                    }
+                    elseif($n->importancy == 2 & $n->been_read == 0)
+                    $countmachingjobs++;
+                    elseif ($n->importancy == 3 & $n->been_read == 0)	
+                    $countmessages++;
+                    elseif ($n->importancy == 1 & $n->been_read == 0)
+                    $countmisc++;
 		}		
 		
 		
@@ -69,55 +70,50 @@ class HomeController extends Controller
 	}
 	
 	public function actionNew(){
-		$this->render('vid');
+            $this->render('vid');
 	}
 	
 	public function actionHello(){
-		$this->render('newfile1');
-	}
-	
+            $this->render('newfile1');
+	}	
 
 	public function actionEmployerHome()
 	{
-		$username = Yii::app()->user->name;
-		$user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
-		$notification = Notification::model()->getNotificationId($user->id); // pass the notifications
-		$univs = School::getAllSchools(); // pass universities
-		$skills = Skillset::getNames(); // pass skills
-		
-		
-		
-		
-		$countvideo = 0;
-		$countapplicants = 0;
-		$countmessages = 0;
-		$countcandidates =0;
-		foreach ($notification as $n) {
-			if ($n->importancy == 4 & $n->been_read == 0 ) {
-			$countvideo++;		
-			$key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
-			if($key != null){
-			$n->keyid = $key->session_key;
-			//print "<pre>"; print_r($key);print "</pre>";return;
-			}
-			}
-			else if ($n->importancy == 4 & $n->been_read != 0 ) {
-				//$countvideo++;
-				$key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
-				if($key != null){
-					$n->keyid = $key->session_key;
-					//print "<pre>"; print_r($key);print "</pre>";return;
-				}
-			}
-			elseif($n->importancy == 6 & $n->been_read == 0)
-			$countapplicants++;			
-			elseif ($n->importancy == 3 & $n->been_read == 0)	
-			$countmessages++;
-			elseif ($n->importancy == 5 & $n->been_read == 0)
-			$countcandidates++;
-		}		
+            $username = Yii::app()->user->name;
+            $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
+            $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+            $univs = School::getAllSchools(); // pass universities
+            $skills = Skillset::getNames(); // pass skills
+            $countvideo = 0;
+            $countapplicants = 0;
+            $countmessages = 0;
+            $countcandidates =0;
+            foreach ($notification as $n) {
+                if ($n->importancy == 4 & $n->been_read == 0 ) {
+                $countvideo++;		
+                $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                if($key != null){
+                $n->keyid = $key->session_key;
+                //print "<pre>"; print_r($key);print "</pre>";return;
+                }
+                }
+                else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                    //$countvideo++;
+                    $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                    if($key != null){
+                        $n->keyid = $key->session_key;
+                        //print "<pre>"; print_r($key);print "</pre>";return;
+                    }
+                }
+                elseif($n->importancy == 6 & $n->been_read == 0)
+                $countapplicants++;			
+                elseif ($n->importancy == 3 & $n->been_read == 0)	
+                $countmessages++;
+                elseif ($n->importancy == 5 & $n->been_read == 0)
+                $countcandidates++;
+            }		
 
-		$this->render('employerhome', array('user'=>$user,'universities'=>$univs,'skills'=>$skills, 'notification'=>$notification, 'countvideo'=>$countvideo, 'countapplicants'=>$countapplicants, 'countmessages'=>$countmessages, 'countcndidates'=>$countcandidates ));
+            $this->render('employerhome', array('user'=>$user,'universities'=>$univs,'skills'=>$skills, 'notification'=>$notification, 'countvideo'=>$countvideo, 'countapplicants'=>$countapplicants, 'countmessages'=>$countmessages, 'countcndidates'=>$countcandidates ));
 	}
 	
 	public function actionAdminHome()
@@ -133,291 +129,288 @@ class HomeController extends Controller
 //        $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
 //        $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
 //        $status['username'] = $user['username'];
-       $this->redirect($this->createUrl('UserCrud/admin'));
-        
-	//	$this->render('admin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
+        $this->redirect($this->createUrl('UserCrud/admin'));
+		//$this->render('admin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
 	}
 
 	
 	public function accessRules()
 	{
-		return array(
-				array('allow',  // allow authenticated users to perform these actions
-						'actions'=>array('NotificationAdmin', 'StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync'),
-						'users'=>array('@')),
-				array('deny', //deny all users anything not specified
-						'users'=>array('*'),
-						'message'=>'Access Denied. Site is unbreakable'),
-		);
+            return array(
+                array('allow',  // allow authenticated users to perform these actions
+                    'actions'=>array('NotificationAdmin', 'StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync'),
+                    'users'=>array('@')),
+                array('deny', //deny all users anything not specified
+                    'users'=>array('*'),
+                    'message'=>'Access Denied. Site is unbreakable'),
+            );
 	}
-        
-     
 
 
 	public function filters()
 	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-				'accessControl',
-		);
+            // return the filter configuration for this controller, e.g.:
+            return array('accessControl',);
 	}
 
 	public function actions()
 	{
-		// return external action classes, e.g.:
-		return array(
-				'action1'=>'path.to.ActionClass',
-				'action2'=>array(
-						'class'=>'path.to.AnotherActionClass',
-						'propertyName'=>'propertyValue',
-				),
-		);
+            // return external action classes, e.g.:
+            return array(
+                            'action1'=>'path.to.ActionClass',
+                            'action2'=>array(
+                                            'class'=>'path.to.AnotherActionClass',
+                                            'propertyName'=>'propertyValue',
+                            ),
+            );
 	}
-
+        
 	public function actionEmployersearch()
 	{
-		$srch_keyword = ($_POST['skillkeyword']); // Get skill keyword to search
-		$pieces = trim($srch_keyword);
-		$pieces = explode(" ", $pieces); // split words to search
-		$count = sizeof($pieces); // get number of word to search
-		$query = '';
-		for($i = 0; $i < $count;$i++) // prepare query
-		{
-			if ($i == $count - 1){
-				$query = $query.'name like \'%'.$pieces[$i].'%\'';
-			} else {
-				$query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
-			}
+            $srch_keyword = ($_POST['skillkeyword']); // Get skill keyword to search
+            $pieces = trim($srch_keyword);
+            $pieces = explode(" ", $pieces); // split words to search
+            $count = sizeof($pieces); // get number of word to search
+            $query = '';
+            for($i = 0; $i<$count; $i++) // prepare query
+            {
+                if ($i == $count - 1){
+                    $query = $query.'name like \'%'.$pieces[$i].'%\'';                    
+                } else {
+                    $query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
+                }
+            }            
+            $criteria = new CDbCriteria;
+            $criteria->condition = $query;
+            $results = Array();
 
-		}
-		
-		$criteria = new CDbCriteria;
-		$criteria->condition = $query;
-		$results = Array();
+            if ($srch_keyword != null)
+            {                
+                $skillsArray = Skillset::model()->findAll($criteria);
+                $gen_skill ='';               
+                foreach($skillsArray as $s)
+                {
+                    $gen_skill = "SELECT * FROM skillset WHERE FK_general_skills IN "
+                                . "(SELECT FK_general_skills FROM skillset WHERE name = '".$s->name."')";
+                    $skillsArray1 = Skillset::model()->findAllBySql($gen_skill);
+                    foreach($skillsArray1 as $sk)
+                    {
+                        $skillsArray[]= $sk;
+                    }
+                }
+                //var_dump($skillsArray);die;              
+                foreach ($skillsArray as $sk)
+                {
+                    $student_ids = StudentSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // search student skill map for students with that skill
+                    foreach ($student_ids as $tmp){
+                        $duplicate = 0;
+                        if (sizeof($results) > 0){
+                            foreach($results as $t){
+                                if ($t->id == $tmp->userid){
+                                    $duplicate = 1;
+                                }
+                            }
+                        }
+                        if($duplicate == 0){
+                            $results[] = User::model()->findByAttributes(array('id'=>$tmp->userid));
+                        }
+                    }
+                }
+                $school_id = School::model()->findAll($criteria); // get school ID
+                foreach ($school_id as $si){
+                    $student_ids = Education::model()->findAllByAttributes(array('FK_school_id'=>$si->id)); // search educations with school ID
+                    foreach ($student_ids as $tmp){
+                        $duplicate = 0;
+                        if (sizeof($results) > 0){
+                            foreach($results as $t){
+                                if ($t->id == $tmp->FK_user_id){
+                                    $duplicate = 1;
+                                }
+                            }
+                        }
+                        if ($duplicate == 0){
+                            $results[] = User::model()->findByAttributes(array('id'=>$tmp->FK_user_id));
+                        }
+                    }
+                }
+            }
 
-		if ($srch_keyword != null){
+            if (isset($_GET['user'])){
+                    $username = $_GET['user'];
+            } else {
+                    $username = Yii::app()->user->name;
+            }
+            $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
+            $skills = Skillset::getNames(); // pass skills
+            $universites = School::getAllSchools(); // pass companies
+            // 		foreach ($results as $tr){
+            // 			print "<pre>"; print_r($tr->attributes);print "</pre>";
+            // 		}
+            // 		return;
+            
+            $this->render('employerSearchResults', array('results'=>$results, 'skills'=>$skills, 'universities'=>$universites, 'user'=>$user));            
+	}        
 
-			$skillsArray = Skillset::model()->findAll($criteria);
-			foreach ($skillsArray as $sk)
-			{
-				$student_ids = StudentSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // search student skill map for students with that skill
-				foreach ($student_ids as $tmp){
-					$duplicate = 0;
-					if (sizeof($results) > 0){
-						foreach($results as $t){
-							if ($t->id == $tmp->userid){
-								$duplicate = 1;
-							}
-						}
-					}
-
-					if ($duplicate == 0){
-						$results[] = User::model()->findByAttributes(array('id'=>$tmp->userid));
-					}
-				}
-			}
-
-			$school_id = School::model()->findAll($criteria); // get school ID
-			foreach ($school_id as $si){
-				$student_ids = Education::model()->findAllByAttributes(array('FK_school_id'=>$si->id)); // search educations with school ID
-				foreach ($student_ids as $tmp){
-					$duplicate = 0;
-					if (sizeof($results) > 0){
-						foreach($results as $t){
-							if ($t->id == $tmp->FK_user_id){
-								$duplicate = 1;
-							}
-						}
-					}
-
-					if ($duplicate == 0){
-						$results[] = User::model()->findByAttributes(array('id'=>$tmp->FK_user_id));
-					}
-				}
-			}
-		}
-		
-		if (isset($_GET['user'])){
-			$username = $_GET['user'];
-		} else {
-			$username = Yii::app()->user->name;
-		}
-		$user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
-		$skills = Skillset::getNames(); // pass skills
-		$universites = School::getAllSchools(); // pass companies
-
-		// 		foreach ($results as $tr){
-		// 			print "<pre>"; print_r($tr->attributes);print "</pre>";
-		// 		}
-		// 		return;
-		
-		$this->render('employerSearchResults', array('results'=>$results, 'skills'=>$skills, 'universities'=>$universites, 'user'=>$user));
-
-	}
-
+        //students searching for jobs
 	public function actionSearch2()
 	{
-		$keyword = ($_GET['key']); // Get words to search
-		$pieces = trim($keyword);
-		$pieces = explode(" ", $pieces); // split words to search
-		$count = sizeof($pieces); // get number of word to search
-		$query = '';
-		for($i = 0; $i < $count;$i++) // prepare query
-		{
-			
-			if ($i == $count - 1){
-				$query = $query.'name =\''.$pieces[$i].'\'';
-			} else {
-				$query = $query.'name =\''.$pieces[$i].'\' OR ';
-			}	
-		}
+            $keyword = ($_GET['key']); // Get words to search
+            $pieces = trim($keyword);
+            $pieces = explode(" ", $pieces); // split words to search
+            $count = sizeof($pieces); // get number of word to search
+            $query = '';
+            for($i = 0; $i < $count;$i++) // prepare query
+            {
+                if ($i == $count - 1){
+                    $query = $query.'name =\''.$pieces[$i].'\'';
+                } else {
+                    $query = $query.'name =\''.$pieces[$i].'\' OR ';
+                }	
+            }
+
+            $criteria = new CDbCriteria;
+            $criteria->condition = $query;
+            $results = Array();
+
+            if ($keyword != null){
+                $skillsArray = Skillset::model()->findAll($criteria);
+                foreach ($skillsArray as $sk)
+                {
+                    if ($sk != null){
+                        $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs with that skill
+                        if ($jobIds != null) 
+                        {
+                            foreach ($jobIds as $ji)
+                            {
+                                if ($ji != null){
+                                    $jobid = $ji->jobid;
+                                    $duplicate = 0;
+                                    if (sizeof($results) > 0){
+                                        foreach($results as $t){
+                                            if ($t != null){
+                                                if (strcmp($t->id,$jobid) == 0){
+                                                    $duplicate = 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if ($duplicate == 0){
+                                        $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// search for skill only
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 	
-		$criteria = new CDbCriteria;
-		$criteria->condition = $query;
-		$results = Array();
-	
-		if ($keyword != null){
-			$skillsArray = Skillset::model()->findAll($criteria);
-			foreach ($skillsArray as $sk)
-			{
-				if ($sk != null){
-					$jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs with that skill
-					if ($jobIds != null) {
-						foreach ($jobIds as $ji)
-						{
-							if ($ji != null){
-								$jobid = $ji->jobid;
-								$duplicate = 0;
-								if (sizeof($results) > 0){
-									foreach($results as $t){
-										if ($t != null){
-											if (strcmp($t->id,$jobid) == 0){
-												$duplicate = 1;
-											}
-										}
-									}
-								}
-									
-								if ($duplicate == 0){
-									$results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// search for skill only
-								}
-							}
-						}
-	
-					}
-				}
-			}
-		}
-	
-		if (isset($_GET['user'])){
-			$username = $_GET['user'];
-		} else {
-			$username = Yii::app()->user->name;
-		}
-		$user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
-		$skills = Skillset::getNames(); // pass skills
-		$companies = CompanyInfo::getNames(); // pass companies
-	
-		$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
-	
+            if (isset($_GET['user'])){
+                    $username = $_GET['user'];
+            } else {
+                    $username = Yii::app()->user->name;
+            }
+            $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
+            $skills = Skillset::getNames(); // pass skills
+            $companies = CompanyInfo::getNames(); // pass companies
+
+            $this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));	
 	}
 	
 	
 	public function actionSearch()
 	{
-        $flag = 1;
-		$keyword = ($_POST['keyword']); // Get words to search
-		$pieces = trim($keyword);
-		$pieces = explode(" ", $pieces); // split words to search
-		$count = sizeof($pieces); // get number of word to search
-		$query = '';
-		for($i = 0; $i < $count;$i++) // prepare query
-		{
-			if ($i == $count - 1){
-				$query = $query.'name like \'%'.$pieces[$i].'%\'';
-			} else {
-				$query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
-			}
+            $flag = 1;
+            $keyword = ($_POST['keyword']); // Get words to search
+            $pieces = trim($keyword);
+            $pieces = explode(" ", $pieces); // split words to search
+            $count = sizeof($pieces); // get number of word to search
+            $query = '';
+            for($i = 0; $i < $count;$i++) // prepare query
+            {
+                if ($i == $count - 1){
+                        $query = $query.'name like \'%'.$pieces[$i].'%\'';
+                } else {
+                        $query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
+                }
+            }
 
-		}
+            $criteria = new CDbCriteria;
+            $criteria->condition = $query;
+            $results = Array();
 
-		$criteria = new CDbCriteria;
-		$criteria->condition = $query;
-		$results = Array();
+            if ($keyword != null)
+            {
+                $skillsArray = Skillset::model()->findAll($criteria);
+                foreach ($skillsArray as $sk)
+                {
+                    if ($sk != null)
+                    {
+                        $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs with that skill
+                        if ($jobIds != null) 
+                        {
+                            foreach ($jobIds as $ji)
+                            {
+                                if ($ji != null){
+                                    $jobid = $ji->jobid;
+                                    $duplicate = 0;
+                                    if (sizeof($results) > 0){
+                                        foreach($results as $t){
+                                            if ($t != null){
+                                                if (strcmp($t->id,$jobid) == 0){
+                                                        $duplicate = 1;
+                                                }
+                                            }
+                                        }
+                                    }
 
-		if ($keyword != null){
-			$skillsArray = Skillset::model()->findAll($criteria);
-			foreach ($skillsArray as $sk)
-			{
-				if ($sk != null){
-					$jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs with that skill
-					if ($jobIds != null) {
-						foreach ($jobIds as $ji)
-						{
-							if ($ji != null){
-								$jobid = $ji->jobid;
-								$duplicate = 0;
-								if (sizeof($results) > 0){
-									foreach($results as $t){
-										if ($t != null){
-											if (strcmp($t->id,$jobid) == 0){
-												$duplicate = 1;
-											}
-										}
-									}
-								}
-									
-								if ($duplicate == 0){
-									$results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// search for skill only
-								}
-							}
-						}
+                                    if ($duplicate == 0){
+                                        $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// search for skill only
+                                    }
+                                }
+                            }
 
-					}
-				}
-			}
-				
-			
+                        }
+                    }
+                }
 
-			$compsArray = CompanyInfo::model()->findAll($criteria);
-			foreach ($compsArray as $co){
-				if ($co != null){
-					$comp_posts = Job::model()->findAllByAttributes(array('FK_poster'=>$co->FK_userid));
-					if ($comp_posts != null){
-						foreach ($comp_posts as $cp){
-							$duplicate = 0;
-							if (sizeof($results) > 1){
-								if ($cp != null){
-									foreach($results as $t){
-										if ($t != null){
-											if ($t->id == $cp->id){
-												$duplicate = 1;
-											}
-										}
-									}
-								}
-							}
+                $compsArray = CompanyInfo::model()->findAll($criteria);
+                foreach ($compsArray as $co){
+                    if ($co != null){
+                        $comp_posts = Job::model()->findAllByAttributes(array('FK_poster'=>$co->FK_userid));
+                        if ($comp_posts != null){
+                            foreach ($comp_posts as $cp){
+                                $duplicate = 0;
+                                if (sizeof($results) > 1){
+                                    if ($cp != null){
+                                        foreach($results as $t){
+                                            if ($t != null){
+                                                if ($t->id == $cp->id){
+                                                        $duplicate = 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if ($duplicate == 0){
+                                    $results[] = Job::model()->findByAttributes(array('id'=>$cp->id, 'active'=>'1'));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-							if ($duplicate == 0){
-								$results[] = Job::model()->findByAttributes(array('id'=>$cp->id, 'active'=>'1'));
-							}
-						}
-					}
-				}
-			}
-		}
-
-		if (isset($_GET['user'])){
-			$username = $_GET['user'];
-		} else {
-			$username = Yii::app()->user->name;
-		}
-		$user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
-		$skills = Skillset::getNames(); // pass skills
-		$companies = CompanyInfo::getNames(); // pass companies
+        if (isset($_GET['user'])){
+            $username = $_GET['user'];
+        } else {
+            $username = Yii::app()->user->name;
+        }
+        $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
+        $skills = Skillset::getNames(); // pass skills
+        $companies = CompanyInfo::getNames(); // pass companies
 
         $this->render('home',array('flag'=>$flag, 'results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
-		//$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
+        //$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
 
 	}
  
@@ -547,7 +540,7 @@ class HomeController extends Controller
 		$message = "$username just accepted your interview invitation.";
 		$recive = User::model()->findByPk($modle->sender_id);
 		//$html = User::replaceMessage($recive->username, $message);
-        User::sendEmail($recive->email, "Virtual Job Fair", "Interview Schedule Accepted", $message);
+                User::sendEmail($recive->email, "Virtual Job Fair", "Interview Schedule Accepted", $message);
 		//User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $message);
 		if ($user->FK_usertype == 1)
 		$this->redirect("/JobFair/index.php/home/studenthome");
@@ -561,7 +554,6 @@ class HomeController extends Controller
 		$skill->save();
 		$this->redirect("/JobFair/index.php/home/adminhome");
 	}
-      
 	
 	public function actionMergeSkills(){
 		$skillname1 = $_POST['skill1'];
@@ -609,8 +601,7 @@ class HomeController extends Controller
         $status['username'] = $user['username'];
         $this->render('notificationadmin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
     }
-   
-   
+
 
     // synchronize with the careerpath API
     public function actionCareerPathSync()

@@ -578,22 +578,20 @@ class JobController extends Controller {
             { 
                             $stukey = $stu->id;                            
                             $studentinfo = BasicInfo::model()->find("userid=:id",array(':id'=>$stukey));
-                          
                             $studentzip = $studentinfo->zip_code;
-                            
 
                        
                             if($studentzip != '0')
                             {
                                 
-                            $response = file_get_contents("https://www.zipcodeapi.com/rest/EHEOdXiWNNs3szy72SU5lwrQnfEyz9ieRW25Ul1H8tKB2jI5cCbx9CowR25rcnG4/distance.xml/$studentzip/$employerzip/mile");
+                            $response = file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$studentzip/$employerzip/mile");
                            
                             $orderedstu[$stukey] = $response;
                             
                             }
                             else
                             {
-                            	$response = 0;
+                              $response = 0;
                              $nozipstu[$stukey] = $response;       
                             }
                          
@@ -744,7 +742,7 @@ class JobController extends Controller {
         {
             $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
         }
-        var_dump(count($job));
+   
         if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "" && count($savedQ2) !== 0 &&$savedQ2 !== NULL) {
              
             $query2 = "";
@@ -834,21 +832,25 @@ class JobController extends Controller {
         // calling indeed function
         if (isset($radioOption) && $radioOption != "") {
 //            $result = $this->indeed($query, $city);
-//            if ($result['totalresults'] == 0) {
-//                $result = "";
-//            }
+//            if($result['totalresults'] == 0) {$result = "";}
+            $result = "";
             $result2 = $this->careerBuilder($query, $city);
-            if ($result2[0] == 0) {
-                $result2 = "";
-            }
-            $result = Array();
+            if($result2[0] == 0) {$result2 = "";}
+            $result3 = $this->stackOverflow($query,$city);
+            $result4 = $this->monsterJobs($query, $city);
             // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
-            $this->render('home', array('jobs' => $job, 'result' => $result, 'cbresults' => $result2, 'flag' => $flag,'saveQ'=>$saveQ,'user'=>$user));
-        } else {
-
+            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'saveQ'=>$saveQ,'mjresults'=>$result4,'flag'=>$flag));
+            }
+        else
+        {            
             $result = "";
             $result2 = "";
-            $this->render('home', array('jobs' => $job, 'result' => $result, 'cbresults' => $result2, 'flag' => $flag,'saveQ'=>$saveQ,'user'=>$user));
+//            $result3 = $this->stackOverflow($query,$city);
+//            $result4 = $this->monsterJobs($query, $city);
+            $result3 = "";
+            $result4 = "";
+            
+            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,'result3'=>$result3,'saveQ'=>$saveQ,'mjresults'=>$result4, 'flag'=>$flag));
         }
     }
 
@@ -933,7 +935,20 @@ class JobController extends Controller {
         // print_r($results);
         return $results;
     }
+    public function stackOverflow($query, $city)
+    {
+        require_once 'protected/stackOverflow/StackOverflow.php';
+        $res = stackOverflow\StackOverflow::getJobResults($query, $city);
+        return $res;        
+    }
+    public function monsterJobs($query, $city)
+    {
+        require_once 'protected/monster/monsterJobs.php';
+        $r = monster\monsterJobs::getJobResults($query, $city);
+        return $r;        
+    }
 
+    
     // call to indeed API
     public function indeed($query, $city) {
         $loc = $city;
@@ -1363,14 +1378,16 @@ class JobController extends Controller {
     }
 
     // job search from nav bar
-    public function actionSearch() {
+    public function actionSearch()
+    {
         // flag to display results in home
         $flag = 2;
         $bool = false;
         $keyword = "";
         $result = Array();
         // words to search for
-        if (isset($_GET['keyword'])) {
+        if(isset($_GET['keyword']))
+        {
             $keyword = ($_GET['keyword']);
         }
         // array to contain the results of the search
@@ -1378,54 +1395,59 @@ class JobController extends Controller {
         $result2 = Array();
 
         // there are words to search
-        if ($keyword != null) {
+        if ($keyword != null)
+        {
             // operators for boolean search mode
-            if (preg_match('/("|-)/', $keyword)) {
+            if(preg_match('/("|-)/', $keyword))
+            {
                 $bool = true;
             }
 
-            if ($bool == true) {
+            if($bool == true)
+            {
                 // search FULLTEXT IN BOOLEAN MODE to allow for operations such as ' ""'  and ' - '
-                $results = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $keyword . "%' IN BOOLEAN MODE) AND active = '1';");
+                $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN BOOLEAN MODE) AND active = '1';");
             }
-            if ($bool == false) {// search FULLTEXT IN NATURAL LANGUAGE MODE
-                $results = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $keyword . "%' IN NATURAL LANGUAGE MODE) AND active = '1';");
+            if($bool == false)
+            {// search FULLTEXT IN NATURAL LANGUAGE MODE
+                $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN NATURAL LANGUAGE MODE) AND active = '1';");
                 //print_r ($result);
             }
-
             // location will be set to "Miami, Florida"
             $loc = "Miami, Florida";
             // call indeed API to get jobs query by user
-//            $result = $this->indeed($keyword, $loc);
-//            if ($result['totalresults'] == 0) {
-//                $result = "";
-//            }
+            //$result = $this->indeed($keyword, $loc);
+            //if($result['totalresults'] == 0) {$result = "";}
             $result2 = $this->careerBuilder($keyword, $loc);
-            if ($result2[0] == 0) {
-                $result2 = "";
+            if($result2[0] == 0) {$result2 = "";}
+            $result3 = $this->stackOverflow($keyword, $loc);
+            //if($result3[0] == 0) {$result3 = "";}
+            $loc = "Florida";
+            $result4 = $this->monsterJobs($keyword, $loc);
             }
-        }
 
         // get user
-        if (isset($_GET['user'])) {
+        if (isset($_GET['user'])){
             $username = $_GET['user'];
         } else {
             $username = Yii::app()->user->name;
         }
         // pass user
-        $user = User::model()->find("username=:username", array(':username' => $username));
+        $user = User::model()->find("username=:username",array(':username'=>$username));
         // pass skills
         $skills = Skillset::getNames();
         // pass companies
         $companies = CompanyInfo::getNames();
 
         //print_r($result); return;
+$saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         // render search results, user, skills, companies and flag to job/home
-        $user = User::model()->find("username=:username",array(':username'=>$username));
-        $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+//        $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'jobs'=>$results,'user'=>$user,
+//            'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
+         $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'result3'=>$result3, 'mjresults'=>$result4,
+                                    'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,'saveQ'=>$saveQ));
         
-        $this->render('home', array('result' => $result, 'cbresults' => $result2, 'jobs' => $results, 'user' => $user,
-            'companies' => $companies, 'skills' => $skills, 'flag' => $flag,'saveQ'=>$saveQ));
     }
+
 
 }
