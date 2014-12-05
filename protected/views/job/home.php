@@ -7,8 +7,8 @@
 <!-- **** **** -->
 
 <?php
-$i = 0; $j = 0; $k = 0; $m = 0; $n = 0;
-$sizeJobs = 0; $sizeIndeed = 0; $sizeCB = 0;$sizeST = 0; $sizeMJ = 0;
+$i = 0; $j = 0; $k = 0; $m = 0; $n = 0; $g = 0;
+$sizeJobs = 0; $sizeIndeed = 0; $sizeCB = 0;$sizeST = 0; $sizeMJ = 0;$sizeGH = 0;
 
 settype($size, "integer");
 if (!isset($_GET['allWords'])) {
@@ -262,7 +262,7 @@ function getURLParameter(name) {
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
     <table class="display" id="jobtable" style="max-width: 120%; width:100%">
-     <?php if ($jobs == null && $result == "" && $cbresults == "" && $result3 =="" && $mjresults =="")
+     <?php if ($jobs == null && $result == "" && $cbresults == "" && $result3 =="" && $mjresults =="" && $ghresults=="")
          {?>
          <h3>Sorry, your search did not match any jobs </h3>
          <br>
@@ -313,9 +313,15 @@ function getURLParameter(name) {
             foreach($mjresults as $job) { $sizeMJ++; }
             $n = 1;              
         }
+        // gets how many job from GitHubJobs
+        if($ghresults != null & sizeof($ghresults)>0)
+        {
+            foreach ($ghresults as $job) {$sizeGH++;}
+            $g = 1;
+        }
     ?>
     <tbody>
-        <?php // There is only CareerPath jobs
+        <?php // There is only CareerPath jobs(when click on Jobs tab, no search query)
          if($j == $sizeIndeed && $k == $sizeCB && $m == $sizeST && $n == $sizeMJ && $sizeJobs > 0 )
          {
              foreach ($jobs as $job) 
@@ -625,7 +631,52 @@ function getURLParameter(name) {
                         </td>
                 </tr>
                 <?php $n++; }
+                //<!--GITHUB JOBS-->
+                if($g < $sizeGH && $sizeGH > 0)
+                {  ?>  
+                <tr>
+                    <td><a href=<?php echo $ghresults[$g]->jobURL;?> title="GitHubJobs"><!--target="_blank"-->
+                        <?php if($ghresults[$g]->title != null) {echo $ghresults[$g]->title;}
+                              else {echo "N/A";}?></a></td>
+                    <td><a href=<?php echo $ghresults[$g]->jobURL;?> title="ClickHere">
+                        <?php if($ghresults[$g]->companyName != null) { echo $ghresults[$g]->companyName;}
+                              else {echo "Company Info";}?></a></td>
+                    <td><?php if($ghresults[$g]->type != null) { echo $ghresults[$g]->type;}
+                              else {echo "N/A";}?></td>
+                    <td><?php if($ghresults[$g]->posted != null) {echo $ghresults[$g]->posted;}
+                              else {echo "N/A";} ?></td>
+<!--                    <td>N/A</td>-->
+                    <td><?php if($ghresults[$g]->pay != null) {echo '<small>'.$ghresults[$g]->pay.'</small>';}
+                              else {echo "N/A";} ?></td>
+                    <td><?php if($ghresults[$g]->skills != null)
+                            {
+                                $in_skill_list = explode(' ', $ghresults[$g]->skills);
+                                $uniqueSkill = array_unique($in_skill_list);
                 
+                                foreach ($uniqueSkill as $in_skill)
+                                {
+                                    $this->widget('bootstrap.widgets.TbLabel', array(
+                                        'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                        'label'=>strtolower($in_skill),
+                                    ));
+                                    echo ' ';
+                                }
+                            }
+                            else
+                            {
+                                $this->widget('bootstrap.widgets.TbLabel', array(
+                                    'type'=>'inverse', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                    'label'=>'N/A',
+                                ));
+                                echo ' ';
+                            }
+                        ?>
+                    </td>
+                    <td><a href=<?php echo $ghresults[$g]->jobURL;?> > 
+                        <img src="http://media.creativebloq.futurecdn.net/sites/creativebloq.com/files/images/2013/06/16-logo.jpg" alt="GitHubJobs"/></a> 
+                        </td>
+                </tr>
+                <?php $g++; }
                 
                 ?>
                 

@@ -187,17 +187,17 @@ class HomeController extends Controller
             if ($srch_keyword != null)
             {                
                 $skillsArray = Skillset::model()->findAll($criteria);
-                $gen_skill ='';               
-                foreach($skillsArray as $s)
-                {
-                    $gen_skill = "SELECT * FROM skillset WHERE FK_general_skills IN "
-                                . "(SELECT FK_general_skills FROM skillset WHERE name = '".$s->name."')";
-                    $skillsArray1 = Skillset::model()->findAllBySql($gen_skill);
-                    foreach($skillsArray1 as $sk)
-                    {
-                        $skillsArray[]= $sk;
-                    }
-                }
+//                $gen_skill ='';               
+//                foreach($skillsArray as $s)
+//                {
+//                    $gen_skill = "SELECT * FROM skillset WHERE FK_general_skills IN "
+//                                . "(SELECT FK_general_skills FROM skillset WHERE name = '".$s->name."')";
+//                    $skillsArray1 = Skillset::model()->findAllBySql($gen_skill);
+//                    foreach($skillsArray1 as $sk)
+//                    {
+//                        $skillsArray[]= $sk;
+//                    }
+//                }
                 //var_dump($skillsArray);die;              
                 foreach ($skillsArray as $sk)
                 {
