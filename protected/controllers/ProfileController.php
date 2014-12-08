@@ -445,7 +445,7 @@ class ProfileController extends Controller
 
             try {
                 
-             file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$zpcode/33125/mile");
+             file_get_contents("https://www.zipcodeapi.com/rest/GuKKyGZLihxJcjhQPbg5nM3nb5hsG0gnv173H6O0nlJAF1qvcHAAtEXEJf7qfnNK/distance.xml/$zpcode/33125/mile");
              }
              catch (Exception $error) 
              {    
@@ -510,7 +510,7 @@ class ProfileController extends Controller
 
             try {
                 
-             file_get_contents("https://www.zipcodeapi.com/rest/E8NgokSL60xyVF8ABjWo5lqfGJXWhYOW7CcwW5h35PB1vJB62xu8TUnzDlwVkkRr/distance.xml/$zpcode/33125/mile");
+             file_get_contents("https://www.zipcodeapi.com/rest/GuKKyGZLihxJcjhQPbg5nM3nb5hsG0gnv173H6O0nlJAF1qvcHAAtEXEJf7qfnNK/distance.xml/$zpcode/33125/mile");
              }
              catch (Exception $error) 
              {    
