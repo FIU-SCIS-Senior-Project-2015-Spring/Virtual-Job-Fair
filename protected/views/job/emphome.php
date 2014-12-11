@@ -91,7 +91,7 @@ if (!isset($_GET['tagName'])) {
     <h5> Queries Preferences</h5>
     
         <div style= "text-align:left; clear:both" >
-            <p>Select queries to search for jobs</p>
+            <p>Select queries to search for students</p>
 
             <div style= "text-align:left;">
                 <?php foreach ($saveQ as $query) { ?>

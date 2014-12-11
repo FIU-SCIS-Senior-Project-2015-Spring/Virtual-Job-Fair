@@ -1,15 +1,56 @@
 <h1>Dashboard</h1>
 <div class="well">
-TODO:
-    <ul>
-        <li>total number of users =  <?php echo $model->countUsers(); ?></li>
-        <li>total number of students = <?php echo $model->countStudents(); ?></li>
-        <li>total number of students active = <?php echo $model->countactiveStudents(); ?> </li>
-        <li>total number of employers = <?php echo $model->countEmployers(); ?></li>
-        <li>total number of employer's active = <?php echo $model->countactiveEmployers(); ?> </li>
-        <li>total number of administrators = <?php echo $model->countAdmin(); ?></li>
-        <li>total number of jobs posted = <?php echo $model->countactiveJobs(); ?> </li>
-        <li>total number of active jobs posted = <?php echo $model->countJobs(); ?> </li>
-        <li>total number of unique hits (integrate google analytics extension for yii framework) = </li>
-    </ul>
+    <?php 
+        $this->widget
+                (
+            'chartjs.widgets.ChPie', 
+            array(
+                'width' => 600,
+                'height' => 300,
+                'htmlOptions' => array(),
+                'drawLabels' => true,
+                'datasets' => array(
+                    array(
+                        "value" => $stu,
+                        "color" => "rgba(220,30, 70,1)",
+                        "label" => "Students"
+                    ),
+                    array(
+                        "value" => $emp,
+                        "color" => "rgba(66,66,66,1)",
+                        "label" => "Employers"
+                    ),
+                     array(
+                        "value" => $admin,
+                        "color" => "rgba(100,80,66,1)",
+                        "label" => "Administrator"
+                    ),
+                ),
+                'options' => array()
+            )
+        ); 
+    ?>
+  </div>  
+
+<div>
+    <?php 
+        $this->widget(
+            'chartjs.widgets.ChBars', 
+            array(
+                'width' => 600,
+                'height' => 300,
+                'htmlOptions' => array(),
+                'labels' => array("Student","Active Student","Jobs","Active Jobs"),
+                'datasets' => array(
+                    array(
+                        "fillColor" => "#ff01ff",
+                        "strokeColor" => "rgba(220,220,220,1)",
+                        "data" => array($stu2, $activestu, $jobs, $activejobs,)
+                    )       
+                ),
+                'options' => array()
+            )
+        ); 
+    ?>
+    
 </div>

@@ -738,15 +738,16 @@ class JobController extends Controller
         $mi = false;
         $query = "";
         $job = Array();
-
+         $query2 = "";
+       
         if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "") 
         {
             $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
         }
    
-        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "" && count($savedQ2) !== 0 &&$savedQ2 !== NULL) {
-             
-            $query2 = "";
+        if (count($savedQ2) !== 0 && $savedQ2 !== NULL) 
+         {
+           
              foreach ($savedQ2 as $qery) 
              {
                    $query2 =$query2." ".$qery->query;
@@ -754,6 +755,7 @@ class JobController extends Controller
             $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
 
         }
+        
         if (isset($phrase) && $phrase != "") {
             if (strpos($phrase, '"') !== false) {
                 $query = $phrase . " ";
@@ -812,17 +814,16 @@ class JobController extends Controller
         {
           
             $job = Array();
-                    
-            foreach ($savedQ2 as $qery) 
-             {
-               
-                   $query =$query." ".$qery->query;
-             }
-                 
-       $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . "%' IN BOOLEAN MODE) AND active = '1'");
-       var_dump(count($job));
+                   
+       $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+   
         }
-        
+        else
+        {
+        $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+
+        }
+     
          if (isset($_GET['user'])){
 			$username = $_GET['user'];			
 		} else {
@@ -841,7 +842,8 @@ class JobController extends Controller
             $result4 = $this->monsterJobs($query, $city);
             $result5 = $this->githubJobs($query, $city);
             // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
-            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag));
+            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag,'saveQ'=>$saveQ));
             }
         else
         {            
@@ -853,7 +855,8 @@ class JobController extends Controller
             $result4 = "";
             $result5 = "";
             
-            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag));
+            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag, 'saveQ'=>$saveQ));
         }
     }
 

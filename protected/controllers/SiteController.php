@@ -77,8 +77,23 @@ class SiteController extends Controller
         {
             
         $model = new User;
+        
+        $total = $model->countUsers();
+        $stu2 = $model->countStudents();
+        $emp = $model->countEmployers();
+        $admin = $model->countAdmin();
+        
+        $stu = ($stu2/$total)*100;
+        $emp = ($emp/$total)*100;
+        $admin = ($admin/$total)*100;
+        
+       $activestu = $model->countactiveStudents();
+       $jobs = $model->countJobs();
+       $activejobs = $model->countactiveJobs();
+        
+        
         $this->render('dashboard',array(
-            'model'=>$model,
+            'model'=>$model, 'stu'=>$stu,'total'=>$total,'emp'=>$emp,'admin'=>$admin,'activestu'=>$activestu,'activejobs'=>$activejobs,'jobs'=>$jobs,'stu2'=>$stu2,
             
         ));
         }

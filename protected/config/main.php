@@ -3,6 +3,7 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
@@ -19,7 +20,9 @@ return array(
 		'application.components.*',
         'ext.YiiMailer.YiiMailer',
 	),
-
+    
+        
+    
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		
@@ -50,6 +53,9 @@ return array(
 				),	*/			
 	),
 
+    'preload' => array(
+    'chartjs'
+        ),
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -73,6 +79,7 @@ return array(
 
 			),
 		),
+                'chartjs'=>array( 'class' => 'chartjs.components.ChartJs', ),
 		'email'=>array(
 				'class'=>'application.extensions.email.Email',
 				'delivery'=>'php', //Will use the php mailing function.
