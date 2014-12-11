@@ -740,10 +740,7 @@ class JobController extends Controller
         $job = Array();
          $query2 = "";
        
-        if ($allWords == "" && $phrase == "" && $anyWord == "" && $minus == "") 
-        {
-            $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
-        }
+       
    
         if (count($savedQ2) !== 0 && $savedQ2 !== NULL) 
          {
@@ -815,13 +812,21 @@ class JobController extends Controller
           
             $job = Array();
                    
-       $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+            $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
    
         }
         else
+            
         {
-        $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+           if($query2 == "")
+           {
+               $job = Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
+           }
+           else
+           {
 
+        $job = Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%" . $query2 . "%' IN BOOLEAN MODE) AND active = '1'");
+           }
         }
      
          if (isset($_GET['user'])){
