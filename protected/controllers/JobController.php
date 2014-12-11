@@ -198,7 +198,8 @@ class JobController extends Controller
                 $count = 0;
 
                 foreach ($majors as $majorss) {
-                    if ($students->id === $majorss->id) {
+                    if ($students->id === $majorss->FK_user_id)            
+                    {
                         $count = 1;
                     }
                 }
