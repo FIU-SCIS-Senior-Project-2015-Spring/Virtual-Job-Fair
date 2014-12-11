@@ -353,7 +353,7 @@ function uploadvideo(){
         }
     ?>
     <div style="overflow: hidden;">
-        <div style="float: left;">Email Student Notifications:</div>
+        <div style="float: left;">Email Jobs Notifications:</div>
         <div style="margin-left: 130px;" class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -363,7 +363,7 @@ function uploadvideo(){
         </div>
     </div>
     <div style="overflow: hidden;">
-        <div style="float: left;">Looking For Student:</div>
+        <div style="float: left;">Looking For Jobs:</div>
         <div style="margin-left: 130px;" class="onoffswitch">
             <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $looking_for_job; ?>' id="myonoffswitch_1" <?php echo $checked_lfj; ?> onclick="toggleLookingForJob()">
             <label class="onoffswitch-label" for="myonoffswitch_1">
