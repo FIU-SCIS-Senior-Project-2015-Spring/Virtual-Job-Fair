@@ -97,9 +97,11 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=jobfairdb',
 			'emulatePrepare' => true,
 			'username' => 'vjfuser',
-			//'username' => 'jobfairdb',
+			// 'username' => 'vjfuser', // for the database in vjf and vjf-dev
+			// 'username' => 'jobfairdb',
 			'password' => 's3n10rpr0j3ct',
-			//'password' => 'E!qazxsw2',
+			// 'password' => 's3n10rpr0j3ct', // for the database in vjf and vjf-dev
+			// 'password' => 'E!qazxsw2',
 			'charset' => 'utf8',
 		),
 
