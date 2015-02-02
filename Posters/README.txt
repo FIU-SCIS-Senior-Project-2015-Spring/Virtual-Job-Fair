@@ -1,1 +1,0 @@
-In this folder you can find the posters for the Vitual Job Fair project
