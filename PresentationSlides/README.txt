@@ -1,0 +1,1 @@
+In this folder you can find the presentation slides for the Vitual Job Fair project
