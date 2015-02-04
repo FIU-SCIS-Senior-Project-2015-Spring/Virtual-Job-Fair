@@ -97,3 +97,8 @@ making the links dynamic so if the base Url changed the program won not be affec
     $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/linkedIn_login.png');
     echo CHtml::link($image, array('user/auth1'));
 ?><br><br>
+
+<?php
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/FIU_GUEST_LOGIN');
+    echo CHtml::link($image, array('user/guestAuth'));
+?><br><br>

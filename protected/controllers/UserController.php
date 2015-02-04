@@ -1145,5 +1145,11 @@ class UserController extends Controller
 	}
 	*/
 	
-
+    public function actionGuestAuth()
+    {
+        /*
+         *  Write controller code
+         */
+    }
+               
 }
