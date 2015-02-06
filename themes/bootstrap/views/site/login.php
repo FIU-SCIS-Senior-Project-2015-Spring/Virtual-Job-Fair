@@ -74,7 +74,9 @@ $this->breadcrumbs=array(
 <!--Author Manuel
 making the links dynamic so if the base Url changed the program won not be affected
 -->
-<div id="altlogin" >
+
+
+<div id="altlogin" style="float:right">
 <p>Students may login with these:</p>
 
 <?php
@@ -99,6 +101,6 @@ making the links dynamic so if the base Url changed the program won not be affec
 ?><br><br>
 
 <?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/FIU_GUEST_LOGIN');
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/FIU_GUEST_LOGIN.png');
     echo CHtml::link($image, array('user/guestAuth'));
 ?><br><br>

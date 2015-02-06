@@ -247,6 +247,16 @@ class User extends CActiveRecord
     	return ($this->FK_usertype == 3);
     }
 
+    public function isAGuestEmployer(){
+        return ($this->FK_usertype == 5);
+    }
+
+    
+    public function isAGuestStudent(){
+        return ($this->FK_usertype == 4);
+    }
+    
+   
     public function cascade_delete()
     {
         $id = $this->id;
@@ -322,6 +332,22 @@ class User extends CActiveRecord
     		return false;
     	return ($user->FK_usertype == 2);
     }
+    
+    public static function isCurrentUserGuestStudent(){
+        $username = Yii::app()->user->name;
+        $user = User::model()->find("username=:username", array(':username'=>$username));
+        if ($user == null)
+            return false;
+        return ($user->FK_usertype == 4);
+    }
+    
+    public static function isCurrentUserGuestEmployer(){
+        $username = Yii::app()->user->name;
+        $user = User::model()->find("username=:username", array(':username'=>$username));
+        if ($user == null)
+            return false;
+        return ($user->FK_usertype == 5);
+    }
 
     public static function isStudent($username){
     	$user = User::model()->find("username=:username",array(':username'=>$username));
@@ -331,6 +357,7 @@ class User extends CActiveRecord
     }
     
     //adds comments to here from down 
+    //Note that this function does not take into account Guest users (students or employers)
     public static function countUsers()
     {
         return $count = User::model()->count();
@@ -563,8 +590,39 @@ public static function sendEmployerNotificationStudentAcceptIntervie($sender, $r
 		$user->activated = 1;
 		$user->save(false);
 	}
-    
-	public static function replaceMessage($to, $message){
+        
+        //Activates the Guest Employer Account
+        public static function activateGuestEmployerAcct(){
+            //Fetch the user row from the database
+            $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>5));
+            //Set the user active by being 1
+            $user->activated = 1;
+            //Save to the database without validating
+            $user->save(false);
+        }
+        
+        //Deactivates the Guest Employer Account
+        public static function deactivateGuestEmployerAcct(){
+            $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>5));
+            $user->activated = 0;
+            $user->save(false);
+        }
+        
+        //Activates the Guest Student Account
+        public static function activateGuestStudentAcct(){
+            $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>4));
+            $user->activated = 0;
+            $user->save(false);
+        }
+        
+        //Deactivates the Guest Student Account
+        public static function deactivateGuestStudentAcct(){
+            $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>4));
+            $user->activated = 0;
+            $user->save(false);
+        }
+
+        public static function replaceMessage($to, $message){
         $base = Yii::app()->basePath;
         $base = explode('/', $base);
         array_pop($base);
