@@ -1144,12 +1144,31 @@ class UserController extends Controller
 		);
 	}
 	*/
-	
-    public function actionGuestAuth()
+	     
+        
+     public function actionGuestEmployerAuth()
     {
         /*
-         *  Write controller code
-         */
+         *  Authenticates a Guest Employer User 
+         */       
+        
+        $user = new User();
+        $user = User::model()->getGuestEmployerUser();
+         
+        if($user->disable != 0){
+            $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+        }
+        
+        $userIdentity = new UserIdentity($user->username,$user->password);
+        
+        if($userIdentity->authenticateOutside()){
+            Yii::app()->user->login($userIdentity);
+            
+            $this->render('guestAuth', array('user'=>$user));
+            //$this->redirect("/JobFair/index.php/home/employerhome",['user'=>$userIdentity]);
+        }
+        
+        //$this->redirect('http://www.reddit.com'); 
     }
-               
+    
 }

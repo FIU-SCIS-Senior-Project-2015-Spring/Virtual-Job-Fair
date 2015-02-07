@@ -15,6 +15,7 @@
  * @property string $image_url
  * @property string $first_name
  * @property string $last_name
+ * @property int $disable
  * @property boolean $hide_email
  * @property boolean $job_notification
  * @property boolean $looking_for_job
@@ -78,8 +79,9 @@ class User extends CActiveRecord
 			array('image_url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'safe', 'on'=>'search'),
+			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'disable','safe', 'on'=>'search'),
 			array('image_url', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
+                    array('disable')
 
 			);
 	}
@@ -169,6 +171,7 @@ class User extends CActiveRecord
         $criteria->compare('image_url',$this->image_url,true);
         $criteria->compare('first_name',$this->first_name,true);
         $criteria->compare('last_name',$this->last_name,true);
+        $criteria->compare('disable',$this->disable,true);
         $criteria->compare('job_notification',$this->job_notification,true);
         $criteria->compare('looking_for_job',$this->looking_for_job,true);
         $criteria->compare('job_int_date', $this->job_int_date, true);
@@ -347,6 +350,20 @@ class User extends CActiveRecord
         if ($user == null)
             return false;
         return ($user->FK_usertype == 5);
+    }
+    
+    //Return the Guest Employer User
+    public static function getGuestEmployerUser(){
+        $user = User::model()->findbyAttributes(array('FK_usertype'=>5));        
+        
+        return $user;
+    }
+    
+    //Check if the Guest Student Account is disable
+    public static function getGuestStudentUser(){
+        $user = User::model()->find( array('FK_usertype'=>4));
+        
+        return $user;
     }
 
     public static function isStudent($username){
@@ -620,6 +637,13 @@ public static function sendEmployerNotificationStudentAcceptIntervie($sender, $r
             $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>4));
             $user->activated = 0;
             $user->save(false);
+        }
+        
+        //Retrieve Guest Employer Current password for authentication
+        public static function getGuestEmployerPass(){
+            $user = User::model()->find('FK_usertype=:FK_usertype',array('FK_usertype'=>5));
+            $pass = $user->password;
+            return ($pass);
         }
 
         public static function replaceMessage($to, $message){
