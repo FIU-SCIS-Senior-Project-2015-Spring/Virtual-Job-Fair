@@ -795,3 +795,4 @@ ALTER TABLE `user`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 INSERT INTO `jobfairdb`.`usertype` (`id`, `type`) VALUES ('4', 'Guest_Student'), ('5', 'Guest_Employer');
+INSERT INTO `jobfairdb`.`user` (`id`, `username`, `password`, `FK_usertype`, `email`, `registration_date`, `activation_string`, `activated`, `image_url`, `first_name`, `last_name`, `disable`, `has_viewed_profile`, `linkedinid`, `googleid`, `fiucsid`, `hide_email`, `job_notification`, `fiu_account_id`, `looking_for_job`, `job_int_date`) VALUES ('39', 'GuestStudent', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', '4', 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', '1', '/JobFair/images/profileimages/user-default.png', 'Guest', 'Student', '0', NULL, NULL, NULL, NULL, NULL, '1', NULL, '1', '0');

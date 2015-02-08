@@ -361,7 +361,7 @@ class User extends CActiveRecord
     
     //Check if the Guest Student Account is disable
     public static function getGuestStudentUser(){
-        $user = User::model()->find( array('FK_usertype'=>4));
+        $user = User::model()->findbyAttributes( array('FK_usertype'=>4));
         
         return $user;
     }
