@@ -138,7 +138,7 @@ class HomeController extends Controller
 	{
             return array(
                 array('allow',  // allow authenticated users to perform these actions
-                    'actions'=>array('NotificationAdmin', 'StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync', 'GuestStudentAuth'),
+                    'actions'=>array('NotificationAdmin', 'StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync', 'GuestStudentAuth', 'GuestEmployerAuth'),
                     'users'=>array('@')),
                 array('deny', //deny all users anything not specified
                     'users'=>array('*'),
@@ -739,5 +739,5 @@ class HomeController extends Controller
         }
 
     }
-
+    
 }

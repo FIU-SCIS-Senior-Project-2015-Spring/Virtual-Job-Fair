@@ -1,18 +1,10 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+/* @var $this HomeController */
 
 $this->breadcrumbs=array(
 	'Home'=>array('/home'),
 	'Home',
 );
-
-
 ?>
 
 
@@ -230,33 +222,33 @@ margin-left: 5px;
 padding: 10px;
 box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 <a class="iconnotification"><img src='/JobFair/images/ico/videointer.png'/></a>
-<span class="notificationtitle" >Video Interviews </span> <span class="notificationtitle" style="float: right!important"><?php /*if ($countvideo != 0){ echo $countvideo;} */?></span>
+<span class="notificationtitle" >Video Interviews </span> <span class="notificationtitle" style="float: right!important"><?php if ($countvideo != 0){ echo $countvideo;} ?></span>
 </div>
 <div class="child-div1" >
 <span class="subnotification">
-<?php //$count=0;?>
-<?php //foreach ($notification as $n) { ?>
+<?php $count=0;?>
+<?php foreach ($notification as $n) { ?>
 
 <?php 
-//if ($n->been_read == 0 & $n->importancy == 4){
-//
-//
-//$id= 0;
-//if($n->keyid!=null){
-//
-//	$id= $n->keyid;
-//
-//	
-//
-//}
+if ($n->been_read == 0 & $n->importancy == 4){
+
+
+$id= 0;
+if($n->keyid!=null){
+
+	$id= $n->keyid;
+
+	
+
+}
  
 
 ?>
 		
 <div style="background-color:#dff0d8;border-radius: 5px;padding:10px;">
-<p style="color:#468847"><a href=<?php //echo $this->createUrl('VideoInterview/startInterview',array('view'=> $n->link,'notificationRead'=> $n->id,'usertype'=>$user->FK_usertype,'session'=> $id,'me'=>$user->username));         ?>><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href=<?php echo $this->createUrl('VideoInterview/startInterview',array('view'=> $n->link,'notificationRead'=> $n->id,'usertype'=>$user->FK_usertype,'session'=> $id,'me'=>$user->username));         ?>><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px;
 width: 20px;
 height: 18px;
@@ -267,35 +259,35 @@ margin-right: -15px;;">
 </p>
 </div>
 <br>
-<?php //$count++;  }
-//
-//
-//elseif ($n->been_read != 0 & $n->importancy == 4){
-//
-//$id= 0;
-//
-//if($n->keyid!=null){
-//
-//	$id= $n->keyid;
-//
-//	
-//
-//}
+<?php $count++;  }
+
+
+elseif ($n->been_read != 0 & $n->importancy == 4){
+
+$id= 0;
+
+if($n->keyid!=null){
+
+	$id= $n->keyid;
+
+	
+
+}
 //print "<pre>"; print_r($n->keyid);print "</pre>";return;
 
 
 ?>
 <div style="background-color:rgb(240, 241, 241);border-radius:5px;padding:10px;">
-<p style="color:#468847"><a href=<?php //echo $this->createUrl('VideoInterview/startInterview',array('view'=> $n->link,'notificationRead'=> $n->id,'usertype'=>$user->FK_usertype,'session'=> $id,'me'=>$user->username));         ?>><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href=<?php echo $this->createUrl('VideoInterview/startInterview',array('view'=> $n->link,'notificationRead'=> $n->id,'usertype'=>$user->FK_usertype,'session'=> $id,'me'=>$user->username));         ?>><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px; width: 20px; height: 18px; padding: 0px; float: right; margin-right: -15px;">
 </form></p>
 </div>
 <br>
-<?php //$count++;}
+<?php $count++;}
 
-//}?>
+}?>
 </span>
 </div>
 
@@ -306,31 +298,31 @@ margin-left: 5px;
 padding: 10px;
 box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 <a class="iconnotification"><img src='/JobFair/images/ico/applicant.png'/></a>
-<span class="notificationtitle" >Applicants </span><span class="notificationtitle" style="float: right!important"><?php //if ($countapplicants != 0){ echo $countapplicants;} ?></span>
+<span class="notificationtitle" >Applicants </span><span class="notificationtitle" style="float: right!important"><?php if ($countapplicants != 0){ echo $countapplicants;} ?></span>
 </div>
 <div class="child-div2" >
 <span class="subnotification">
-<?php //$count=0;?>
-<?php //foreach ($notification as $n) { ?>
+<?php $count=0;?>
+<?php foreach ($notification as $n) { ?>
 
 <?php 
-//if ($n->been_read == 0 & $n->importancy == 6){?>
+if ($n->been_read == 0 & $n->importancy == 6){?>
 <div style="background-color:#dff0d8;border-radius: 5px;padding:10px;">
-<p style="color:#468847"><a href="<?php //echo $n->link."?notificationRead=".$n->id; ?>"><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href="<?php echo $n->link."?notificationRead=".$n->id; ?>"><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px; width: 20px; height: 18px; padding: 0px; float: right; margin-right: -15px;">
 </form></p>
 </div>
 <br>
-<?php //$count++;  }
+<?php $count++;  }
 
 
-//elseif ($n->been_read != 0 & $n->importancy == 6){?>
+elseif ($n->been_read != 0 & $n->importancy == 6){?>
 <div style="background-color:rgb(240, 241, 241);border-radius:5px;padding:10px;">
-<p style="color:#468847"><a href="<?php //echo $n->link."?t=1&notificationRead=".$n->id; ?>"><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href="<?php echo  $n->link."?t=1&notificationRead=".$n->id; ?>"><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px; width: 20px; height: 18px; padding: 0px; float: right; margin-right: -15px;">
 </form></p>
 </div>
@@ -339,9 +331,9 @@ box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 
 
 
-<?php //$count++;}
+<?php $count++;}
 
-//}?>
+}?>
 </span>
 </div>
 
@@ -352,41 +344,41 @@ margin-left: 5px;
 padding: 10px;
 box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 <a class="iconnotification"><img src='/JobFair/images/ico/message.png'/></a>
-<span class="notificationtitle" >Messages</span><span class="notificationtitle" style="float: right!important"><?php //if ($countmessages != 0){ echo $countmessages;} ?></span>
+<span class="notificationtitle" >Messages</span><span class="notificationtitle" style="float: right!important"><?php if ($countmessages != 0){ echo $countmessages;} ?></span>
 </div>
 <div class="child-div3" >
 <span class="subnotification">
-<?php //$count=0;?>
-<?php //foreach ($notification as $n) { ?>
+<?php $count=0;?>
+<?php foreach ($notification as $n) { ?>
 
 <?php 
-//if ($n->been_read == 0 & $n->importancy == 3 & $count < 6){?>
+if ($n->been_read == 0 & $n->importancy == 3 & $count < 6){?>
 <div style="background-color:#dff0d8;border-radius: 5px;padding:10px;">
-<p style="color:#468847"><a href="<?php //echo $n->link."?notificationRead=".$n->id; ?>"><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href="<?php echo $n->link."?notificationRead=".$n->id; ?>"><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px; width: 20px; height: 18px; padding: 0px; float: right; margin-right: -15px;">
 </form></p>
 </div>
 <br>
 
-<?php //$count++;  }
+<?php $count++;  }
 
 
-//elseif ($n->been_read != 0 & $n->importancy == 3 & $count < 6){?>
+elseif ($n->been_read != 0 & $n->importancy == 3 & $count < 6){?>
 
 <div style="background-color:rgb(240, 241, 241);border-radius:5px;padding:10px;">
-<p style="color:#468847"><a href="<?php //echo  $n->link."?t=1&notificationRead=".$n->id; ?>"><?php //echo $n->message; ?></a>
+<p style="color:#468847"><a href="<?php echo  $n->link."?t=1&notificationRead=".$n->id; ?>"><?php echo $n->message; ?></a>
 <form style="float:right; margin:5px 5px 5px 5px; "action="/JobFair/index.php/Home/deleteNotification" >
-<input type="hidden" name="id" value="<?php //echo $n->id?>">
+<input type="hidden" name="id" value="<?php echo $n->id?>">
 <input class="btn btn-primary" type="submit"  value="X" style="margin-top: -15px; width: 20px; height: 18px; padding: 0px; float: right; margin-right: -15px;">
 </form></p>
 </div>
 <br>
 
-<?php //$count++;}
+<?php $count++;}
 
-//}?>
+}?>
 </span>
 
 </div>

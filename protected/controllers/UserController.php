@@ -1164,14 +1164,53 @@ class UserController extends Controller
         if($userIdentity->authenticateOutside()){
             Yii::app()->user->login($userIdentity);
             
+            $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+            $univs = School::getAllSchools(); // pass universities
+            $skills = Skillset::getNames(); // pass skills
+            $countvideo = 0;
+            $countapplicants = 0;
+            $countmessages = 0;
+            $countcandidates =0;
+            foreach ($notification as $n) {
+                if ($n->importancy == 4 & $n->been_read == 0 ) {
+                $countvideo++;		
+                $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                if($key != null){
+                $n->keyid = $key->session_key;
+                //print "<pre>"; print_r($key);print "</pre>";return;
+                }
+                }
+                else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                    //$countvideo++;
+                    $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                    if($key != null){
+                        $n->keyid = $key->session_key;
+                        //print "<pre>"; print_r($key);print "</pre>";return;
+                    }
+                }
+                elseif($n->importancy == 6 & $n->been_read == 0)
+                $countapplicants++;			
+                elseif ($n->importancy == 3 & $n->been_read == 0)	
+                $countmessages++;
+                elseif ($n->importancy == 5 & $n->been_read == 0)
+                $countcandidates++;
+            }
+            
             $this->render('guestEmployerAuth', array(
-                                                    'user'=>$user));
+                'user'=>$user,
+                'universities'=>$univs,
+                'skills'=>$skills, 
+                'notification'=>$notification, 
+                'countvideo'=>$countvideo, 
+                'countapplicants'=>$countapplicants, 
+                'countmessages'=>$countmessages, 
+                'countcndidates'=>$countcandidates));
         }
         
         //Redirect to the contact form of the site due to failed authentication
         //Crate array with information to be shown to the user
         //TODO
-        $this->redirect('');
+        //$this->redirect('');
     }
     
         public function actionGuestStudentAuth(){
@@ -1234,7 +1273,7 @@ class UserController extends Controller
             //Redirect to the contact form of the site due to failed authentication
             //Crate array with information to be shown to the user
             //TODO
-            $this->redirect('');
+            //$this->render('guestStudentAuth');
     }
     
 }

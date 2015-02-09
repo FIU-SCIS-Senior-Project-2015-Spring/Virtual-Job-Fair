@@ -56,6 +56,9 @@ if (!isset($_GET['keyword'])) {
 	$search = "";
         $userTypeEmp = User::isCurrentUserEmployer(Yii::app()->user->name);
         $userTypeStu = User::isCurrentUserStudent(Yii::app()->user->name);
+        
+        
+        
 	if (User::isCurrentUserAdmin(Yii::app()->user->name)) {
 		$home = '/home/adminhome';
 	} else if ($userTypeEmp || User::isCurrentUserGuestEmployer()) {
@@ -83,8 +86,8 @@ if (!isset($_GET['keyword'])) {
             if($userTypeStu){
                 $home = '/home/studenthome';
             }
-            else{
-                $home = '/user/guestStudentAuth';
+            else{$home = '/home/studenthome';
+                //$home = '/user/guestStudentAuth';
             }
 		
 		$search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
