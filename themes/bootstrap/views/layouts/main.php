@@ -37,7 +37,10 @@ if (!isset($_GET['keyword'])) {
     $_GET['keyword'] = '';
 }
 
-	if (User::isStudent(Yii::app()->user->name))
+        $userTypeEmp = User::isCurrentUserEmployer(Yii::app()->user->name);
+        $userTypeStu = User::isCurrentUserStudent(Yii::app()->user->name);
+
+	if ($userTypeStu || User::isCurrentUserGuestStudent())//User::isStudent(Yii::app()->user->name))
 		$profile = '/profile/view';
 	else 
 		$profile = '/profile/viewEmployer';
@@ -53,11 +56,7 @@ if (!isset($_GET['keyword'])) {
 	
 	*/?>
 	<?php
-	$search = "";
-        $userTypeEmp = User::isCurrentUserEmployer(Yii::app()->user->name);
-        $userTypeStu = User::isCurrentUserStudent(Yii::app()->user->name);
-        
-        
+	$search = "";   
         
 	if (User::isCurrentUserAdmin(Yii::app()->user->name)) {
 		$home = '/home/adminhome';

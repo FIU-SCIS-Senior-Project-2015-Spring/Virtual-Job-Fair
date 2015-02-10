@@ -1,5 +1,4 @@
-<?php
-/* @var $this ProfileController */
+<?php /* @var $this ProfileController */
 
 /* @var $this UserController */
 /* @var $user User */

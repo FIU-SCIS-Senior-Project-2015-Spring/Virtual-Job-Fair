@@ -480,10 +480,10 @@ class ProfileController extends Controller
 		
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 		$utype = $user->FK_usertype;
-			if($utype==1){
+			if($utype==1||$utype==4){
 			$this->redirect('/JobFair/index.php/profile/view');
 			}
-			if($utype==2){
+			if($utype==2||$utype==5){
 				$this->redirect('/JobFair/index.php/profile/viewEmployer');
 			}
 			else{$this->actionView();}

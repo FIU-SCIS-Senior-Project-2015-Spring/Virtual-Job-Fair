@@ -368,8 +368,9 @@ class User extends CActiveRecord
 
     public static function isStudent($username){
     	$user = User::model()->find("username=:username",array(':username'=>$username));
-    	if ($user == null)
-    		return false;
+    	if ($user == null){
+            return false;
+        }
     	return ($user->FK_usertype == 1);
     }
     
