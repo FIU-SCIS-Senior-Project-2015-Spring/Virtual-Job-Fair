@@ -1,6 +1,8 @@
 <?php
+require ('GuestEmployerPostForm.php');
 $flag = 0;
 $saveQuery = "";
+
 
 class JobController extends Controller
 {
@@ -1097,6 +1099,44 @@ class JobController extends Controller
 
         $this->render('post', array('model' => $model));
     }
+    
+    public function actionPostGuestEmployer(){
+        $model = new GuestEmployerPostForm();
+        
+        print_r($_POST);
+
+        if (isset($_POST['GuestEmployerPostForm'])) {
+            if (!($this->actionVerifyGuestEmployerJobPost() == "") && $model->verify()) {
+                //$this->redirect("/JobFair/index.php/home/employerhome");
+                $this->render('postGuestEmployer', array('model' => $model));
+            }
+            if($model->validate()){
+            
+              print_r($model);
+//            //$model->attributes = $_POST['Job'];
+//            $model->FK_poster = User::getCurrentUser()->id;
+//            date_default_timezone_set('America/New_York');
+//            $model->comp_name = "";
+//            $model->post_date = date('Y-m-d H:i:s');
+//            $model->description = $this->mynl2br($_POST['Job']['description']);
+//            //$model->email = 
+//            $model->save(false);
+//            if (isset($_POST['Skill'])) {
+//                $this->actionSaveSkills($model->id);
+//            }
+//
+//
+//            $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $model->id;
+//            //$link = 'http://localhost/JobFair/JobFair/index.php/job/view/jobid/'.$model->id;
+//            $message = User::getCurrentUser()->username . " just posted a new job: " . $model->title . ". Click here to view the post. ";
+//            User::sendAllStudentVerificationAlart($model->FK_poster, $model->fKPoster->username, $model->fKPoster->email, $message, $link);
+//            $this->redirect("/JobFair/index.php/Job/studentmatch/jobid/" . $model->id);
+            }
+        }
+
+        $this->render('postGuestEmployer', array('model' => $model));
+        
+    }
 
     public function actionEditJobPost() {
         if (isset($_POST['Job'])) {
@@ -1312,6 +1352,7 @@ class JobController extends Controller
         $compensation = $job['compensation'];
         $description = $job['description'];
         $deadline = $job['deadline'];
+        $poster_email = $job['poster_email'];
 
         if (strlen($type) < 1) {
             $error .= "You must select a job type<br />";
@@ -1336,6 +1377,49 @@ class JobController extends Controller
         if (!$this->is_valid_date($deadline)) {
             $error .= "Please enter date in the format: yyyy-mm-dd<br />";
         }
+        
+        if(strlen($poster_email)){
+            $error .= "You must input your email address. />";
+        }
+        print $error;
+        return $error;
+    }
+    
+    public function actionVerifyGuestEmployerJobPost() {
+        $job = $_POST['GuestEmployerPostForm'];
+        $error = "";
+
+        $type = $job['type'];
+        $title = $job['title'];
+        $compensation = $job['compensation'];
+        $description = $job['description'];
+        $deadline = $job['deadline'];
+        $poster_email = $job['email'];
+
+        if (strlen($type) < 1) {
+            $error .= "You must select a job type<br />";
+        }
+
+        if (strlen($title) < 1) {
+            $error .= "You must input a job title<br />";
+        }
+
+        if (strlen($description) < 1) {
+            $error .= "You must input a job description<br />";
+        }
+
+        if (strlen($deadline) < 1) {
+            $error .= "You must select a job type<br />";
+        }
+
+// 		if (strlen($compensation) < 1) {
+// 			$error .= "You must input an amount for compensation<br />";
+// 		}
+
+        if (!$this->is_valid_date($deadline)) {
+            $error .= "Please enter date in the format: yyyy-mm-dd<br />";
+        }
+        
         print $error;
         return $error;
     }
@@ -1378,7 +1462,7 @@ class JobController extends Controller
             array('allow', // allow authenticated users to perform these actions
                 'actions' => array('StudentMatch', 'View', 'Home', 'Post',
                     'SaveSkills', 'studentMatch', 'EditJobPost', 'VerifyJobPost', 'View', 'VirtualHandshake', 'QuerySkill', 'Apply',
-                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome'),
+                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome', 'PostGuestEmployer'),
                 'users' => array('@')),
             array('allow',
                 'actions' => array('Home'),

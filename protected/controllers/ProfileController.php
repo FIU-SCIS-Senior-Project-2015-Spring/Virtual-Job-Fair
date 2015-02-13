@@ -14,6 +14,7 @@ class ProfileController extends Controller
 		}
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 
+//                print_r($user);
                 $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
 		
 		if ($user->FK_usertype == 2){
