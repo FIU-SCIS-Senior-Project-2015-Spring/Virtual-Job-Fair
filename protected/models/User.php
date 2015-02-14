@@ -79,10 +79,8 @@ class User extends CActiveRecord
 			array('image_url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'disable','safe', 'on'=>'search'),
-			array('image_url', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
-                    array('disable')
-
+			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'safe', 'on'=>'search'),
+			array('image_url', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update')
 			);
 	}
 
