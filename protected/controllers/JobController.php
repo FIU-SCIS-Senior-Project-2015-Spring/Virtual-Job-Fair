@@ -1102,37 +1102,41 @@ class JobController extends Controller
     
     public function actionPostGuestEmployer(){
         $model = new GuestEmployerPostForm();
-        
-        print_r($_POST);
+        $job = new Job();
+        //print_r($_POST);
 
         if (isset($_POST['GuestEmployerPostForm'])) {
-            if (!($this->actionVerifyGuestEmployerJobPost() == "") && $model->verify()) {
+            if (!($this->actionVerifyGuestEmployerJobPost() == "") && $model->verify()&& $model->validate()) {
                 //$this->redirect("/JobFair/index.php/home/employerhome");
                 $this->render('postGuestEmployer', array('model' => $model));
             }
-            if($model->validate()){
             
-              print_r($model);
-//            //$model->attributes = $_POST['Job'];
-//            $model->FK_poster = User::getCurrentUser()->id;
-//            date_default_timezone_set('America/New_York');
-//            $model->comp_name = "";
-//            $model->post_date = date('Y-m-d H:i:s');
-//            $model->description = $this->mynl2br($_POST['Job']['description']);
-//            //$model->email = 
-//            $model->save(false);
-//            if (isset($_POST['Skill'])) {
-//                $this->actionSaveSkills($model->id);
-//            }
-//
-//
-//            $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $model->id;
-//            //$link = 'http://localhost/JobFair/JobFair/index.php/job/view/jobid/'.$model->id;
-//            $message = User::getCurrentUser()->username . " just posted a new job: " . $model->title . ". Click here to view the post. ";
-//            User::sendAllStudentVerificationAlart($model->FK_poster, $model->fKPoster->username, $model->fKPoster->email, $message, $link);
-//            $this->redirect("/JobFair/index.php/Job/studentmatch/jobid/" . $model->id);
+
+            $model->attributes = $_POST['GuestEmployerPostForm'];
+            $job->type = $model->type;
+            $job->title = $model->title;
+            $job->deadline = $model->deadline;
+            $job->compensation = $model->compensation;
+            $job->FK_poster = User::getCurrentUser()->id;
+            date_default_timezone_set('America/New_York');
+            $job->comp_name = "";
+            $job->post_date = date('Y-m-d H:i:s');
+            $job->description = $this->mynl2br($model->description);
+            $job->poster_email = $model->email;
+            
+            //print_r($job);
+            $job->save(false);
+            if (isset($_POST['Skill'])) {
+                $this->actionSaveSkills($job->id);
             }
-        }
+
+
+            $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id;
+            //$link = 'http://localhost/JobFair/JobFair/index.php/job/view/jobid/'.$model->id;
+            $message = User::getCurrentUser()->username . " just posted a new job: " . $job->title . ". Click here to view the post. ";
+            User::sendAllStudentVerificationAlart($job->FK_poster, $job->fKPoster->username, $job->fKPoster->email, $message, $link);
+            $this->redirect("/JobFair/index.php/Job/studentmatch/jobid/" . $job->id);
+            }
 
         $this->render('postGuestEmployer', array('model' => $model));
         

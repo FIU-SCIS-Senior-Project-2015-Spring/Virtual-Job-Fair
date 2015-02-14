@@ -90,12 +90,12 @@ making the links dynamic so if the base Url changed the program won not be affec
 ?><br><br>
 
 <?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestEmployer.png');
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestEmployer2.png');
     echo CHtml::link($image, array('user/GuestEmployerAuth'));
 ?><br><br>
 
 <?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestStudent1.png');
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestStudent2.png');
     echo CHtml::link($image, array('user/GuestStudentAuth'));
 ?><br><br>
 
