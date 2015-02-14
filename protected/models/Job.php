@@ -16,6 +16,7 @@
  * @property integer $email_notification
  * @property string $posting_url
  * @property string $comp_name
+ * @property string $poster_email Email of the poster. Required for Guest Employers using the system
  *
  * The followings are the available model relations:
  * @property Application[] $applications
@@ -102,10 +103,12 @@ class Job extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, title, FK_poster, post_date, description, deadline', 'required'),
+			array('type, title, FK_poster, post_date, description, deadline, poster_email', 'required'),
 			array('FK_poster, email_notification', 'numerical', 'integerOnly'=>true),
 			array('type, title, compensation', 'length', 'max'=>45),
 			array('deadline, other_requirements', 'safe'),
+                        //The email attribute should be a valid email address
+                        array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, title, FK_poster, post_date, deadline, description, compensation, other_requirements, email_notification, posting_url, comp_name', 'safe', 'on'=>'search'),
@@ -142,7 +145,8 @@ class Job extends CActiveRecord
 			'compensation' => 'Compensation',
 			'other_requirements' => 'Other Requirements',
 			'email_notification' => 'Email Notification',
-            'comp_name' => 'Company Name'
+                        'comp_name' => 'Company Name',
+                        'poster_email' => 'Employer Email'
 		);
 	}
 	
@@ -176,7 +180,8 @@ class Job extends CActiveRecord
 		$criteria->compare('compensation',$this->compensation,true);
 		$criteria->compare('other_requirements',$this->other_requirements,true);
 		$criteria->compare('email_notification',$this->email_notification);
-        $criteria->compare('comp_name',$this->comp_name);
+                $criteria->compare('comp_name',$this->comp_name);
+                $criteria->compare('poster_email', $this->poster_email);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,5 +1,4 @@
-<?php
-/* @var $this ProfileController */
+<?php /* @var $this ProfileController */
 
 /* @var $this UserController */
 /* @var $user User */
@@ -302,8 +301,8 @@ function uploadvideo(){
 		<?php echo $form->textArea($user->basicInfo,'about_me',array('rows'=>3, 'cols'=>75, 'border'=>0, 'class'=>'ta','disabled'=>'true')); ?>
 	</aboutme>
         <br>
-	
-	<lab>EMAIL:</lab> <?php echo $form->textField($user,'email', array('class'=>'tb5','disabled'=>'true')); ?>
+	<?php $userEmail = $user->email;?>
+	<lab>EMAIL:</lab> <?php echo $form->textField($user, 'email', array('class'=>'tb5','disabled'=>'true')); ?>
 	<lab>PHONE:</lab> <?php echo $form->textField($user->basicInfo,'phone', array('class'=>'tb5','disabled'=>'true')); ?>
 	<lab>LOCATION:</lab> <?php echo $form->textField($user->basicInfo,'city', array('class'=>'tb5','disabled'=>'true')); ?>
 	<lab>STATE:</lab> <?php echo $form->textField($user->basicInfo,'state', array('class'=>'tb5','disabled'=>'true')); ?>

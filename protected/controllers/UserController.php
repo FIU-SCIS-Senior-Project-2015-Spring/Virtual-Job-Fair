@@ -1144,6 +1144,136 @@ class UserController extends Controller
 		);
 	}
 	*/
-	
-
+	     
+        
+     public function actionGuestEmployerAuth()
+    {
+        /*
+         *  Authenticates a Guest Employer User 
+         */       
+        
+        $user = new User();
+        $user = User::model()->getGuestEmployerUser();
+         
+        if($user->disable != 0){
+            $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+        }
+        
+        $userIdentity = new UserIdentity($user->username,$user->password);
+        
+        if($userIdentity->authenticateOutside()){
+            Yii::app()->user->login($userIdentity);
+            
+            $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+            $univs = School::getAllSchools(); // pass universities
+            $skills = Skillset::getNames(); // pass skills
+            $countvideo = 0;
+            $countapplicants = 0;
+            $countmessages = 0;
+            $countcandidates =0;
+            foreach ($notification as $n) {
+                if ($n->importancy == 4 & $n->been_read == 0 ) {
+                $countvideo++;		
+                $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                if($key != null){
+                $n->keyid = $key->session_key;
+                //print "<pre>"; print_r($key);print "</pre>";return;
+                }
+                }
+                else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                    //$countvideo++;
+                    $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                    if($key != null){
+                        $n->keyid = $key->session_key;
+                        //print "<pre>"; print_r($key);print "</pre>";return;
+                    }
+                }
+                elseif($n->importancy == 6 & $n->been_read == 0)
+                $countapplicants++;			
+                elseif ($n->importancy == 3 & $n->been_read == 0)	
+                $countmessages++;
+                elseif ($n->importancy == 5 & $n->been_read == 0)
+                $countcandidates++;
+            }
+            
+            $this->render('guestEmployerAuth', array(
+                'user'=>$user,
+                'universities'=>$univs,
+                'skills'=>$skills, 
+                'notification'=>$notification, 
+                'countvideo'=>$countvideo, 
+                'countapplicants'=>$countapplicants, 
+                'countmessages'=>$countmessages, 
+                'countcndidates'=>$countcandidates));
+        }
+        
+        //Redirect to the contact form of the site due to failed authentication
+        //Crate array with information to be shown to the user
+        //TODO
+        //$this->redirect('');
+    }
+    
+        public function actionGuestStudentAuth(){
+        
+            $user = new User();
+            $user = User::model()->getGuestStudentUser();
+            
+            if($user->disable != 0){
+                $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+            }
+            
+            $userIdentity = new UserIdentity( $user->username, $user->password);
+            
+            if($userIdentity->authenticateOutside()){
+                Yii::app()->user->login($userIdentity);
+                
+                
+                //Prepare Dashboard Objects for Guest Student
+                
+                $companies= CompanyInfo::getNames(); // pass the companies;
+                $skills = Skillset::getNames(); // pass the skills;
+                $notification = Notification::model()->getNotificationId($user->id); // pass the notifications;
+                
+                
+                $criteria= new CDbCriteria();
+		$criteria=array(
+				'group'=>'skillid',
+				'select'=>'skillid,count(*) as cc',
+				'order'=>'cc desc'
+		);
+                
+                $skillids = JobSkillMap::model()->findAll($criteria);
+                
+                $most_wanted_skills =  Array();
+		$i = 0;
+		
+		foreach ($skillids as $sk){
+                    $most_wanted_skills[] = Skillset::model()->findByAttributes(array('id'=>$sk->skillid));
+                    $i++;
+                    if ($i == 5){
+                            break;
+                    }
+		}
+                
+                $countvideo = 0;
+		$countmachingjobs = 0;
+		$countmessages = 0;
+		$countmisc =0;
+                        
+                //Send to his home page
+                $this->render('guestStudentAuth', array('user'=>$user,
+                                                    'companies'=>$companies,
+                                                    'skills'=>$skills, 'notification'=>$notification, 
+                                                    'mostwanted'=>$most_wanted_skills, 
+                                                    'countvideo'=>$countvideo, 
+                                                    'countmachingjobs'=>$countmachingjobs, 
+                                                    'countmessages'=>$countmessages, 
+                                                    'countmisc'=>$countmisc));
+            }
+            //Redirect to the contact form of the site due to failed authentication
+            //Crate array with information to be shown to the user
+            //TODO
+            //$this->render('guestStudentAuth');
+    }
+    
 }
