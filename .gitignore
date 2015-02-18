@@ -1,3 +1,7 @@
 /nbproject/private/
-protected/config/main.php
-assets
+Code/WebSite/protected/config/main.php
+Code/WebSite/assets/*
+!Code/WebSite/assets/.gitignore
+Code/WebSite/protected/runtime/*
+!Code/WebSite/protected/runtime/.gitignore
+Code/WebSite/protected/data/*.db
