@@ -190,7 +190,11 @@ if (!isset($_GET['tagName'])) {
                 ),
             )); ?>
             <!-- save button -->
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
+            <?php
+            $username = Yii::app()->user->name;
+            $guestUser = User::model()->getGuestEmployerUser()->username;
+            if(!strcasecmp($username,$guestUser) == 0){
+                $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Save Query',
                 'type'=>'info',
                 'htmlOptions'=>array(
@@ -200,8 +204,10 @@ if (!isset($_GET['tagName'])) {
                     'id' => "savebutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
                     'onclick' => "$('#saveQmodal').modal('show');",
-                ),
-            )); ?>
+                    ),
+                )); 
+            }                
+                ?>
             <!-- Modal -->
             <div class="modal hide fade" id="saveQmodal" tabindex="-1">
                 <div class="modal-content">

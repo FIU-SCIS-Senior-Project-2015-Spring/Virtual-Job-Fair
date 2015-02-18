@@ -35,7 +35,7 @@ $(function() {
 <div style="clear:both"></div>
 <hr>
 
-		<div class="hometitle" style="width:740px; ">JOB POSTS | <a style="color:white; font-weight:bold; font-size:large; float: right" href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">Post New Job</a>
+		<div class="hometitle" style="width:740px; ">JOB POSTS | <a style="color:white; font-weight:bold" href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/postGuestEmployer">Post New Job</a>
         </div>
 		<div style="clear:both"></div>
 		<div id="list4">
@@ -182,15 +182,6 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-//Register
-$(function() {
-$('div.one')
-.css("cursor","pointer")
-.click(function(){
-$(this).siblings('.child-'+this.id).toggle();
-});
-$('div[class^=child-]').hide();
-});    
 //Video Interviews
 $(function() {
 $('div.one')

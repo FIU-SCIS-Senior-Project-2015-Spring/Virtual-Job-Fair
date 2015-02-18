@@ -146,7 +146,10 @@ function getURLParameter(name) {
             <p>Select queries to search for jobs</p>
 
             <div style= "text-align:left;">
-                <?php foreach ($saveQ as $query) { ?>
+                <?php   $isGuestStudent = User::isCurrentUserGuestStudent();
+                ?>
+                <?php if(!$isGuestStudent){
+                    foreach ($saveQ as $query) { ?>
                     <?php if($query['active'] == '1')
                     {?>
                         <div class="checkbox">
@@ -164,7 +167,7 @@ function getURLParameter(name) {
 
                         </div>
                     <?php } ?>
-                <?php } ?>
+                <?php } }?>
             </div>                    
         </div> 
       <h4>Find jobs with... </h4>
@@ -353,9 +356,13 @@ function getURLParameter(name) {
          {
              foreach ($jobs as $job) 
              {?>
+             <?php //$test1 = User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;
+                    //print_r($job->FK_poster);
+                    //$test2 = CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;
+             //print_r($test1);?>
              <tr>
                  <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id;?>"><?php echo $job->title;?></a></td>
-                 <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
+                 <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php //echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
                  <td><?php echo $job->type;?></td>
                  <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->post_date);?></td>
 <!--                 <td>--><?php //echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->deadline);?><!--</td>-->

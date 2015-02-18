@@ -118,6 +118,7 @@ $deadline = strtotime($job->deadline);
 <jobdetail>OPEN DATE:</jobdetail> <?php echo date('F j, Y', $postdate);?></br>
 <jobdetail>CLOSE DATE:</jobdetail><?php echo date('F j, Y', $deadline);?></br>
 <jobdetail>JOB POSTER:</jobdetail> <?php print "<a href='/JobFair/index.php/Profile/employer/user/$username'>$username</a>"?></br>
+<jobdetail>POSTER EMAIL:</jobdetail> <?php echo $job->poster_email;?></br>
 <jobdetail>COMPENSATION:</jobdetail> <?php echo $job->compensation;?></br>
 <br/>
 <jobdetail>DESCRIPTION:</jobdetail> <br>
