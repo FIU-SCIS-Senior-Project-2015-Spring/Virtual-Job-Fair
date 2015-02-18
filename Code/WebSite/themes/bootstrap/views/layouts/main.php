@@ -37,7 +37,10 @@ if (!isset($_GET['keyword'])) {
     $_GET['keyword'] = '';
 }
 
-	if (User::isStudent(Yii::app()->user->name))
+        $userTypeEmp = User::isCurrentUserEmployer(Yii::app()->user->name);
+        $userTypeStu = User::isCurrentUserStudent(Yii::app()->user->name);
+
+	if ($userTypeStu || User::isCurrentUserGuestStudent())//User::isStudent(Yii::app()->user->name))
 		$profile = '/profile/view';
 	else 
 		$profile = '/profile/viewEmployer';
@@ -53,11 +56,19 @@ if (!isset($_GET['keyword'])) {
 	
 	*/?>
 	<?php
-	$search = "";
+	$search = "";   
+        
 	if (User::isCurrentUserAdmin(Yii::app()->user->name)) {
 		$home = '/home/adminhome';
-	} else if (User::isCurrentUserEmployer(Yii::app()->user->name)) {
-		$home = '/home/employerhome';
+	} else if ($userTypeEmp || User::isCurrentUserGuestEmployer()) {
+		
+            if($userTypeEmp){
+                $home = '/home/employerhome';
+            }
+            else {//The user is a Guest Employer
+                $home = 'user/GuestEmployerAuth';
+            }
+            
 		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/home/employersearch" >'
 					. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
 		    		'name'=>'skillkeyword',
@@ -69,8 +80,15 @@ if (!isset($_GET['keyword'])) {
 		    		'<button type="submit" style="background-color:transparent ; border:0"  >
 		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
 		</form>';
-	} else if (User::isCurrentUserStudent(Yii::app()->user->name)){
-		$home = '/home/studenthome';
+	} else if ($userTypeStu || User::isCurrentUserGuestStudent()){
+            
+            if($userTypeStu){
+                $home = '/home/studenthome';
+            }
+            else{$home = '/home/studenthome';
+                //$home = '/user/guestStudentAuth';
+            }
+		
 		$search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
                     . $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                     'name'=>'keyword',
@@ -99,11 +117,12 @@ if (!isset($_GET['keyword'])) {
             'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
                 array('label'=>'Home', 'url'=>array($home),'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'Jobs', 'url'=>array("/job/home"), 'visible'=>User::isCUrrentUserStudent()),
-    			array('label'=>'Message', 'url'=>array('/message'), 'visible'=>!Yii::app()->user->isGuest ),
+                array('label'=>'Register', 'url'=>array('/user/register'), 'visible'=>Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
+                array('label'=>'Jobs', 'url'=>array("/job/home"), 'visible'=>User::isCUrrentUserStudent() || User::isCurrentUserGuestStudent()),
+                array('label'=>'Message', 'url'=>array('/message'), 'visible'=>!Yii::app()->user->isGuest ),
                 //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
                // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
-                array('label'=>'Advanced Student Search', 'url'=>array("/job/emphome"), 'visible'=>User::isCurrentUserEmployer()),
+                array('label'=>'Advanced Student Search', 'url'=>array("/job/emphome"), 'visible'=>User::isCurrentUserEmployer() || User::isCurrentUserGuestEmployer()),
                 array('label'=>'SMS', 'url'=>array('/SMS/Sendsms'), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
             ),
         ),$search
@@ -116,11 +135,11 @@ if (!isset($_GET['keyword'])) {
                         array('label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                         array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                         array('label'=>'Merge Accounts','visible'=>(User::isCurrentUserStudent(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/user/MergeAccounts'),
-                        array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
+                        array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest && !User::isCurrentUserGuestEmployer() && !User::isCurrentUserGuestStudent(), 'url'=>'/JobFair/index.php/user/ChangePassword'),
                         '----',
                         array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                        array('label'=>'Register', 'url'=>array('/user/register'), 'visible'=>Yii::app()->user->isGuest),
+                        
                 )),
             ),
         ),
