@@ -1356,7 +1356,7 @@ class JobController extends Controller
         $compensation = $job['compensation'];
         $description = $job['description'];
         $deadline = $job['deadline'];
-        $poster_email = $job['poster_email'];
+        //$poster_email = $job['poster_email'];
 
         if (strlen($type) < 1) {
             $error .= "You must select a job type<br />";
@@ -1382,9 +1382,9 @@ class JobController extends Controller
             $error .= "Please enter date in the format: yyyy-mm-dd<br />";
         }
         
-        if(strlen($poster_email)){
+        /*if(strlen($poster_email)){
             $error .= "You must input your email address. />";
-        }
+        }*/
         print $error;
         return $error;
     }

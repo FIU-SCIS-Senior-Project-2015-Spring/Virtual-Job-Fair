@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>029-Profile</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">029-Profile</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - View Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_about_me</td>
+	<td>Student @ FIU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>3333333333</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_city</td>
+	<td>Miami</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_state</td>
+	<td>Florida</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_zip_code</td>
+	<td>00000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#edit &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=OK</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=OK</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_about_me</td>
+	<td>Student @ FIU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>33333333333</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_city</td>
+	<td>Miami</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_state</td>
+	<td>Fl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_zip_code</td>
+	<td>33134</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#edit &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addEducation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Education_name</td>
+	<td>FIU</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=Education_graduation_date</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=9</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Education_degree</td>
+	<td>Bachelor</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Education_major</td>
+	<td>Computer Science</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Education_additional_info</td>
+	<td>Testing</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#editEducation &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addExperience</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Experience_job_title</td>
+	<td>Tester</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Experience_company_name</td>
+	<td>FIU</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Experience_job_description</td>
+	<td>System Tester</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=Experience_startdate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-icon.ui-icon-circle-triangle-e</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Experience_city</td>
+	<td>Miami</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Experience_state</td>
+	<td>Fl</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#editExperience &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@id='education']/div[3]/p</td>
+	<td>May 2015</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='education']/div[3]/p</td>
+	<td>May 2015</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@id='experience']/div[3]/p</td>
+	<td>March 2015</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='experience']/div[3]/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='experience']/div[3]/p[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerQueries)</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

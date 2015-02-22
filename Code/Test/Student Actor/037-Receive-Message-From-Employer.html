@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>037-Receive-Message-From-Employer</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">037-Receive-Message-From-Employer</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>rogeremp001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=skillkeyword</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=skillkeyword</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Advanced Student Search</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=RogerQueries</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Message')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theSubject</td>
+	<td>Test from rogemp0001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theMessage</td>
+	<td>Test from rogemp001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=send_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sent-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=trash-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sent-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=trash-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete_messages_forever</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Please select any messages to be deleted</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

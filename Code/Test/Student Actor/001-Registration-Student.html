@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>001-Registration-Student</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">001-Registration-Student</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.regimg</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_first_name</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_last_name</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_username</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password_repeat</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_email</td>
+	<td>RogerTest1@mail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>3333333333</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=BasicInfo_allowSMS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Virtual Job Fair</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=fullcontent</td>
+	<td>Welcome to Virtual Job Fair <br /> RogerTest1 RogerTest1 <br /> <br /> MATCHING JOBS<br /> <br /><br /> <br /> MOST WANTED SKILLS<br /><br /><br /> - [ 643 ] Jobs Research - [ 21 ] Jobs JavaScript - [ 13 ] Jobs Java - [ 10 ] Jobs Programming - [ 6 ] Jobs <br /> <br /> <br /> 1 | News and Updates<br /> <br /><br /> Video Interviews <br /> Matching Jobs <br /> Messages <br /> Misc</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=fullcontent</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
