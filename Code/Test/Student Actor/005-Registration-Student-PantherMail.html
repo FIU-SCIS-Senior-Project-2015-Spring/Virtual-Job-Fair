@@ -47,28 +47,38 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>name=yt0</td>
+	<td>pause</td>
+	<td>1500</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>3000</td>
+	<td>storeEval</td>
+	<td>test005email</td>
+	<td>test005email</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test005email})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=My Profile</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=View my Profile</td>
+	<td>link=My Profile</td>
 	<td></td>
 </tr>
 <tr>
 	<td>pause</td>
-	<td>3000</td>
+	<td>1500</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(ralon039@fiu.edu)</td>
+	<td>link=(${test005email})</td>
 	<td></td>
 </tr>
 <tr>
@@ -83,7 +93,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(ralon039@fiu.edu)</td>
+	<td>link=(${test005email})</td>
 	<td></td>
 </tr>
 <tr>
@@ -93,10 +103,104 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (ralon039@fiu.edu)</td>
+	<td>link=Logout (${test005email})</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=navig</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']//td[9]/SPAN[text()='${test005email}']/parent::td/parent::tr//td[12]/SPAN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>750</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

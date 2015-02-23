@@ -37,19 +37,29 @@
 	<td>RogerTest2</td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test002UserName</td>
+	<td>test002UserName</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=User_username</td>
-	<td>RogerTest2</td>
+	<td>${test002UserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test002Password</td>
+	<td>test002Password</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_password</td>
-	<td>RogerTest2</td>
+	<td>${test002Password}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_password_repeat</td>
-	<td>RogerTest2</td>
+	<td>${test002Password}</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -79,19 +89,23 @@
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerTest2</td>
+	<td>${test002UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerTest2</td>
+	<td>${test002Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>name=yt0</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>assertNotTitle</td>
+	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

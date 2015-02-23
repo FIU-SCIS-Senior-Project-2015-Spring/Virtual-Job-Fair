@@ -37,24 +37,39 @@
 	<td>RogerTest1</td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=User_username</td>
-	<td>RogerTest1</td>
+	<td>${test001UserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_password</td>
-	<td>RogerTest1</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_password_repeat</td>
-	<td>RogerTest1</td>
+	<td>${test001Password}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>emailRogerTest1</td>
+	<td>emailRogerTest1</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_email</td>
-	<td>RogerTest1@mail.com</td>
+	<td>${emailRogerTest1}</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -72,19 +87,104 @@
 	<td></td>
 </tr>
 <tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>link=Virtual Job Fair</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=navig</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']//td[6]/SPAN[text()='${test001UserName}']/parent::td/parent::tr//td[12]/SPAN/I[text()='NULL']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.edit_box</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerTest1</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerTest1</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -97,16 +197,30 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>id=fullcontent</td>
-	<td>Welcome to Virtual Job Fair <br /> RogerTest1 RogerTest1 <br /> <br /> MATCHING JOBS<br /> <br /><br /> <br /> MOST WANTED SKILLS<br /><br /><br /> - [ 643 ] Jobs Research - [ 21 ] Jobs JavaScript - [ 13 ] Jobs Java - [ 10 ] Jobs Programming - [ 6 ] Jobs <br /> <br /> <br /> 1 | News and Updates<br /> <br /><br /> Video Interviews <br /> Matching Jobs <br /> Messages <br /> Misc</td>
-</tr>
-<tr>
-	<td>assertElementPresent</td>
-	<td>id=fullcontent</td>
+	<td>selectWindow</td>
+	<td>null</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Welcome to Virtual Job Fair</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=i</td>
+	<td>RogerTest1 RogerTest1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerTest1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerTest1)</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

@@ -22,14 +22,24 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test006email</td>
+	<td>test006email</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=session_key-oauthAuthorizeForm</td>
-	<td>ralon039@fiu.edu</td>
+	<td>${test006email}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test006pass</td>
+	<td>test006pass</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=session_password-oauthAuthorizeForm</td>
-	<td>ENvision26</td>
+	<td>${test006pass}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -41,7 +51,21 @@
 	<td>css=p.message</td>
 	<td>Illegal offset type </td>
 </tr>
-
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test006email})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test006email})</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
