@@ -1,0 +1,9 @@
+{
+  "require" : {
+    "braintree/braintree_php" : "2.34.0"
+  }
+  
+	"_comment": "To finalize we need to register the composer"
+	"_comment": "php composer.phar install"
+}
+
