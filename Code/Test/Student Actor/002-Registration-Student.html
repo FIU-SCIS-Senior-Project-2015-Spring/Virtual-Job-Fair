@@ -27,14 +27,34 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test002Name</td>
+	<td>test002Name</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test002LastName</td>
+	<td>test002LastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test002Email</td>
+	<td>test002Email</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test002Phone</td>
+	<td>test002Phone</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=User_first_name</td>
-	<td>RogerTest2</td>
+	<td>${test002Name}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_last_name</td>
-	<td>RogerTest2</td>
+	<td>${test002LastName}</td>
 </tr>
 <tr>
 	<td>storeEval</td>
@@ -64,12 +84,12 @@
 <tr>
 	<td>type</td>
 	<td>id=User_email</td>
-	<td>RogerTest2@mail.com</td>
+	<td>${test002Email}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=BasicInfo_phone</td>
-	<td>2222222222</td>
+	<td>${test002Phone}</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -77,7 +97,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>name=yt0</td>
 	<td></td>
 </tr>
@@ -104,6 +124,106 @@
 <tr>
 	<td>assertNotTitle</td>
 	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT * FROM `user` WHERE `username` = '${test002UserName}'</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>css=span &gt; i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.edit_box</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
 	<td></td>
 </tr>
 </tbody></table>

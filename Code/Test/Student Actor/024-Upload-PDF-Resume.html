@@ -17,14 +17,24 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -33,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -49,7 +59,7 @@
 <tr>
 	<td>type</td>
 	<td>id=Resume_resume</td>
-	<td>C:\Users\ralonso\Desktop\WORKFLOWS.docx</td>
+	<td>C:\wamp\www\Virtual-Job-Fair-Ver-5.002\Code\Test\Test Resources\WORKFLOWS.docx</td>
 </tr>
 <tr>
 	<td>assertAlert</td>
@@ -69,7 +79,7 @@
 <tr>
 	<td>type</td>
 	<td>id=Resume_resume</td>
-	<td>C:\Users\ralonso\Desktop\pom.xml</td>
+	<td>C:\wamp\www\Virtual-Job-Fair-Ver-5.002\Code\Test\Test Resources\pom.xml</td>
 </tr>
 <tr>
 	<td>assertAlert</td>
@@ -89,11 +99,21 @@
 <tr>
 	<td>typeAndWait</td>
 	<td>id=Resume_resume</td>
-	<td>C:\Users\ralonso\Desktop\University Physics with Modern Physics, 13th Edition.pdf</td>
+	<td>C:\wamp\www\Virtual-Job-Fair-Ver-5.002\Code\Test\Test Resources\Ouideliver Simple Order Sequence Diagram.pdf</td>
+</tr>
+<tr>
+	<td>assertNotText</td>
+	<td>css=p.message</td>
+	<td>move_uploaded_file(/var/www/JobFair-Ver5.0/Code/WebSite/protected/../resumes/91-Ouideliver Simple Order Sequence Diagram.pdf): failed to open stream: No such file or directory</td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>css=p.message</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -103,7 +123,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -117,16 +137,20 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertElementNotPresent</td>
+	<td>css=p.message</td>
+	<td></td>
+</tr>
+<tr>
 	<td>typeAndWait</td>
 	<td>id=Resume_resume</td>
-	<td>C:\Users\ralonso\Desktop\Rogelio Alonso Résumé.pdf</td>
+	<td>C:\wamp\www\Virtual-Job-Fair-Ver-5.002\Code\Test\Test Resources\Rogelio Alonso Resume.pdf</td>
 </tr>
 <tr>
 	<td>assertElementNotPresent</td>
 	<td>css=p.message</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

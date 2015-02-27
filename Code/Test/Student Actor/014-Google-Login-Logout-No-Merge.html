@@ -12,6 +12,16 @@
 <tr><td rowspan="1" colspan="3">014-Google-Login-Logout-No-Merge</td></tr>
 </thead><tbody>
 <tr>
+	<td>storeEval</td>
+	<td>test013email</td>
+	<td>test013email</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test007pass</td>
+	<td>test007pass</td>
+</tr>
+<tr>
 	<td>open</td>
 	<td>/JobFair/index.php/site/login</td>
 	<td></td>
@@ -24,6 +34,31 @@
 <tr>
 	<td>pause</td>
 	<td>2500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=account-chooser-add-account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Email</td>
+	<td>${test013email}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Passwd</td>
+	<td>${test007pass}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=signIn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
 	<td></td>
 </tr>
 <tr>
@@ -54,6 +89,26 @@
 <tr>
 	<td>assertTitle</td>
 	<td>Virtual Job Fair - Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>https://accounts.google.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='gb']/div/div/div[2]/div[5]/div/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=gb_71</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
 	<td></td>
 </tr>
 </tbody></table>

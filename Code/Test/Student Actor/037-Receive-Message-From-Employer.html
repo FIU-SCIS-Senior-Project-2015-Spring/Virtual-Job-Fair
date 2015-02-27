@@ -17,14 +17,29 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=LoginForm_username</td>
-	<td>rogeremp001</td>
+	<td>storeEval</td>
+	<td>test001EmpUserName</td>
+	<td>test001EmpUserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpPassword</td>
+	<td>test001EmpPassword</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test036username</td>
+	<td>test036username</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>rogemp001</td>
+	<td>${test001EmpUserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001EmpPassword}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -34,7 +49,7 @@
 <tr>
 	<td>type</td>
 	<td>id=skillkeyword</td>
-	<td>RogerQueries</td>
+	<td>${test036username}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -63,7 +78,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=RogerQueries</td>
+	<td>link=${test036username}</td>
 	<td></td>
 </tr>
 <tr>
@@ -72,14 +87,24 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test36ToValue</td>
+	<td>test36ToValue</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=receiver</td>
+	<td>&quot;${test36ToValue}&quot; &lt;${test036username}&gt;</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=theSubject</td>
-	<td>Test from rogemp0001</td>
+	<td>${test001EmpUserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=theMessage</td>
-	<td>Test from rogemp001</td>
+	<td>${test001EmpUserName}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -103,23 +128,33 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(rogemp001)</td>
+	<td>link=(${test001EmpUserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (rogemp001)</td>
+	<td>link=Logout (${test001EmpUserName})</td>
 	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -137,6 +172,31 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[2]/div/div/span[contains(.,'Test from rogemp0001')]</td>
+	<td>${test001EmpUserName}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/div/div/span[contains(.,'Test from rogemp0001')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=pre.messageContent</td>
+	<td>${test001EmpUserName}</td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>id=sent-option</td>
 	<td></td>
@@ -152,21 +212,20 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>link=(RogerQueries)</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Logout (RogerQueries)</td>
-	<td></td>
-</tr>
-<tr>
 	<td>assertAlert</td>
 	<td>Please select any messages to be deleted</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001UserName})</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

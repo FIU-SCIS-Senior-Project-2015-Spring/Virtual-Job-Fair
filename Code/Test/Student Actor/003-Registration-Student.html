@@ -27,14 +27,34 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test003Name</td>
+	<td>test003Name</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003LastName</td>
+	<td>test003LastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Email</td>
+	<td>test003Email</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Phone</td>
+	<td>test003Phone</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=User_first_name</td>
-	<td>RogerTest1</td>
+	<td>${test003Name}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=User_last_name</td>
-	<td>RogerTest1</td>
+	<td>${test003LastName}</td>
 </tr>
 <tr>
 	<td>storeEval</td>
@@ -64,12 +84,12 @@
 <tr>
 	<td>type</td>
 	<td>id=User_email</td>
-	<td>RogerTest1@mail.com</td>
+	<td>${test003Email}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=BasicInfo_phone</td>
-	<td>1111111111</td>
+	<td>${test003Phone}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -95,6 +115,11 @@
 	<td>assertText</td>
 	<td>link=Get my password</td>
 	<td>Get my password</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

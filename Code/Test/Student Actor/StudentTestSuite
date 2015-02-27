@@ -47,7 +47,12 @@
 <tr><td><a href="036-View-Message-Options.html">036-View-Message-Options</a></td></tr>
 <tr><td><a href="037-Receive-Message-From-Employer.html">037-Receive-Message-From-Employer</a></td></tr>
 <tr><td><a href="038-Send-Message-To-Employer.html">038-Send-Message-To-Employer</a></td></tr>
-<tr><td><a href="../../../../../../Users/ralonso/Documents/TestCases VJF Sprint2/Student/039-Testing-parameters.html">039-Testing-parameters</a></td></tr>
+<tr><td><a href="039-Replay-Message-Delete-Message.html">039-Replay-Message-Delete-Message</a></td></tr>
+<tr><td><a href="040-Disable-Looking-For-Jobs.html">040-Disable-Looking-For-Jobs</a></td></tr>
+<tr><td><a href="041-Receive-Job-Notifications.html">041-Receive-Job-Notifications</a></td></tr>
+<tr><td><a href="042-SMS-Verifications.html">042-SMS-Verifications</a></td></tr>
+<tr><td><a href="043-Authentication-Before-Profile.html">043-Authentication-Before-Profile</a></td></tr>
+<tr><td><a href="044-Read-Notification.html">044-Read-Notification</a></td></tr>
 </tbody></table>
 </body>
 </html>

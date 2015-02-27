@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>039-Replay-Message-Delete-Message</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">039-Replay-Message-Delete-Message</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>UPDATE `jobfairdb`.`user` SET `hide_email` = NULL WHERE `user`.`id` =36</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=compose-box</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=receiver</td>
+	<td>&quot;Rogelio Alonso&quot; &lt;RogerQueries&gt;, </td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theSubject</td>
+	<td>Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theMessage</td>
+	<td>Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=send_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sent-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='message-content']/div[contains(.,'Please Replay ASAP')]</td>
+	<td>RogerQueriesPlease Replay ASAPundefined NaN</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/div[contains(.,'Please Replay ASAP')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=pre.messageContent</td>
+	<td>Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=message_receiver</td>
+	<td>exact:To: RogerQueries</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerQueries</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='message-content']/div[contains(.,'Please Replay ASAP')]</td>
+	<td>rogemp001Please Replay ASAPundefined NaN</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='message-content']/div/SPAN[2][contains(.,'Please Replay ASAP')]</td>
+	<td>Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.message_subject</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=pre.messageContent</td>
+	<td>Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a.reply_image.tooltipster</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=receiver</td>
+	<td>&quot;Roger Employer&quot; &lt;rogemp001&gt;</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=receiver</td>
+	<td>&quot;Roger Employer&quot; &lt;rogemp001&gt;</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theMessage</td>
+	<td>This is RogerQueries replying back<br /><br />On 2015-02-25 14:04:21, rogemp001 wrote:<br />Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=send_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerQueries)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.message_subject</td>
+	<td>exact:Re: Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/div[contains(.,'Re: Please Replay ASAP')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.theSubject</td>
+	<td>exact:Re: Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=pre.messageContent</td>
+	<td>This is RogerQueries replying back<br /><br />On 2015-02-25 14:04:21, rogemp001 wrote:<br />Please Replay ASAP</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=trash-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='message-content']/div/SPAN[contains(.,'Re: Please Replay ASAP')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/div/SPAN[contains(.,'Re: Please Replay ASAP')]/../../input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete_messages_forever</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//div[@id='message-content']/div/SPAN[contains(.,'Re: Please Replay ASAP')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (rogemp001)</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

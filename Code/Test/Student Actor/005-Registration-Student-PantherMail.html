@@ -12,6 +12,16 @@
 <tr><td rowspan="1" colspan="3">005-Registration-Student-PantherMail</td></tr>
 </thead><tbody>
 <tr>
+	<td>storeEval</td>
+	<td>test005email</td>
+	<td>test005email</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test007pass</td>
+	<td>test007pass</td>
+</tr>
+<tr>
 	<td>open</td>
 	<td>/JobFair/index.php/site/login</td>
 	<td></td>
@@ -33,12 +43,32 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>5000</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForTitle</td>
-	<td>Request for Permission</td>
+	<td>clickAndWait</td>
+	<td>id=account-chooser-add-account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Email</td>
+	<td>${test005email}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Passwd</td>
+	<td>${test007pass}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=signIn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
 	<td></td>
 </tr>
 <tr>
@@ -48,13 +78,8 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>1500</td>
+	<td>3000</td>
 	<td></td>
-</tr>
-<tr>
-	<td>storeEval</td>
-	<td>test005email</td>
-	<td>test005email</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -73,7 +98,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>1500</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
@@ -82,14 +107,19 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>assertTitle</td>
 	<td>Virtual Job Fair - View Profile</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
+	<td>assertText</td>
+	<td>link=(${test005email})</td>
+	<td>(${test005email})</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -143,37 +173,82 @@
 </tr>
 <tr>
 	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT * FROM `user` WHERE `email` = '${test005email}'</td>
+</tr>
+<tr>
+	<td>pause</td>
 	<td>1000</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=user</td>
+	<td>id=button_submit_query</td>
 	<td></td>
 </tr>
 <tr>
 	<td>pause</td>
-	<td>3000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=navig</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>3000</td>
+	<td>5000</td>
 	<td></td>
 </tr>
 <tr>
 	<td>doubleClick</td>
-	<td>//table[@id='table_results']//td[9]/SPAN[text()='${test005email}']/parent::td/parent::tr//td[12]/SPAN</td>
+	<td>//table[@id='table_results']/tbody/tr/td[12]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.edit_box</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']/tbody/tr/td[12]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
 	<td></td>
 </tr>
 <tr>
@@ -183,7 +258,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>750</td>
+	<td>1000</td>
 	<td></td>
 </tr>
 <tr>
@@ -192,8 +267,23 @@
 	<td></td>
 </tr>
 <tr>
+	<td>open</td>
+	<td>https://accounts.google.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='gb']/div/div/div[2]/div[5]/div/a</td>
+	<td></td>
+</tr>
+<tr>
 	<td>pause</td>
-	<td>2000</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=gb_71</td>
 	<td></td>
 </tr>
 <tr>

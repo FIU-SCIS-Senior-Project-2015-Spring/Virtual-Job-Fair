@@ -62,13 +62,33 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - View Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=(${test006email})</td>
+	<td>(${test006email})</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>link=(ralon039@fiu.edu)</td>
+	<td>link=(${test006email})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (ralon039@fiu.edu)</td>
+	<td>link=Logout (${test006email})</td>
 	<td></td>
 </tr>
 <tr>
@@ -139,6 +159,11 @@
 <tr>
 	<td>click</td>
 	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
 	<td></td>
 </tr>
 <tr>

@@ -4,23 +4,13 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
-<title>013-Google-Login-Logout-Merge</title>
+<title>041-Receive-Job-Notifications</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">013-Google-Login-Logout-Merge</td></tr>
+<tr><td rowspan="1" colspan="3">041-Receive-Job-Notifications</td></tr>
 </thead><tbody>
-<tr>
-	<td>storeEval</td>
-	<td>test013email</td>
-	<td>test013email</td>
-</tr>
-<tr>
-	<td>storeEval</td>
-	<td>test007pass</td>
-	<td>test007pass</td>
-</tr>
 <tr>
 	<td>open</td>
 	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
@@ -58,7 +48,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>2000</td>
+	<td>1000</td>
 	<td></td>
 </tr>
 <tr>
@@ -68,22 +58,27 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>3000</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForElementPresent</td>
-	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
-	<td> UPDATE&nbsp;&nbsp;`jobfairdb`.`user` SET&nbsp;&nbsp;`googleid` = NULL&nbsp;&nbsp;WHERE&nbsp;&nbsp;`user`.`username`= '${test013email}'; </td>
+	<td>UPDATE `jobfairdb`.`user` SET `has_viewed_profile` = NULL WHERE `user`.`username` ='RogerTest1'</td>
 </tr>
 <tr>
 	<td>pause</td>
-	<td>1000</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
@@ -93,7 +88,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>4000</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
@@ -107,13 +102,118 @@
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>RogerTest1</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='altlogin']/a[5]/img</td>
+	<td>name=yt0</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>2500</td>
+	<td>click</td>
+	<td>link=(RogerTest1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=x</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addskillname</td>
+	<td>REST</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addskill</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveSkills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RogerTest1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RogerTest1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>rogemp001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post New Job</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=Job_type</td>
+	<td>label=Full Time</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Job_title</td>
+	<td>REST</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Job_description</td>
+	<td>REST</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Job_deadline</td>
+	<td>2015-02-28</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (rogemp001)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://www.gmail.com</td>
 	<td></td>
 </tr>
 <tr>
@@ -124,12 +224,12 @@
 <tr>
 	<td>type</td>
 	<td>id=Email</td>
-	<td>${test013email}</td>
+	<td>rog.stu.001</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=Passwd</td>
-	<td>${test007pass}</td>
+	<td>VirtualStu</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -137,75 +237,16 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>3000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>click</td>
-	<td>id=submit_approve_access</td>
+	<td>//span[@id=':3u']/b</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>2000</td>
-	<td></td>
+	<td>assertText</td>
+	<td>//div[@id=':7y']/table/tbody/tr[3]/td/table/tbody/tr[2]/td</td>
+	<td>ORACLE</td>
 </tr>
-<tr>
-	<td>click</td>
-	<td>name=yt0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=View my Profile</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Virtual Job Fair - View Profile</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=(${test013email})</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Logout (${test013email})</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Virtual Job Fair - Login</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>https://accounts.google.com</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='gb']/div/div/div[2]/div[5]/div/a</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=gb_71</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/JobFair/index.php/site/login</td>
-	<td></td>
-</tr>
+
 </tbody></table>
 </body>
 </html>

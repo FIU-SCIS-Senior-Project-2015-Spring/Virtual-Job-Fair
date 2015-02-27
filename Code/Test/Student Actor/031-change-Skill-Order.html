@@ -17,14 +17,29 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Email</td>
+	<td>test001Email</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -33,7 +48,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -49,7 +64,7 @@
 <tr>
 	<td>type</td>
 	<td>id=User_email</td>
-	<td>rogeloco@yahoo.com</td>
+	<td>${test001Email}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -62,9 +77,19 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=addskillname</td>
 	<td>PHP</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
@@ -82,6 +107,11 @@
 	<td>Java</td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>id=addskill</td>
 	<td></td>
@@ -95,6 +125,11 @@
 	<td>type</td>
 	<td>id=addskillname</td>
 	<td>HTML</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
@@ -118,23 +153,23 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (RogerQueries)</td>
+	<td>link=Logout (${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -143,7 +178,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -182,6 +217,11 @@
 	<td>id=skill1</td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>id=saveSkills</td>
 	<td></td>
@@ -192,7 +232,7 @@
 	<td>Java</td>
 </tr>
 <tr>
-	<td>waitForText</td>
+	<td>assertText</td>
 	<td>css=#skill2 &gt; #skill2</td>
 	<td>PHP</td>
 </tr>
@@ -202,8 +242,18 @@
 	<td>HTML</td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=#skill1 &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
 	<td></td>
 </tr>
 <tr>
@@ -212,8 +262,18 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=#skill3 &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
 	<td></td>
 </tr>
 <tr>
@@ -228,23 +288,23 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (RogerQueries)</td>
+	<td>link=Logout (${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -253,7 +313,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
@@ -268,15 +328,14 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(RogerQueries)</td>
+	<td>link=(${test001UserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (RogerQueries)</td>
+	<td>link=Logout (${test001UserName})</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
