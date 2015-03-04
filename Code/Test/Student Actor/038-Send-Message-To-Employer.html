@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>038-Send-Message-To-Employer</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">038-Send-Message-To-Employer</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=company_info</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Insert</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=field_1_3</td>
+	<td>label=36</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_2_3</td>
+	<td>Tester Employer Company</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_3_3</td>
+	<td>123 main</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_5_3</td>
+	<td>miami</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_6_3</td>
+	<td>Fl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_7_3</td>
+	<td>33014</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_8_3</td>
+	<td>www.vjf.cs.fiu.edu</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=field_9_3</td>
+	<td>This is company for the testing of the VJF system</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT *<br />FROM `user`<br />LIMIT 0, 100</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']//td[6]/SPAN[text()='rogemp001']/parent::td/parent::tr//td[21]/SPAN[text()='1']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpUserName</td>
+	<td>test001EmpUserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpPassword</td>
+	<td>test001EmpPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001EmpUserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001EmpPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post New Job</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=Job_type</td>
+	<td>label=Full Time</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Job_title</td>
+	<td>Java Developer III</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Job_description</td>
+	<td>Java Developer III<br /></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=Job_deadline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=28</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addskillname</td>
+	<td>HTML</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001EmpUserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001EmpUserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001UserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001Password}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Jobs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=phrase</td>
+	<td>&quot;Java Developer III&quot;</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=searchbutton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Java Developer III</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=${test001EmpUserName}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Java Developer III</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=compose-box</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theSubject</td>
+	<td>test application message</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theMessage</td>
+	<td>test application message</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=send_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sent-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=trash-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001EmpUserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001EmpPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.message_subject</td>
+	<td>test application message</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.message_subject</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=pre.messageContent</td>
+	<td>test application message</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sent-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=trash-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001EmpUserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001EmpUserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>UPDATE `jobfairdb`.`user` SET `hide_email` = '1' WHERE `user`.`username` ='${test001EmpUserName}';</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

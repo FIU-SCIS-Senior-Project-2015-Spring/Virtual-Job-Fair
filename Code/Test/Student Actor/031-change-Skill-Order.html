@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>031-change-Skill-Order</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">031-change-Skill-Order</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Email</td>
+	<td>test001Email</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001UserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001Password}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_email</td>
+	<td>${test001Email}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#edit &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>id=addskillname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addskillname</td>
+	<td>PHP</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addskill</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addskillname</td>
+	<td>Java</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addskill</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addskillname</td>
+	<td>HTML</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addskill</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveSkills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001UserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001Password}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill1 &gt; #skill1</td>
+	<td>PHP</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill2 &gt; #skill2</td>
+	<td>Java</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill3 &gt; #skill3</td>
+	<td>HTML</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveSkills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>dragAndDropToObject</td>
+	<td>css=#skill2 &gt; #skill2</td>
+	<td>id=skill1</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveSkills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill1 &gt; #skill1</td>
+	<td>Java</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill2 &gt; #skill2</td>
+	<td>PHP</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#skill3 &gt; #skill3</td>
+	<td>HTML</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#skill1 &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#skill2 &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#skill3 &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveSkills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>${test001UserName}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>${test001Password}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=My Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=skills</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test001UserName})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test001UserName})</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

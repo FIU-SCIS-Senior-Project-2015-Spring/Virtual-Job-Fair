@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>009-FIU-Senior-User-Login-Logout</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">009-FIU-Senior-User-Login-Logout</td></tr>
+</thead><tbody>
+<tr>
+	<td>storeEval</td>
+	<td>test009pantheremail</td>
+	<td>test009pantheremail</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test009pantherID</td>
+	<td>test009pantherID</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT * FROM `user` WHERE `email` = '${test009pantheremail}'</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']/tbody/tr/td[20]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.edit_box</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']/tbody/tr/td[20]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=panthermail</td>
+	<td>${test009pantheremail}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pantherid</td>
+	<td>${test009pantherID}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=View my Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - View Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=(${test009pantheremail})</td>
+	<td>(${test009pantheremail})</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test009pantheremail})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test009pantheremail})</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

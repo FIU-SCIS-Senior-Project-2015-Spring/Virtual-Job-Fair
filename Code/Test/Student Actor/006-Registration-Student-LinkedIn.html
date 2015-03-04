@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>006-Registration-Student-LinkedIn</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">006-Registration-Student-LinkedIn</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.regimg</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='regbox']/a[2]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test006email</td>
+	<td>test006email</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=session_key-oauthAuthorizeForm</td>
+	<td>${test006email}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test006pass</td>
+	<td>test006pass</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=session_password-oauthAuthorizeForm</td>
+	<td>${test006pass}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=authorize</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>css=p.message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - View Profile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=(${test006email})</td>
+	<td>(${test006email})</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - Studenthome Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(${test006email})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (${test006email})</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=navig</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//table[@id='table_results']//td[9]/SPAN[text()='${test006email}']/parent::td/parent::tr//td[18]/SPAN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.null_div &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>750</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

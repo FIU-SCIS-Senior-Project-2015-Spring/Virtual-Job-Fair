@@ -148,7 +148,7 @@ function getURLParameter(name) {
             <div style= "text-align:left;">
                 <?php   $isGuestStudent = User::isCurrentUserGuestStudent();
                 ?>
-                <?php if(!$isGuestStudent){
+                <?php if($isGuestStudent){
                     foreach ($saveQ as $query) { ?>
                     <?php if($query['active'] == '1')
                     {?>
