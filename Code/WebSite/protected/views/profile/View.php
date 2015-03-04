@@ -48,7 +48,13 @@ $('div[class^=child-]').hide();
         var fup = document.getElementById('Resume_resume');
         var fileName = fup.value;
         var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
-
+        
+//        var resume = document.getElementById("Resume_resume");
+//        
+//        if(/^\w+$/.test(resume)){
+//            alert('Document name must ONLY contains letters, numbers and spaces.\n Please rename your resume and upload again!');
+//            return false;
+//        }
     if(ext =="pdf" || ext=="PDF")
     {
         return true;
@@ -58,6 +64,7 @@ $('div[class^=child-]').hide();
         alert("Upload PDF files only");
         return false;
     }
+    
     }
 </script>
 
@@ -173,7 +180,7 @@ function endWith (str, suffix){
 function uploadresume(){
 
 		document.getElementById("Resume_resume").click();
-		document.getElementById("Resume_resume").onchange = function() {
+		document.getElementById("Resume_resume").onchange = function() {                        
 			if (endWith(document.getElementById("Resume_resume").value, 'pdf')){
 				document.getElementById("user-uploadResume-form").submit();
 			} else {
@@ -445,7 +452,8 @@ function uploadvideo(){
 
 	echo CHtml::activeFileField($resume, 'resume', array('style'=>'display:none;'));
 	if (isset($resume->resume)){
-		echo CHtml::link(CHtml::encode('Resume'), $resume->resume, array('target'=>'_blank', 'style' =>'float:left'));
+                $resumeURL = '/JobFair/resumes/'.$resume->resume; // This address the bug in card #354 giving the url for the resume file
+		echo CHtml::link(CHtml::encode('Resume'), $resumeURL/*$resume->resume*/, array('target'=>'_blank', 'style' =>'float:left'));
 	} else {
 		echo 'Upload a resume! PDF format only';
 	}

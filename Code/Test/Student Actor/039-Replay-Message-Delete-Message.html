@@ -102,14 +102,54 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test001EmpName</td>
+	<td>test001EmpName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpLastName</td>
+	<td>test001EmpLastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpUserName</td>
+	<td>test001EmpUserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001EmpPassword</td>
+	<td>test001EmpPassword</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Name</td>
+	<td>test001Name</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001LastName</td>
+	<td>test001LastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001UserName</td>
+	<td>test001UserName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Password</td>
+	<td>test001Password</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>rogemp001</td>
+	<td>${test001EmpUserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>rogemp001</td>
+	<td>${test001EmpPassword}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -129,7 +169,7 @@
 <tr>
 	<td>type</td>
 	<td>id=receiver</td>
-	<td>&quot;Rogelio Alonso&quot; &lt;RogerQueries&gt;, </td>
+	<td>&quot;${test001Name} ${test001LastName}&quot; &lt;${test001UserName}&gt;, </td>
 </tr>
 <tr>
 	<td>type</td>
@@ -164,7 +204,7 @@
 <tr>
 	<td>assertText</td>
 	<td>//div[@id='message-content']/div[contains(.,'Please Replay ASAP')]</td>
-	<td>RogerQueriesPlease Replay ASAPundefined NaN</td>
+	<td>${test001UserName}Please Replay ASAPundefined NaN</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -184,27 +224,27 @@
 <tr>
 	<td>assertText</td>
 	<td>id=message_receiver</td>
-	<td>exact:To: RogerQueries</td>
+	<td>exact:To: ${test001UserName}</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=(rogemp001)</td>
+	<td>link=(${test001EmpUserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Logout (rogemp001)</td>
+	<td>link=Logout (${test001EmpUserName})</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_username</td>
-	<td>RogerQueries</td>
+	<td>${test001UserName}</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=LoginForm_password</td>
-	<td>RogerQueries</td>
+	<td>${test001Password}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -224,7 +264,7 @@
 <tr>
 	<td>assertText</td>
 	<td>//div[@id='message-content']/div[contains(.,'Please Replay ASAP')]</td>
-	<td>rogemp001Please Replay ASAPundefined NaN</td>
+	<td>${test001EmpUserName}Please Replay ASAPundefined NaN</td>
 </tr>
 <tr>
 	<td>assertText</td>
@@ -259,12 +299,12 @@
 <tr>
 	<td>type</td>
 	<td>id=receiver</td>
-	<td>&quot;Roger Employer&quot; &lt;rogemp001&gt;</td>
+	<td>&quot;${test001Password} ${test001Password}&quot; &lt;${test001EmpUserName}&gt;</td>
 </tr>
 <tr>
 	<td>assertValue</td>
 	<td>id=receiver</td>
-	<td>&quot;Roger Employer&quot; &lt;rogemp001&gt;</td>
+	<td>&quot;Roger Employer&quot; &lt;${test001EmpUserName}&gt;</td>
 </tr>
 <tr>
 	<td>type</td>
