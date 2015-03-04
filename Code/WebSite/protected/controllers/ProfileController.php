@@ -395,7 +395,7 @@ class ProfileController extends Controller
 		
                 
                 
-
+//*************** THIS WAS DONE BY PREVIOUS VERSIONS ************************
 //		if (isset($oldUrl)) {
 //			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');  //Resume Object
 //			$fileName = "{$rnd}-{$uploadedFile}";  // student ID + resume file name
@@ -424,7 +424,9 @@ class ProfileController extends Controller
 //				}
 //			}
 //		}
+//*************** END OF CODE BY PREVIOUS VERSIONS **************************
                 
+                //
                 //Code to replace an existing Resume
                 if(isset($oldUrl)){
                     //Delete the file from the File system
