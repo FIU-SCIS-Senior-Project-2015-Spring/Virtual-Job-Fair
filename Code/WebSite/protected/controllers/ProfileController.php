@@ -393,33 +393,59 @@ class ProfileController extends Controller
 			$oldUrl = $localresume->resume;
 		}
 		
-		if (isset($oldUrl)) {
-			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');
-			$localresume->resume = $oldUrl;
-			if($localresume->validate(array('resume'))){
-				$localresume->save(false); // save path in database
-				if (isset( $uploadedFile)) {
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
-				}
-			}
-			// else insert new image
-		} else {
-			$localresume = new Resume;
-			// code to upload image
-			$rnd = $model->id;
-			$uploadedFile=CUploadedFile::getInstance($localresume,'resume'); // image object
-			$fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
-			$localresume->resume = '/JobFair/resumes/'.$fileName;
-			$localresume->id = $model->id;
-			if($localresume->validate(array('resume'))){
-				$localresume->save(false); // save path in database
-			
-				if (isset( $uploadedFile)) {
-					
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-				}
-			}
-		}
+                
+                
+
+//		if (isset($oldUrl)) {
+//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');  //Resume Object
+//			$fileName = "{$rnd}-{$uploadedFile}";  // student ID + resume file name
+//			$localresume->resume = $fileName;
+//			if($localresume->validate(array('resume'))){
+//				$localresume->save(false); // save path in database
+//				if (isset( $uploadedFile)) {
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../'.$oldUrl);
+//				}
+//			}
+//			// else insert new image
+//		} else {
+//			$localresume = new Resume;
+//			// code to upload image
+//			
+//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume'); // image object
+//			$fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
+//			$localresume->resume = $fileName; //'/JobFair/resumes/'.$fileName;
+//			$localresume->id = $model->id;
+//			if($localresume->validate(array('resume'))){
+//				$localresume->save(false); // save path in database
+//			
+//				if (isset( $uploadedFile)) {
+//					
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
+//				}
+//			}
+//		}
+                
+                //Code to replace an existing Resume
+                if(isset($oldUrl)){
+                    //Delete the file from the File system
+                    unlink(Yii::app()->basePath.'/../resumes/'.$oldUrl);
+                }
+                else{
+                    $localresume = new Resume();
+                    $localresume->id = $model->id;
+                }
+                $uploadedFile = CUploadedFile::getInstance($localresume, 'resume'); //Resume Object
+                $rnd = $model->id; //Prefix the id of the student before the name of the resume 
+                $fileName = "{$rnd}-{$uploadedFile}";
+                $localresume->resume = $fileName;
+                
+                if($localresume->validate(array('resume'))){
+                    $localresume->save(false); //Update Resume Table for the user
+                    
+                    if(isset($uploadedFile)){
+                        $uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName, true); //Upload physical file to the server folder
+                    }
+                }
 		$this->actionView();
 		
 	}
