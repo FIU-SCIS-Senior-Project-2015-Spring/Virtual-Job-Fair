@@ -500,7 +500,7 @@ function uploadvideo(){
 
 	echo CHtml::activeFileField($resume, 'resume', array('style'=>'display:none;'));     
 	if (isset($resume->resume)){
-                $resumeURL = '/JobFair/resumes/'.$resume->resume; // This address the bug in card #354 giving the url for the resume file
+                $resumeURL = $resume->resume; // This address the bug in card #354 giving the url for the resume file
 		echo CHtml::link(CHtml::encode('Resume'), $resumeURL/*$resume->resume*/, array('target'=>'_blank', 'style' =>'float:left'));
 	} else {
 		echo 'Upload a resume! PDF format only';

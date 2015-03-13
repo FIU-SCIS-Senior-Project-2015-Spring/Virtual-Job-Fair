@@ -443,22 +443,23 @@ class ProfileController extends Controller
                 //Code to replace an existing Resume
                 if(isset($oldUrl)){
                     //Delete the file from the File system
-                    unlink(Yii::app()->basePath.'/../resumes/'.$oldUrl);
+                    unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8));
                 }
                 else{
                     $localresume = new Resume();
                     $localresume->id = $model->id;
                 }
                 $uploadedFile = CUploadedFile::getInstance($localresume, 'resume'); //Resume Object
-                $rnd = $model->id; //Prefix the id of the student before the name of the resume 
-                $fileName = "{$rnd}-{$uploadedFile}";
+                $rnd = $model->id; //Prefix the id of the student before the name of the resume
+		$fileName = '/JobFair/resumes/'; 
+                $fileName .= "{$rnd}-{$uploadedFile}";
                 $localresume->resume = $fileName;
                 
                 if($localresume->validate(array('resume'))){
                     $localresume->save(false); //Update Resume Table for the user
                     
                     if(isset($uploadedFile)){
-                        $uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName, true); //Upload physical file to the server folder
+                        $uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8), true); //Upload physical file to the server folder
                     }
                 }
 		$this->actionView();
