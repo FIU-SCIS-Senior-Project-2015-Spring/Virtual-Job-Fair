@@ -1,9 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: analhernandez
- * Date: 7/24/14
- * Time: 6:05 PM
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 ?>
 
@@ -19,14 +19,15 @@ $(document).ready(function()
 <div class="modal hide fade" id="saveQmodal" tabindex="-1">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Zip Code Error Message:</h4>
+            <h4 class="modal-title">Email Error Message:</h4>
         </div>
         <div class="modal-body">
             
-           
+           <?phpif(isset($_POST['User']['email'])) {?>
                 <div id="alertBig" class="alert alert-error">
-                    <strong>Error!</strong> The Zip Code that you have entered does not exist!
+                    <strong>Error!</strong> The Email that you have entered is already in the system!
                 </div>
+            <?php}?>
         
         </div>
          <?php if($user->FK_usertype = 1) { ?>
@@ -50,4 +51,5 @@ $(document).ready(function()
          <?php } ?>
     </div><!-- /.modal-content -->
 </div><!-- /.modal -->
+
 

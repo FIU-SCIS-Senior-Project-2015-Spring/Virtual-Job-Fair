@@ -74,6 +74,13 @@ class UserController extends Controller
 			$pass = $_POST['User']['password'];
 			$p1 = $_POST['User']['password1'];
 			$p2 = $_POST['User']['password2'];
+                        
+                        //This address the bug in card #341 (Allowing blank passwords and leaving users locked out) 
+                        if ($p1 == $p2 && strlen($p1) < 6) { //Check that the new password is at least 6 characters
+                            $error .= "New password must have at least 6 characters. Please enter another password. <br />";
+                            $this->render('ChangePassword',array('model'=>$model, 'error' => $error));
+                            exit();
+                        }
 			//verify old password
 			$username = Yii::app()->user->name;
 			$hasher = new PasswordHash(8, false);
@@ -210,58 +217,58 @@ class UserController extends Controller
 		}
 		*/
 	
-		if(isset($_POST['User']))
-		{
-            $user = $_POST['User'];
-            $email = $user['email'];
-            $pathStudent = $this->actionVerifyStudentRegistration();
-			if($pathStudent == 1){
-                $this->actionStudentHelpReg($email);
-                return;
-            }
-            if ($pathStudent != "" && $pathStudent != 1) {
-				$this->render('StudentRegister');
-			}
+            if(isset($_POST['User']))
+            {
+                $user = $_POST['User'];
+                $email = $user['email'];
+                $pathStudent = $this->actionVerifyStudentRegistration();
+                if($pathStudent == 1){
+                    $this->actionStudentHelpReg($email);
+                    return;
+                }
+                if ($pathStudent != "" && $pathStudent != 1) {
+                    $this->render('StudentRegister');
+		}
 						
-			$model->attributes=$_POST['User'];
-			$model->image_url = '/JobFair/images/profileimages/user-default.png';
-			$resume = Resume::model();
-			
-			//Form inputs are valid
+                    $model->attributes=$_POST['User'];
+                    $model->image_url = '/JobFair/images/profileimages/user-default.png';
+                    $resume = Resume::model();
 
-			// save ID to resume table
-			$resume->id = $model->id;
-			$resume->save(false);
+                    //Form inputs are valid
 
-			//Populate user attributes
-			$model->FK_usertype = 1;
-			$model->registration_date = new CDbExpression('NOW()');
-			$model->activation_string = $this->genRandomString(10);
+                    // save ID to resume table
+                    $resume->id = $model->id;
+                    $resume->save(false);
 
-			//Hash the password before storing it into the database
-			$hasher = new PasswordHash(8, false);
-			$model->password = $hasher->HashPassword($model->password);
+                    //Populate user attributes
+                    $model->FK_usertype = 1;
+                    $model->registration_date = new CDbExpression('NOW()');
+                    $model->activation_string = $this->genRandomString(10);
 
-			//Save user into database. Account still needs to be activated
-			$model->save($runValidation=false);
-			
-                        if(User::isCurrentUserAdmin() == FALSE)
-                        {
-			//added in order to store phone number
-			$basicInfo = new BasicInfo;
-			$basicInfo->attributes = $_POST['BasicInfo'];
-			$basicInfo->userid = $model->id;
-			
-			if(!isset($_POST['BasicInfo']['phone']))
-			{
-				Yii::log("checks", CLogger::LEVEL_ERROR, 'application.controller.Prof');
-				$basicInfo->phone = NULL;
-			}
-			$basicInfo->save(false);
-                        }
-                        
-			$this->actionSendVerificationEmail($model->email);
-			return;
+                    //Hash the password before storing it into the database
+                    $hasher = new PasswordHash(8, false);
+                    $model->password = $hasher->HashPassword($model->password);
+
+                    //Save user into database. Account still needs to be activated
+                    $model->save($runValidation=false);
+
+                    if(User::isCurrentUserAdmin() == FALSE)
+                    {
+                    //added in order to store phone number
+                    $basicInfo = new BasicInfo;
+                    $basicInfo->attributes = $_POST['BasicInfo'];
+                    $basicInfo->userid = $model->id;
+
+                    if(!isset($_POST['BasicInfo']['phone']))
+                    {
+                            Yii::log("checks", CLogger::LEVEL_ERROR, 'application.controller.Prof');
+                            $basicInfo->phone = NULL;
+                    }
+                    $basicInfo->save(false);
+                    }
+
+                    $this->actionSendVerificationEmail($model->email);
+                    return;
 		}
 		$error = '';
 		$this->render('StudentRegister',array('model'=>$model, 'error' => $error));
@@ -634,7 +641,7 @@ class UserController extends Controller
                         $new_sdnt_skill->skillid = Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id;
                         $new_sdnt_skill->ordering = $i + 1;
                         $new_sdnt_skill->save(false);
-                        echo 'New Skill for student' . $new_sdnt_skill->attributes;
+                        //echo 'New Skill for student' . $new_sdnt_skill->attributes;
                     }
                 }
                 // ----------------------SKILLS----------------------

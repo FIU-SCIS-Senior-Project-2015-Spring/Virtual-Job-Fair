@@ -72,6 +72,32 @@ $('div[class^=child-]').hide();
 <script>
 $(document).ready(function() {
 	var i = 1;
+        
+        //Validates Email is a regular expression in the form xxxx@xxxxx.xxxx as per Regex below
+        function validateEmail(sEmail) {
+            var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Regular Expression
+            if (filter.test(sEmail)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        
+        //Enables the Form fields for editing
+        function enableBasicInfo(){
+            $("#BasicInfo_about_me").attr("disabled", false);
+            $("#User_email").attr("disabled", false);
+            $("#BasicInfo_phone").attr("disabled", false); 
+            $("#BasicInfo_city").attr("disabled", false); 
+            $("#BasicInfo_state").attr("disabled", false); 
+            $("#BasicInfo_zip_code").attr("disabled", false); 
+            $("#edit").attr("name", "yt0");
+            $("#edit img").attr("src", "/JobFair/images/ico/done.gif");
+            $("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
+        }
+        
+        
 	$("#saveSkills").hide();
    // $("#saveInterest").hide();
 	$("#edit").click(function(e) {
@@ -88,7 +114,25 @@ $(document).ready(function() {
 			$("#edit img").attr("src", "/JobFair/images/ico/done.gif");
 			$("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
 		} else {
-			$(this).closest('form').submit()			
+                        //Fixes Bug on card #359 (Allowing a blank email address for the user profile)
+                        var sEmail = $('#User_email').val();
+                        if($.trim(sEmail).length == 0){ //Email can't be left blank
+                            alert('The email field is mandatory');
+                            e.preventDefault();
+                        }
+                        else{ 
+                            if(validateEmail(sEmail)){//Validate email against Regex
+                                $(this).closest('form').submit();
+                            }
+                            else{
+                                alert('Invalid email format.');
+                                e.preventDefault();
+                            }
+                        }
+                        
+                        enableBasicInfo();
+                        //$(this).closest('form').submit();
+                                            
 		}
 	}); 
 
@@ -166,10 +210,15 @@ $(document).delegate('.deletenewskill','click',function(){
 	
 });
 
+//
 function uploadpic(){
 	document.getElementById("User_image_url").click();
 	document.getElementById("User_image_url").onchange = function() {
-	    document.getElementById("user-uploadPicture-form").submit();
+            var imageExt = document.getElementById("User_image_url").value;
+            if(endWith(imageExt, 'JPG') || endWith(imageExt, 'jpg') || endWith(imageExt, 'PNG') || endWith(imageExt, 'png'))
+                document.getElementById("user-uploadPicture-form").submit();
+            else
+                alert('Image must be in jpg or png format');
 	}
 }
 
@@ -270,8 +319,7 @@ function uploadvideo(){
 
 <div id="fullcontent">
 
-
-<div id="basicInfo">
+    <div id="basicInfo" style="float: left">
 
 	
 	<?php $form = $this->beginWidget('CActiveForm', array(
@@ -280,11 +328,11 @@ function uploadvideo(){
    'htmlOptions' => array('enctype' => 'multipart/form-data',),
 )); ?>
 
-<div style=clear:both></div>
+<div style="clear:both"></div>
 
-<div  id="profileImage">
+<div  id="profileImage" style="overflow-style: auto; float: left">
 <div id="upload">
-<img style="width:200px; height:215px;" src="<?php echo $user->image_url ?>" />
+<img style="width:200px; height:215px; float: left" src="<?php echo $user->image_url ?>" />
 	 </div>
 	<a id="uploadlink" href="#" onclick="uploadpic()"><img style="margin-top: 5px;" src='/JobFair/images/ico/add.gif' />Upload Image</a>
 	<?php echo CHtml::activeFileField($user, 'image_url', array('style'=>'display: none;')); ?>  
@@ -296,10 +344,10 @@ function uploadvideo(){
 <?php $form = $this->beginWidget('CActiveForm', array(
    'id'=>'user-EditStudent-form', 'action'=> '/JobFair/index.php/Profile/EditBasicInfo',
    'enableAjaxValidation'=>false,
-   'htmlOptions' => array('enctype' => 'multipart/form-data',),
+   'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 	
-	<div id="insidebasicinfo" >
+<div id="insidebasicinfo" style="float: right">
 	
 	<name style="float:left; width:auto"><?php echo $user->first_name ." ". $user->last_name?></name>
 	
@@ -450,19 +498,20 @@ function uploadvideo(){
 	   'htmlOptions' => array('enctype' => 'multipart/form-data', 'onchange' => 'return Checkfiles();',),
 	));
 
-	echo CHtml::activeFileField($resume, 'resume', array('style'=>'display:none;'));
+	echo CHtml::activeFileField($resume, 'resume', array('style'=>'display:none;'));     
 	if (isset($resume->resume)){
                 $resumeURL = '/JobFair/resumes/'.$resume->resume; // This address the bug in card #354 giving the url for the resume file
 		echo CHtml::link(CHtml::encode('Resume'), $resumeURL/*$resume->resume*/, array('target'=>'_blank', 'style' =>'float:left'));
 	} else {
 		echo 'Upload a resume! PDF format only';
 	}
-	
+  	
 	$this->endWidget();
-
+        
 ?> 
 
-<br><hr>
+<br>
+<hr>
 
 <p><a href="#" id="editVideo" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadvideo()"/></a></p>
 	
