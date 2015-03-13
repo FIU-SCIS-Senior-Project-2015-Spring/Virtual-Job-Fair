@@ -298,21 +298,29 @@ class ProfileController extends Controller
 		$oldUrl = $model->image_url; // get current image URL for user
 		
 		
-		// if there is an image already, update current image
-		if (strlen($oldUrl) > 0 && strpos($oldUrl, 'licdn') === false) {
+		// if there is an image already, update current image if is not the default image
+		if (strlen($oldUrl) > 0 && strcmp($oldUrl, "/JobFair/images/profileimages/user-default.png") != 0 && strpos($oldUrl, 'licdn') === false) {
 			$uploadedFile=CUploadedFile::getInstance($model,'image_url');
 			
-			//edited by jorge
+			//edited by Rogelio
 			$newurl = "/JobFair/images/profileimages/".$model->username."avatar.".$uploadedFile->extensionName;
 			
 			///
 			if ($uploadedFile != null) {
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$newurl);
+				$uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($newurl, 8)); //Modified path to address bug in card #355 task card #357 
 				
-				//jorge
+				
 				$model->image_url = $newurl;
 				$model->save(false);
-				//
+				
+                                //Coded by Rogelio
+                                //Delete the old image if extensions are not the same to avoid extra pictures 
+                                $oldExtension = substr($oldUrl, -3);
+                                $newExtension = substr($newurl, -3);
+                                if(strcasecmp($oldExtension, $newExtension) != 0){
+                                    unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8)); //This address bug in card #355 task card #401 (images not being deleted from the server folder)
+                                }
+
 			}
 			// else insert new image
 		} else {
@@ -323,23 +331,28 @@ class ProfileController extends Controller
 			$uploadedFile=CUploadedFile::getInstance($model,'image_url'); // image object
 			$fileName = "/JobFair/images/profileimages/".$model->username."avatar.".$uploadedFile->extensionName;
 			$model->image_url = $fileName;
-			$model->save(false); // save path in database
+                        if($model->validate(array('image_url'))){
+                            $model->save(false); // save path in database
 		
-			if ($uploadedFile != null) {
+                            if ($uploadedFile != null) {
 				//print "<pre>"; print_r($model->attributes);print "</pre>";return;
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$fileName); // upload image to server
-			}
+                                //Modified bellow path to address bug in card #355 task card #357 
+				$uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8)); // upload image to server
+                            }
+                        }
 		}
-			
-		$user = User::model()->find("username=:username",array(':username'=>$username));
-		$utype = $user->FK_usertype;
-			if($utype==1){
-			$this->redirect('/JobFair/index.php/profile/view');
-			}
-			if($utype==2){
-				$this->redirect('/JobFair/index.php/profile/viewEmployer');
-			}
-			else{$this->actionView();}
+		$this->actionView();	
+//              MODIFIED BY ROGELIO  
+//              EXTRA CODE NOT NECESSARY AND REPLACED BY ABOVE LINE   
+//		$user = User::model()->find("username=:username",array(':username'=>$username));
+//		$utype = $user->FK_usertype;
+//			if($utype==1){
+//			$this->redirect('/JobFair/index.php/profile/view');
+//			}
+//			if($utype==2){
+//				$this->redirect('/JobFair/index.php/profile/viewEmployer');
+//			}
+//			else{$this->actionView();}
 	}
 	
 	public function actionUploadVideo() {
@@ -484,6 +497,16 @@ class ProfileController extends Controller
 
             restore_error_handler();
                     
+                }
+                //Fixes Bug on card #359 (Allowing an existent email address for the user profile)
+                if(isset($_POST['User']['email'])){ //Check that the email address was modified
+                    $email = $_POST['User']['email'];
+                    $foundUser = User::model()->find("email=:email",array(':email'=>$email));   //Search the database
+                    
+                    if ($foundUser != null && strcmp($foundUser->username, $model->username) != 0) {       //Check against the user found in the model
+                        $this->render('errorProfileInfo',array('user'=>$model));                //Duplicate found
+                        exit();
+                    }
                 }
                 
 		if (!isset($model->basicInfo)) {

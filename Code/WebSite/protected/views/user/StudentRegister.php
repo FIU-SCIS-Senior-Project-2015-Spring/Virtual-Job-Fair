@@ -3,13 +3,64 @@
 /* @var $model User */
 /* @var $form CActiveForm */
 ?>
+<script>
+    
+    //Instead of validating a phone number format, we will just validate the digits
+    //in the form NXXNXXXXXX where N is a digit 2-9 and X is a digit 0-9
+    function isValidNumbers(phoneNumber) {
+        var phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/; //Regular Expression for validaating format
+        var re = /\D+/g;
+        var digits = phoneNumber.replace(re, "");    //Strip out all but the numbers
+        return (digits.match(phoneRegex) !== null);
+    }
+    
+    function isValidLength(phoneNumber) {
+        var re = /\D+/g;
+        var result = phoneNumber.replace(re, "");
+        return (result.length === 10);
+    }
+    
+    function isValidName(name){
+        var nameRegex = /^[a-zA-Z ]{2,30}$/;
+        return (name.match(nameRegex) !== null);
+    }
+    
+    //This functions address bug on card #336 (Registration form not validating names and phone numbers) 
+    //from story card #334 (Bug - Student Registration)
+    function validateRegistrationForm(){//This function is from v5.0 and will only validate Name, Last Name & phone
+        
+            var fName = document.getElementById("User_first_name").value;
+            var lName = document.getElementById("User_last_name").value;
+            var phone = document.getElementById("BasicInfo_phone").value;
+            
+            if(!isValidLength(phone)){
+                alert('The length of the entered phone number must be 10 characters.');
+                return false;
+            }
+            if(!isValidNumbers(phone)){
+                alert('The entered phone number is not a valid.');
+                return false;
+            }                
+            if(!isValidName(fName)){
+                alert('The name entered must contains a maximum of 30 a-z characters and spaces only.');
+                return false;
+            }
+            if(!isValidName(lName)){
+                alert('The last name entered must contains a maximum of 30 a-z characters and spaces only.');
+                return false;
+            }
+            return true;  
+    }
+</script>
 <br/><br/>
 <h2>Student Register</h2>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-StudentRegister-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>false//,
+        //'htmlOptions' => array('onsubmit' => 'return validateRegistrationForm();'),
+        
 )); ?>
 
 	<?php if ($error != '') {?>
@@ -66,7 +117,7 @@
 		<?php echo $form->checkBox($model->basicInfo,'allowSMS'); ?>
 		
 			<div>
-		<?php echo CHtml::submitButton('Submit', array("class"=>"btn btn-primary")); ?>
+		<?php echo CHtml::submitButton('Submit', array("class"=>"btn btn-primary", "onclick"=>"return validateRegistrationForm();")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
