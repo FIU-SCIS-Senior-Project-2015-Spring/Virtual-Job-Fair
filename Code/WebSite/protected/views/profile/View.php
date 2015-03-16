@@ -117,7 +117,7 @@ $(document).ready(function() {
                         //Fixes Bug on card #359 (Allowing a blank email address for the user profile)
                         var sEmail = $('#User_email').val();
                         if($.trim(sEmail).length == 0){ //Email can't be left blank
-                            alert('The email field is mandatory');
+                            alert('The email field is mandatory.');
                             e.preventDefault();
                         }
                         else{ 

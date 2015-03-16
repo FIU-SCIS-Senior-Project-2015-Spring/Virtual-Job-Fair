@@ -33,14 +33,16 @@
             var lName = document.getElementById("User_last_name").value;
             var phone = document.getElementById("BasicInfo_phone").value;
             
-            if(!isValidLength(phone)){
-                alert('The length of the entered phone number must be 10 characters.');
-                return false;
-            }
-            if(!isValidNumbers(phone)){
-                alert('The entered phone number is not a valid.');
-                return false;
-            }                
+	    if(phone.trim() != ""){
+            	if(!isValidLength(phone)){
+                	alert('The length of the entered phone number must be 10 characters.');
+                	return false;
+            	}
+            	if(!isValidNumbers(phone)){
+                	alert('The entered phone number is not a valid.');
+                	return false;
+            	}
+	    }                
             if(!isValidName(fName)){
                 alert('The name entered must contains a maximum of 30 a-z characters and spaces only.');
                 return false;
