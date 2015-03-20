@@ -355,6 +355,8 @@ class ProfileController extends Controller
 //			else{$this->actionView();}
 	}
 	
+        
+        //To properly function make sure your PHP.ini file have a post_max_file equal or greater than the size of the file being uploaded
 	public function actionUploadVideo() {
 		
 		$username = Yii::app()->user->name;
@@ -366,31 +368,64 @@ class ProfileController extends Controller
 		if (isset($localvideo)) {
 			$oldUrl = $localvideo->video_path;
 		}
-		
-		if (isset($oldUrl)) {
-			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume');
-			if (isset( $uploadedFile)) {
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
-			}
-			
-			// else insert new image
-		} else {
-			$localvideo = new VideoResume();
-			// code to upload image
-			$rnd = $model->id;
-			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // image object
-			$fileName = "v{$rnd}-{$uploadedFile}";  // random number + file name
-			$localvideo->video_path = '/JobFair/resumes/'.$fileName;
-			$localvideo->id = $model->id;
-			if($localvideo->validate(array('video_path'))){
-				$localvideo->save(false); // save path in database
-			
-				if (isset( $uploadedFile)) {
-					//print "<pre>"; print_r($model->attributes);print "</pre>";return;
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-				}
-			}
-		}
+                
+//                Code Rewritten by ROGER
+//                Address bug that unable the user to properly submit a video resume
+//		
+//		if (isset($oldUrl)) {
+//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume');
+//			if (isset( $uploadedFile)) {
+//				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
+//			}
+//			
+//			// else insert new image
+//		} else {
+//			$localvideo = new VideoResume();
+//			// code to upload image
+//			$rnd = $model->id;
+//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // image object
+//			$fileName = "v{$rnd}-{$uploadedFile}";  // random number + file name
+//			$localvideo->video_path = '/JobFair/resumes/'.$fileName;
+//			$localvideo->id = $model->id;
+//			if($localvideo->validate(array('video_path'))){
+//				$localvideo->save(false); // save path in database
+//			
+//				if (isset( $uploadedFile)) {
+//					//print "<pre>"; print_r($model->attributes);print "</pre>";return;
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
+//				}
+//			}
+//		}
+                if(!isset($oldUrl)){
+                    //upload a new video resume
+                    $localvideo = new VideoResume();
+                } 
+                $uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // video resume object
+                $rnd = $localvideo->id;
+                $fileName = '/JobFair/resumes/';
+                $fileName .= "v{$rnd}-{$uploadedFile}";  //  user id + uploaded file name
+                
+                if($localvideo->validate(array('video_path'))){
+                                       
+                    if(isset($uploadedFile)){
+                        $localvideo->id = $model->id;
+                        $localvideo->video_path = $fileName;
+                        $localvideo->save(false);
+//                      Upload physical file to resume folder
+                        $uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8), true); 
+                    }
+                    else{
+                        //Render an Error for filesize and name size
+                        $this->render('errorVideoUpload',array('user'=>$model));
+                        exit();
+                    }
+                }
+                
+                if(isset($oldUrl)){
+                    //Delete the file from the File system
+                    unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8));
+                }
+                    
 		$this->actionView();
 		
 	}
