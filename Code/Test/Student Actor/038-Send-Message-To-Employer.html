@@ -42,88 +42,23 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>test001EmpUserName</td>
+	<td>test001EmpUserName</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>link=jobfairdb</td>
-	<td></td>
+	<td>test001EmpUserName</td>
 </tr>
 <tr>
 	<td>pause</td>
 	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=company_info</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Insert</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=field_1_3</td>
-	<td>label=36</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_2_3</td>
-	<td>Tester Employer Company</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_3_3</td>
-	<td>123 main</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_5_3</td>
-	<td>miami</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_6_3</td>
-	<td>Fl</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_7_3</td>
-	<td>33014</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_8_3</td>
-	<td>www.vjf.cs.fiu.edu</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=field_9_3</td>
-	<td>This is company for the testing of the VJF system</td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>500</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=input[type=&quot;submit&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
@@ -149,7 +84,97 @@
 <tr>
 	<td>type</td>
 	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
-	<td>SELECT *<br />FROM `user`<br />LIMIT 0, 100</td>
+	<td>SELECT * FROM `user` WHERE `username`= '${test001EmpUserName}';</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>//table[@id='table_results']/tbody/tr/td[5]/span</td>
+	<td>id</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td> INSERT INTO `jobfairdb`.`company_info` ( `FK_userid` , `name` , `street` , `street2` , `city` , `state` , `zipcode` , `website` , `description` ) VALUES ( '${id}', 'Tester Employer Company', '123 main', NULL , 'Miami', 'FL', '33014', 'www.vjf.cs.fiu.edu', 'This is company for the testing of the VJF system' )</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT * FROM `user` WHERE `username`= '${test001EmpUserName}';</td>
 </tr>
 <tr>
 	<td>pause</td>
@@ -168,7 +193,7 @@
 </tr>
 <tr>
 	<td>doubleClick</td>
-	<td>//table[@id='table_results']//td[6]/SPAN[text()='rogemp001']/parent::td/parent::tr//td[21]/SPAN[text()='1']</td>
+	<td>//table[@id='table_results']/tbody/tr/td[21]/span</td>
 	<td></td>
 </tr>
 <tr>

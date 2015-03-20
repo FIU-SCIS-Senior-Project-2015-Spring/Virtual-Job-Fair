@@ -244,13 +244,13 @@ function uploadvideo(){
 
 	document.getElementById("VideoResume_videoresume").click();
 	document.getElementById("VideoResume_videoresume").onchange = function() {
-		if (endWith(document.getElementById("VideoResume_videoresume").value, 'MOV') 
-				|| endWith(document.getElementById("VideoResume_videoresume").value, 'MP4')
+		if (endWith(document.getElementById("VideoResume_videoresume").value, 'MP4') 
+                                || endWith(document.getElementById("VideoResume_videoresume").value, 'MOV') 				
 				|| endWith(document.getElementById("VideoResume_videoresume").value, 'mp4')
 				|| endWith(document.getElementById("VideoResume_videoresume").value, 'mov')){
 			document.getElementById("user-uploadVideo-form").submit();
 		} else {
-			alert('Document must be in mov or mp4 format');
+			alert('Video Resume must be in mov or mp4 format');
 		}
 		
     	
@@ -525,7 +525,8 @@ function uploadvideo(){
 
 echo CHtml::activeFileField($videoresume, 'videoresume', array('style'=>'display:none;'));
 if (isset($videoresume->video_path)){
-	echo CHtml::link(CHtml::encode('VideoResume'), $videoresume->video_path, array('target'=>'_blank', 'style' =>'float:left'));
+        $videoURL = $videoresume->video_path;
+	echo CHtml::link(CHtml::encode('VideoResume'), $videoURL /*$videoresume->video_path*/, array('target'=>'_blank', 'style' =>'float:left'));
 } else {
 	echo 'Upload a video resume! MP4 or MOV format';
 }

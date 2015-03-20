@@ -18,7 +18,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td>link=Register</td>
 	<td></td>
 </tr>
 <tr>
@@ -55,6 +55,11 @@
 	<td>storeEval</td>
 	<td>test001Phone</td>
 	<td>test001Phone</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Phone2</td>
+	<td>test001Phone2</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -97,6 +102,26 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>300</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>The entered phone number is not a valid.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>${test001Phone2}</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>name=yt0</td>
 	<td></td>
@@ -108,7 +133,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td>link=Register</td>
 	<td></td>
 </tr>
 <tr>

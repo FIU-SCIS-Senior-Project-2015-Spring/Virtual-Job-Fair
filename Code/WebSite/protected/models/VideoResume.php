@@ -38,6 +38,7 @@ class VideoResume extends CActiveRecord
 			array('id', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('video_path', 'length', 'max'=>100),
+                        array('video_path', 'file', 'types'=>'mp4, mov, MP4, MOV', 'allowEmpty'=>true, 'on'=>'update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id', 'safe', 'on'=>'search'),
