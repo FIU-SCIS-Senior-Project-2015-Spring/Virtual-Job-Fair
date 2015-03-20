@@ -18,7 +18,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td>link=Register</td>
 	<td></td>
 </tr>
 <tr>
@@ -35,6 +35,11 @@
 	<td>storeEval</td>
 	<td>test002LastName</td>
 	<td>test002LastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test002LastName2</td>
+	<td>test002LastName2</td>
 </tr>
 <tr>
 	<td>storeEval</td>
@@ -95,6 +100,21 @@
 	<td>click</td>
 	<td>id=BasicInfo_allowSMS</td>
 	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>The last name entered must contains a maximum of 30 a-z characters and spaces only.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_last_name</td>
+	<td>${test002LastName2}</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

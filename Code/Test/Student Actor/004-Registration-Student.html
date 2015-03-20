@@ -18,7 +18,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td>link=Register</td>
 	<td></td>
 </tr>
 <tr>
@@ -32,19 +32,14 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>id=errors</td>
-	<td>Username must be alphanumeric and at least 4 characters.<br />Password must be more than 5 characters<br />Email is not correct format</td>
-</tr>
-<tr>
-	<td>storeEval</td>
-	<td>test001UserName</td>
-	<td>test001UserName</td>
+	<td>assertAlert</td>
+	<td>The name entered must contains a maximum of 30 a-z characters and spaces only.</td>
+	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=User_username</td>
-	<td>${test001UserName}</td>
+	<td>id=BasicInfo_phone</td>
+	<td>4444444444</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -52,9 +47,39 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>id=errors</td>
-	<td>Username is taken<br />Password must be more than 5 characters<br />Email is not correct format</td>
+	<td>assertAlert</td>
+	<td>The name entered must contains a maximum of 30 a-z characters and spaces only.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001Name</td>
+	<td>test001Name</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test001LastName</td>
+	<td>test001LastName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_first_name</td>
+	<td>${test001Name}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>The last name entered must contains a maximum of 30 a-z characters and spaces only.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_last_name</td>
+	<td>${test001LastName}</td>
 </tr>
 <tr>
 	<td>storeEval</td>
@@ -232,19 +257,9 @@
 	<td>${test004EmailTry3}</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>name=yt0</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=User_email</td>
 	<td>${test004EmailFinal}</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=BasicInfo_phone</td>
-	<td>4444444444</td>
 </tr>
 <tr>
 	<td>click</td>
