@@ -545,6 +545,13 @@ class ProfileController extends Controller
                 //Fixes Bug on card #359 (Allowing an existent email address for the user profile)
                 if(isset($_POST['User']['email'])){ //Check that the email address was modified
                     $email = $_POST['User']['email'];
+                    
+//                    require_once 'protected/controllers/UserController.php';
+//                    $checkEmail = controllers\UserController::check_email_address($email);
+//                    if (!$checkEmail){
+//			$this->render('errorProfileInfo',array('user'=>$model));
+//                        exit();
+//                    }      
                     $foundUser = User::model()->find("email=:email",array(':email'=>$email));   //Search the database
                     
                     if ($foundUser != null && strcmp($foundUser->username, $model->username) != 0) {       //Check against the user found in the model

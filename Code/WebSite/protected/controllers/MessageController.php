@@ -126,7 +126,7 @@ class MessageController extends Controller
 		$messages = array();
 		foreach ($user->messagesReceived(array('order'=>'id DESC')) as $aMessage)
 		{
-			if ($aMessage->been_deleted != 1)
+			if ($aMessage->been_deleted == 0)
 			   $messages[] = $aMessage;
 		}
 		
@@ -146,13 +146,22 @@ class MessageController extends Controller
 		$messages = array();
 		foreach ($user->messagesSent(array('order'=>'id DESC')) as $aMessage)
 		{
-			if ($aMessage->been_deleted != 1)
-				$messages[] = $aMessage;
+//			if ($aMessage->been_deleted != 1)
+                    if ($aMessage->sender_deleted == 0)
+			$messages[] = $aMessage;
 		}
 		
 		print CJSON::encode($messages);
 	}
 	
+        public function actionGetReceiver()
+        {
+            $username = Yii::app()->user->name;
+            $user = User::model()->find("username=:username",array(':username'=>$username));
+                         
+            print CJSON::encode($user);
+        }
+        
 	public function actionGetTrash()
 	{
 		$username = Yii::app()->user->name;
@@ -160,8 +169,15 @@ class MessageController extends Controller
 		$messages = array();
 		foreach ($user->messagesSent(array('order'=>'id DESC')) as $aMessage)
 		{
-			if ($aMessage->been_deleted == 1)
+//                    if(strcmp($username, $aMessage->FK_receiver)){
+//                        if ($aMessage->sender_deleted == 1)
+//				$messages[] = $aMessage;
+//                    }
+//                  sender_deleted = 1 means moved to trash box  
+                    if($username == $aMessage->FK_sender){
+                        if ($aMessage->sender_deleted == 1)
 				$messages[] = $aMessage;
+                    } 
 		}
 		
 		foreach ($user->messagesReceived(array('order'=>'id DESC')) as $aMessage)
@@ -182,33 +198,91 @@ class MessageController extends Controller
 	
 	public function actionSentToTrash()
 	{
+            $username = Yii::app()->user->name;
+		$ids = $_REQUEST['messages'];                
+                
+		foreach ($ids as $id)
+		{
+			$theId = intval($id);
+			$message = Message::model()->findByPK($theId);
+                        
+                        //Same message is marked defferently depending on the user 
+                        //This allow us to later show it in the right Trash Box
+                        if($username == $message->FK_sender){
+                            $message->sender_deleted = 1;
+                        }                            
+                        if($username == $message->FK_receiver){
+                            $message->been_deleted = 1;
+                        }  
+                            
+			$message->save(false);
+		}
+	}
+	
+	public function actionDeleteMessage() //Deletes messages from within the message
+	{
+            $username = Yii::app()->user->name;
+		$ids = $_REQUEST['messages'];
+		foreach ($ids as $id)
+		{
+			$theId = intval($id);
+                        $message = Message::model()->findByPK($theId);
+                        
+                        //The -1 for the been_deleted and sender_deletedmeans 
+                        //it wont be shonw no more to that user 
+                        //and that is ok to be deleted from his side.
+                        if($username == $message->FK_sender){
+                            if($message->been_deleted == -1)
+                                Message::model()->deleteByPK($theId);
+                            else{
+                                $message->sender_deleted = -1;
+                                $message->save(false);
+                            }
+                                
+                        }
+                        
+                        if($username == $message->FK_receiver){
+                            if($message->sender_deleted == -1)
+                                Message::model()->deleteByPK($theId);
+                            else{
+                                $message->been_deleted = -1;
+                                $message->save(false);
+                            }                               
+                        }
+						
+		}		
+	}
+	
+	public function actionDeleteMessages() //Delete messages from the trash box
+	{
+            $username = Yii::app()->user->name;
 		$ids = $_REQUEST['messages'];
 		foreach ($ids as $id)
 		{
 			$theId = intval($id);
 			$message = Message::model()->findByPK($theId);
-			$message->been_deleted = 1;
-			$message->save(false);
-		}
-	}
-	
-	public function actionDeleteMessage()
-	{
-		$ids = $_REQUEST['messages'];
-		foreach ($ids as $id)
-		{
-			$theId = intval($id);
-			Message::model()->deleteByPK($theId);			
-		}		
-	}
-	
-	public function actionDeleteMessages()
-	{
-		$ids = $_REQUEST['messages'];
-		foreach ($ids as $id)
-		{
-			$theId = intval($id);
-			Message::model()->deleteByPK($theId);
+                        
+                        //The -1 for the been_deleted and sender_deletedmeans 
+                        //it wont be shonw no more to that user 
+                        //and that is ok to be deleted from his side.
+                        if($username == $message->FK_sender){
+                            if($message->been_deleted == -1)
+                                Message::model()->deleteByPK($theId);
+                            else{
+                                $message->sender_deleted = -1;
+                                $message->save(false);
+                            }
+                                
+                        }
+                        
+                        if($username == $message->FK_receiver){
+                            if($message->sender_deleted == -1)
+                                Message::model()->deleteByPK($theId);
+                            else{
+                                $message->been_deleted = -1;
+                                $message->save(false);
+                            }                               
+                        }
 		}
 	}
 	
@@ -263,7 +337,7 @@ class MessageController extends Controller
 				array('allow',  // allow authenticated users to perform these actions
 						'actions'=>array('Index', 'Send', 'getInbox', 'getMessage', 'getSent',
 								'setAsRead', 'sentToTrash', 'getTrash', 'deleteMessage', 'deleteMessages',
-								'autoComplete', 'toggleMatchNotifications', 'checkNotificationState'),
+								'autoComplete', 'toggleMatchNotifications', 'checkNotificationState', 'getReceiver'),
 						'users'=>array('@')),
 				array('deny', //deny all users anything not specified
 						'users'=>array('*'),

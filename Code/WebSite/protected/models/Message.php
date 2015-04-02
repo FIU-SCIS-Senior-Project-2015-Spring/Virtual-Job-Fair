@@ -13,6 +13,7 @@
  * @property string $userImage
  * @property integer $been_read
  * @property integer $been_deleted
+ *  @property integer $sender_deleted
  *
  * The followings are the available model relations:
  * @property User $fKReceiver
@@ -68,7 +69,7 @@ class Message extends CActiveRecord
 			array('message, date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, FK_receiver, FK_sender, subject, message, date, been_read, been_deleted', 'safe', 'on'=>'search'),
+			array('id, FK_receiver, FK_sender, subject, message, date, been_read, been_deleted, sender_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,6 +100,7 @@ class Message extends CActiveRecord
 			'date' => 'Date',
 			'been_read' => 'Been Read',
 			'been_deleted' => 'Been Deleted',
+                        'sender_deleted' => 'Sender Deleted',
 		);
 	}
 
@@ -121,6 +123,7 @@ class Message extends CActiveRecord
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('been_read',$this->been_read);
 		$criteria->compare('been_deleted',$this->been_deleted);
+                $criteria->compare('sender_deleted',$this->sender_deleted);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

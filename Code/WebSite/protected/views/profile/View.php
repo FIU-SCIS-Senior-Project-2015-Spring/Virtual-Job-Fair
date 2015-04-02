@@ -70,6 +70,7 @@ $('div[class^=child-]').hide();
 
 
 <script>
+//    
 $(document).ready(function() {
 	var i = 1;
         
@@ -88,9 +89,9 @@ $(document).ready(function() {
         function enableBasicInfo(){
             $("#BasicInfo_about_me").attr("disabled", false);
             $("#User_email").attr("disabled", false);
-            $("#BasicInfo_phone").attr("disabled", false); 
-            $("#BasicInfo_city").attr("disabled", false); 
-            $("#BasicInfo_state").attr("disabled", false); 
+            $("#BasicInfo_phone").attr("disabled", false);
+            $("#BasicInfo_city").attr("disabled", false);
+            $("#BasicInfo_state").attr("disabled", false);
             $("#BasicInfo_zip_code").attr("disabled", false); 
             $("#edit").attr("name", "yt0");
             $("#edit img").attr("src", "/JobFair/images/ico/done.gif");

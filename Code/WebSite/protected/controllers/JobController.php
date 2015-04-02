@@ -843,15 +843,20 @@ class JobController extends Controller
         if (isset($radioOption) && $radioOption != "") {
 //            $result = $this->indeed($query, $city);
 //            if($result['totalresults'] == 0) {$result = "";}
-            $result = "";
-            $result2 = $this->careerBuilder($query, $city);
-            if($result2[0] == 0) {$result2 = "";}
-            $result3 = $this->stackOverflow($query,$city);
-            $result4 = $this->monsterJobs($query, $city);
-            $result5 = $this->githubJobs($query, $city);
-            // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
-            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
-            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag,'saveQ'=>$saveQ));
+            $this->actionSearch($query, $city);
+//            $result = "";
+//            $result2 = $this->careerBuilder($query, $city);
+//            if($result2 != null){                
+//                if($result2[0] == 0) {$result2 = "";}
+//            }
+//            $result3 = $this->stackOverflow($query,$city);
+//            if($result3 == null)
+//                $result3 = "";
+//            $result4 = $this->monsterJobs($query, $city);
+//            $result5 = $this->githubJobs($query, $city);
+//            // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
+//            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+//            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag,'saveQ'=>$saveQ));
             }
         else
         {            
@@ -917,9 +922,11 @@ class JobController extends Controller
             }     // add +
         }
 
-        if ($saveQuery != "") {
-            $username = Yii::app()->user->name;
-            $model = User::model()->find("username=:username", array(':username' => $username));
+        $username = Yii::app()->user->name;
+        $model = User::model()->find("username=:username", array(':username' => $username));
+        $suc = 0;
+        
+        if ($saveQuery != "") {            
             $saved_queries = new SavedQuery();
             $saved_queries->query = htmlentities($saveQuery);
             $saved_queries->query_tag = $tag;
@@ -1485,7 +1492,7 @@ class JobController extends Controller
     }
 
     // job search from nav bar
-    public function actionSearch()
+    public function actionSearch($searchKey = null, $loc = null)
     {
         // flag to display results in home
         $flag = 2;
@@ -1495,12 +1502,14 @@ class JobController extends Controller
         // words to search for
         if(isset($_GET['keyword']))
         {
-            $keyword = ($_GET['keyword']);
+            $keyword = ($_GET['keyword']);            
         }
         // array to contain the results of the search
         $results = Array();
         $result2 = Array();
 
+        if($searchKey != null)
+            $keyword = $searchKey;
         // there are words to search
         if ($keyword != null)
         {
@@ -1520,20 +1529,35 @@ class JobController extends Controller
                 $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN NATURAL LANGUAGE MODE) AND active = '1';");
                 //print_r ($result);
             }
+            if($result == null)
+                    $result = "";
             // location will be set to "Miami, Florida"
-            $loc = "Miami, Florida";
+            if($loc == null)
+                $loc = "Miami, Florida";
             // call indeed API to get jobs query by user
             //$result = $this->indeed($keyword, $loc);
             //if($result['totalresults'] == 0) {$result = "";}
             $result2 = $this->careerBuilder($keyword, $loc);
-            if($result2[0] == 0) {$result2 = "";}
+            if($result2 == null) {$result2 = "";}
+            if($result2 != null && $result2[0] == 0) {$result2 = "";}
             $result3 = $this->stackOverflow($keyword, $loc);
-            //if($result3[0] == 0) {$result3 = "";}
-            $loc = "Florida";
-            $result4 = $this->monsterJobs($keyword, $loc);
-            $result5 = $this->githubJobs($keyword, "");
+            if($result3 == null) {
+                $result3 = "";                
             }
-
+            //if($result3 != null && $result3[0] == 0) {$result3 = "";} EXISTENT OLD CODE
+//            The location for the Monster and Github API's 
+//            are different format so we need to cut the string into one word
+            $cityLoc = strstr($loc, ',', true);
+            if($cityLoc == false)
+                $loc = "Miami";//"Florida";
+            else
+                $loc = $cityLoc;
+            $result4 = $this->monsterJobs($keyword, $loc);
+            if($result4 == null) {$result4 = "";}
+            $result5 = $this->githubJobs($keyword, "");
+            if($result5 == null) {$result5 = "";}
+            }
+            
         // get user
         if (isset($_GET['user'])){
             $username = $_GET['user'];
@@ -1552,8 +1576,8 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         // render search results, user, skills, companies and flag to job/home
 //        $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'jobs'=>$results,'user'=>$user,
 //            'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
-         $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'result3'=>$result3, 'mjresults'=>$result4,'ghresults'=>$result5,
-                                    'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
+         $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'result3'=> $result3, 'mjresults'=> $result4,'ghresults'=>$result5,
+                                    'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag, 'saveQ'=>$saveQ, ));//'keyword'=>$keyword));
         
     }
 
