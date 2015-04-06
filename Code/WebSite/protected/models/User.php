@@ -306,6 +306,12 @@ class User extends CActiveRecord
         {
             $job_mapping->cascade_delete();
         }
+        
+        //deletes saved queries
+        $saved_queries = SavedQuery::model()->findAllByAttributes(array('FK_userid' => $id));
+        foreach ($saved_queries as $saved_query){
+            $saved_query->delete();
+        }
 
         $this->delete();
     }
