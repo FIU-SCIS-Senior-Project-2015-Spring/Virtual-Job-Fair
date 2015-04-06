@@ -1541,7 +1541,7 @@ class JobController extends Controller
             if($result2 == null) {$result2 = "";}
             if($result2 != null && $result2[0] == 0) {$result2 = "";}
             $result3 = $this->stackOverflow($keyword, $loc);
-            if($result3 == null) {
+            if($result3 == null || $result3 == '') {
                 $result3 = "";                
             }
             //if($result3 != null && $result3[0] == 0) {$result3 = "";} EXISTENT OLD CODE
