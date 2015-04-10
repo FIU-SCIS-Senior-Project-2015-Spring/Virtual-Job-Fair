@@ -1563,10 +1563,10 @@ class JobController extends Controller
             // call indeed API to get jobs query by user
             $result1 = $this->indeed($keyword, $loc);            //var_dump($result1);die;
             if($result1 == null || $result1['end'/*'totalresults'*/] == 0) {$result1 = "";}
-            $result2 = "";//$this->careerBuilder($keyword, $loc);
+            $result2 = $this->careerBuilder($keyword, $loc);
             if($result2 == null) {$result2 = "";}
             if($result2 != null && $result2[0] == 0) {$result2 = "";}
-            $result3 = "";//$this->stackOverflow($keyword, $loc);
+            $result3 = $this->stackOverflow($keyword, $loc);
             if($result3 == null || $result3 == '') {
                 $result3 = "";                
             }
@@ -1578,9 +1578,9 @@ class JobController extends Controller
                 $loc = "Miami";//"Florida";
             else
                 $loc = $cityLoc;
-            $result4 = "";//$this->monsterJobs($keyword, $loc);
+            $result4 = $this->monsterJobs($keyword, $loc);
             if($result4 == null) {$result4 = "";}
-            $result5 = "";//$this->githubJobs($keyword, "");
+            $result5 = $this->githubJobs($keyword, "");
             if($result5 == null) {$result5 = "";}
             }
             
