@@ -72,8 +72,8 @@ if (!isset($_GET['city'])) {
     function validateMinusWords(minus){
         var lastIndex = minus.lastIndexOf('-');
         
-        if(minus.length !== 0 && minus.trim().length < 4){
-            alert("Search string must be greater than 3 characters");
+        if(minus.trim().length !== 0 && minus.trim().length < 1){
+            alert("Search string must be at least 1 character");
             return false;
         }
         //Check for at most one + sign
@@ -130,8 +130,8 @@ if (!isset($_GET['city'])) {
     function validateAllWords(allWords){
         var lastIndex = allWords.lastIndexOf('+');
         
-        if(allWords.length !== 0 && allWords.trim().length < 4){
-            alert("Search string must be greater than 3 characters");
+        if(allWords.length !== 0 && allWords.trim().length < 1){
+            alert("Search string must be at least  1 character");
             return false;
         }
         //Check for at most one + sign
@@ -594,7 +594,9 @@ function getURLParameter(name) {
                         }
                         ?>
                     </td>
-                    <td><?php echo "CareerPath"?></td>
+                    <td><a href=<?php echo $results['result'][$j]['url']; ?> target="_blank">
+                           <img src="http://www.indeed.com/images/job_search_indeed.png" alt="Indeed"/>
+                           </a></td>
                </tr>
                <!-- Indeed -->
                <?php $j++; }
