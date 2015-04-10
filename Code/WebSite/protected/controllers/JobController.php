@@ -983,30 +983,54 @@ class JobController extends Controller
 
         // to call Indeed API
         require 'protected/indeed/indeed.php';
-        // Indeed publisher number 5595740829812660
-        $client = new Indeed("5595740829812660");
+        // Indeed publisher number 9436933956285809
+        $client = new Indeed("9436933956285809");
 
         // parameters pass to indeed API
         $params = array(
             "q" => $query, // query from user
             "l" => $loc, // user location
+            "start" => 0, //Start results at this number, due to the api returning only 25 at a time. So to get 100 we should query in 25 increments 4 times
             "limit" => 25, // Maximum number of results returned per query. Default is 10
             "userip" => $_SERVER['REMOTE_ADDR'], // user IP address
             "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
         );
 
         // search results from indeed.com
-        $results = $client->search($params);
-        // get array of jobs
-        $result = $this->xmlToArray($results);
-
-        // convert snippets to skills
+        $results = $client->search($params);    
+        $result = $this->xmlToArray($results);      
+        $jobPostings = $result;
+        
+        //Call the API search to retrive jobs in increments of 25
+        $numberOfCalls = (int)floor($result['totalresults']/25); 
+        
+        
+        if($numberOfCalls != null && $numberOfCalls > 1){
+            for($i = 0; $i < $numberOfCalls; $i++){
+                $params['start'] += 25; 
+                $results = $client->search($params);
+                $result = $this->xmlToArray($results);
+                array_splice($jobPostings['results']['result'], $params['start'], 0, $result['results']['result']);
+            }
+            
+            $jobPostings['end'] = $jobPostings['totalresults'];
+            
+            // convert snippets to skills        
+            return $this->convertSnippetsToSkills($jobPostings);
+        }
+        
+        return "";      
+    }
+    
+    // convert snippets to skills
+    private function convertSnippetsToSkills($result){
         $snippets = array();
+    
         $j = 0;
-
+        
         // if there are results from indeed.com API
-        if ($result['totalresults'] > 0) {
-            if ($result['totalresults'] == 1) {
+        if ($result['end'/*'totalresults'*/] > 0) {
+            if ($result['end'/*'totalresults'*/] == 1) {
                 //print_r($result);die;
                 $snippets[$j] = strtolower($result['results']['result']['snippet']);
                 $snippets[$j] = utf8_decode($snippets[$j]);
@@ -1022,7 +1046,7 @@ class JobController extends Controller
                 }
             }
 
-            if ($result['totalresults'] == 1) {
+            if ($result['end'/*'totalresults'*/] == 1) {
                 // put back into results snippet as skill words
                 // check each snipped for skills
                 $cur_snippet = $snippets[0];
@@ -1043,16 +1067,18 @@ class JobController extends Controller
                 for ($i = 0; $i < count($result['results']['result']); $i++) {
                     // check each snipped for skills
                     $cur_snippet = $snippets[$i];
-                    $cur_snippet = str_replace(array('.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet = str_replace(array('.', '/', ',', '.', '(', ')'), ' ', $cur_snippet);
                     $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-                    foreach ($cur_snippet_words as $snippet_word) {
-                        // check database to see if current word is a skill
-                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name" => $snippet_word));
-                        if ($skill) {
-                            // append current word (skill) to results snippet (check duplicates)
-                            $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
-                            if (!strstr($cur_skills, $snippet_word)) {
-                                $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                    foreach ($cur_snippet_words as $snippet_word) { 
+                        if($snippet_word != ''){
+                            // check database to see if current word is a skill
+                            $skill = Skillset::model()->find("LOWER(name)=:name", array(":name" => $snippet_word));
+                            if ($skill) {
+                                // append current word (skill) to results snippet (check duplicates)
+                                $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                                if (!strstr($cur_skills, $snippet_word)) {
+                                    $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
                             }
                         }
                     }
@@ -1062,15 +1088,14 @@ class JobController extends Controller
         }
         return $result;
     }
-
     // convert XML feed from Indeed to Array
     public function xmlToArray($input, $callback = null, $recurse = false) {
         $data = ((!$recurse) && is_string($input)) ? simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA) : $input;
         if ($data instanceof \SimpleXMLElement)
             $data = (array) $data;
         if (is_array($data))
-            foreach ($data as &$item)
-                $item = $this->xmlToArray($item, $callback, true);
+            foreach ($data as &$item){                
+            $item = $this->xmlToArray($item, $callback, true);}
         return (!is_array($data) && is_callable($callback)) ? call_user_func($callback, $data) : $data;
     }
 
@@ -1534,13 +1559,14 @@ class JobController extends Controller
             // location will be set to "Miami, Florida"
             if($loc == null)
                 $loc = "Miami, Florida";
+            
             // call indeed API to get jobs query by user
-            //$result = $this->indeed($keyword, $loc);
-            //if($result['totalresults'] == 0) {$result = "";}
-            $result2 = $this->careerBuilder($keyword, $loc);
+            $result1 = $this->indeed($keyword, $loc);            //var_dump($result1);die;
+            if($result1 == null || $result1['end'/*'totalresults'*/] == 0) {$result1 = "";}
+            $result2 = "";//$this->careerBuilder($keyword, $loc);
             if($result2 == null) {$result2 = "";}
             if($result2 != null && $result2[0] == 0) {$result2 = "";}
-            $result3 = $this->stackOverflow($keyword, $loc);
+            $result3 = "";//$this->stackOverflow($keyword, $loc);
             if($result3 == null || $result3 == '') {
                 $result3 = "";                
             }
@@ -1552,9 +1578,9 @@ class JobController extends Controller
                 $loc = "Miami";//"Florida";
             else
                 $loc = $cityLoc;
-            $result4 = $this->monsterJobs($keyword, $loc);
+            $result4 = "";//$this->monsterJobs($keyword, $loc);
             if($result4 == null) {$result4 = "";}
-            $result5 = $this->githubJobs($keyword, "");
+            $result5 = "";//$this->githubJobs($keyword, "");
             if($result5 == null) {$result5 = "";}
             }
             
@@ -1576,7 +1602,7 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         // render search results, user, skills, companies and flag to job/home
 //        $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'jobs'=>$results,'user'=>$user,
 //            'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
-         $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'result3'=> $result3, 'mjresults'=> $result4,'ghresults'=>$result5,
+         $this->render('home',array('result'=>$result1, 'cbresults'=>$result2,'result3'=> $result3, 'mjresults'=> $result4,'ghresults'=>$result5,
                                     'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag, 'saveQ'=>$saveQ, ));//'keyword'=>$keyword));
         
     }
