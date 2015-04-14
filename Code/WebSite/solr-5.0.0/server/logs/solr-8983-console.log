@@ -1,0 +1,150 @@
+0    [main] INFO  org.eclipse.jetty.server.Server  – jetty-8.1.10.v20130312
+35   [main] INFO  org.eclipse.jetty.deploy.providers.ScanningAppProvider  – Deployment monitor C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\contexts at interval 0
+40   [main] INFO  org.eclipse.jetty.deploy.DeploymentManager  – Deployable added: C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\contexts\solr-jetty-context.xml
+1540 [main] INFO  org.eclipse.jetty.webapp.StandardDescriptorProcessor  – NO JSP Support for /solr, did not find org.apache.jasper.servlet.JspServlet
+1624 [main] INFO  org.apache.solr.servlet.SolrDispatchFilter  – SolrDispatchFilter.init()WebAppClassLoader=2059114181@7abb96c5
+1689 [main] INFO  org.apache.solr.core.SolrResourceLoader  – JNDI not configured for solr (NoInitialContextEx)
+1689 [main] INFO  org.apache.solr.core.SolrResourceLoader  – using system property solr.solr.home: C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr
+1690 [main] INFO  org.apache.solr.core.SolrResourceLoader  – new SolrResourceLoader for directory: 'C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\'
+1859 [main] INFO  org.apache.solr.core.ConfigSolr  – Loading container configuration from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\solr.xml
+2143 [main] INFO  org.apache.solr.core.CoresLocator  – Config-defined core root directory: C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr
+2156 [main] INFO  org.apache.solr.core.CoreContainer  – New CoreContainer 1155449516
+2156 [main] INFO  org.apache.solr.core.CoreContainer  – Loading cores into CoreContainer [instanceDir=C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\]
+2168 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting socketTimeout to: 600000
+2169 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting urlScheme to: null
+2172 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting connTimeout to: 60000
+2173 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting maxConnectionsPerHost to: 20
+2174 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting maxConnections to: 10000
+2174 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting corePoolSize to: 0
+2174 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting maximumPoolSize to: 2147483647
+2174 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting maxThreadIdleTime to: 5
+2175 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting sizeOfQueue to: -1
+2175 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting fairnessPolicy to: false
+2175 [main] INFO  org.apache.solr.handler.component.HttpShardHandlerFactory  – Setting useRetries to: false
+2507 [main] INFO  org.apache.solr.update.UpdateShardHandler  – Creating UpdateShardHandler HTTP client with params: socketTimeout=600000&connTimeout=60000&retry=true
+2509 [main] INFO  org.apache.solr.logging.LogWatcher  – SLF4J impl is org.slf4j.impl.Log4jLoggerFactory
+2509 [main] INFO  org.apache.solr.logging.LogWatcher  – Registering Log Listener [Log4j (org.slf4j.impl.Log4jLoggerFactory)]
+2510 [main] INFO  org.apache.solr.core.CoreContainer  – Host Name: 
+2548 [main] INFO  org.apache.solr.core.CoresLocator  – Looking for core definitions underneath C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr
+2563 [main] INFO  org.apache.solr.core.CoresLocator  – Found 0 core definitions
+2564 [main] INFO  org.apache.solr.servlet.SolrDispatchFilter  – user.dir=C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server
+2564 [main] INFO  org.apache.solr.servlet.SolrDispatchFilter  – SolrDispatchFilter.init() done
+2604 [main] INFO  org.eclipse.jetty.server.AbstractConnector  – Started SocketConnector@0.0.0.0:8983
+18255 [qtp1993775065-18] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/cores params={indexInfo=false&_=1428507095565&wt=json} status=0 QTime=46 
+18327 [qtp1993775065-14] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/info/system params={_=1428507095650&wt=json} status=0 QTime=31 
+46677 [qtp1993775065-18] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/cores params={indexInfo=false&_=1428507124040&wt=json} status=0 QTime=0 
+46702 [qtp1993775065-18] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/info/system params={_=1428507124064&wt=json} status=0 QTime=1 
+306505 [qtp1993775065-19] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/cores params={_=1428507383565&wt=json} status=0 QTime=0 
+309630 [qtp1993775065-19] INFO  org.apache.solr.handler.admin.CoreAdminHandler  – core create command schema=schema.xml&shard=&instanceDir=new_core&indexInfo=false&name=new_core&action=CREATE&config=solrconfig.xml&_=1428507386992&collection=&dataDir=data&wt=json
+309641 [qtp1993775065-19] INFO  org.apache.solr.core.SolrResourceLoader  – new SolrResourceLoader for directory: 'C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\'
+309659 [qtp1993775065-19] ERROR org.apache.solr.core.CoreContainer  – Error creating core [new_core]: Could not load conf for core new_core: Error loading solr config from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf\solrconfig.xml
+org.apache.solr.common.SolrException: Could not load conf for core new_core: Error loading solr config from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf\solrconfig.xml
+	at org.apache.solr.core.ConfigSetService.getConfig(ConfigSetService.java:66)
+	at org.apache.solr.core.CoreContainer.create(CoreContainer.java:511)
+	at org.apache.solr.core.CoreContainer.create(CoreContainer.java:488)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleCreateAction(CoreAdminHandler.java:573)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleRequestInternal(CoreAdminHandler.java:197)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleRequestBody(CoreAdminHandler.java:186)
+	at org.apache.solr.handler.RequestHandlerBase.handleRequest(RequestHandlerBase.java:144)
+	at org.apache.solr.servlet.SolrDispatchFilter.handleAdminRequest(SolrDispatchFilter.java:736)
+	at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:261)
+	at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:204)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1419)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:455)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:557)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1075)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:384)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1009)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:255)
+	at org.eclipse.jetty.server.handler.HandlerCollection.handle(HandlerCollection.java:154)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:368)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+	at org.eclipse.jetty.server.BlockingHttpConnection.handleRequest(BlockingHttpConnection.java:53)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:942)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1004)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:640)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.BlockingHttpConnection.handle(BlockingHttpConnection.java:72)
+	at org.eclipse.jetty.server.bio.SocketConnector$ConnectorEndPoint.run(SocketConnector.java:264)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.apache.solr.common.SolrException: Error loading solr config from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf\solrconfig.xml
+	at org.apache.solr.core.SolrConfig.readFromResourceLoader(SolrConfig.java:167)
+	at org.apache.solr.core.ConfigSetService.createSolrConfig(ConfigSetService.java:80)
+	at org.apache.solr.core.ConfigSetService.getConfig(ConfigSetService.java:61)
+	... 34 more
+Caused by: java.io.IOException: Can't find resource 'solrconfig.xml' in classpath or 'C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf'
+	at org.apache.solr.core.SolrResourceLoader.openResource(SolrResourceLoader.java:364)
+	at org.apache.solr.core.SolrResourceLoader.openConfig(SolrResourceLoader.java:310)
+	at org.apache.solr.core.Config.<init>(Config.java:122)
+	at org.apache.solr.core.Config.<init>(Config.java:92)
+	at org.apache.solr.core.SolrConfig.<init>(SolrConfig.java:180)
+	at org.apache.solr.core.SolrConfig.readFromResourceLoader(SolrConfig.java:158)
+	... 36 more
+309662 [qtp1993775065-19] ERROR org.apache.solr.core.SolrCore  – org.apache.solr.common.SolrException: Error CREATEing SolrCore 'new_core': Unable to create core [new_core] Caused by: Can't find resource 'solrconfig.xml' in classpath or 'C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf'
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleCreateAction(CoreAdminHandler.java:606)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleRequestInternal(CoreAdminHandler.java:197)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleRequestBody(CoreAdminHandler.java:186)
+	at org.apache.solr.handler.RequestHandlerBase.handleRequest(RequestHandlerBase.java:144)
+	at org.apache.solr.servlet.SolrDispatchFilter.handleAdminRequest(SolrDispatchFilter.java:736)
+	at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:261)
+	at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:204)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1419)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:455)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:557)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1075)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:384)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1009)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:255)
+	at org.eclipse.jetty.server.handler.HandlerCollection.handle(HandlerCollection.java:154)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:368)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+	at org.eclipse.jetty.server.BlockingHttpConnection.handleRequest(BlockingHttpConnection.java:53)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:942)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1004)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:640)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.BlockingHttpConnection.handle(BlockingHttpConnection.java:72)
+	at org.eclipse.jetty.server.bio.SocketConnector$ConnectorEndPoint.run(SocketConnector.java:264)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.apache.solr.common.SolrException: Unable to create core [new_core]
+	at org.apache.solr.core.CoreContainer.create(CoreContainer.java:528)
+	at org.apache.solr.core.CoreContainer.create(CoreContainer.java:488)
+	at org.apache.solr.handler.admin.CoreAdminHandler.handleCreateAction(CoreAdminHandler.java:573)
+	... 31 more
+Caused by: org.apache.solr.common.SolrException: Could not load conf for core new_core: Error loading solr config from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf\solrconfig.xml
+	at org.apache.solr.core.ConfigSetService.getConfig(ConfigSetService.java:66)
+	at org.apache.solr.core.CoreContainer.create(CoreContainer.java:511)
+	... 33 more
+Caused by: org.apache.solr.common.SolrException: Error loading solr config from C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf\solrconfig.xml
+	at org.apache.solr.core.SolrConfig.readFromResourceLoader(SolrConfig.java:167)
+	at org.apache.solr.core.ConfigSetService.createSolrConfig(ConfigSetService.java:80)
+	at org.apache.solr.core.ConfigSetService.getConfig(ConfigSetService.java:61)
+	... 34 more
+Caused by: java.io.IOException: Can't find resource 'solrconfig.xml' in classpath or 'C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server\solr\new_core\conf'
+	at org.apache.solr.core.SolrResourceLoader.openResource(SolrResourceLoader.java:364)
+	at org.apache.solr.core.SolrResourceLoader.openConfig(SolrResourceLoader.java:310)
+	at org.apache.solr.core.Config.<init>(Config.java:122)
+	at org.apache.solr.core.Config.<init>(Config.java:92)
+	at org.apache.solr.core.SolrConfig.<init>(SolrConfig.java:180)
+	at org.apache.solr.core.SolrConfig.readFromResourceLoader(SolrConfig.java:158)
+	... 36 more
+
+309663 [qtp1993775065-19] INFO  org.apache.solr.servlet.SolrDispatchFilter  – [admin] webapp=null path=/admin/cores params={schema=schema.xml&shard=&instanceDir=new_core&indexInfo=false&name=new_core&action=CREATE&config=solrconfig.xml&_=1428507386992&collection=&dataDir=data&wt=json} status=400 QTime=33 
+1311322 [ShutdownMonitor] INFO  org.eclipse.jetty.server.Server  – Graceful shutdown SocketConnector@0.0.0.0:8983
+1311322 [ShutdownMonitor] INFO  org.eclipse.jetty.server.Server  – Graceful shutdown o.e.j.w.WebAppContext{/solr,file:/C:/Users/ralonso/Downloads/solr-5.0.0/solr-5.0.0/server/solr-webapp/webapp/},C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server/webapps/solr.war
+1312324 [ShutdownMonitor] INFO  org.apache.solr.core.CoreContainer  – Shutting down CoreContainer instance=1155449516
+1312331 [ShutdownMonitor] INFO  org.eclipse.jetty.server.handler.ContextHandler  – stopped o.e.j.w.WebAppContext{/solr,file:/C:/Users/ralonso/Downloads/solr-5.0.0/solr-5.0.0/server/solr-webapp/webapp/},C:\Users\ralonso\Downloads\solr-5.0.0\solr-5.0.0\server/webapps/solr.war
