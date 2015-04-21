@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "UTF-8" ?>
 <dataConfig> 
- <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/jobfairdb" user="root" password="" batchSize="1" />  
+ <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/jobfairdb" user="vjfuser" password="s3n10rpr0j3ct" batchSize="1" />  
  
  <document name="jodfairdb">   
   <entity name="solr"

@@ -1069,8 +1069,12 @@ class JobController extends Controller
                     $cur_snippet = $snippets[$i];
                     $cur_snippet = str_replace(array('.', '/', ',', '.', '(', ')'), ' ', $cur_snippet);
                     $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-                    foreach ($cur_snippet_words as $snippet_word) { 
+                    foreach ($cur_snippet_words as $snippet_word) {  
                         if($snippet_word != ''){
+			    //character decoding to avoit conflict with MySQL search
+			    $snippet_word  = strtolower($snippet_word);
+		            $snippet_word  = utf8_decode($snippet_word);
+
                             // check database to see if current word is a skill
                             $skill = Skillset::model()->find("LOWER(name)=:name", array(":name" => $snippet_word));
                             if ($skill) {
