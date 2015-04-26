@@ -318,6 +318,13 @@ class User extends CActiveRecord
         foreach ($experience as $exp){
             $exp->delete();
         }
+        
+        //deletes messages
+        $saved_messages = Message::model()->findAllByAttributes(array('FK_userid' => $this->username));
+        foreach ($saved_messages as $saved_message){
+            $saved_message->delete();
+        }
+        
         $this->delete();
     }
 
