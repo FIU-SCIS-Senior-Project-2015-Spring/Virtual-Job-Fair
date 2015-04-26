@@ -312,7 +312,12 @@ class User extends CActiveRecord
         foreach ($saved_queries as $saved_query){
             $saved_query->delete();
         }
-
+        
+        //deletes experience
+        $experience = Experience::model()->findAllByAttributes(array('FK_userid' => $id));
+        foreach ($experience as $exp){
+            $exp->delete();
+        }
         $this->delete();
     }
 
