@@ -320,7 +320,11 @@ class User extends CActiveRecord
         }
         
         //deletes messages
-        $saved_messages = Message::model()->findAllByAttributes(array('FK_userid' => $this->username));
+        $saved_messages = Message::model()->findAllByAttributes(array('FK_receiver' => $this->username));
+        foreach ($saved_messages as $saved_message){
+            $saved_message->delete();
+        }
+        $saved_messages = Message::model()->findAllByAttributes(array('FK_sender' => $this->username));
         foreach ($saved_messages as $saved_message){
             $saved_message->delete();
         }
