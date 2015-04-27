@@ -329,6 +329,16 @@ class User extends CActiveRecord
             $saved_message->delete();
         }
         
+        //deletes handshake
+        $saved_handshakes = Handshake::model()->findAllByAttributes(array('studentid' => $id));
+        foreach ($saved_handshakes as $saved_handshake){
+            $saved_handshake->delete();
+        }
+        $saved_handshakes = Handshake::model()->findAllByAttributes(array('employerid' => $id));
+        foreach ($saved_handshakes as $saved_handshake){
+            $saved_handshake->delete();
+        }
+        
         $this->delete();
     }
 
