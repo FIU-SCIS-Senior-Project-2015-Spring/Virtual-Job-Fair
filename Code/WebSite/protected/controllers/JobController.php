@@ -1535,7 +1535,11 @@ class JobController extends Controller
         }
         // array to contain the results of the search
         $results = Array();
+        $result1 = Array();
         $result2 = Array();
+        $result3 = Array();
+        $result4 = Array();
+        $result5 = Array();
 
         if($searchKey != null)
             $keyword = $searchKey;
