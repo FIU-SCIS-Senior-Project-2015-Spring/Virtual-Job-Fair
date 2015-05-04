@@ -1299,6 +1299,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `date` datetime DEFAULT NULL,
   `been_read` int(11) DEFAULT NULL,
   `been_deleted` int(11) NOT NULL,
+  `sender_deleted` int(11) NOT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `userImage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
