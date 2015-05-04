@@ -1,6 +1,8 @@
 <?php
+require ('GuestEmployerPostForm.php');
 $flag = 0;
 $saveQuery = "";
+
 
 class JobController extends Controller
 {
@@ -841,15 +843,20 @@ class JobController extends Controller
         if (isset($radioOption) && $radioOption != "") {
 //            $result = $this->indeed($query, $city);
 //            if($result['totalresults'] == 0) {$result = "";}
-            $result = "";
-            $result2 = $this->careerBuilder($query, $city);
-            if($result2[0] == 0) {$result2 = "";}
-            $result3 = $this->stackOverflow($query,$city);
-            $result4 = $this->monsterJobs($query, $city);
-            $result5 = $this->githubJobs($query, $city);
-            // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
-            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
-            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag,'saveQ'=>$saveQ));
+            $this->actionSearch($query, $city);
+//            $result = "";
+//            $result2 = $this->careerBuilder($query, $city);
+//            if($result2 != null){                
+//                if($result2[0] == 0) {$result2 = "";}
+//            }
+//            $result3 = $this->stackOverflow($query,$city);
+//            if($result3 == null)
+//                $result3 = "";
+//            $result4 = $this->monsterJobs($query, $city);
+//            $result5 = $this->githubJobs($query, $city);
+//            // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
+//            $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
+//            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'result3'=>$result3,'mjresults'=>$result4,'ghresults'=>$result5, 'flag'=>$flag,'saveQ'=>$saveQ));
             }
         else
         {            
@@ -915,9 +922,11 @@ class JobController extends Controller
             }     // add +
         }
 
-        if ($saveQuery != "") {
-            $username = Yii::app()->user->name;
-            $model = User::model()->find("username=:username", array(':username' => $username));
+        $username = Yii::app()->user->name;
+        $model = User::model()->find("username=:username", array(':username' => $username));
+        $suc = 0;
+        
+        if ($saveQuery != "") {            
             $saved_queries = new SavedQuery();
             $saved_queries->query = htmlentities($saveQuery);
             $saved_queries->query_tag = $tag;
@@ -974,30 +983,54 @@ class JobController extends Controller
 
         // to call Indeed API
         require 'protected/indeed/indeed.php';
-        // Indeed publisher number 5595740829812660
-        $client = new Indeed("5595740829812660");
+        // Indeed publisher number 9436933956285809
+        $client = new Indeed("9436933956285809");
 
         // parameters pass to indeed API
         $params = array(
             "q" => $query, // query from user
             "l" => $loc, // user location
+            "start" => 0, //Start results at this number, due to the api returning only 25 at a time. So to get 100 we should query in 25 increments 4 times
             "limit" => 25, // Maximum number of results returned per query. Default is 10
             "userip" => $_SERVER['REMOTE_ADDR'], // user IP address
             "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
         );
 
         // search results from indeed.com
-        $results = $client->search($params);
-        // get array of jobs
-        $result = $this->xmlToArray($results);
-
-        // convert snippets to skills
+        $results = $client->search($params);    
+        $result = $this->xmlToArray($results);      
+        $jobPostings = $result;
+        
+        //Call the API search to retrive jobs in increments of 25
+        $numberOfCalls = (int)floor($result['totalresults']/25); 
+        
+        
+        if($numberOfCalls != null && $numberOfCalls > 1){
+            for($i = 0; $i < $numberOfCalls; $i++){
+                $params['start'] += 25; 
+                $results = $client->search($params);
+                $result = $this->xmlToArray($results);
+                array_splice($jobPostings['results']['result'], $params['start'], 0, $result['results']['result']);
+            }
+            
+            $jobPostings['end'] = $jobPostings['totalresults'];
+            
+            // convert snippets to skills        
+            return $this->convertSnippetsToSkills($jobPostings);
+        }
+        
+        return "";      
+    }
+    
+    // convert snippets to skills
+    private function convertSnippetsToSkills($result){
         $snippets = array();
+    
         $j = 0;
-
+        
         // if there are results from indeed.com API
-        if ($result['totalresults'] > 0) {
-            if ($result['totalresults'] == 1) {
+        if ($result['end'/*'totalresults'*/] > 0) {
+            if ($result['end'/*'totalresults'*/] == 1) {
                 //print_r($result);die;
                 $snippets[$j] = strtolower($result['results']['result']['snippet']);
                 $snippets[$j] = utf8_decode($snippets[$j]);
@@ -1013,7 +1046,7 @@ class JobController extends Controller
                 }
             }
 
-            if ($result['totalresults'] == 1) {
+            if ($result['end'/*'totalresults'*/] == 1) {
                 // put back into results snippet as skill words
                 // check each snipped for skills
                 $cur_snippet = $snippets[0];
@@ -1034,16 +1067,22 @@ class JobController extends Controller
                 for ($i = 0; $i < count($result['results']['result']); $i++) {
                     // check each snipped for skills
                     $cur_snippet = $snippets[$i];
-                    $cur_snippet = str_replace(array('.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet = str_replace(array('.', '/', ',', '.', '(', ')'), ' ', $cur_snippet);
                     $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-                    foreach ($cur_snippet_words as $snippet_word) {
-                        // check database to see if current word is a skill
-                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name" => $snippet_word));
-                        if ($skill) {
-                            // append current word (skill) to results snippet (check duplicates)
-                            $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
-                            if (!strstr($cur_skills, $snippet_word)) {
-                                $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                    foreach ($cur_snippet_words as $snippet_word) {  
+                        if($snippet_word != ''){
+			    //character decoding to avoit conflict with MySQL search
+			    $snippet_word  = strtolower($snippet_word);
+		            $snippet_word  = utf8_decode($snippet_word);
+
+                            // check database to see if current word is a skill
+                            $skill = Skillset::model()->find("LOWER(name)=:name", array(":name" => $snippet_word));
+                            if ($skill) {
+                                // append current word (skill) to results snippet (check duplicates)
+                                $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                                if (!strstr($cur_skills, $snippet_word)) {
+                                    $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
                             }
                         }
                     }
@@ -1053,15 +1092,14 @@ class JobController extends Controller
         }
         return $result;
     }
-
     // convert XML feed from Indeed to Array
     public function xmlToArray($input, $callback = null, $recurse = false) {
         $data = ((!$recurse) && is_string($input)) ? simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA) : $input;
         if ($data instanceof \SimpleXMLElement)
             $data = (array) $data;
         if (is_array($data))
-            foreach ($data as &$item)
-                $item = $this->xmlToArray($item, $callback, true);
+            foreach ($data as &$item){                
+            $item = $this->xmlToArray($item, $callback, true);}
         return (!is_array($data) && is_callable($callback)) ? call_user_func($callback, $data) : $data;
     }
 
@@ -1096,6 +1134,48 @@ class JobController extends Controller
         }
 
         $this->render('post', array('model' => $model));
+    }
+    
+    public function actionPostGuestEmployer(){
+        $model = new GuestEmployerPostForm();
+        $job = new Job();
+        //print_r($_POST);
+
+        if (isset($_POST['GuestEmployerPostForm'])) {
+            if (!($this->actionVerifyGuestEmployerJobPost() == "") && $model->verify()&& $model->validate()) {
+                //$this->redirect("/JobFair/index.php/home/employerhome");
+                $this->render('postGuestEmployer', array('model' => $model));
+            }
+            
+
+            $model->attributes = $_POST['GuestEmployerPostForm'];
+            $job->type = $model->type;
+            $job->title = $model->title;
+            $job->deadline = $model->deadline;
+            $job->compensation = $model->compensation;
+            $job->FK_poster = User::getCurrentUser()->id;
+            date_default_timezone_set('America/New_York');
+            $job->comp_name = "";
+            $job->post_date = date('Y-m-d H:i:s');
+            $job->description = $this->mynl2br($model->description);
+            $job->poster_email = $model->email;
+            
+            //print_r($job);
+            $job->save(false);
+            if (isset($_POST['Skill'])) {
+                $this->actionSaveSkills($job->id);
+            }
+
+
+            $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id;
+            //$link = 'http://localhost/JobFair/JobFair/index.php/job/view/jobid/'.$model->id;
+            $message = User::getCurrentUser()->username . " just posted a new job: " . $job->title . ". Click here to view the post. ";
+            User::sendAllStudentVerificationAlart($job->FK_poster, $job->fKPoster->username, $job->fKPoster->email, $message, $link);
+            $this->redirect("/JobFair/index.php/Job/studentmatch/jobid/" . $job->id);
+            }
+
+        $this->render('postGuestEmployer', array('model' => $model));
+        
     }
 
     public function actionEditJobPost() {
@@ -1312,6 +1392,7 @@ class JobController extends Controller
         $compensation = $job['compensation'];
         $description = $job['description'];
         $deadline = $job['deadline'];
+        //$poster_email = $job['poster_email'];
 
         if (strlen($type) < 1) {
             $error .= "You must select a job type<br />";
@@ -1336,6 +1417,49 @@ class JobController extends Controller
         if (!$this->is_valid_date($deadline)) {
             $error .= "Please enter date in the format: yyyy-mm-dd<br />";
         }
+        
+        /*if(strlen($poster_email)){
+            $error .= "You must input your email address. />";
+        }*/
+        print $error;
+        return $error;
+    }
+    
+    public function actionVerifyGuestEmployerJobPost() {
+        $job = $_POST['GuestEmployerPostForm'];
+        $error = "";
+
+        $type = $job['type'];
+        $title = $job['title'];
+        $compensation = $job['compensation'];
+        $description = $job['description'];
+        $deadline = $job['deadline'];
+        $poster_email = $job['email'];
+
+        if (strlen($type) < 1) {
+            $error .= "You must select a job type<br />";
+        }
+
+        if (strlen($title) < 1) {
+            $error .= "You must input a job title<br />";
+        }
+
+        if (strlen($description) < 1) {
+            $error .= "You must input a job description<br />";
+        }
+
+        if (strlen($deadline) < 1) {
+            $error .= "You must select a job type<br />";
+        }
+
+// 		if (strlen($compensation) < 1) {
+// 			$error .= "You must input an amount for compensation<br />";
+// 		}
+
+        if (!$this->is_valid_date($deadline)) {
+            $error .= "Please enter date in the format: yyyy-mm-dd<br />";
+        }
+        
         print $error;
         return $error;
     }
@@ -1378,7 +1502,7 @@ class JobController extends Controller
             array('allow', // allow authenticated users to perform these actions
                 'actions' => array('StudentMatch', 'View', 'Home', 'Post',
                     'SaveSkills', 'studentMatch', 'EditJobPost', 'VerifyJobPost', 'View', 'VirtualHandshake', 'QuerySkill', 'Apply',
-                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome'),
+                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome', 'PostGuestEmployer'),
                 'users' => array('@')),
             array('allow',
                 'actions' => array('Home'),
@@ -1397,7 +1521,7 @@ class JobController extends Controller
     }
 
     // job search from nav bar
-    public function actionSearch()
+    public function actionSearch($searchKey = null, $loc = null)
     {
         // flag to display results in home
         $flag = 2;
@@ -1407,12 +1531,18 @@ class JobController extends Controller
         // words to search for
         if(isset($_GET['keyword']))
         {
-            $keyword = ($_GET['keyword']);
+            $keyword = ($_GET['keyword']);            
         }
         // array to contain the results of the search
         $results = Array();
+        $result1 = Array();
         $result2 = Array();
+        $result3 = Array();
+        $result4 = Array();
+        $result5 = Array();
 
+        if($searchKey != null)
+            $keyword = $searchKey;
         // there are words to search
         if ($keyword != null)
         {
@@ -1432,20 +1562,36 @@ class JobController extends Controller
                 $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN NATURAL LANGUAGE MODE) AND active = '1';");
                 //print_r ($result);
             }
+            if($result == null)
+                    $result = "";
             // location will be set to "Miami, Florida"
-            $loc = "Miami, Florida";
+            if($loc == null)
+                $loc = "Miami, Florida";
+            
             // call indeed API to get jobs query by user
-            //$result = $this->indeed($keyword, $loc);
-            //if($result['totalresults'] == 0) {$result = "";}
+            $result1 = $this->indeed($keyword, $loc);            //var_dump($result1);die;
+            if($result1 == null || $result1['end'/*'totalresults'*/] == 0) {$result1 = "";}
             $result2 = $this->careerBuilder($keyword, $loc);
-            if($result2[0] == 0) {$result2 = "";}
+            if($result2 == null) {$result2 = "";}
+            if($result2 != null && $result2[0] == 0) {$result2 = "";}
             $result3 = $this->stackOverflow($keyword, $loc);
-            //if($result3[0] == 0) {$result3 = "";}
-            $loc = "Florida";
-            $result4 = $this->monsterJobs($keyword, $loc);
-            $result5 = $this->githubJobs($keyword, "");
+            if($result3 == null || $result3 == '') {
+                $result3 = "";                
             }
-
+            //if($result3 != null && $result3[0] == 0) {$result3 = "";} EXISTENT OLD CODE
+//            The location for the Monster and Github API's 
+//            are different format so we need to cut the string into one word
+            $cityLoc = strstr($loc, ',', true);
+            if($cityLoc == false)
+                $loc = "Miami";//"Florida";
+            else
+                $loc = $cityLoc;
+            $result4 = $this->monsterJobs($keyword, $loc);
+            if($result4 == null) {$result4 = "";}
+            $result5 = $this->githubJobs($keyword, "");
+            if($result5 == null) {$result5 = "";}
+            }
+            
         // get user
         if (isset($_GET['user'])){
             $username = $_GET['user'];
@@ -1464,8 +1610,8 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
         // render search results, user, skills, companies and flag to job/home
 //        $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'jobs'=>$results,'user'=>$user,
 //            'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
-         $this->render('home',array('result'=>$result, 'cbresults'=>$result2,'result3'=>$result3, 'mjresults'=>$result4,'ghresults'=>$result5,
-                                    'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
+         $this->render('home',array('result'=>$result1, 'cbresults'=>$result2,'result3'=> $result3, 'mjresults'=> $result4,'ghresults'=>$result5,
+                                    'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag, 'saveQ'=>$saveQ, ));//'keyword'=>$keyword));
         
     }
 

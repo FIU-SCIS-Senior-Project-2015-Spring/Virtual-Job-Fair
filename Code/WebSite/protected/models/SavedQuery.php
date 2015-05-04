@@ -62,6 +62,18 @@ class SavedQuery extends CActiveRecord
             'fKUser' => array(self::BELONGS_TO, 'User', 'FK_userid'),
         );
     }
+    
+//    //deletes all the records for one id
+//    public function cascade_delete(){
+//        $userid = $this->FK_userid;
+//        
+//        //remove all the saved query records for the user
+//        $saveQueries = SavedQuery::model()->findAllByAttributes(array('queryID' => $id));
+//        foreach ($saveQueries as $saveQuery){
+//            $saveQuery->delete();
+//        }
+//    }
+    
 
     /**
      * @return array customized attribute labels (name=>label)

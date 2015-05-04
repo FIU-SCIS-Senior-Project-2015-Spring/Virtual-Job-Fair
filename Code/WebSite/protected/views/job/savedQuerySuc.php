@@ -29,7 +29,8 @@ $(document).ready(function()
                 </div>
             <?php } if(isset($mesg) && $mesg == 0 ) {?>
                 <div id="alertBig" class="alert alert-error">
-                    <strong>Error!</strong> Oops... The was an error!
+                    <strong>Error!</strong> <p>Oops... The was an error!<br>
+                    Please make sure your search parameter is not empty.</p>
                 </div>
             <?php } ?>
         </div>

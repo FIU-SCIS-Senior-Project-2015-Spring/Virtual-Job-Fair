@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<dataConfig> 
+ <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/jobfairdb" user="vjfuser" password="s3n10rpr0j3ct" batchSize="1" />  
+ 
+ <document name="jodfairdb">   
+  <entity name="solr"
+			query="SELECT * FROM solr"
+			deltaImportQuery= "SELECT * FROM solr WHERE id = '${dih.delta.id}'"
+			deltaQuery = "SELECT id FROM solr WHERE modified > '${dih.last_index_time}'">  
+		<field column="id" name="id"/> 
+		<field column="username" name="username"/>    
+		<field column="email" name="email"/>  
+		<field column="registration_date" name="registration_date"/>  
+		<field column="first_name" name="first_name"/>  
+		<field column="last_name" name="last_name"/> 
+		<field column="image_url" name="image_url"/>
+	    <field column="type" name="type"/>    
+	    <field column="title" name="title"/>  
+	    <field column="post_date" name="post_date"/>  
+	    <field column="deadline" name="deadline"/> 
+	    <field column="description" name="description"/>
+	    <field column="compensation" name="compensation"/>
+	    <field column="other_requirements" name="other_requirements"/>
+	    <field column="matches_found" name="matches_found"/>
+	    <field column="posting_url" name="posting_url"/>
+	    <field column="comp_name" name="comp_name"/>
+	    <field column="poster_email" name="poster_email"/>
+			<entity name = "student_skills" query= "SELECT skillid FROM student_skill_map WHERE student_skill_map.userid = '${solr.id}'">
+				<entity name = "skills" query= "SELECT name FROM skillset WHERE skillset.id = '${student_skills.skillid}'">
+					<field column="name" name="skillname" />
+				</entity>
+			</entity>
+  </entity>    
+ </document>
+</dataConfig>

@@ -10,7 +10,7 @@
  * @package indeed
  * source: https://github.com/indeedlabs/indeed-php
  * Indeed API Information
- * Publisher ID: "5595740829812660"
+ * Publisher ID: "9436933956285809"
  * email: virtualjobfairfiu@gmail.com
  * password: cis49112014
  */

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>003-Registration-Student</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">003-Registration-Student</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Register</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.regimg</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Name</td>
+	<td>test003Name</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003LastName</td>
+	<td>test003LastName</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Email</td>
+	<td>test003Email</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Phone</td>
+	<td>test003Phone</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_first_name</td>
+	<td>${test003Name}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_last_name</td>
+	<td>${test003LastName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003UserName</td>
+	<td>test003UserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_username</td>
+	<td>${test003UserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>test003Password</td>
+	<td>test003Password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password</td>
+	<td>${test003Password}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password_repeat</td>
+	<td>${test003Password}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_email</td>
+	<td>${test003Email}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>${test003Phone}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - StudentRegister User</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Go to login</td>
+	<td>Go to login</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//a[contains(text(),'Register')])[2]</td>
+	<td>Register</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Get my password</td>
+	<td>Get my password</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

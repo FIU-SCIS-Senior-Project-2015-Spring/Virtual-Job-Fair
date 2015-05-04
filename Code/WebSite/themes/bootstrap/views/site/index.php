@@ -1,15 +1,19 @@
 <?php
 /* @var $this SiteController */
-
-// if user logged in redirect to homepage (Student, employer, admin)
+ 
+// if user logged in redirect to homepage (Student, employer, admin, Guest Student, Guest Employer)
 if (User::isCurrentUserStudent()) {
 	$this->redirect("/JobFair/index.php/home/studenthome");
 } elseif (User::isCurrentUserEmployer()) {
 	$this->redirect("/JobFair/index.php/home/employerhome");
 } elseif (User::isCurrentUserAdmin()) {
 	$this->redirect("/JobFair/index.php/home/adminhome");	
-	
-}	// redirect to login page
+} elseif(User::isCurrentUserGuestStudent()){
+        $this->redirect("JobFair/index.php/user/guestStudentAuth");
+} elseif(User::isCurrentUserGuestEmployer()){
+        $this->redirect("JobFair/index.php/user/guestEmployerAuth");
+}
+// redirect to login page
     else  {
 		$this->redirect("/JobFair/index.php/site/login");
 }

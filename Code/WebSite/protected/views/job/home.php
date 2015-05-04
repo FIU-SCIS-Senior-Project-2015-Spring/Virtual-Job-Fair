@@ -45,10 +45,121 @@ if (!isset($_GET['city'])) {
 
 <script>
 
+    //Searh form validation
+    function validateSearchForm(){
+        
+        var allWords = document.getElementById('allWords').value;
+        var phrase = document.getElementById('phrase').value;
+        var anyWord = document.getElementById('anyWord').value;
+        var minus = document.getElementById('minus').value;
+            
+        if(!validateAllWords(allWords)){
+            return false;
+        }
+        if(!validateExactWords(phrase))
+            return false;
+        
+        if(!validateAnyWords(anyWord))
+            return false;
+        
+        if(!validateMinusWords(minus))
+            return false;
+        
+        return true;
+    }
+    
+//    Validates the none of these words input field
+    function validateMinusWords(minus){
+        var lastIndex = minus.lastIndexOf('-');
+        
+        if(minus.trim().length !== 0 && minus.trim().length < 1){
+            alert("Search string must be at least 1 character");
+            return false;
+        }
+        //Check for at most one + sign
+        if(lastIndex!== -1 && lastIndex !== 0){            
+            alert("Only one - sign allowed in 'none of these words:' field. It must be at the beginning of the string");
+            return false;
+        }
+        //Check for minus signs
+        var firstIndex = minus.indexOf('+');
+        if(firstIndex !== -1){
+            alert("No + sign is accepted in 'none of these words:' field");
+            return false;
+        }
+        //Check for quotes
+        firstIndex = minus.indexOf('"');
+        if(firstIndex !== -1){
+            alert("No quotes accepted in 'none of these words:' field");
+            return false;
+        }
+        return true;
+    }
+    
+//    Validates the exact word input field
+    function validateExactWords(phrase){
+        var firstIndex = phrase.indexOf('+');
+        if(firstIndex !== -1){
+            alert("No + sign is accepted in 'this exact word or phrase:' field");
+            return false;
+        }
+        firstIndex = phrase.indexOf('-');
+        if(firstIndex !== -1){
+            alert("No - sign is accepted in 'this exact word or phrase:' field");
+            return false;
+        }
+        return true;
+    }
+    
+//    Validates the any word input field
+    function validateAnyWords(anyWord){
+        var firstIndex = anyWord.indexOf('+');
+        if(firstIndex !== -1){
+            alert("No + sign is accepted in 'any of these words:' field");
+            return false;
+        }
+        firstIndex = anyWord.indexOf('-');
+        if(firstIndex !== -1){
+            alert("No - sign is accepted in 'any of these words:' field");
+            return false;
+        }
+        return true;
+    }
+           
+//    Validates the these words input field
+    function validateAllWords(allWords){
+        var lastIndex = allWords.lastIndexOf('+');
+        
+        if(allWords.length !== 0 && allWords.trim().length < 1){
+            alert("Search string must be at least  1 character");
+            return false;
+        }
+        //Check for at most one + sign
+        if(lastIndex!== -1 && lastIndex !== 0){            
+            alert("Only one + sign allowed in 'these words:' field. It must be at the beginning of the string");
+            return false;
+        }
+        //Check for minus signs
+        var firstIndex = allWords.indexOf('-');
+        if(firstIndex !== -1){
+            alert("No - sign is accepted in 'these words:' field");
+            return false;
+        }
+        //Check for quotes
+        firstIndex = allWords.indexOf('"');
+        if(firstIndex !== -1){
+            alert("No quotes accepted in 'these words:' field");
+            return false;
+        }
+        return true;
+    }
+    
     function myFunction()
     {
-        document.getElementById("searchForm").action = "/JobFair/index.php/job/home";
-        document.getElementById("searchForm").submit();
+        if(validateSearchForm()){
+            document.getElementById("searchForm").action = "/JobFair/index.php/job/home";
+            document.getElementById("searchForm").submit();
+        }
     }
 
     function saveQuery()
@@ -146,7 +257,10 @@ function getURLParameter(name) {
             <p>Select queries to search for jobs</p>
 
             <div style= "text-align:left;">
-                <?php foreach ($saveQ as $query) { ?>
+                <?php   $isGuestStudent = User::isCurrentUserGuestStudent();
+                ?>
+                <?php if(!$isGuestStudent){
+                    foreach ($saveQ as $query) { ?>
                     <?php if($query['active'] == '1')
                     {?>
                         <div class="checkbox">
@@ -164,18 +278,26 @@ function getURLParameter(name) {
 
                         </div>
                     <?php } ?>
-                <?php } ?>
+                <?php } }?>
             </div>                    
         </div> 
       <h4>Find jobs with... </h4>
         <div>
             <strong>these words:</strong>
-            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+            <?php
+            //Ensures that the parameter from the nav-bar search
+            //is written down in the search field in case the user wnats to save it
+//            if(isset($keyword))
+//                $_GET['allWords'] = trim($keyword);
+                        
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'allWords',
                 'id'=>'allWords',
                 'value'=> $_GET['allWords'],
-                'htmlOptions'=>array('value'=> $_GET['allWords'],'placeholder' => 'put plus sign before word',
-                    'style'=>'width: 200px;'),)); ?>
+                'htmlOptions'=>array('value'=> $_GET['allWords'],                    
+                    'placeholder' => 'put plus sign before word',
+                    'style'=>'width: 200px;'),)); 
+            ?>
             <br> <strong>this exact word or phrase:</strong><br>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'phrase',
@@ -322,8 +444,8 @@ function getURLParameter(name) {
          // gets how many job from CareerBuilder
         if($cbresults != null & sizeof($cbresults) > 0)
         {
-            $sizeCB = $cbresults[0]; $k = 1;
-            if($sizeCB == 1) {$sizeCB =2;}
+            $sizeCB = $cbresults[0]; $k = 0;
+            if($sizeCB == 1) {$sizeCB = 2;}
         }
         // gets how many job from StackOverflow
         if($result3 != null & sizeof($result3) > 0)
@@ -332,30 +454,34 @@ function getURLParameter(name) {
 //            $sizeST = stackOverflow\StackOverflow::getJobCount("","Miami, Florida");
             foreach($result3 as $job) { $sizeST++; }
             //var_dump($sizeST);
-            $m = 1;
+            $m = 0;
         }
         // gets how many job from Monster Jobs
         if($mjresults != null & sizeof($mjresults)>0)
         {
             foreach($mjresults as $job) { $sizeMJ++; }
-            $n = 1;              
+            $n = 0;              
         }
         // gets how many job from GitHubJobs
         if($ghresults != null & sizeof($ghresults)>0)
         {
             foreach ($ghresults as $job) {$sizeGH++;}
-            $g = 1;
+            $g = 0;
         }
     ?>
     <tbody>
         <?php // There is only CareerPath jobs(when click on Jobs tab, no search query)
-         if($j == $sizeIndeed && $k == $sizeCB && $m == $sizeST && $n == $sizeMJ && $sizeJobs > 0 )
+         if($j == $sizeIndeed && $k == $sizeCB && $m == $sizeST && $n == $sizeMJ && $g == $sizeGH && $sizeJobs > 0 )
          {
              foreach ($jobs as $job) 
              {?>
+             <?php //$test1 = User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;
+                    //print_r($job->FK_poster);
+                    //$test2 = CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;
+             //print_r($test1);?>
              <tr>
                  <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id;?>"><?php echo $job->title;?></a></td>
-                 <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
+                 <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php //echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
                  <td><?php echo $job->type;?></td>
                  <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->post_date);?></td>
 <!--                 <td>--><?php //echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->deadline);?><!--</td>-->
@@ -391,7 +517,7 @@ function getURLParameter(name) {
             }
          }
          else{?>
-           <?php  while($j != $sizeIndeed || $k != $sizeCB || $i != $sizeJobs || $m != $sizeST || $n != $sizeMJ)
+           <?php  while($j != $sizeIndeed || $k != $sizeCB || $i != $sizeJobs || $m != $sizeST || $n != $sizeMJ || $g != $sizeGH)
            {
                if($i < $sizeJobs) { ?> <!-- CareerPath -->
                    <tr>
@@ -468,7 +594,9 @@ function getURLParameter(name) {
                         }
                         ?>
                     </td>
-                    <td><?php echo "CareerPath"?></td>
+                    <td><a href=<?php echo $results['result'][$j]['url']; ?> target="_blank">
+                           <img src="http://www.indeed.com/images/job_search_indeed.png" alt="Indeed"/>
+                           </a></td>
                </tr>
                <!-- Indeed -->
                <?php $j++; }
@@ -521,7 +649,7 @@ function getURLParameter(name) {
               <?php $j++;             
                 }
                if($k < $sizeCB && $sizeCB > 0)
-               {  ?>  <!-- CareerBuilder -->
+               {$k++;  ?>  <!-- CareerBuilder -->
                 <tr>
                     <td><a href=<?php echo $cbresults[$k]->jobDetailsURL; ?> target="_blank">
                             <?php if($cbresults[$k]->title != null) {echo $cbresults[$k]->title;}
@@ -565,10 +693,10 @@ function getURLParameter(name) {
                         <img src="http://www.wirestaurant.org/images/logo/CareerBuilder_300.gif" alt="CareerBuilder"/>
                         </a></td>
                 </tr> <!--StackOverflow-->
-                <?php $k++;
+                <?php //$k++;
                 } 
                 if($m < $sizeST && $sizeST > 0)
-                {  ?>  
+                {$m++;  ?>  
                 <tr>
                     <td><a href=<?php echo $result3[$m]->jobURL;?> title="StackOverflow"><!--target="_blank"-->
                         <?php if($result3[$m]->title != null) {echo $result3[$m]->title;}
@@ -611,10 +739,10 @@ function getURLParameter(name) {
                         </a>
                     </td>
                 </tr>
-                <?php $m++; }
+                <?php /*$m++;*/ }
                 //<!--Monster JOBS-->
                 if($n < $sizeMJ && $sizeMJ > 0)
-                {  ?>  
+                {$n++;  ?>  
                 <tr>
                     <td><a href=<?php echo $mjresults[$n]->jobURL;?> title="MonsterJobs"><!--target="_blank"-->
                         <?php if($mjresults[$n]->title != null) {echo $mjresults[$n]->title;}
@@ -657,10 +785,10 @@ function getURLParameter(name) {
                         <img src="http://media.monster.com/mm/usen/my/144x30_monsterBug.gif" alt="MonsterJobs"/></a> 
                         </td>
                 </tr>
-                <?php $n++; }
+                <?php }//$n++; }
                 //<!--GITHUB JOBS-->
                 if($g < $sizeGH && $sizeGH > 0)
-                {  ?>  
+                {$g++;  ?>  
                 <tr>
                     <td><a href=<?php echo $ghresults[$g]->jobURL;?> title="GitHubJobs"><!--target="_blank"-->
                         <?php if($ghresults[$g]->title != null) {echo $ghresults[$g]->title;}
@@ -703,7 +831,7 @@ function getURLParameter(name) {
                         <img src="http://media.creativebloq.futurecdn.net/sites/creativebloq.com/files/images/2013/06/16-logo.jpg" alt="GitHubJobs"/></a> 
                         </td>
                 </tr>
-                <?php $g++; }
+                <?php }//$g++; }
                 
                 ?>
                 

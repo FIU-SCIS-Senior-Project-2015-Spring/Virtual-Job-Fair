@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="001-Registration-Student.html">001-Registration-Student</a></td></tr>
+<tr><td><a href="002-Registration-Student.html">002-Registration-Student</a></td></tr>
+<tr><td><a href="003-Registration-Student.html">003-Registration-Student</a></td></tr>
+<tr><td><a href="004-Registration-Student.html">004-Registration-Student</a></td></tr>
+<tr><td><a href="005-Registration-Student-PantherMail.html">005-Registration-Student-PantherMail</a></td></tr>
+<tr><td><a href="006-Registration-Student-LinkedIn.html">006-Registration-Student-LinkedIn</a></td></tr>
+<tr><td><a href="007-Registration-Student-Google.html">007-Registration-Student-Google</a></td></tr>
+<tr><td><a href="008-Regular-User-Login-Logout.html">008-Regular-User-Login-Logout</a></td></tr>
+<tr><td><a href="009-FIU-Senior-User-Login-Logout.html">009-FIU-Senior-User-Login-Logout</a></td></tr>
+<tr><td><a href="010-FIU-Senior-User-Login-Logout-No-Merge.html">010-FIU-Senior-User-Login-Logout-No-Merge</a></td></tr>
+<tr><td><a href="011-PantherMail-Login-Logout.html">011-PantherMail-Login-Logout</a></td></tr>
+<tr><td><a href="012-PantherMail-Login-Logout-No-Merge.html">012-PantherMail-Login-Logout-No-Merge</a></td></tr>
+<tr><td><a href="013-Google-Login-Logout-Merge.html">013-Google-Login-Logout-Merge</a></td></tr>
+<tr><td><a href="014-Google-Login-Logout-No-Merge.html">014-Google-Login-Logout-No-Merge</a></td></tr>
+<tr><td><a href="015-LinkedIn-Login-Logout-Merge.html">015-LinkedIn-Login-Logout-Merge</a></td></tr>
+<tr><td><a href="016-StudentGuest-Login-Logout.html">016-StudentGuest-Login-Logout</a></td></tr>
+<tr><td><a href="017-EmployerGuest-Login-Logout.html">017-EmployerGuest-Login-Logout</a></td></tr>
+<tr><td><a href="018-Student-Change-Password.html">018-Student-Change-Password</a></td></tr>
+<tr><td><a href="019-Password-Recovery-while-Registering.html">019-Password-Recovery-while-Registering</a></td></tr>
+<tr><td><a href="020-Save-Query.html">020-Save-Query</a></td></tr>
+<tr><td><a href="021-ActivateORDeactivate-Saved-Query.html">021-ActivateORDeactivate-Saved-Query</a></td></tr>
+<tr><td><a href="022-Upload-Video-Resume.html">022-Upload-Video-Resume</a></td></tr>
+<tr><td><a href="023-Upload-Video-Resume-Wrong-Format.html">023-Upload-Video-Resume-Wrong-Format</a></td></tr>
+<tr><td><a href="024-Upload-PDF-Resume.html">024-Upload-PDF-Resume</a></td></tr>
+<tr><td><a href="025-Upload-PDF-Resume.html">025-Upload-PDF-Resume</a></td></tr>
+<tr><td><a href="026-Upload-Picture.html">026-Upload-Picture</a></td></tr>
+<tr><td><a href="027-Upload-Picture.html">027-Upload-Picture</a></td></tr>
+<tr><td><a href="028-Upload-Picture.html">028-Upload-Picture</a></td></tr>
+<tr><td><a href="029-Profile.html">029-Profile</a></td></tr>
+<tr><td><a href="030-Profile.html">030-Profile</a></td></tr>
+<tr><td><a href="031-change-Skill-Order.html">031-change-Skill-Order</a></td></tr>
+<tr><td><a href="032-Job-Search.html">032-Job-Search</a></td></tr>
+<tr><td><a href="033-Job-Search-Exploit.html">033-Job-Search-Exploit</a></td></tr>
+<tr><td><a href="034-Job-Search-No-Validation1.html">034-Job-Search-No-Validation1</a></td></tr>
+<tr><td><a href="035-Job-Search-No-Validation2.html">035-Job-Search-No-Validation2</a></td></tr>
+<tr><td><a href="036-Job-Search-Navigation-Bar.html">036-Job-Search-Navigation-Bar</a></td></tr>
+<tr><td><a href="036-View-Message-Options.html">036-View-Message-Options</a></td></tr>
+<tr><td><a href="037-Receive-Message-From-Employer.html">037-Receive-Message-From-Employer</a></td></tr>
+<tr><td><a href="038-Send-Message-To-Employer.html">038-Send-Message-To-Employer</a></td></tr>
+<tr><td><a href="039-Replay-Message-Delete-Message.html">039-Replay-Message-Delete-Message</a></td></tr>
+<tr><td><a href="040-Disable-Looking-For-Jobs.html">040-Disable-Looking-For-Jobs</a></td></tr>
+<tr><td><a href="041-Receive-Job-Notifications.html">041-Receive-Job-Notifications</a></td></tr>
+<tr><td><a href="042-SMS-Verifications.html">042-SMS-Verifications</a></td></tr>
+<tr><td><a href="043-Authentication-Before-Profile.html">043-Authentication-Before-Profile</a></td></tr>
+<tr><td><a href="044-Read-Notification.html">044-Read-Notification</a></td></tr>
+</tbody></table>
+</body>
+</html>

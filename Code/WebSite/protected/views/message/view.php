@@ -41,7 +41,7 @@ $(function(){
 				var theDate = new Date(Date.parse(message.date));	
 			    var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate();
 				$("#message-content").append("<input type='checkbox' class='message_checkbox' id='c_" + message.id
-						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading'>"
+						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 265px'>"
 					+ message.FK_sender + "</span>" + "<span class='message_subject' style='margin-left:100px'>"
 					+ message.subject + "</span><span class='messageDate'>"+messageDate+"</span></div>");	
 
@@ -71,7 +71,8 @@ $(function(){
 						"width='45' height='60' /><a id='sender_link' href='/JobFair/index.php/profile/employer/user/" + theMessage.FK_sender
 						+ "'>" + theMessage.FK_sender + "</a><span id='message_date'>Date: "+messageDate+"</span><a href='/JobFair/index.php/message/send?reply="
 						+ theMessage.id + "' class='reply_image tooltipster' title='Reply'></a>"
-						+ "<div id='trash_" + theMessage.id + "' class='trash_image tooltipster' title='Send to Trash'></div><span id='message_receiver'>To: " + theMessage.FK_receiver + "</span><div style='clear:both'></div><pre class='messageContent'>" + 
+						+ "<div id='trash_" + theMessage.id + "' class='trash_image tooltipster' title='Send to Trash'></div><span id='message_receiver'>To: " 
+                                                + theMessage.FK_receiver + "</span><div style='clear:both'></div><pre class='messageContent'>" + 
 						theMessage.message	+ "</pre><div id='message_footer'></div><div class='reply_image2 tooltipster' title='Reply'></div>");
 				
 
@@ -124,7 +125,7 @@ $(function(){
 				var theDate = new Date(Date.parse(message.date));	
 			    var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate();
 				$("#message-content").append("<input type='checkbox' class='message_checkbox' id='s_" + message.id
-						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading'>"
+						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 295px'>"
 					+ message.FK_receiver + "</span>" + "<span style='margin-left:70px'>"
 					+ message.subject + "</span><span class='messageDate'>"+messageDate+"</span></div>");	
 
@@ -243,7 +244,7 @@ $(function(){
              }); 
         }    
     });	
-
+    
     $("#trash-option").click(function(){
 
     	$("#message-content").css("background-color", "#FAFAFA");
@@ -256,15 +257,30 @@ $(function(){
 		$.getJSON("/JobFair/index.php/message/getTrash", 
 				function (data) {		
 
-			$(".img-spinner").hide();			
+			$(".img-spinner").hide();
+                        
+                        var fromSender = "";
+                        
+                        //Retrieve the user receiving to distinguish messages in the trash box
+                        $.getJSON("/JobFair/index.php/message/getReceiver", function (userReceiver) {
+                            
 			for (var i = 0; i < data.length; i++)
 			{		
-				var message = data[i];		
+                            var message = data[i];
+                            
+                            //Bug fix                                                    
+                            if(userReceiver.username == message.FK_sender)
+                                fromSender = "To: " + message.FK_receiver;
+                            else
+                                fromSender = "From: " + message.FK_sender;
+                            //End of bug fix
+                            
 				var theDate = new Date(Date.parse(message.date));	
 			    var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate();
+                            alert(""+messageDate);
 				$("#message-content").append("<input type='checkbox' class='message_checkbox' id='s_" + message.id
-						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading'>"
-					+ message.FK_receiver + "</span>" + "<span style='margin-left:70px'>"
+						+ "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 300px'>"
+					+ fromSender + "</span>" + "<span style='margin-left:70px'>"
 					+ message.subject + "</span><span class='messageDate'>"+messageDate+"</div>");							
 			}
 
@@ -311,7 +327,8 @@ $(function(){
 			    });   
 				
 			});			
-			});					
+			});
+                    });
 		});		
 	}); //end of trash-option
 
@@ -346,6 +363,14 @@ $(function(){
 	<span id="messages">Messages</span>
 	<div id='delete_messages' class='trash_image2 tooltipster' title='Send to Trash' style='margin-left: 97px'></div>
 	<div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever' style='margin-left: 97px;'></div>	
+</div>
+<div id="top-nav">
+    <h4><strong>
+            <span style="margin-left: 220px">From/To</span>
+            <span style="margin-left: 288px">Subject</span>
+            <span style="margin-left: 400px">Date</span>
+        </strong>
+    </h4>
 </div>
 <div id="wrapper">	
 	<div id="options">

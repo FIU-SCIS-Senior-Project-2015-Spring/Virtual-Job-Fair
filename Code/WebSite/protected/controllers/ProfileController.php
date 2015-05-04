@@ -14,6 +14,7 @@ class ProfileController extends Controller
 		}
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 
+//                print_r($user);
                 $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
 		
 		if ($user->FK_usertype == 2){
@@ -297,21 +298,29 @@ class ProfileController extends Controller
 		$oldUrl = $model->image_url; // get current image URL for user
 		
 		
-		// if there is an image already, update current image
-		if (strlen($oldUrl) > 0 && strpos($oldUrl, 'licdn') === false) {
+		// if there is an image already, update current image if is not the default image
+		if (strlen($oldUrl) > 0 && strcmp($oldUrl, "/JobFair/images/profileimages/user-default.png") != 0 && strpos($oldUrl, 'licdn') === false) {
 			$uploadedFile=CUploadedFile::getInstance($model,'image_url');
 			
-			//edited by jorge
+			//edited by Rogelio
 			$newurl = "/JobFair/images/profileimages/".$model->username."avatar.".$uploadedFile->extensionName;
 			
 			///
 			if ($uploadedFile != null) {
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$newurl);
+				$uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($newurl, 8)); //Modified path to address bug in card #355 task card #357 
 				
-				//jorge
+				
 				$model->image_url = $newurl;
 				$model->save(false);
-				//
+				
+                                //Coded by Rogelio
+                                //Delete the old image if extensions are not the same to avoid extra pictures 
+                                $oldExtension = substr($oldUrl, -3);
+                                $newExtension = substr($newurl, -3);
+                                if(strcasecmp($oldExtension, $newExtension) != 0){
+                                    unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8)); //This address bug in card #355 task card #401 (images not being deleted from the server folder)
+                                }
+
 			}
 			// else insert new image
 		} else {
@@ -322,25 +331,32 @@ class ProfileController extends Controller
 			$uploadedFile=CUploadedFile::getInstance($model,'image_url'); // image object
 			$fileName = "/JobFair/images/profileimages/".$model->username."avatar.".$uploadedFile->extensionName;
 			$model->image_url = $fileName;
-			$model->save(false); // save path in database
+                        if($model->validate(array('image_url'))){
+                            $model->save(false); // save path in database
 		
-			if ($uploadedFile != null) {
+                            if ($uploadedFile != null) {
 				//print "<pre>"; print_r($model->attributes);print "</pre>";return;
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$fileName); // upload image to server
-			}
+                                //Modified bellow path to address bug in card #355 task card #357 
+				$uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8)); // upload image to server
+                            }
+                        }
 		}
-			
-		$user = User::model()->find("username=:username",array(':username'=>$username));
-		$utype = $user->FK_usertype;
-			if($utype==1){
-			$this->redirect('/JobFair/index.php/profile/view');
-			}
-			if($utype==2){
-				$this->redirect('/JobFair/index.php/profile/viewEmployer');
-			}
-			else{$this->actionView();}
+		$this->actionView();	
+//              MODIFIED BY ROGELIO  
+//              EXTRA CODE NOT NECESSARY AND REPLACED BY ABOVE LINE   
+//		$user = User::model()->find("username=:username",array(':username'=>$username));
+//		$utype = $user->FK_usertype;
+//			if($utype==1){
+//			$this->redirect('/JobFair/index.php/profile/view');
+//			}
+//			if($utype==2){
+//				$this->redirect('/JobFair/index.php/profile/viewEmployer');
+//			}
+//			else{$this->actionView();}
 	}
 	
+        
+        //To properly function make sure your PHP.ini file have a post_max_file equal or greater than the size of the file being uploaded
 	public function actionUploadVideo() {
 		
 		$username = Yii::app()->user->name;
@@ -352,31 +368,64 @@ class ProfileController extends Controller
 		if (isset($localvideo)) {
 			$oldUrl = $localvideo->video_path;
 		}
-		
-		if (isset($oldUrl)) {
-			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume');
-			if (isset( $uploadedFile)) {
-				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
-			}
-			
-			// else insert new image
-		} else {
-			$localvideo = new VideoResume();
-			// code to upload image
-			$rnd = $model->id;
-			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // image object
-			$fileName = "v{$rnd}-{$uploadedFile}";  // random number + file name
-			$localvideo->video_path = '/JobFair/resumes/'.$fileName;
-			$localvideo->id = $model->id;
-			if($localvideo->validate(array('video_path'))){
-				$localvideo->save(false); // save path in database
-			
-				if (isset( $uploadedFile)) {
-					//print "<pre>"; print_r($model->attributes);print "</pre>";return;
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-				}
-			}
-		}
+                
+//                Code Rewritten by ROGER
+//                Address bug that unable the user to properly submit a video resume
+//		
+//		if (isset($oldUrl)) {
+//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume');
+//			if (isset( $uploadedFile)) {
+//				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
+//			}
+//			
+//			// else insert new image
+//		} else {
+//			$localvideo = new VideoResume();
+//			// code to upload image
+//			$rnd = $model->id;
+//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // image object
+//			$fileName = "v{$rnd}-{$uploadedFile}";  // random number + file name
+//			$localvideo->video_path = '/JobFair/resumes/'.$fileName;
+//			$localvideo->id = $model->id;
+//			if($localvideo->validate(array('video_path'))){
+//				$localvideo->save(false); // save path in database
+//			
+//				if (isset( $uploadedFile)) {
+//					//print "<pre>"; print_r($model->attributes);print "</pre>";return;
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
+//				}
+//			}
+//		}
+                if(!isset($oldUrl)){
+                    //upload a new video resume
+                    $localvideo = new VideoResume();
+                } 
+                $uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // video resume object
+                $rnd = $localvideo->id;
+                $fileName = '/JobFair/resumes/';
+                $fileName .= "v{$rnd}-{$uploadedFile}";  //  user id + uploaded file name
+                
+                if($localvideo->validate(array('video_path'))){
+                                       
+                    if(isset($uploadedFile)){
+                        $localvideo->id = $model->id;
+                        $localvideo->video_path = $fileName;
+                        $localvideo->save(false);
+//                      Upload physical file to resume folder
+                        $uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8), true); 
+                    }
+                    else{
+                        //Render an Error for filesize and name size
+                        $this->render('errorVideoUpload',array('user'=>$model));
+                        exit();
+                    }
+                }
+                
+                if(isset($oldUrl)){
+                    //Delete the file from the File system
+                    unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8));
+                }
+                    
 		$this->actionView();
 		
 	}
@@ -392,33 +441,70 @@ class ProfileController extends Controller
 			$oldUrl = $localresume->resume;
 		}
 		
-		if (isset($oldUrl)) {
-			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');
-			$localresume->resume = $oldUrl;
-			if($localresume->validate(array('resume'))){
-				$localresume->save(false); // save path in database
-				if (isset( $uploadedFile)) {
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
-				}
-			}
-			// else insert new image
-		} else {
-			$localresume = new Resume;
-			// code to upload image
-			$rnd = $model->id;
-			$uploadedFile=CUploadedFile::getInstance($localresume,'resume'); // image object
-			$fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
-			$localresume->resume = '/JobFair/resumes/'.$fileName;
+                
+                
+//*************** THIS WAS DONE BY PREVIOUS VERSIONS ************************
+//		if (isset($oldUrl)) {
+//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');  //Resume Object
+//			$fileName = "{$rnd}-{$uploadedFile}";  // student ID + resume file name
+//			$localresume->resume = $fileName;
+//			if($localresume->validate(array('resume'))){
+//				$localresume->save(false); // save path in database
+//				if (isset( $uploadedFile)) {
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../'.$oldUrl);
+//				}
+//			}
+//			// else insert new image
+//		} else {
+//			$localresume = new Resume;
+//			// code to upload image
+//			
+//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume'); // image object
+//			$fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
+//			$localresume->resume = $fileName; //'/JobFair/resumes/'.$fileName;
+//			$localresume->id = $model->id;
+//			if($localresume->validate(array('resume'))){
+//				$localresume->save(false); // save path in database
+//			
+//				if (isset( $uploadedFile)) {
+//					
+//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
+//				}
+//			}
+//		}
+//*************** END OF CODE BY PREVIOUS VERSIONS **************************
+                
+                //
+                //Code to replace an existing Resume
+                if(!isset($oldUrl)){
+		    $localresume = new Resume();
+                    //Delete the file from the File system
+                   // unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8));
+                }
+                //else{
+                   // $localresume = new Resume();
+                    //$localresume->id = $model->id;
+                //}
+                $uploadedFile = CUploadedFile::getInstance($localresume, 'resume'); //Resume Object
+                $rnd = $model->id; //Prefix the id of the student before the name of the resume
+		$fileName = '/JobFair/resumes/'; 
+                $fileName .= "{$rnd}-{$uploadedFile}";
+                //$localresume->resume = $fileName;
+                
+                if($localresume->validate(array('resume'))){
+                    //$localresume->save(false); //Update Resume Table for the user
+                    
+                    if(isset($uploadedFile)){
+			$localresume->resume = $fileName;
 			$localresume->id = $model->id;
-			if($localresume->validate(array('resume'))){
-				$localresume->save(false); // save path in database
-			
-				if (isset( $uploadedFile)) {
-					
-					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-				}
-			}
-		}
+			$localresume->save(false); //Update Resume Table for the user
+                        $uploadedFile->saveAs(Yii::app()->basePath.'/..'.substr($fileName, 8), true); //Upload physical file to the server folder
+                    }
+		    else{
+			//Render an error view
+			exit();
+		    }
+                }
 		$this->actionView();
 		
 	}
@@ -456,6 +542,23 @@ class ProfileController extends Controller
             restore_error_handler();
                     
                 }
+                //Fixes Bug on card #359 (Allowing an existent email address for the user profile)
+                if(isset($_POST['User']['email'])){ //Check that the email address was modified
+                    $email = $_POST['User']['email'];
+                    
+//                    require_once 'protected/controllers/UserController.php';
+//                    $checkEmail = controllers\UserController::check_email_address($email);
+//                    if (!$checkEmail){
+//			$this->render('errorProfileInfo',array('user'=>$model));
+//                        exit();
+//                    }      
+                    $foundUser = User::model()->find("email=:email",array(':email'=>$email));   //Search the database
+                    
+                    if ($foundUser != null && strcmp($foundUser->username, $model->username) != 0) {       //Check against the user found in the model
+                        $this->render('errorProfileInfo',array('user'=>$model));                //Duplicate found
+                        exit();
+                    }
+                }
                 
 		if (!isset($model->basicInfo)) {
 			$model->basicInfo = new BasicInfo;
@@ -480,10 +583,10 @@ class ProfileController extends Controller
 		
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 		$utype = $user->FK_usertype;
-			if($utype==1){
+			if($utype==1||$utype==4){
 			$this->redirect('/JobFair/index.php/profile/view');
 			}
-			if($utype==2){
+			if($utype==2||$utype==5){
 				$this->redirect('/JobFair/index.php/profile/viewEmployer');
 			}
 			else{$this->actionView();}

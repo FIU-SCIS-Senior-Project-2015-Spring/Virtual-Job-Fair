@@ -74,6 +74,13 @@ class UserController extends Controller
 			$pass = $_POST['User']['password'];
 			$p1 = $_POST['User']['password1'];
 			$p2 = $_POST['User']['password2'];
+                        
+                        //This address the bug in card #341 (Allowing blank passwords and leaving users locked out) 
+                        if ($p1 == $p2 && strlen($p1) < 6) { //Check that the new password is at least 6 characters
+                            $error .= "New password must have at least 6 characters. Please enter another password. <br />";
+                            $this->render('ChangePassword',array('model'=>$model, 'error' => $error));
+                            exit();
+                        }
 			//verify old password
 			$username = Yii::app()->user->name;
 			$hasher = new PasswordHash(8, false);
@@ -210,58 +217,58 @@ class UserController extends Controller
 		}
 		*/
 	
-		if(isset($_POST['User']))
-		{
-            $user = $_POST['User'];
-            $email = $user['email'];
-            $pathStudent = $this->actionVerifyStudentRegistration();
-			if($pathStudent == 1){
-                $this->actionStudentHelpReg($email);
-                return;
-            }
-            if ($pathStudent != "" && $pathStudent != 1) {
-				$this->render('StudentRegister');
-			}
+            if(isset($_POST['User']))
+            {
+                $user = $_POST['User'];
+                $email = $user['email'];
+                $pathStudent = $this->actionVerifyStudentRegistration();
+                if($pathStudent == 1){
+                    $this->actionStudentHelpReg($email);
+                    return;
+                }
+                if ($pathStudent != "" && $pathStudent != 1) {
+                    $this->render('StudentRegister');
+		}
 						
-			$model->attributes=$_POST['User'];
-			$model->image_url = '/JobFair/images/profileimages/user-default.png';
-			$resume = Resume::model();
-			
-			//Form inputs are valid
+                    $model->attributes=$_POST['User'];
+                    $model->image_url = '/JobFair/images/profileimages/user-default.png';
+                    $resume = Resume::model();
 
-			// save ID to resume table
-			$resume->id = $model->id;
-			$resume->save(false);
+                    //Form inputs are valid
 
-			//Populate user attributes
-			$model->FK_usertype = 1;
-			$model->registration_date = new CDbExpression('NOW()');
-			$model->activation_string = $this->genRandomString(10);
+                    // save ID to resume table
+                    $resume->id = $model->id;
+                    $resume->save(false);
 
-			//Hash the password before storing it into the database
-			$hasher = new PasswordHash(8, false);
-			$model->password = $hasher->HashPassword($model->password);
+                    //Populate user attributes
+                    $model->FK_usertype = 1;
+                    $model->registration_date = new CDbExpression('NOW()');
+                    $model->activation_string = $this->genRandomString(10);
 
-			//Save user into database. Account still needs to be activated
-			$model->save($runValidation=false);
-			
-                        if(User::isCurrentUserAdmin() == FALSE)
-                        {
-			//added in order to store phone number
-			$basicInfo = new BasicInfo;
-			$basicInfo->attributes = $_POST['BasicInfo'];
-			$basicInfo->userid = $model->id;
-			
-			if(!isset($_POST['BasicInfo']['phone']))
-			{
-				Yii::log("checks", CLogger::LEVEL_ERROR, 'application.controller.Prof');
-				$basicInfo->phone = NULL;
-			}
-			$basicInfo->save(false);
-                        }
-                        
-			$this->actionSendVerificationEmail($model->email);
-			return;
+                    //Hash the password before storing it into the database
+                    $hasher = new PasswordHash(8, false);
+                    $model->password = $hasher->HashPassword($model->password);
+
+                    //Save user into database. Account still needs to be activated
+                    $model->save($runValidation=false);
+
+                    if(User::isCurrentUserAdmin() == FALSE)
+                    {
+                    //added in order to store phone number
+                    $basicInfo = new BasicInfo;
+                    $basicInfo->attributes = $_POST['BasicInfo'];
+                    $basicInfo->userid = $model->id;
+
+                    if(!isset($_POST['BasicInfo']['phone']))
+                    {
+                            Yii::log("checks", CLogger::LEVEL_ERROR, 'application.controller.Prof');
+                            $basicInfo->phone = NULL;
+                    }
+                    $basicInfo->save(false);
+                    }
+
+                    $this->actionSendVerificationEmail($model->email);
+                    return;
 		}
 		$error = '';
 		$this->render('StudentRegister',array('model'=>$model, 'error' => $error));
@@ -634,7 +641,7 @@ class UserController extends Controller
                         $new_sdnt_skill->skillid = Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id;
                         $new_sdnt_skill->ordering = $i + 1;
                         $new_sdnt_skill->save(false);
-                        echo 'New Skill for student' . $new_sdnt_skill->attributes;
+                        //echo 'New Skill for student' . $new_sdnt_skill->attributes;
                     }
                 }
                 // ----------------------SKILLS----------------------
@@ -1144,6 +1151,136 @@ class UserController extends Controller
 		);
 	}
 	*/
-	
-
+	     
+        
+     public function actionGuestEmployerAuth()
+    {
+        /*
+         *  Authenticates a Guest Employer User 
+         */       
+        
+        $user = new User();
+        $user = User::model()->getGuestEmployerUser();
+         
+        if($user->disable != 0){
+            $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+        }
+        
+        $userIdentity = new UserIdentity($user->username,$user->password);
+        
+        if($userIdentity->authenticateOutside()){
+            Yii::app()->user->login($userIdentity);
+            
+            $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+            $univs = School::getAllSchools(); // pass universities
+            $skills = Skillset::getNames(); // pass skills
+            $countvideo = 0;
+            $countapplicants = 0;
+            $countmessages = 0;
+            $countcandidates =0;
+            foreach ($notification as $n) {
+                if ($n->importancy == 4 & $n->been_read == 0 ) {
+                $countvideo++;		
+                $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                if($key != null){
+                $n->keyid = $key->session_key;
+                //print "<pre>"; print_r($key);print "</pre>";return;
+                }
+                }
+                else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                    //$countvideo++;
+                    $key = VideoInterview::model()->findByAttributes(array('notification_id' => $n->id));
+                    if($key != null){
+                        $n->keyid = $key->session_key;
+                        //print "<pre>"; print_r($key);print "</pre>";return;
+                    }
+                }
+                elseif($n->importancy == 6 & $n->been_read == 0)
+                $countapplicants++;			
+                elseif ($n->importancy == 3 & $n->been_read == 0)	
+                $countmessages++;
+                elseif ($n->importancy == 5 & $n->been_read == 0)
+                $countcandidates++;
+            }
+            
+            $this->render('guestEmployerAuth', array(
+                'user'=>$user,
+                'universities'=>$univs,
+                'skills'=>$skills, 
+                'notification'=>$notification, 
+                'countvideo'=>$countvideo, 
+                'countapplicants'=>$countapplicants, 
+                'countmessages'=>$countmessages, 
+                'countcndidates'=>$countcandidates));
+        }
+        
+        //Redirect to the contact form of the site due to failed authentication
+        //Crate array with information to be shown to the user
+        //TODO
+        //$this->redirect('');
+    }
+    
+        public function actionGuestStudentAuth(){
+        
+            $user = new User();
+            $user = User::model()->getGuestStudentUser();
+            
+            if($user->disable != 0){
+                $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+            }
+            
+            $userIdentity = new UserIdentity( $user->username, $user->password);
+            
+            if($userIdentity->authenticateOutside()){
+                Yii::app()->user->login($userIdentity);
+                
+                
+                //Prepare Dashboard Objects for Guest Student
+                
+                $companies= CompanyInfo::getNames(); // pass the companies;
+                $skills = Skillset::getNames(); // pass the skills;
+                $notification = Notification::model()->getNotificationId($user->id); // pass the notifications;
+                
+                
+                $criteria= new CDbCriteria();
+		$criteria=array(
+				'group'=>'skillid',
+				'select'=>'skillid,count(*) as cc',
+				'order'=>'cc desc'
+		);
+                
+                $skillids = JobSkillMap::model()->findAll($criteria);
+                
+                $most_wanted_skills =  Array();
+		$i = 0;
+		
+		foreach ($skillids as $sk){
+                    $most_wanted_skills[] = Skillset::model()->findByAttributes(array('id'=>$sk->skillid));
+                    $i++;
+                    if ($i == 5){
+                            break;
+                    }
+		}
+                
+                $countvideo = 0;
+		$countmachingjobs = 0;
+		$countmessages = 0;
+		$countmisc =0;
+                        
+                //Send to his home page
+                $this->render('guestStudentAuth', array('user'=>$user,
+                                                    'companies'=>$companies,
+                                                    'skills'=>$skills, 'notification'=>$notification, 
+                                                    'mostwanted'=>$most_wanted_skills, 
+                                                    'countvideo'=>$countvideo, 
+                                                    'countmachingjobs'=>$countmachingjobs, 
+                                                    'countmessages'=>$countmessages, 
+                                                    'countmisc'=>$countmisc));
+            }
+            //Redirect to the contact form of the site due to failed authentication
+            //Crate array with information to be shown to the user
+            //TODO
+            //$this->render('guestStudentAuth');
+    }
+    
 }

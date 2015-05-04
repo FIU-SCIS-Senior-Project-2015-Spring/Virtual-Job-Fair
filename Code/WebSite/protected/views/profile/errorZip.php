@@ -19,7 +19,7 @@ $(document).ready(function()
 <div class="modal hide fade" id="saveQmodal" tabindex="-1">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Save Query Message:</h4>
+            <h4 class="modal-title">Zip Code Error Message:</h4>
         </div>
         <div class="modal-body">
             

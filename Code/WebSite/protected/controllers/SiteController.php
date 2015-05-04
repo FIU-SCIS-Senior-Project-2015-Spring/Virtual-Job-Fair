@@ -115,10 +115,11 @@ class SiteController extends Controller
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
-			$model->attributes=$_POST['LoginForm'];
+			//$model->attributes=$_POST['LoginForm'];
+                        $model->attributes=Yii::app()->request->getPost('LoginForm');
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() )
-			{	
+			{	                    
 				$username = $model->username;
 				$user = User::model()->find("username=:username",array(':username'=>$username));
 				if ($user->disable != 1)

@@ -10,42 +10,50 @@ class monsterJobs
         $location = urlencode($location);
         $keywords = urlencode($keywords);
         $url = "http://rss.jobsearch.monster.com/rssquery.ashx?q=Computer%20Software,%20Programming,".$keywords."&rad_units=miles&brd=5&cy=US&pp=50&sort=rv.di.dt&geo=".$location.",32.18688,,,376&baseurl=jobview.monster.com";
+        
+        try{
         $xml = simplexml_load_file($url);
         $jobsCollection = Array();
         $currItem = 1;
         //$skillset = Array();
         $skillset = \Skillset::model()->findAll();
-        
-        foreach($xml->channel->item as $item)
-        {
-            $currJob = new Job();                                     
-            //$title = $item->title;
-            $description = (string)$item->description;
-            //var_dump($description);die;
-            $currJob->title = (string)$item->title;  //position
-            $currJob->companyName = "";      // not available
-            $currJob->jobURL = (string)$item->link; //link to the job
-            $pubDate = (string)$item->pubDate;      //opening/posting date
-            $currJob->posted = strftime("%m/%d/%Y", strtotime($pubDate));
-            $currJob->description = (string)$description;   //short description 
-            
-            foreach($skillset as $s)
-            {                
-                $skill = (string)$s->name;                
-                if(strtok($description, $skill) === $description)
-                {
-                    $currJob->skills .= ucwords($skill)." ";
+        $items = $xml->channel->item;
+        if($items!=null){
+            foreach($items as $item){
+                
+                $currJob = new Job();                                     
+                //$title = $item->title;
+                $description = (string)$item->description;
+                //var_dump($description);die;
+                $currJob->title = (string)$item->title;  //position
+                $currJob->companyName = "";      // not available
+                $currJob->jobURL = (string)$item->link; //link to the job
+                $pubDate = (string)$item->pubDate;      //opening/posting date
+                $currJob->posted = strftime("%m/%d/%Y", strtotime($pubDate));
+                $currJob->description = (string)$description;   //short description 
+
+                foreach($skillset as $s)
+                {                
+                    $skill = (string)$s->name;                
+                    if(strtok($description, $skill) === $description)
+                    {
+                        $currJob->skills .= ucwords($skill)." ";
+                    }
+                    else
+                    {
+                        $currJob->skills .= " ";
+                    }
                 }
-                else
-                {
-                    $currJob->skills .= " ";
-                }
-            }
-            
-            $jobsCollection[$currItem] = $currJob;            
-            $currItem++;
-        }             
+
+                $jobsCollection[$currItem] = $currJob;            
+                $currItem++;
+            } 
+        }
         return $jobsCollection;
+        }
+        catch (Exception $error){
+            return "";
+        }
     }  
     
 }
