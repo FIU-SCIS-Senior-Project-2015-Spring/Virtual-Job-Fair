@@ -514,9 +514,38 @@ function uploadvideo(){
 <br>
 <hr>
 
-<p><a href="#" id="editVideo" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadvideo()"/></a></p>
-	
-<?php
+<!-- <p><a href="#" id="editVideo" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadvideo()" /></a></p> --> 
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
+  Upload Video Resume
+</button>
+
+<form method="get" action="/JobFair/youtube_subsystem/youtubemanager.php" enctype="multipart/form-data">
+<!-- Modal -->
+<div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Video Resume</h4>
+      </div>
+      <div class="modal-body">  
+          <div>
+            <input type="file" name="uploadfile" style="border:none;"> 
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<?php /*
 
 	$form = $this->beginWidget('CActiveForm', array(
 	   'id'=>'user-uploadVideo-form', 'action'=> '/JobFair/index.php/Profile/uploadVideo',
@@ -526,15 +555,15 @@ function uploadvideo(){
 
 echo CHtml::activeFileField($videoresume, 'videoresume', array('style'=>'display:none;'));
 if (isset($videoresume->video_path)){
-        $videoURL = $videoresume->video_path;
-	echo CHtml::link(CHtml::encode('VideoResume'), $videoURL /*$videoresume->video_path*/, array('target'=>'_blank', 'style' =>'float:left'));
-} else {
+        $videoURL = $videoresume->video_path; */
+	//echo CHtml::link(CHtml::encode('VideoResume'), $videoURL /*$videoresume->video_path*/, array('target'=>'_blank', 'style' =>'float:left'));
+/*} else {
 	echo 'Upload a video resume! MP4 or MOV format';
-}
+} 
 
 $this->endWidget();
 
-?> 
+*/?> 
 </div>
 </div> <!--  END LEFT SIDE -->
 

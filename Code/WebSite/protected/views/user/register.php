@@ -1,5 +1,9 @@
 <?php
-/* @var $this RegisterController */
+/* URL: http://localhost/JobFair/index.php/user/register
+ * @var $this RegisterController 
+ * This is the Student / Employeer registration view
+ */
+
 
 $this->breadcrumbs=array(
 	'Register',
@@ -24,7 +28,7 @@ $this->breadcrumbs=array(
 </div>
 <div class="reg" style="height:140px; text-align:left; padding-left:20px ">
 <h2>Employers</h2>
-<p style=" margin-top:15px; padding:20px">Virtual Job Fair allows you to make virtul conections with job seeking students. With features such as Live Video Interview, you can interview and get to know the candidates without leaving the office.</p>
+<p style=" margin-top:15px; padding:20px">Virtual Job Fair allows you to make virtual connections with job seeking students. With features such as Live Video Interview, you can interview and get to know the candidates without leaving the office.</p>
 </div>
 
 
