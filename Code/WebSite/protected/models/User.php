@@ -231,6 +231,7 @@ class User extends CActiveRecord
     public function isAStudent(){
     	return ($this->FK_usertype == 1);
     }
+    
 
     public function isMatchNotificationSet(){
     	return ($this->job_notification == 1);
@@ -616,6 +617,7 @@ public static function sendEmployerNotificationStudentAcceptIntervie($sender, $r
     	$model->save(false);
 
     }
+    
     public static function getCurrentUser(){
     	$username = Yii::app()->user->name;
     	$user = User::model()->find("username=:username",array(':username'=>$username));
