@@ -40,6 +40,7 @@ $youtube_video_category = "News";
 // This is the uploading video keywords.
 $youtube_video_keywords = "example, video";
 
+// Schema.
 $data = '<?xml version="1.0"?>
             <entry xmlns="http://www.w3.org/2005/Atom"
               xmlns:media="http://search.yahoo.com/mrss/"
@@ -139,8 +140,9 @@ curl_close($curl);
 $nexturl = "http://localhost/JobFair/index.php/profile/view"; 
 ?>
  
-<form action="<?php echo($response->url); ?>
-      ?nexturl=<?php echo(urlencode($nexturl)); ?>
+<!--
+<form action="<?//php echo($response->url); ?>
+      ?nexturl=<//?php echo(urlencode($nexturl)); ?>
       " method="post" enctype="multipart/form-data" onsubmit=" return checkForFile();">
     
   <input id="file" type="file" name="file"/>
@@ -154,3 +156,4 @@ $nexturl = "http://localhost/JobFair/index.php/profile/view";
  
 </form>
 </php>
+-->

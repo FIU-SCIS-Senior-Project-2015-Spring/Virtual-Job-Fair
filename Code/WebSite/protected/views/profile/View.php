@@ -1,4 +1,10 @@
+
+
 <?php /* @var $this ProfileController */
+
+include($_SERVER['DOCUMENT_ROOT'].'/Virtual-Job-Fair/Code/WebSite/youtube_subsystem/YouTubeManager.php');
+
+//include '../../../youtube_subsystem/YouTubeManager.php';
 
 /* @var $this UserController */
 /* @var $user User */
@@ -256,7 +262,6 @@ function uploadvideo(){
 		
     	
 	}
-
 }
 
     function toggleJobMatching(){
@@ -507,21 +512,20 @@ function uploadvideo(){
 		echo 'Upload a resume! PDF format only';
 	}
   	
-	$this->endWidget();
-        
+	$this->endWidget();     
 ?> 
 
 <br>
 <hr>
 
-<!-- <p><a href="#" id="editVideo" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadvideo()" /></a></p> --> 
+<!-- YouTube video upload. -->
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
   Upload Video Resume
 </button>
 
-<form method="get" action="/JobFair/youtube_subsystem/youtubemanager.php" enctype="multipart/form-data">
+
 <!-- Modal -->
 <div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -532,17 +536,34 @@ function uploadvideo(){
       </div>
       <div class="modal-body">  
           <div>
-            <input type="file" name="uploadfile" style="border:none;"> 
+              
+            <!--
+            Video upload form.
+            -->
+            <form action="<?php echo($response->url); ?> 
+                  ?nexturl=<?php echo(urlencode($nexturl)); ?>
+                  " method="post" enctype="multipart/form-data" onsubmit=" return checkForFile();">
+
+                <input id="file" type="file" style="border:none;" name="file"/> 
+
+                <!-- Error message on failure. -->
+                <div id="errMsg" style="display:none;color:red">
+                    You need to specify a valid file.
+                </div>
+
+                <input type="hidden" name="token" value="<?php echo($response->token); ?>"/>
+                </php>
+
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          </div>
+          </div>
+          </div>
+          </form>
 
 
 <?php /*
