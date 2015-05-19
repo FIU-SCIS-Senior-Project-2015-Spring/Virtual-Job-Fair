@@ -77,6 +77,7 @@ curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($curl, CURLOPT_HEADER, 0);
  
 $response = simplexml_load_string(curl_exec($curl));
+
 curl_close($curl);
 ?>
 
@@ -151,7 +152,7 @@ $nexturl = "http://localhost/JobFair/index.php/profile/view";
     You need to specify a valid file.
   </div>
   
-  <input type="hidden" name="token" value="<?php echo($response->token); ?>"/>
+  <input type="hidden" name="token" value="<?//php echo($response->token); ?>"/>
   <input type="submit" value="go" />
  
 </form>
