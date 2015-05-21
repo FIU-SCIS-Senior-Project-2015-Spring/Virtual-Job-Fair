@@ -2,8 +2,6 @@
 
 class ProfileController extends Controller
 {
-
-	
 	public function actionView()
 	{
 		
@@ -762,6 +760,7 @@ class ProfileController extends Controller
 	*/
 	
 	
+    
 	public function actionAuth()
 	{
 		$this->render('auth');
@@ -781,6 +780,8 @@ class ProfileController extends Controller
 		if (!isset($_SESSION))
 			session_start();
 
+        // Here is the LinkedIn problem -- Rene
+        
         //edit by Manuel making the link dynamic, using Yii. and changing how the account will be link so if the student
         //decide to login with his linkedIn account it will be taken to the account that it is link to.
 		$config['base_url']             =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/auth.php';
