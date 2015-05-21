@@ -5,3 +5,15 @@ Code/WebSite/assets/*
 Code/WebSite/protected/runtime/*
 !Code/WebSite/protected/runtime/.gitignore
 Code/WebSite/protected/data/*.db
+
+Code/WebSite/nbproject/private/private.properties
+
+Code/WebSite/protected/views/profile/linkedin.php
+
+Code/WebSite/nbproject/private/config.properties
+
+Code/WebSite/nbproject/private/private.xml
+
+Code/WebSite/nbproject/private/private.xml
+
+Code/WebSite/nbproject/private/private.xml

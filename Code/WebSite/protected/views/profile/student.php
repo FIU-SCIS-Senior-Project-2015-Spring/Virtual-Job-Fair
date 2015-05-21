@@ -117,7 +117,7 @@ function formatDate($date) {
 				if (isset($videoresume->video_path)){
 					echo CHtml::link(CHtml::encode('VideoResume'), $videoresume->video_path, array('target'=>'_blank', 'style' =>'float:left'));
                                         $link = $videoresume->video_path;
-                                        echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoresume->video_path.'?rel=0" frameborder="0" allowfullscreen></iframe>';
+                                        //echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoresume->video_path.'?rel=0" frameborder="0" allowfullscreen></iframe>';
 				} else {
 					echo 'No Video Yet!';
 				}
