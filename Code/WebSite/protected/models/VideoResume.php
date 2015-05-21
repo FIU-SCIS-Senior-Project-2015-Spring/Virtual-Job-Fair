@@ -63,7 +63,7 @@ class VideoResume extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'video_path' => 'Video Path',
+			'video_path' => 'Youtube Video Path',
 		);
 	}
 
