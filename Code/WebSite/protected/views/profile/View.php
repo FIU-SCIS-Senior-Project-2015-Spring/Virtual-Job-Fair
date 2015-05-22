@@ -1,6 +1,7 @@
 <?php
 /* this ProfileController */
 
+
 require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
 
 $this->breadcrumbs = array(
@@ -539,6 +540,14 @@ if (!isset($user->basicInfo)) {
 </form>
 
                                         <?php
+             $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";
+             
+          
+             
+    $url = $actual_link;
+    parse_str($url, $videoID);
+    echo $videoID['id']; 
+
                                         // ID of the video.
                                        // $uniqueID = $_GET['id'];
                                         
