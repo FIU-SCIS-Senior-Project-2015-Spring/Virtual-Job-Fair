@@ -509,44 +509,9 @@ if (!isset($user->basicInfo)) {
                 <br>
                 <hr>
 
-                <!-- YouTube video upload. -->
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
-                    Upload Video Resume
-                </button>
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Upload Video Resume</h4>
-                            </div>
-                            <div class="modal-body">  
-                                <div>
-
-                                    <!--
-                                    Video upload form.
-                                    -->
-                                    
-                                <form action="<?php echo $response ?>?nexturl=<?php echo $nexturl ?>"
-      method="post" enctype="multipart/form-data" onsubmit=" return checkForFile();">
-     <input id = "file" name="file" type="file"/>
-     <input name="token" type="hidden" value="<?php echo $token ?>"/>
-     <input value="Upload Video File" type="submit" />
-</form>
-
-                                        <?php
-             $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";
-             
-          
-             
-    $url = $actual_link;
-    parse_str($url, $videoID);
-    echo $videoID['id']; 
+                                        <?php             
 
                                         // ID of the video.
                                        // $uniqueID = $_GET['id'];
@@ -586,18 +551,76 @@ if (!isset($user->basicInfo)) {
                                         ?>
                                         </php>
 
+
+               
+
+<?php
+                if (isset($videoresume->video_path)){
+                    echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoresume->video_path.'?rel=0" frameborder="0" allowfullscreen></iframe>';
+                } else { ?>  
+                
+                                <!-- YouTube video upload. -->
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
+                    Upload Video Resume
+                </button>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Upload Video Resume</h4>
+                            </div>
+                            <div class="modal-body">  
+                                <div>
+
+                                    <!--
+                                    Video upload form.
+                                    -->
+                                    
+                                <form action="<?php echo $response ?>?nexturl=<?php echo $nexturl ?>"
+      method="post" enctype="multipart/form-data" onsubmit="return checkForFile();">
+     <input id = "file" name="file" type="file" style="border:none;"/>
+     <input name="token" type="hidden" value="<?php echo $token ?>"/>
+     <?php
+        $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";             
+        $url = $actual_link;
+        parse_str($url, $videoID);
+        if(!empty($videoID['id'])) {
+            // Here we need to save the video to the model VideoResume
+            //echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoID['id'].'?rel=0" frameborder="0" allowfullscreen></iframe>';    
+        } else {
+            echo "no id in the url";
+        }
+ 
+    //    
+  // gNdlBIz67aQ
+?>
+
+
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="video_uploaded" class="btn btn-primary" value="Upload Video File">Upload Video File</button>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+</form>
+                    
+                <?php } ?>
+
 
 <?php
+
+
+
+
 /*
 
 
