@@ -1,31 +1,30 @@
 <?php
-/* this ProfileController */
+    /* this ProfileController */
 
+    require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
 
-require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
+    $this->breadcrumbs = array(
+        'Profile' => array('/profile'),
+        'View',
+    );
 
-$this->breadcrumbs = array(
-    'Profile' => array('/profile'),
-    'View',
-);
+    if (!isset($resume))
+    {
+        $resume = new Resume;
+    }
 
-if (!isset($resume)) {
-    $resume = new Resume;
-}
+    // Rene: Check if video resume has been added to the model.
+    if (!isset($videoresume))
+        $videoresume = new VideoResume;
 
-if (!isset($videoresume)) {
-    $videoresume = new VideoResume;
-}
-
-if (!isset($user->basicInfo)) {
-    $user->basicInfo = new BasicInfo;
-}
+    if (!isset($user->basicInfo))
+    {
+        $user->basicInfo = new BasicInfo;
+    }
 ?>
-
 
 <div class="form">
     <script src="/JobFair/themes/bootstrap/js/jquery.bpopup-0.8.0.min.js"></script>
-
     <script type="text/javascript">
         //for the video tutorials
         $(function () {
@@ -95,7 +94,6 @@ if (!isset($user->basicInfo)) {
                 $("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
             }
 
-
             $("#saveSkills").hide();
             // $("#saveInterest").hide();
             $("#edit").click(function (e) {
@@ -130,7 +128,6 @@ if (!isset($user->basicInfo)) {
 
                     enableBasicInfo();
                     //$(this).closest('form').submit();
-
                 }
             });
 
@@ -200,7 +197,6 @@ if (!isset($user->basicInfo)) {
                     $(this).trigger("enterKey");
                 }
             });
-
         });
 
         $(document).delegate('.deletenewskill', 'click', function () {
@@ -208,7 +204,6 @@ if (!isset($user->basicInfo)) {
 
         });
 
-        //
         function uploadpic() {
             document.getElementById("User_image_url").click();
             document.getElementById("User_image_url").onchange = function () {
@@ -230,19 +225,18 @@ if (!isset($user->basicInfo)) {
             document.getElementById("Resume_resume").onchange = function () {
                 if (endWith(document.getElementById("Resume_resume").value, 'pdf')) {
                     document.getElementById("user-uploadResume-form").submit();
-                } else {
+                } 
+                else 
+                {
                     alert('Document must be in PDF format');
                 }
-
             }
-
         }
 
-
         /*
-         * This function has been depricated with version v6.
-         * function uploadvideo(){
+         Rene: This function has been deprecated with version v6.
          
+         function uploadvideo(){
          document.getElementById("VideoResume_videoresume").click();
          document.getElementById("VideoResume_videoresume").onchange = function() {
          if (endWith(document.getElementById("VideoResume_videoresume").value, 'MP4') 
@@ -313,19 +307,14 @@ if (!isset($user->basicInfo)) {
     </script>
 
 
-
-
     <div id="fullcontent">
-
         <div id="basicInfo" style="float: left">
-
-
             <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'user-uploadPicture-form', 'action' => '/JobFair/index.php/Profile/uploadImage',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => array('enctype' => 'multipart/form-data',),
-            ));
+                $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'user-uploadPicture-form', 'action' => '/JobFair/index.php/Profile/uploadImage',
+                    'enableAjaxValidation' => false,
+                    'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                ));
             ?>
 
             <div style="clear:both"></div>
@@ -335,30 +324,28 @@ if (!isset($user->basicInfo)) {
                     <img style="width:200px; height:215px; float: left" src="<?php echo $user->image_url ?>" />
                 </div>
                 <a id="uploadlink" href="#" onclick="uploadpic()"><img style="margin-top: 5px;" src='/JobFair/images/ico/add.gif' />Upload Image</a>
-            <?php echo CHtml::activeFileField($user, 'image_url', array('style' => 'display: none;')); ?>  
-
+    
+                    <?php echo CHtml::activeFileField($user, 'image_url', array('style' => 'display: none;')); ?>  
             </div>
 
             <?php $this->endWidget(); ?>
 
             <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/EditBasicInfo',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => array('enctype' => 'multipart/form-data'),
-            ));
+                $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/EditBasicInfo',
+                    'enableAjaxValidation' => false,
+                    'htmlOptions' => array('enctype' => 'multipart/form-data'),
+                ));
             ?>
 
             <div id="insidebasicinfo" style="float: right">
-
                 <name style="float:left; width:auto"><?php echo $user->first_name . " " . $user->last_name ?></name>
 
-
                 <aboutme>
-<?php echo $form->textArea($user->basicInfo, 'about_me', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
+                    <?php echo $form->textArea($user->basicInfo, 'about_me', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
                 </aboutme>
                 <br>
-<?php $userEmail = $user->email; ?>
+                    <?php $userEmail = $user->email; ?>
                 <lab>EMAIL:</lab> <?php echo $form->textField($user, 'email', array('class' => 'tb5', 'disabled' => 'true')); ?>
                 <lab>PHONE:</lab> <?php echo $form->textField($user->basicInfo, 'phone', array('class' => 'tb5', 'disabled' => 'true')); ?>
                 <lab>LOCATION:</lab> <?php echo $form->textField($user->basicInfo, 'city', array('class' => 'tb5', 'disabled' => 'true')); ?>
@@ -372,37 +359,36 @@ if (!isset($user->basicInfo)) {
 
         </div> <!--  END BASIC INFO -->
 
-
-
-
         <div style="clear:both"></div>
-<?php $this->endWidget(); ?>
+            <?php $this->endWidget(); ?>
         <hr>
 
-
         <div id="leftside">
-
 
             <div style="clear:both"></div>
 
             <div id="menutools">
                 <div class="titlebox">SETTINGS</div><br><br>
                 <?php
-                $checked = $checked_lfj = '';
-                $job_notif = null;
-                $looking_for_job = null;
-                if (isset($user['looking_for_job'])) {
-                    $looking_for_job = $user->looking_for_job;
-                    if ($user->looking_for_job == '1') {
-                        $checked_lfj = 'checked';
+                    $checked = $checked_lfj = '';
+                    $job_notif = null;
+                    $looking_for_job = null;
+                    if (isset($user['looking_for_job']))
+                    {
+                        $looking_for_job = $user->looking_for_job;
+                        if ($user->looking_for_job == '1')
+                        {
+                            $checked_lfj = 'checked';
+                        }
                     }
-                }
-                if (isset($user['job_notification'])) {
-                    $job_notif = $user->job_notification;
-                    if ($user->job_notification == '1') {
-                        $checked = 'checked';
+                    if (isset($user['job_notification']))
+                    {
+                        $job_notif = $user->job_notification;
+                        if ($user->job_notification == '1')
+                        {
+                            $checked = 'checked';
+                        }
                     }
-                }
                 ?>
                 <div style="overflow: hidden;">
                     <div style="float: left;">Email Jobs Notifications:</div>
@@ -433,51 +419,57 @@ if (!isset($user->basicInfo)) {
                         <p>Select queries to search for jobs</p>
 
                         <div style= "text-align:left;">
-                            <?php foreach ($saveQ as $query) { ?>
-                                <?php if ($query['active'] == '1') {
+                            <?php 
+                                foreach ($saveQ as $query)
+                                { ?>         
+                                    <?php 
+                                        if($query['active'] == '1')
+                                        {
                                     ?>
-                                    <div class="checkbox">
-                                        <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
-                                        <strong> <?php echo ($query['query_tag']) . ":"; ?></strong> <?php echo ($query['query']); ?>
-                                        <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
+                                            <strong> <?php echo ($query['query_tag']) . ":"; ?></strong> <?php echo ($query['query']); ?>
+                                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
-                                    </div>
-                                <?php } else {
-                                    ?>
-                                    <div class="checkbox">
-                                        <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
-                                        <strong> <?php echo ($query['query_tag']) . ":"; ?></strong> <?php echo ($query['query']); ?>
-                                        <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                                        </div>
+                                    <?php }
+                                    else
+                                    {
+                                        ?>
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
+                                            <strong> <?php echo ($query['query_tag']) . ":"; ?></strong> <?php echo ($query['query']); ?>
+                                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
-                                    </div>
+                                        </div>
                                 <?php } ?>
-<?php } ?>
+                            <?php } ?>
                         </div>
                         <hr>
                         <p>Select email frequency</p>
                         <?php
-                        $date = $user->job_int_date;
+                            $date = $user->job_int_date;
 
-                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                            'name' => 'day',
-                            'id' => 'day',
-                            'value' => $date,
-                            'htmlOptions' => array('value' => $date, 'placeholder' => 'put number ',
-                                'style' => 'width: 150px;'),));
+                            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                'name' => 'day',
+                                'id' => 'day',
+                                'value' => $date,
+                                'htmlOptions' => array('value' => $date, 'placeholder' => 'put number ',
+                                    'style' => 'width: 150px;'),));
                         ?>
 
                     </div>
                     <?php
-                    $this->widget('bootstrap.widgets.TbButton', array(
-                        'label' => 'Save',
-                        'type' => 'primary',
-                        'htmlOptions' => array(
-                            'data-toggle' => 'modal',
-                            'data-target' => '#myModal',
-                            'id' => "saveInterest",
-                            'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                        ),
-                    ));
+                        $this->widget('bootstrap.widgets.TbButton', array(
+                            'label' => 'Save',
+                            'type' => 'primary',
+                            'htmlOptions' => array(
+                                'data-toggle' => 'modal',
+                                'data-target' => '#myModal',
+                                'id' => "saveInterest",
+                                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+                            ),
+                        ));
                     ?>
                 </form>
 
@@ -489,209 +481,183 @@ if (!isset($user->basicInfo)) {
 
 
                 <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'user-uploadResume-form', 'action' => '/JobFair/index.php/Profile/uploadResume',
-                    'enableAjaxValidation' => false,
-                    'htmlOptions' => array('enctype' => 'multipart/form-data', 'onchange' => 'return Checkfiles();',),
-                ));
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'user-uploadResume-form', 'action' => '/JobFair/index.php/Profile/uploadResume',
+                        'enableAjaxValidation' => false,
+                        'htmlOptions' => array('enctype' => 'multipart/form-data', 'onchange' => 'return Checkfiles();',),
+                    ));
 
-                echo CHtml::activeFileField($resume, 'resume', array('style' => 'display:none;'));
-                if (isset($resume->resume)) {
-                    $resumeURL = $resume->resume; // This address the bug in card #354 giving the url for the resume file
-                    echo CHtml::link(CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'));
-                } else {
-                    echo 'Upload a resume! PDF format only';
-                }
+                    echo CHtml::activeFileField($resume, 'resume', array('style' => 'display:none;'));
+                    if (isset($resume->resume))
+                    {
+                        $resumeURL = $resume->resume; // This address the bug in card #354 giving the url for the resume file
+                        echo CHtml::link(CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'));
+                    }
+                    else
+                    {
+                        echo 'Upload a resume! PDF format only';
+                    }
 
-                $this->endWidget();
+                    $this->endWidget();
                 ?> 
 
                 <br>
                 <hr>
 
-
-
-                                        <?php             
-
-                                        // ID of the video.
-                                       // $uniqueID = $_GET['id'];
-                                        
-                                        // echo($uniqueID);
-                                        
-                                       // if(isset($_GET['user']))
-                                        //{
-                                          //  $username = $_GET['user'];			
-                                        //} 
-                                        
-                                        //else 
-                                        //{
-                                          //  $myID = Yii::app()->user->id;
-                                        //}
-                                        
-                                     //   $user = User::model()->find("username=:username", array(':username'=>$username));
-                                        
-                                      //  $model->attributes=$_POST['User'];
-                                        
-                                    //    $myTemp = VideoResume::model()->saveAttributes($_POST['User'], $uniqueID);
-                                        
-                                        
-                                        
-                                        //$session = $_POST["sessionID"];
-                                        //echo($session);
-                                        
-                                        //$myTemp = VideoResume::model(); 
-                                        //echo ($unique_id);
-                                        //$user = Yii::app()->user;
-                                        //if($user != null)
-                                        //  echo ($user);
-                                        // $myTemp = VideoResume::model()->saveAttributes(session_id(), $unique_id);
-                                        // $myTemp = VideoResume::model()->video_path = $unique_id;
-                                        //$post = Yii::app()->
-                                        //$post = Yii::model()->
-                                        ?>
-                                        </php>
-
-
-               
-
-<?php
-                if (isset($videoresume->video_path)){
-                    echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoresume->video_path.'?rel=0" frameborder="0" allowfullscreen></iframe>';
-                } else { ?>  
+                <?php ?>
+                </php>
                 
-                                <!-- YouTube video upload. -->
+                    <?php
+                        // YouTube Code.
+                        
+                        // Check if the Video Resume path exists. 
+                        if(isset($videoresume->video_path))
+                        {
+                            // Authenticate credentials with YouTube.
+                            //$httpClient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube');
+                            //$yt = new Zend_Gdata_YouTube($httpClient, null, null, $devkey);
+                            
+                            // New iframe: Show an iframe of the video.
+                            echo '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
+                                   . '?&rel=0&autoplay=0&showinfo=0&controls=0" frameborder="0" allowfullscreen> </iframe>'; 
+                        }
+                        else // Display the upload button.
+                        {
+                        ?>  
+                            <!-- YouTube video upload. -->
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
-                    Upload Video Resume
-                </button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
+                                Upload Video Resume
+                            </button>
 
-
-                <!-- Modal -->
-                <div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Upload Video Resume</h4>
-                            </div>
-                            <div class="modal-body">  
-                                <div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="submitVideoResume-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Upload Video Resume</h4>
+                                        </div>
+                                    <div class="modal-body">  
+                                    <div>
 
                                     <!--
                                     Video upload form.
+                                    Rene
                                     -->
-                                    
-                                <form action="<?php echo $response ?>?nexturl=<?php echo $nexturl ?>"
-      method="post" enctype="multipart/form-data" onsubmit="return checkForFile();">
-     <input id = "file" name="file" type="file" style="border:none;"/>
-     <input name="token" type="hidden" value="<?php echo $token ?>"/>
-     <?php
-        $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";             
-        $url = $actual_link;
-        parse_str($url, $videoID);
-        if(!empty($videoID['id'])) {
-            // Here we need to save the video to the model VideoResume
-            //echo '<iframe width="200" height="157" src="https://www.youtube.com/embed/'.$videoID['id'].'?rel=0" frameborder="0" allowfullscreen></iframe>';    
-        } else {
-            echo "no id in the url";
-        }
- 
-    //    
-  // gNdlBIz67aQ
-?>
+                                    <form action="<?php echo $response ?>?nexturl=<?php echo $nexturl ?>"
+                                           method="post" enctype="multipart/form-data" onsubmit="return checkForFile();">
+                                           <input id = "file" name="file" type="file" style="border:none;"/>
+                                           
+                                            <div id="errMsg" style="display:none;color:red">
+                                                You need to specify a valid file.
+                                            </div>
+                                           
+                                           <input name="token" type="hidden" value="<?php echo $token ?>"/>
+                                
+                                               <?php
+                                                   // Parse the URL after the video has been submitted to YouTube.
+                                                   $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";
+                                                    $url = $actual_link;
+                                                    parse_str($url, $videoID);
+
+                                                    // Check if the parsing worked, ie, we have the videoID.
+                                                    if(videoWasUploaded && !empty($videoID['id']))
+                                                    {
+                                                        // Save the video to the model VideoResume
+                                                        $videoresume->id = $user->id;
+                                                        $videoresume->video_path = $videoID['id'];
+                                                        $videoresume->save(true);
+
+                                                        $this->redirect('/JobFair/index.php/profile/view');
+                                                        
+                                                    }
+                                                ?>
+                                        </div>
+                                        </div>              
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="video_uploaded" class="btn btn-primary" value="Upload Video File">Submit</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                     </div>
+                                    </form>
+
+                    <?php } // end of else. ?>
 
 
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" name="video_uploaded" class="btn btn-primary" value="Upload Video File">Upload Video File</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-</form>
-                    
-                <?php } ?>
+                <?php
+                    /*
+                      Rene: This code has been depricated as of version v6.
 
+                      $form = $this->beginWidget('CActiveForm', array(
+                      'id'=>'user-uploadVideo-form', 'action'=> '/JobFair/index.php/Profile/uploadVideo',
+                      'enableAjaxValidation'=>false,
+                      'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                      ));
 
-<?php
+                      echo CHtml::activeFileField($videoresume, 'videoresume', array('style'=>'display:none;'));
+                      if (isset($videoresume->video_path)){
+                      $videoURL = $videoresume->video_path; */
+                     //echo CHtml::link(CHtml::encode('VideoResume'), $videoURL /*$videoresume->video_path*/, array('target'=>'_blank', 'style' =>'float:left'));
+                    /* } else {
+                      echo 'Upload a video resume! MP4 or MOV format';
+                      }
 
+                      $this->endWidget();
 
-
-
-/*
-
-
-  $form = $this->beginWidget('CActiveForm', array(
-  'id'=>'user-uploadVideo-form', 'action'=> '/JobFair/index.php/Profile/uploadVideo',
-  'enableAjaxValidation'=>false,
-  'htmlOptions' => array('enctype' => 'multipart/form-data',),
-  ));
-
-  echo CHtml::activeFileField($videoresume, 'videoresume', array('style'=>'display:none;'));
-  if (isset($videoresume->video_path)){
-  $videoURL = $videoresume->video_path; */
-//echo CHtml::link(CHtml::encode('VideoResume'), $videoURL /*$videoresume->video_path*/, array('target'=>'_blank', 'style' =>'float:left'));
-/* } else {
-  echo 'Upload a video resume! MP4 or MOV format';
-  }
-
-  $this->endWidget();
-
- */
-?> 
+                     */
+                ?> 
             </div>
         </div> <!--  END LEFT SIDE -->
 
-
-
+        
         <div id="subcontent">
-
-
             <div style=clear:both></div>
 
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/addEducation',
-    'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data',),
-    ));
-?>
+                    <?php
+                        $form = $this->beginWidget('CActiveForm', array(
+                            'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/addEducation',
+                            'enableAjaxValidation' => false,
+                            'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                        ));
+                    ?>
 
             <div id="education">
                 <div class="titlebox">EDUCATION</div>	
 
                 <div style=clear:both></div>
-            <?php foreach ($user->educations as $education) { ?>
-                <?php
-                //$list = CHtml::listData($records, 'id', 'name');
-                // echo CHtml::dropDownList('names', null, $list, array('empty' => '(Select a name)'));
-                ?>
+<?php foreach ($user->educations as $education)
+    { ?>
+        <?php
+        //$list = CHtml::listData($records, 'id', 'name');
+        // echo CHtml::dropDownList('names', null, $list, array('empty' => '(Select a name)'));
+        ?>
 
-                    <div>
-                    <?php echo $form->textField($education->fKSchool, 'name', array('class' => 'schoolName', 'disabled' => 'true')); ?>
-                        <del><a href="/JobFair/index.php/Profile/deleteEducation?id=<?php echo $education->id ?>"><img src='/JobFair/images/ico/del.gif'/></a></del>
-                        <aboutme>
-                    <?php echo $form->textArea($education, 'additional_info', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
-                        </aboutme><br>
+                        <div>
+                        <?php echo $form->textField($education->fKSchool, 'name', array('class' => 'schoolName', 'disabled' => 'true')); ?>
+                            <del><a href="/JobFair/index.php/Profile/deleteEducation?id=<?php echo $education->id ?>"><img src='/JobFair/images/ico/del.gif'/></a></del>
+                            <aboutme>
+        <?php echo $form->textArea($education, 'additional_info', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
+                            </aboutme><br>
 
-                        <lab> Graduation:</lab><p style="margin-left: 88px;
-                                                  font-size: 14px;"><?php echo formatDate($education->graduation_date); ?> </p>
-                        <lab> Degree:</lab><?php echo $form->textField($education, 'degree', array('class' => 'school', 'disabled' => 'true')); ?>
-                        <lab> Major:</lab><?php echo $form->textField($education, 'major', array('class' => 'school', 'disabled' => 'true')); ?>
+                            <lab> Graduation:</lab><p style="margin-left: 88px;
+                                                      font-size: 14px;"><?php echo formatDate($education->graduation_date); ?> </p>
+                            <lab> Degree:</lab><?php echo $form->textField($education, 'degree', array('class' => 'school', 'disabled' => 'true')); ?>
+                            <lab> Major:</lab><?php echo $form->textField($education, 'major', array('class' => 'school', 'disabled' => 'true')); ?>
 
-                    </div>
-                    <div style="clear:both;">
-                        <hr>
-                    </div>
+                        </div>
+                        <div style="clear:both;">
+                            <hr>
+                        </div>
 
 
-<?php
-}
-$education = new Education;
-?>
+                            <?php
+                        }
+                        $education = new Education;
+                    ?>
 
 
 
@@ -701,34 +667,34 @@ $education = new Education;
                 <div class="child-div1">
 
                     <lab2>School</lab2>
-<?php
-$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-    'id' => 'Education_name',
-    'name' => 'Education[name]',
-    'source' => $allSchools,
-    // additional javascript options for the autocomplete plugin
-    'options' => array(
-        'minLength' => '2',
-    ),
-    'htmlOptions' => array(
-        'class' => 'school'
-    ),
-));
-?>
-                    <lab2> Graduation Date:</lab2><br/>
-                    <?php //echo $form->textField($education,'graduation_date', array('class'=>'school')); ?>
                     <?php
-                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                        'name' => 'Education[graduation_date]',
-                        'options' => array(
-                            'showAnim' => 'fold',
-                            'dateFormat' => 'yy-mm-dd',
-                        ),
-                        'htmlOptions' => array(
-                            'class' => 'school'
-                        ),
-                    ));
+                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                            'id' => 'Education_name',
+                            'name' => 'Education[name]',
+                            'source' => $allSchools,
+                            // additional javascript options for the autocomplete plugin
+                            'options' => array(
+                                'minLength' => '2',
+                            ),
+                            'htmlOptions' => array(
+                                'class' => 'school'
+                            ),
+                        ));
                     ?>
+                    <lab2> Graduation Date:</lab2><br/>
+<?php //echo $form->textField($education,'graduation_date', array('class'=>'school'));   ?>
+            <?php
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'name' => 'Education[graduation_date]',
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'dateFormat' => 'yy-mm-dd',
+                    ),
+                    'htmlOptions' => array(
+                        'class' => 'school'
+                    ),
+                ));
+            ?>
 
 
                     <lab2> Degree Obtained:</lab2><?php echo $form->textField($education, 'degree', array('class' => 'school')); ?>
@@ -742,46 +708,50 @@ $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
             <div style="clear:both"></div>
 
 
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/addExperience',
-    'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data',),
-    ));
-?>
+                    <?php
+                        $form = $this->beginWidget('CActiveForm', array(
+                            'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/addExperience',
+                            'enableAjaxValidation' => false,
+                            'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                        ));
+                    ?>
 
             <div id="experience">
 
                 <div class="titlebox">EXPERIENCE</div>	
 
                 <div style=clear:both></div>
-<?php foreach ($user->experiences as $experience) { ?>
-                    <div>
+<?php foreach ($user->experiences as $experience)
+    { ?>
+                        <div>
 
 
-                    <?php echo $form->textField($experience, 'job_title', array('class' => 'schoolName', 'disabled' => 'true')); ?>
-                        <del><a href="/JobFair/index.php/Profile/deleteExperience?id=<?php echo $experience->id ?>"><img src='/JobFair/images/ico/del.gif'/></a></del>
-    <?php echo $form->textArea($experience, 'job_description', array('class' => 'ta', 'disabled' => 'true')); ?>
-                        <lab>Start:</lab><p style="margin-left: 88px;
-                                            font-size: 14px;"><?php echo formatDate($experience->startdate); ?></p>
-                        <?php if ($experience->enddate == '0000-00-00 00:00:00') { ?>
-                            <lab>End:</lab><p style="margin-left: 88px;
-                                              font-size: 14px;"><?php echo "Present" ?></p>
-    <?php } else { ?>
-                            <lab>End:</lab><p style="margin-left: 88px;
-                                              font-size: 14px;"><?php echo formatDate($experience->enddate); ?></p>
-    <?php } ?>
-                        <lab>Employer:</lab><?php echo $form->textField($experience, 'company_name', array('class' => 'school', 'disabled' => 'true')); ?>
-                    </div>
-                    <div style="clear:both;">
-                        <hr>
-                    </div>
+                        <?php echo $form->textField($experience, 'job_title', array('class' => 'schoolName', 'disabled' => 'true')); ?>
+                            <del><a href="/JobFair/index.php/Profile/deleteExperience?id=<?php echo $experience->id ?>"><img src='/JobFair/images/ico/del.gif'/></a></del>
+                        <?php echo $form->textArea($experience, 'job_description', array('class' => 'ta', 'disabled' => 'true')); ?>
+                            <lab>Start:</lab><p style="margin-left: 88px;
+                                                font-size: 14px;"><?php echo formatDate($experience->startdate); ?></p>
+        <?php if ($experience->enddate == '0000-00-00 00:00:00')
+        { ?>
+                                <lab>End:</lab><p style="margin-left: 88px;
+                                                  font-size: 14px;"><?php echo "Present" ?></p>
+        <?php }
+        else
+        { ?>
+                                <lab>End:</lab><p style="margin-left: 88px;
+                                                  font-size: 14px;"><?php echo formatDate($experience->enddate); ?></p>
+        <?php } ?>
+                            <lab>Employer:</lab><?php echo $form->textField($experience, 'company_name', array('class' => 'school', 'disabled' => 'true')); ?>
+                        </div>
+                        <div style="clear:both;">
+                            <hr>
+                        </div>
 
 
-<?php
-}
-$experience = new Experience;
-?>
+                            <?php
+                        }
+                        $experience = new Experience;
+                    ?>
 
 
 
@@ -795,35 +765,35 @@ $experience = new Experience;
                     <lab2> Job Description:</lab2><?php echo $form->textField($experience, 'job_description', array('class' => 'school')); ?>
 
                     <lab2> Start Date:</lab2>
-<?php
-$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-    'name' => 'Experience[startdate]',
-    'options' => array(
-        'showAnim' => 'fold',
-        'dateFormat' => 'yy-mm-dd',
-    ),
-    'htmlOptions' => array(
-        'class' => 'school'
-    )
-));
-?>
-                    <?php echo $form->error($experience, 'startdate'); ?>
+                    <?php
+                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'name' => 'Experience[startdate]',
+                            'options' => array(
+                                'showAnim' => 'fold',
+                                'dateFormat' => 'yy-mm-dd',
+                            ),
+                            'htmlOptions' => array(
+                                'class' => 'school'
+                            )
+                        ));
+                    ?>
+            <?php echo $form->error($experience, 'startdate'); ?>
 
 
                     <lab2> End Date: (Leave blank if present)</lab2> 
-<?php
-$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-    'name' => 'Experience[enddate]',
-    'options' => array(
-        'showAnim' => 'fold',
-        'dateFormat' => 'yy-mm-dd',
-    ),
-    'htmlOptions' => array(
-        'class' => 'school'
-    )
-));
-?>
-                    <?php echo $form->error($experience, 'enddate'); ?>
+            <?php
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'name' => 'Experience[enddate]',
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'dateFormat' => 'yy-mm-dd',
+                    ),
+                    'htmlOptions' => array(
+                        'class' => 'school'
+                    )
+                ));
+            ?>
+            <?php echo $form->error($experience, 'enddate'); ?>
 
                     <lab2> City:</lab2><?php echo $form->textField($experience, 'city', array('class' => 'school')); ?>
                     <lab2> State:</lab2><?php echo $form->textField($experience, 'state', array('class' => 'school')); ?>
@@ -834,25 +804,26 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 <?php $this->endWidget(); ?>
 
 
-<?php
+                <?php
 
-function formatDate($mysqldate) {
-    $time = strtotime($mysqldate);
-    return date("F Y", $time);
-}
-?>
+                    function formatDate($mysqldate)
+                    {
+                        $time = strtotime($mysqldate);
+                        return date("F Y", $time);
+                    }
+                ?>
 
         </div> <!--  END COTENT -->
 
         <div id="rightside">
 
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'user-saveSkills-form', 'action' => '/JobFair/index.php/Profile/saveSkills',
-    'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data',),
-    ));
-?>
+                    <?php
+                        $form = $this->beginWidget('CActiveForm', array(
+                            'id' => 'user-saveSkills-form', 'action' => '/JobFair/index.php/Profile/saveSkills',
+                            'enableAjaxValidation' => false,
+                            'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                        ));
+                    ?>
             <div id="skills">
                 <div class="titlebox">SKILLS</div>
 
@@ -869,63 +840,64 @@ $form = $this->beginWidget('CActiveForm', array(
                         });
                     </script>
 
-<?php foreach ($user->studentSkillMaps as $skill) { ?>
-    <?php $i ++ ?>
+                <?php foreach ($user->studentSkillMaps as $skill)
+                    { ?>
+                        <?php $i ++ ?>
 
-                        <li id="skill<?php echo $i ?>">
+                            <li id="skill<?php echo $i ?>">
 
 
-                            <span class="skilldrag" id="skill<?php echo $i ?>">
-    <?php echo $skill->skill->name; ?>
-                                <input type="hidden" name="Skill[]" value="<?php echo $skill->skill->id; ?>" />
-                            </span>
-                            <a class="deleteskill" id="skill<?php echo $i; ?>">
-                                <img src='/JobFair/images/ico/del.gif'/>
-                            </a>
-                            <br/>
+                                <span class="skilldrag" id="skill<?php echo $i ?>">
+                        <?php echo $skill->skill->name; ?>
+                                    <input type="hidden" name="Skill[]" value="<?php echo $skill->skill->id; ?>" />
+                                </span>
+                                <a class="deleteskill" id="skill<?php echo $i; ?>">
+                                    <img src='/JobFair/images/ico/del.gif'/>
+                                </a>
+                                <br/>
 
-                        </li>
+                            </li>
 
-<?php } ?>
+                    <?php } ?>
 
                 </ul>
-                    <?php $this->endWidget(); ?>
+                <?php $this->endWidget(); ?>
                 <hr>
                 <?php
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name' => 'addskillname',
-                    'id' => 'addskillname',
-                    'source' => Skillset::getNames(),
-                    'htmlOptions' => array(),));
+                    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                        'name' => 'addskillname',
+                        'id' => 'addskillname',
+                        'source' => Skillset::getNames(),
+                        'htmlOptions' => array(),));
                 ?>
 
                 <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'label' => 'Add Skill',
-                    'type' => 'primary',
-                    'htmlOptions' => array(
-                        'data-toggle' => 'modal',
-                        'data-target' => '#myModal',
-                        'style' => 'width: 120px',
-                        'id' => "addskill",
-                        'onclick' => 'return false;',
-                        'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                    ),
-                ));
+                    $this->widget('bootstrap.widgets.TbButton', array(
+                        'label' => 'Add Skill',
+                        'type' => 'primary',
+                        'htmlOptions' => array(
+                            'data-toggle' => 'modal',
+                            'data-target' => '#myModal',
+                            'style' => 'width: 120px',
+                            'id' => "addskill",
+                            'onclick' => 'return false;',
+                            'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+                        ),
+                    ));
                 ?>
-                <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'label' => 'Save Skills',
-                    'type' => 'primary',
-                    'htmlOptions' => array(
-                        'data-toggle' => 'modal',
-                        'data-target' => '#myModal',
-                        'style' => 'width: 120px',
-                        'id' => "saveSkills",
-                        'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                    ),
-                ));
-                ?>
+                        <?php
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                'label' => 'Save Skills',
+                                'type' => 'primary',
+                                'htmlOptions' => array(
+                                    'data-toggle' => 'modal',
+                                    'data-target' => '#myModal',
+                                    'style' => 'width: 120px',
+                                    'id' => "saveSkills",
+                                    'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+                                ),
+                            ));
+                        ?>
 
             </div>
             <!-- End SKILLS -->
@@ -938,54 +910,58 @@ $form = $this->beginWidget('CActiveForm', array(
                         -->
                         <h5>Link Accounts:</h5>
                         <?php
-                        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/linkedIn_login.png', '', array('width' => 160, 'height' => 100));
-                        echo CHtml::link($image, array('profile/auth'));
+                            $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/linkedIn_login.png', '', array('width' => 160, 'height' => 100));
+                            echo CHtml::link($image, array('profile/auth'));
 
-                        $currentUser = User::getCurrentUser();
-                        if (($currentUser != null) && ($currentUser->linkedinid != null))
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
-                        else {
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
-                        }
+                            $currentUser = User::getCurrentUser();
+                            if (($currentUser != null) && ($currentUser->linkedinid != null))
+                                echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
+                            else
+                            {
+                                echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
+                            }
                         ?><br><br>
 
 
                         <?php
-                        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/google_login.png', '', array('width' => 160, 'height' => 100));
-                        echo CHtml::link($image, array('profile/googleAuth'));
+                            $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/google_login.png', '', array('width' => 160, 'height' => 100));
+                            echo CHtml::link($image, array('profile/googleAuth'));
 
-                        $currentUser = User::getCurrentUser();
-                        if (($currentUser != null) && ($currentUser->googleid != null))
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
-                        else {
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
-                        }
+                            $currentUser = User::getCurrentUser();
+                            if (($currentUser != null) && ($currentUser->googleid != null))
+                                echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
+                            else
+                            {
+                                echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
+                            }
                         ?><br><br>
 
 
-                        <?php
-                        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/fiu_cs_login.png', '', array('width' => 160, 'height' => 100));
-                        echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
+<?php
+    $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/fiu_cs_login.png', '', array('width' => 160, 'height' => 100));
+    echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
 
-                        $currentUser = User::getCurrentUser();
-                        if (($currentUser != null) && ($currentUser->fiucsid != null))
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
-                        else {
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
-                        }
-                        ?><br><br>
+    $currentUser = User::getCurrentUser();
+    if (($currentUser != null) && ($currentUser->fiucsid != null))
+        echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
+    else
+    {
+        echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
+    }
+?><br><br>
 
-                        <?php
-                        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/fiu_login.png', '', array('width' => 160, 'height' => 100));
-                        echo CHtml::link($image, array('profile/fiuAuth'));
+<?php
+    $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/fiu_login.png', '', array('width' => 160, 'height' => 100));
+    echo CHtml::link($image, array('profile/fiuAuth'));
 
-                        $currentUser = User::getCurrentUser();
-                        if (($currentUser != null) && ($currentUser->fiu_account_id != null))
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
-                        else {
-                            echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
-                        }
-                        ?><br><br>
+    $currentUser = User::getCurrentUser();
+    if (($currentUser != null) && ($currentUser->fiu_account_id != null))
+        echo CHtml::image(Yii::app()->baseUrl . '/images/ico/checkmark.ico', '', array('width' => 30, 'height' => 30));
+    else
+    {
+        echo CHtml::image(Yii::app()->baseUrl . '/images/ico/exclamation5.ico', '', array('width' => 30, 'height' => 30));
+    }
+?><br><br>
 
                         <hr/>
                         <a href="/JobFair/index.php/user/ChangePassword">Change Password</a>
@@ -999,33 +975,34 @@ $form = $this->beginWidget('CActiveForm', array(
 
         <!-- Check for first time viewing for students, prompt for LinkedIn Connect -->
         <?php
-        if (User::isCurrentUserStudent() && !$user->has_viewed_profile) {
-            $user->has_viewed_profile = 1;
-            $user->save(false);
-            ?>
-            <div id="linkedinbox" style="display:none;">
-                <a class="bClose">x</a>
-                <br><br>
-                <h3 class="mostwantedskills">Consider using LinkedIn to create your profile.</h3>
-                <div id="studentlinks">
-                    <a  //edit by Manuel making the link dynamic, using Yii
-                    <?php
-                    $image = CHtml::image(Yii::app()->baseUrl . '/images/ico/linkedinlogo.png');
-                    echo CHtml::link($image, array('/profile/auth'));
-                    ?>
-
-                        <br>LinkedIn Connect</a>
-                </div>
-            </div>
-            <script>
-                (function ($) {
-                    $(function () {
-                        $('#linkedinbox').bPopup();
-                        $('#linkedinbox').show();
-                    });
-                })(jQuery);
-            </script>
-            <?php
-        }
+            if (User::isCurrentUserStudent() && !$user->has_viewed_profile)
+            {
+                $user->has_viewed_profile = 1;
+                $user->save(false);
+                ?>
+                <div id="linkedinbox" style="display:none;">
+                    <a class="bClose">x</a>
+                    <br><br>
+                    <h3 class="mostwantedskills">Consider using LinkedIn to create your profile.</h3>
+                    <div id="studentlinks">
+                        <a  //edit by Manuel making the link dynamic, using Yii
+        <?php
+        $image = CHtml::image(Yii::app()->baseUrl . '/images/ico/linkedinlogo.png');
+        echo CHtml::link($image, array('/profile/auth'));
         ?>
+
+                            <br>LinkedIn Connect</a>
+                    </div>
+                </div>
+                <script>
+                    (function ($) {
+                        $(function () {
+                            $('#linkedinbox').bPopup();
+                            $('#linkedinbox').show();
+                        });
+                    })(jQuery);
+                </script>
+        <?php
+    }
+?>
 
