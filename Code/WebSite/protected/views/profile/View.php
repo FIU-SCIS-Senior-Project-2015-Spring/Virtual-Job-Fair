@@ -1,3 +1,4 @@
+
 <?php
     /* this ProfileController */
 
@@ -511,15 +512,19 @@
                         // YouTube Code.
                         
                         // Check if the Video Resume path exists. 
-                        if(isset($videoresume->video_path))
+                        if(!empty($videoresume->video_path))
                         {
                             // Authenticate credentials with YouTube.
                             //$httpClient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube');
                             //$yt = new Zend_Gdata_YouTube($httpClient, null, null, $devkey);
                             
-                            // New iframe: Show an iframe of the video.
-                            echo '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
-                                   . '?&rel=0&autoplay=0&showinfo=0&controls=0" frameborder="0" allowfullscreen> </iframe>'; 
+                            // New iframe: Show an iframe of the video.                        
+                            
+                            echo '<iframe id="videoGlass" width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
+                                   . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
+                        
+                            echo '<div id="videoGlass" style="position:absolute; width:200px; height:150px; visibility: hidden; background-color:blue;">';
+                            echo '</div>';
                         }
                         else // Display the upload button.
                         {
@@ -563,7 +568,7 @@
                                                     parse_str($url, $videoID);
 
                                                     // Check if the parsing worked, ie, we have the videoID.
-                                                    if(videoWasUploaded && !empty($videoID['id']))
+                                                    if(!empty($videoID['id']))
                                                     {
                                                         // Save the video to the model VideoResume
                                                         $videoresume->id = $user->id;
@@ -1005,4 +1010,3 @@
         <?php
     }
 ?>
-
