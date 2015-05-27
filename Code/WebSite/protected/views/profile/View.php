@@ -525,7 +525,20 @@
                         
                             echo '<div id="videoGlass" style="position:absolute; width:200px; height:150px; visibility: hidden; background-color:blue;">';
                             echo '</div>';
+                            echo '<div style="float: left;">Set Video Private:</div>';
+                            echo '<div style="margin-left: 130px;" class="onoffswitch">';
+                            echo '<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value="1" id="privacySwitch" checked onclick="toggleVideoPrivacy()">';
+                            echo '<label class="onoffswitch-label" for="myonoffswitch">';
+                            echo '<span class="onoffswitch-inner"></span>';
+                            echo '<span class="onoffswitch-switch"></span>';
+                            echo '</label>';
+                            echo '</div>';
+
+                            
+                            
+                            
                         }
+                        
                         else // Display the upload button.
                         {
                         ?>  
