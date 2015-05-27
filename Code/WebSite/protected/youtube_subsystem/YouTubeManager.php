@@ -47,6 +47,8 @@
 
     // The URL to redirect to.
     $nexturl = 'http://localhost/JobFair/index.php/profile/view';
+    
+    
 ?>
 
 <script type="text/javascript">
@@ -104,33 +106,3 @@
     }
 
 </script>
-
-<!--
-
-<form action="<//?php echo $response ?>?nexturl=<//?php echo $nexturl ?>"
-      method="post" enctype="multipart/form-data" onsubmit=" return checkForFile();">
-     <input id = "file" name="file" type="file"/>
-     <input name="token" type="hidden" value="<//?php echo $token ?>"/>
-     <input value="Upload Video File" type="submit" />
-</form>
-
--->
-
-
-<!--
-<form action="<?//php echo($response->url); ?>
-     ?nexturl=<//?php echo(urlencode($nexturl)); ?>
-     " method="post" enctype="multipart/form-data" onsubmit=" return checkForFile();">
-   
- <input id="file" type="file" name="file"/>
- 
- <div id="errMsg" style="display:none;color:red">
-   You need to specify a valid file.
- </div>
- 
- <input type="hidden" name="token" value="<?//php echo($response->token); ?>"/>
- <input type="submit" value="go" />
-
-</form>
-</php>
--->

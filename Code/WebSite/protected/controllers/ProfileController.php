@@ -43,7 +43,6 @@ class ProfileController extends Controller
 	    	
 	}
 	
-	
 	public function actionVideoEmployer()
 	{
 	

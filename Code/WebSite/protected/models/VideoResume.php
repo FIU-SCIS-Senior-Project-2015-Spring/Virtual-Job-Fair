@@ -64,6 +64,7 @@ class VideoResume extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'video_path' => 'Youtube Video Path',
+                        'publish_video' => 'Publish Video',
 		);
 	}
 
@@ -80,6 +81,7 @@ class VideoResume extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('video_path',$this->video_path,true);
+                $criteria->compare('publish_video', $this->publish_video);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

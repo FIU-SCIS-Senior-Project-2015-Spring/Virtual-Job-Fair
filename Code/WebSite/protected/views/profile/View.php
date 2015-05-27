@@ -22,6 +22,7 @@
     {
         $user->basicInfo = new BasicInfo;
     }
+   
 ?>
 
 <div class="form">
@@ -251,7 +252,7 @@
          }
          }*/
 
-        function toggleJobMatching() {
+       function toggleJobMatching() {
             var val = $('#myonoffswitch').val();
             if (val == '1')
             {
@@ -305,7 +306,43 @@
                 $("#myonoffswitch_1").val(data["status"]);
             });
         }
+        
+        /*
+        * Handle the tuggle button for the publication of the video.
+         */
+        function toggleVideoPublishing()
+        {
+            var val = $('#publishVideoSwitch').val();
+             
+            if (val == '1')
+                $('#publishVideoSwitch').val('0');
+            
+            else
+                $('#publishVideoSwitch').val('1');
+            
+            $.get("/JobFair/index.php/user/togglePublishedVideo", {"value": val}, function (data) 
+            {
+                data = JSON.parse(data);
+                if (data["status"] == '0')
+                    setPublish(false);
+                
+                else
+                    setPublish(true);
+ 
+                $("#publishVideoSwitch").val(data["status"]);
+            });
+        }
+        
+        // Helper method that sets the toggle button.
+        function setPublish(setter)
+        {
+            $("#publishVideoSwitch").prop('checked', setter);   
+        }
+        
+        
     </script>
+    
+
 
 
     <div id="fullcontent">
@@ -511,42 +548,95 @@
                     <?php
                         // YouTube Code.
                         
+                        $uploadButtonText = "Upload Video Resume";
+                        
                         // Check if the Video Resume path exists. 
-                        if(!empty($videoresume->video_path))
+                        if(isset($videoresume->video_path) || !empty($videoresume->video_path))
                         {
                             // Authenticate credentials with YouTube.
-                            //$httpClient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube');
-                            //$yt = new Zend_Gdata_YouTube($httpClient, null, null, $devkey);
+                           // $httpClient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube');
+                           // $currentYT = new Zend_Gdata_YouTube($httpClient, null, null, $devkey);
+                            
+                            
+                            // Change the 
+                            $uploadButtonText = "Upload New Video Resume";
+                           // if($yt->isAuthenticated())
+                             //   echo "authenticated: " . $videoresume->video_path;
+                            
+                            // Rene: Don't delete these comments until I have cleaned them up. Thanks.
+                            // Delete video [START].
+                            
+                            // Rene: I can delete the video even though it is private. 
+                            // However, I can't play it because it is private.
+                        //    $vid = $currentYT->getVideoEntry($videoresume->video_path, null, true);
+                            //$newURL = $vid->getFlashPlayerUrl();
+                            
+                            
+                           // $vid->setVideoPublic();
+                           // $yt->updateEntry($vid);
+                           // 
+                           // $newURL = $vid->getFlashPlayerUrl();
+                            //$this->redirect($newURL);
+                            
+                           // sleep(50);
+                           // $vid->setVideoPrivate();
+                           // $yt->updateEntry($vid);
+                            
+                            //$this->redirect($newURL);
+                            
+                            
+                            //$yt->delete($vid);
+                            
+              
+                             // DB removal code.
+                            //$videoresume->video_path = NULL;
+                            //$videoresume->save(true);
+                            // Delete video [END].
+                            
+                            
+                            //$this->redirect('/JobFair/index.php/profile/view');
                             
                             // New iframe: Show an iframe of the video.                        
                             
-                            echo '<iframe id="videoGlass" width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
+                            echo '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
                                    . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
+                            
                         
+                        
+                            /*
                             echo '<div id="videoGlass" style="position:absolute; width:200px; height:150px; visibility: hidden; background-color:blue;">';
-                            echo '</div>';
-                            echo '<div style="float: left;">Set Video Private:</div>';
+                            echo '</div>'; */
+                            
+                            // Div for Video Resume toggle button.
+                            echo '<div style="float: left;">Publish Video Resume:</div>';
                             echo '<div style="margin-left: 130px;" class="onoffswitch">';
-                            echo '<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value="1" id="privacySwitch" checked onclick="toggleVideoPrivacy()">';
-                            echo '<label class="onoffswitch-label" for="myonoffswitch">';
+                            echo '<input type="checkbox" name="Videoonoffswitch" class="onoffswitch-checkbox" value="'.$videoresume->publish_video.'" id="publishVideoSwitch" checked onclick="toggleVideoPublishing()">';
+                            echo '<label class="onoffswitch-label" for="publishVideoSwitch">';
                             echo '<span class="onoffswitch-inner"></span>';
                             echo '<span class="onoffswitch-switch"></span>';
                             echo '</label>';
                             echo '</div>';
+                            
 
                             
-                            
+                            // Set the initial state of the button if there needs to be a change.
+                            if($videoresume->publish_video == 0)
+                            {
+                                echo '<script> setPublish(false); </script>';
+                            }
+
+           
                             
                         }
                         
-                        else // Display the upload button.
+                       // else // Display the upload button.
                         {
                         ?>  
                             <!-- YouTube video upload. -->
 
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
-                                Upload Video Resume
+                                <?php echo $uploadButtonText; ?>
                             </button>
 
                             <!-- Modal -->
@@ -576,16 +666,28 @@
                                 
                                                <?php
                                                    // Parse the URL after the video has been submitted to YouTube.
-                                                   $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";
+                                                    $actual_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . "://$_SERVER[HTTP_HOST]/$_SERVER[REQUEST_URI]";
                                                     $url = $actual_link;
                                                     parse_str($url, $videoID);
+                                                    
+                                            
 
                                                     // Check if the parsing worked, ie, we have the videoID.
                                                     if(!empty($videoID['id']))
                                                     {
+                                                        // Check if there is a previous video resume that needs to be removed.
+                                                        if(isset($videoresume->video_path))
+                                                        {
+                                                            // Grab the resume and delete it from YouTube.
+                                                            $vid = $yt->getVideoEntry($videoresume->video_path, null, true);
+                                                            $yt->delete($vid);
+                                                        }
+                                                        
+                                                        
                                                         // Save the video to the model VideoResume
                                                         $videoresume->id = $user->id;
                                                         $videoresume->video_path = $videoID['id'];
+                                                       // $videoresume->publish_video = 0;
                                                         $videoresume->save(true);
 
                                                         $this->redirect('/JobFair/index.php/profile/view');

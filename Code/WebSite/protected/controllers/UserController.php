@@ -1006,6 +1006,25 @@ class UserController extends Controller
             echo json_encode(Array("status"=>$val));
         }
     }
+    
+    /*
+     * Handles the publication of the video or not.
+     */
+    public function actionTogglePublishedVideo()
+    {
+        if(isset($_GET['value']))
+        {
+            $val = intval($_GET['value']);
+            $val = ($val == 0) ? 1 : 0;
+            
+            $currentUser = User::getCurrentUser();
+            $videoresume = VideoResume::model()->findByPk($currentUser->id);
+            $videoresume->publish_video = $val;
+            $videoresume->save(true);
+            
+            echo json_encode(Array("status"=>$val));
+        }
+    }
 
     public function actionDuplicationError()
     {
