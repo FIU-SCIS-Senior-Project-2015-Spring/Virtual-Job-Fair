@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="0001-Login.html">Login</a></td></tr>
+<tr><td><a href="0002-Logout.html">Logout</a></td></tr>
+<tr><td><a href="0003-Registration.html">Registration</a></td></tr>
+<tr><td><a href="0004-Validation.html">Activation</a></td></tr>
+<tr><td><a href="0006-AddEducation.html">Add Education</a></td></tr>
+<tr><td><a href="0007-Remove Education.html">Remove Education</a></td></tr>
+<tr><td><a href="0008-Start Video Interview.html">Start Video Interview</a></td></tr>
+<tr><td><a href="0009-Share Screen on ScreenShare.html">Share screen on ScreenShare</a></td></tr>
+<tr><td><a href="0010-Show WhiteBoard.html">Show WhiteBoard</a></td></tr>
+<tr><td><a href="0011- Video Resume Upload.html">Video Resume Upload</a></td></tr>
+<tr><td><a href="0012- Publish Video Resume.html">Publish Video Resume</a></td></tr>
+<tr><td><a href="0013- Unpublish Video Resume.html">Unpublish Video Resume</a></td></tr>
+<tr><td><a href="0014-Invalid Video Format.html">Invalid Video format</a></td></tr>
+<tr><td><a href="0015-Send Message.html">Send Message</a></td></tr>
+<tr><td><a href="0016-Upload PDF Resume.html">Upload PDF Resume</a></td></tr>
+<tr><td><a href="0017-View PDF Resume.html">View PDF Resume</a></td></tr>
+</tbody></table>
+</body>
+</html>

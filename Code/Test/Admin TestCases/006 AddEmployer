@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>006 AddEmployer</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">006 AddEmployer</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/UserCrud/admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add Employer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_username</td>
+	<td>RTestEmp</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_first_name</td>
+	<td>REmp</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_last_name</td>
+	<td>REmpLast</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_password_repeat</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=User_email</td>
+	<td>remp@gmail.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=User_hide_email</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_phone</td>
+	<td>3052224444</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=BasicInfo_hide_phone</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=BasicInfo_allowSMS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=BasicInfo_about_me</td>
+	<td>This is a fake employer.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_name</td>
+	<td>RComp1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_street</td>
+	<td>8888 S Flagler St</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_city</td>
+	<td>Miami</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_state</td>
+	<td>FL</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_zipcode</td>
+	<td>33174</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=CompanyInfo_description</td>
+	<td>This is a fake company.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://vjf-dev.cis.fiu.edu/phpmyadmin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devUserName</td>
+	<td>devUserName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_username</td>
+	<td>${devUserName}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>devPassword</td>
+	<td>devPassword</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=input_password</td>
+	<td>${devPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input_go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=jobfairdb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=SQL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.CodeMirror.CodeMirror-wrap &gt; div &gt; textarea</td>
+	<td>SELECT * FROM `user` WHERE `username` = 'RTestEmp'</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=button_submit_query</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>css=span &gt; i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.edit_box</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.icon.ic_s_loggoff</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>RTestEmp</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Virtual Job Fair - Employerhome Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(RTestEmp)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (RTestEmp)</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
