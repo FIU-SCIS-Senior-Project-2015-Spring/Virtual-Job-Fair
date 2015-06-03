@@ -553,59 +553,13 @@
                         // Check if the Video Resume path exists. 
                         if(isset($videoresume->video_path) || !empty($videoresume->video_path))
                         {
-                            // Authenticate credentials with YouTube.
-                           // $httpClient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube');
-                           // $currentYT = new Zend_Gdata_YouTube($httpClient, null, null, $devkey);
-                            
-                            
-                            // Change the 
+                            // Change the button text.
                             $uploadButtonText = "Upload New Video Resume";
-                           // if($yt->isAuthenticated())
-                             //   echo "authenticated: " . $videoresume->video_path;
-                            
-                            // Rene: Don't delete these comments until I have cleaned them up. Thanks.
-                            // Delete video [START].
-                            
-                            // Rene: I can delete the video even though it is private. 
-                            // However, I can't play it because it is private.
-                        //    $vid = $currentYT->getVideoEntry($videoresume->video_path, null, true);
-                            //$newURL = $vid->getFlashPlayerUrl();
-                            
-                            
-                           // $vid->setVideoPublic();
-                           // $yt->updateEntry($vid);
-                           // 
-                           // $newURL = $vid->getFlashPlayerUrl();
-                            //$this->redirect($newURL);
-                            
-                           // sleep(50);
-                           // $vid->setVideoPrivate();
-                           // $yt->updateEntry($vid);
-                            
-                            //$this->redirect($newURL);
-                            
-                            
-                            //$yt->delete($vid);
-                            
-              
-                             // DB removal code.
-                            //$videoresume->video_path = NULL;
-                            //$videoresume->save(true);
-                            // Delete video [END].
-                            
-                            
-                            //$this->redirect('/JobFair/index.php/profile/view');
                             
                             // New iframe: Show an iframe of the video.                        
-                            
                             echo '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
                                    . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
-                            
-                        
-                        
-                            /*
-                            echo '<div id="videoGlass" style="position:absolute; width:200px; height:150px; visibility: hidden; background-color:blue;">';
-                            echo '</div>'; */
+  
                             
                             // Div for Video Resume toggle button.
                             echo '<div style="float: left;">Publish Video Resume:</div>';
@@ -617,16 +571,11 @@
                             echo '</label>';
                             echo '</div>';
                             
-
-                            
                             // Set the initial state of the button if there needs to be a change.
                             if($videoresume->publish_video == 0)
                             {
                                 echo '<script> setPublish(false); </script>';
                             }
-
-           
-                            
                         }
                         
                        // else // Display the upload button.
@@ -671,23 +620,19 @@
                                                     parse_str($url, $videoID);
                                                     
                                             
-
                                                     // Check if the parsing worked, ie, we have the videoID.
                                                     if(!empty($videoID['id']))
                                                     {
                                                         // Check if there is a previous video resume that needs to be removed.
                                                         if(isset($videoresume->video_path))
                                                         {
-                                                            // Grab the resume and delete it from YouTube.
-                                                            $vid = $yt->getVideoEntry($videoresume->video_path, null, true);
-                                                            $yt->delete($vid);
+                                                           $yHandler = new YouTubeHandler();
+                                                           $yHandler->deleteVideo($videoresume);
                                                         }
-                                                        
                                                         
                                                         // Save the video to the model VideoResume
                                                         $videoresume->id = $user->id;
                                                         $videoresume->video_path = $videoID['id'];
-                                                       // $videoresume->publish_video = 0;
                                                         $videoresume->save(true);
 
                                                         $this->redirect('/JobFair/index.php/profile/view');

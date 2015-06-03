@@ -342,6 +342,35 @@ class User extends CActiveRecord
         
         $this->delete();
     }
+    
+    /**
+     * Rene.
+     * Activates a user or deactivates it. 
+     */
+    public static function setUserActive($id, $val)
+    {
+        $user = User::model()->findByPk($id);
+        $user->activated = $val;
+        $user->save(false);
+    }
+    
+    /**
+     * Disables a user.
+     * @param type $userid The user id.
+     */
+    public static function deActivateUser($userId)
+    {
+       setUserActive($userId, 0);
+    }
+    
+    /**
+     * Activate a user.
+     * @param type $userid The user id.
+     */
+    public static function activateUser($userId)
+    {
+       setUserActive($userId, 1);
+    }
 
     public static function isCurrentUserStudent(){
     	$username = Yii::app()->user->name;

@@ -1,23 +1,15 @@
 <?php
+    
+    include Yii::app()->basePath . '/youtube_subsystem/YouTubeHandler.php';
+    
     /**
      * Handles the authentication and upload of videos to YouTube.
      * @author Rene Alfonso
      */
     
-    Yii::import('application.vendors.*');
-    require_once 'Zend/Loader.php';
-    Zend_Loader::loadClass('Zend_Gdata_YouTube');
-    Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-
-    $authenticationURL = 'https://www.google.com/accounts/ClientLogin';
-
-    $httpClient = Zend_Gdata_ClientLogin::getHttpClient(
-            $username = 'vjfuploads', $password = 'virtualjobfair', $service = 'youtube', 
-            $client = null, $source = 'VirtualJobFair', $loginToken = null, $loginCaptcha = null, $authenticationURL);
-
-    $devkey = 'AIzaSyDyj9EhNPGF3bnj50k9MgxZdV_iuUPhQL0';
-
-    $yt = new Zend_Gdata_YouTube($httpClient, '', '', $devkey);
+    $yH = new YouTubeHandler();
+    $yt = $yH->getYouTubeInstance();
+    
     $video = new Zend_Gdata_YouTube_VideoEntry();
 
     $video->setVideoTitle('SeniorProject');
