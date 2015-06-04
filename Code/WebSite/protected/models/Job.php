@@ -14,10 +14,8 @@
  * @property string $compensation
  * @property string $other_requirements
  * @property integer $email_notification
- * @property integer $active
- * @property integer $matches_found
- * @property integer $posting_url
-  * @property string $comp_name
+ * @property string $posting_url
+ * @property string $comp_name
  * @property string $poster_email Email of the poster. Required for Guest Employers using the system
  *
  * The followings are the available model relations:
@@ -108,9 +106,9 @@ class Job extends CActiveRecord
 			array('type, title, FK_poster, post_date, description, deadline, poster_email', 'required'),
 			array('FK_poster, email_notification', 'numerical', 'integerOnly'=>true),
 			array('type, title, compensation', 'length', 'max'=>45),
-			array('deadline, other_requirements', 'safe'),        
+			array('deadline, other_requirements', 'safe'),
                         //The email attribute should be a valid email address
-                        //array('email','email'),
+                        array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, title, FK_poster, post_date, deadline, description, compensation, other_requirements, email_notification, posting_url, poster_email, comp_name', 'safe', 'on'=>'search'),
@@ -147,12 +145,8 @@ class Job extends CActiveRecord
 			'compensation' => 'Compensation',
 			'other_requirements' => 'Other Requirements',
 			'email_notification' => 'Email Notification',
-                        'active' => 'Active',
-                        'matches_found' => 'Matches Found',
-                        'posting_url' => 'Posting URL',
                         'comp_name' => 'Company Name',
                         'poster_email' => 'Employer Email'
-                        
 		);
 	}
 	
@@ -186,9 +180,6 @@ class Job extends CActiveRecord
 		$criteria->compare('compensation',$this->compensation,true);
 		$criteria->compare('other_requirements',$this->other_requirements,true);
 		$criteria->compare('email_notification',$this->email_notification);
-                $criteria->compare('active',$this->active);
-                $criteria->compare('matches_found',$this->matches_found);
-                $criteria->compare('posting_url',$this->posting_url);
                 $criteria->compare('comp_name',$this->comp_name);
                 $criteria->compare('poster_email', $this->poster_email);
 

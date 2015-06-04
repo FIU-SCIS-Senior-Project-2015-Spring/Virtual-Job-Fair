@@ -1,4 +1,3 @@
-
 <?php
 /* @var $this JobController */
 /* @var $job User */
@@ -9,7 +8,6 @@ $this->breadcrumbs=array(
 $username = $job->fKPoster->username;
 $user = User::getCurrentUser();
 ?>
-
 <script src="/JobFair/themes/bootstrap/js/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 (function($) {
@@ -87,18 +85,18 @@ $user = User::getCurrentUser();
 <?php } ?>
 <br/>
 
+
+
 <div id="skills">
 <div class="titlebox">SKILLS</div>
 	<ul id="sortable">
-	<?php foreach ($job->jobSkillMaps as $jobskill) {            
-            if(!empty($jobskill->skill->name) && $jobskill->skill->name != ''){
-		echo '<li>';
-		echo '<span class="skilldrag">';
-                echo $jobskill->skill->name;
-		echo '</span>';
-		echo '</li>';
-            }
-        } ?>
+	<?php foreach ($job->jobSkillMaps as $jobskill) {?>
+		<li >
+		<span class="skilldrag">
+			<?php echo $jobskill->skill->name; ?>
+		</span>
+		</li>
+	<?php } ?>
 	</ul>
 </div><!--  END SKILLS -->
 
@@ -122,7 +120,6 @@ $deadline = strtotime($job->deadline);
 <jobdetail>JOB POSTER:</jobdetail> <?php print "<a href='/JobFair/index.php/Profile/employer/user/$username'>$username</a>"?></br>
 <jobdetail>POSTER EMAIL:</jobdetail> <?php echo $job->poster_email;?></br>
 <jobdetail>COMPENSATION:</jobdetail> <?php echo $job->compensation;?></br>
-
 <br/>
 <jobdetail>DESCRIPTION:</jobdetail> <br>
 <p style="margin-left: 10px;"><?php echo $job->description; ?></p>
@@ -164,5 +161,4 @@ $deadline = strtotime($job->deadline);
 </div>
 
 </div>
-
 
