@@ -24,6 +24,19 @@
 <tr><td><a href="0015-Send Message.html">Send Message</a></td></tr>
 <tr><td><a href="0016-Upload PDF Resume.html">Upload PDF Resume</a></td></tr>
 <tr><td><a href="0017-View PDF Resume.html">View PDF Resume</a></td></tr>
+<tr><td><a href="0018- Search Jobs.html">Search Job</a></td></tr>
+<tr><td><a href="0019- Save Search Jobs Queries.html">Save Job Queries</a></td></tr>
+<tr><td><a href="0020- Delete Saved Job Search Query.html">Delete Saved Job Search Query</a></td></tr>
+<tr><td><a href="0021- Add Skills.html">Add Skills</a></td></tr>
+<tr><td><a href="0022- Remove Skill from Student Profile.html">Remove Skill from Student Profile</a></td></tr>
+<tr><td><a href="0023- View Miscellaneos Activities.html">View Miscellaneos Activities</a></td></tr>
+<tr><td><a href="0024- View Matching Job Listing.html">View Matching Job Listing</a></td></tr>
+<tr><td><a href="0025- Open a Matching Job Posted.html">Open a Matching Job Posted</a></td></tr>
+<tr><td><a href="0026- Upload Profile Image.html">Upload Profile Image</a></td></tr>
+<tr><td><a href="0027- Change Profile Image.html">Change Profile Image</a></td></tr>
+<tr><td><a href="0028- Add Experience.html">Add Experience</a></td></tr>
+<tr><td><a href="0029- Remove Experience.html">Remove Experience</a></td></tr>
+<tr><td><a href="0030- Open Expired Matched Job Posting.html">Open Expired Matched Job Posting</a></td></tr>
 </tbody></table>
 </body>
 </html>
