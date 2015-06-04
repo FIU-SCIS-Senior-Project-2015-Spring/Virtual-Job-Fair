@@ -16,18 +16,17 @@ class JobController extends Controller
     }
   
 	public function actionView($jobid)
-	{
+	{  
         $job = Job::model()->findByPk($jobid);
 
         //foreach ($skills->skillset as $skillset) {
         //}
-        if ($this->isExpired($job)) {
-            $job->active = 0;
-            $job->save();
-        }
-
-        if ($job == null) {
-            $this->render('JobInvalid');
+        if ($job == null) {                       
+            $this->render('JobInvalid');                   
+        } elseif ($this->isExpired($job)) {            
+            $job->active = 0;            
+            $job->update();  // This line set the job post inactive
+            $this->render('JobExpired');   
         } else {
             $this->render('View', array('job' => $job));
         }
