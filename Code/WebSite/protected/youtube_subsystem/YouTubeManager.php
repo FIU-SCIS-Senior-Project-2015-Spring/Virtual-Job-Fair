@@ -93,7 +93,7 @@
 
         document.getElementById('errMsg').style.display = '';
 
-        alert("Failed to upload file.");
+        //alert("Failed to upload file.");
         return false;
     }
 
