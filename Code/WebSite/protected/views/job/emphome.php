@@ -42,6 +42,8 @@ if (!isset($_GET['tagName'])) {
     $_GET['tagName'] = '';
 }
 
+ 
+
 ?>
 
 
@@ -53,13 +55,16 @@ if (!isset($_GET['tagName'])) {
         document.getElementById("searchForm").submit();
     }
     
+    // Saves the Adv. Search Query.
     function saveEmpQuery()
-    {
+    {              
         var leng = document.getElementById("tagName").value.length;
-
-        if(leng == 0 ){
+        
+        if(leng == 0 )
+        {
            $('#alertEmpty').show();
         }
+        
         if(leng > 25){
             $('#alertBig').show();
         }
@@ -69,17 +74,19 @@ if (!isset($_GET['tagName'])) {
             document.getElementById("searchForm").submit();
         }
     }
-      $(document).on('click', '#saveempBT', saveEmpQuery);
     
-      $(document).on('click', '#btClose', hideError);
+    // Check if save_button was clicked.
+    $(document).on('click', '#saveempBT', saveEmpQuery);
+    
+    // Check if close_button was clicked.
+    $(document).on('click', '#btClose', hideError);
       
-      function hideError()
+    // Hides the error messages relating to saving the 'Adv. Search Query'.
+    function hideError()
     {
         $('#alertEmpty').hide();
         $('#alertBig').hide();
     }
-
-
     
 </script>
 
@@ -224,7 +231,12 @@ if (!isset($_GET['tagName'])) {
                             'id'=>'tagName',
                             'value'=> $_GET['tagName'],
                             'htmlOptions'=>array('value'=> $_GET['tagName'],
-                                'style'=>'width: 200px;'),)); ?>
+                                'style'=>'width: 200px;'),)); 
+                        
+                        // There is a bug below.
+                        ?>
+                        
+                        
                         <br>
                         <strong>Remember to check profile settings to set preference. </strong>
                         <div id="alertEmpty" class="alert alert-error">
@@ -240,6 +252,12 @@ if (!isset($_GET['tagName'])) {
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
+            
+            
+            <?php 
+                // Bug fix, card #627.
+                echo '<script> hideError(); </script>';?>
+            
         <!--  reset button-->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'=>'reset',

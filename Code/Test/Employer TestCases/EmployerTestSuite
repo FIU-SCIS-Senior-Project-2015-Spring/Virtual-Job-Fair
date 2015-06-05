@@ -8,11 +8,23 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="000-EmployerGuest-Login-Logout.html">000-EmployerGuest-Login-Logout</a></td></tr>
 <tr><td><a href="001 Login-Logout">001 Login-Logout</a></td></tr>
 <tr><td><a href="002 VideoInterviews">002 VideoInterviews</a></td></tr>
 <tr><td><a href="003 ViewProfile">003 ViewProfile</a></td></tr>
 <tr><td><a href="004 ChangePicRainy">004 ChangePicRainy</a></td></tr>
 <tr><td><a href="005 ChangePicRainy2">005 ChangePicRainy2</a></td></tr>
+<tr><td><a href="006 ViewJobPosting">006 ViewJobPosting</a></td></tr>
+<tr><td><a href="007 EditJobPosting">007 EditJobPosting</a></td></tr>
+<tr><td><a href="008 OpenStudentProfile">008 OpenStudentProfile</a></td></tr>
+<tr><td><a href="009 ViewVidResume">009 ViewVidRedsume</a></td></tr>
+<tr><td><a href="010 ViewSkills">010 ViewSkills</a></td></tr>
+<tr><td><a href="011 ViewProfilePic">011 ViewProfilePic</a></td></tr>
+<tr><td><a href="012 ViewMessages">012 ViewMessages</a></td></tr>
+<tr><td><a href="013 SendMessage">013 SendMessage</a></td></tr>
+<tr><td><a href="014 ReadMessage">014 ReadMessage</a></td></tr>
+<tr><td><a href="015 CreateVidInterview">015 CreateVidInterview</a></td></tr>
+<tr><td><a href="016 SearchStudentBySkill">016 SearchStudentBySkill</a></td></tr>
 </tbody></table>
 </body>
 </html>
