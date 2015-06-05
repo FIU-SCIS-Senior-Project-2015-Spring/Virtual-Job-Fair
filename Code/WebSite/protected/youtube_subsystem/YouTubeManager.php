@@ -38,8 +38,8 @@
     $response = $token_array['url'];
 
     // The URL to redirect to.
-    //$nexturl = 'http://localhost/JobFair/index.php/profile/view';
-    $nexturl = 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/view';
+    $nexturl = 'http://localhost/JobFair/index.php/profile/view';
+    //$nexturl = 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/view';
     
 ?>
 
