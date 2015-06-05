@@ -70,13 +70,21 @@
             $vidresume->save(true);
         }
 
+        /*
+         * [Deprecated] Returns video frame as a string that can be 'echo' to show it.
+         */
+        function getVideoFrame($vidId, $width, $height)
+        {
+            return '<iframe width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/' . $vidId
+                    . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
+        }
         
         /*
          * Returns video frame as a string that can be 'echo' to show it.
          */
-        function getVideoFrame($vidId, $width, $height)
+        static function getVideoFrameV2($vidId, $width, $height)
         {
-            return ' <div /> <iframe width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/' . $vidId
+             return '<iframe width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/' . $vidId
                     . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
         }
     }

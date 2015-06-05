@@ -555,13 +555,10 @@
                             // Change the button text.
                             $uploadButtonText = "Upload New Video Resume";
                             
-                            // New iframe: Show an iframe of the video.                        
-                            echo '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
-                                   . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
-  
-                            
+                             // Rene: New static iframe: Show an iframe of the video.
+                            echo YouTubeHandler::getVideoFrameV2($videoresume->video_path, '100%', '100%');
+                                                        
                             // Div for Video Resume toggle button.
-                            echo '<div style="float: left;">Publish Video Resume:</div>';
                             echo '<div style="margin-left: 130px;" class="onoffswitch">';
                             echo '<input type="checkbox" name="Videoonoffswitch" class="onoffswitch-checkbox" value="'.$videoresume->publish_video.'" id="publishVideoSwitch" checked onclick="toggleVideoPublishing()">';
                             echo '<label class="onoffswitch-label" for="publishVideoSwitch">';

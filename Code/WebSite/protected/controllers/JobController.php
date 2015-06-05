@@ -1318,12 +1318,18 @@ class JobController extends Controller
         $this->render('viewApplication', array('application' => $applicationModel, 'job' => $job));
     }
 
-    public function actionStudentMatch($jobid) {
-
-
+    
+    /**
+     * JobMatch page
+     */
+    public function actionStudentMatch($jobid) 
+    {
+        // Grab all students.
         $students = User::model()->findAll("FK_usertype = 1 AND (disable IS NULL OR disable = 0) AND activated = 1");
+        
         $job = Job::model()->findByPk($jobid);
-        if ($job == null) {
+        if ($job == null) 
+        {
             $this->render('JobInvalid');
             return;
         }
@@ -1332,7 +1338,8 @@ class JobController extends Controller
             return;
         }
 
-        if (!isset($job->jobSkillMaps) || (sizeof($job->jobSkillMaps) == 0)) {
+        if (!isset($job->jobSkillMaps) || (sizeof($job->jobSkillMaps) == 0)) 
+        {
             $this->render('studentmatch', array('students' => null));
             return;
         }
@@ -1365,9 +1372,12 @@ class JobController extends Controller
         }
 
         $students = array_slice($students, 0, $size + 1);
-        if ($job->matches_found != 1) {
+        if ($job->matches_found != 1) 
+        {
             $job->matches_found = 1;
-            foreach ($students as $student) {
+            
+            foreach ($students as $student) 
+            {
                 //SENDNOTIFICATION to each student, a job has been posted that matches your skills
                 $joblink = CHtml::link(CHtml::encode('View Job'), "/JobFair/index.php/job/view/jobid/" . $job->id, array('target' => '_blank', 'style' => 'float:left'));
                 $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id;

@@ -120,6 +120,7 @@ class User extends CActiveRecord
             'videoSessions' => array(self::HAS_MANY, 'VideoSession', 'FK_host'),
             'resume' => array(self::HAS_ONE, 'Resume', 'id'),
         	'notifications' => array(self::HAS_MANY, 'Notification', 'receiver_id'),
+            'vidResume' => array(self::HAS_ONE, 'VideoResume', 'id'),
         );
     }
 

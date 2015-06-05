@@ -25,6 +25,7 @@
 <tr><td><a href="014 ReadMessage">014 ReadMessage</a></td></tr>
 <tr><td><a href="015 CreateVidInterview">015 CreateVidInterview</a></td></tr>
 <tr><td><a href="016 SearchStudentBySkill">016 SearchStudentBySkill</a></td></tr>
+<tr><td><a href="017 AdvanceStudentSearch">017 AdvanceStudentSearch</a></td></tr>
 </tbody></table>
 </body>
 </html>
