@@ -117,8 +117,6 @@ function formatDate($date) {
                             // Check if video path is available and if it is published.
                             if(isset($videoresume->video_path) && $videoresume->publish_video == 1)
                             {
-				echo CHtml::link(CHtml::encode('VideoResume'), $videoresume->video_path, array('target'=>'_blank', 'style' =>'float:left'));
-                                $link = $videoresume->video_path;
                                 // Video Resume link from YouTube in an iframe on the left bar
                                 echo '<iframe id="videoGlass" width="100%" height="100%" src="//www.youtube.com/embed/' . $videoresume->video_path 
                                    . '?&rel=0&modestbranding=1&autoplay=0&showinfo=0&controls=2" frameborder="0" allowfullscreen> </iframe>'; 
