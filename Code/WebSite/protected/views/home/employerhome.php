@@ -390,17 +390,8 @@ date("D M d, Y "); ?> </div>
 }
 ?>
                 </span>
-
             </div>
-
-
-
-
-
-
         </div>
-
     </div>
-
 </div>
 

@@ -282,7 +282,18 @@ margin-left: 5px;
 padding: 10px;
 box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 <a class="iconnotification"><img src='/JobFair/images/ico/message.png'/></a>
-<span class="notificationtitle" >Messages</span><span class="notificationtitle" style="float: right!important"><?php if ($countmessages != 0){ echo $countmessages;} ?></span>
+<span class="notificationtitle" >Messages</span><span class="notificationtitle" style="float: right!important">
+            <?php 
+                if($countmessages != 0)
+                { 
+                    echo $countmessages;
+                } 
+                else
+                {
+                   // No Messages.
+                }
+                ?></span>
+
 </div>
 <div class="child-div3" >
 <span class="subnotification">
@@ -338,7 +349,12 @@ margin-left: 5px;
 padding: 10px;
 box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;">
 <a class="iconnotification"><img src='/JobFair/images/ico/match.png'/></a>
-<span class="notificationtitle" >Misc</span><span class="notificationtitle" style="float: right!important"><?php  if ($countmisc != 0){ echo $countmisc;} ?></span>
+<span class="notificationtitle" >Misc</span><span class="notificationtitle" style="float: right!important">
+    <?php  if($countmisc != 0)
+           { 
+               echo $countmisc;
+               
+           } ?></span>
 </div>
 <div class="child-div4" >
 <span class="subnotification">

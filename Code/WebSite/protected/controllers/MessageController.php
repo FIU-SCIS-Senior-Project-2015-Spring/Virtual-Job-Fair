@@ -37,11 +37,20 @@ class MessageController extends Controller {
             $receivers = $this->getReceivers($_POST["receiver"]);   // Get the receivers from the View parse and save the returned array
             $receiverCount = count($receivers);                     // Count the number of recipients
 
+           
+            
             // Write the message record to each recipient
-            for ($i = 0; $i < $receiverCount; $i++) {
+            for ($i = 0; $i < $receiverCount; $i++) 
+            {
                 $model->FK_receiver = $receivers[$i];                   // Write the name of each receiver
-                if (User::model()->find("username=:username", array(':username' => $model->FK_receiver)) != null)
-                    $model->save(); // Save it the the user exist 
+                
+                if(User::model()->find("username=:username", array(':username' => $model->FK_receiver)) != null)
+                {  
+                    $model->save(); // Save it the the user exist. -> Rene: What? This just saves the message.
+                    
+                    // Rene: create a notification.
+                    Notification::createMessageNotification(User::getCurrentUser(), $model->FK_receiver, 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message', $model->id);
+                }
 
                 $model = new Message;                                   // Create new message object
                 $model->attributes = $_POST['Message'];                 // Write Message[message] to the database 
@@ -49,9 +58,10 @@ class MessageController extends Controller {
                 $model->date = date('Y-m-d H:i:s');                     // Write the date and time to the database
                 $model->userImage = $model->fKSender->image_url;        // Write the sender image url to the database
                 $model->subject = $_POST['Message']['subject'];         // Write the message and the subject to the database
+
             }
 
-            User::sendUserNotificationMessageAlart(Yii::app()->user->id, $model->FK_receiver, 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message', 3);
+           // Rene: this is wrong -> User::sendUserNotificationMessageAlart(Yii::app()->user->id, $model->FK_receiver, 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message', 3);
             $link = CHtml::link('here', 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message');
             $recive = User::model()->find("username=:username", array(':username' => $model->FK_receiver));
             
@@ -174,6 +184,9 @@ class MessageController extends Controller {
         $message = Message::model()->findByPk($id);
         $message->been_read = 1;
         $message->save();
+        
+        // Fix the notification.
+        Notification::markMessageNotificationAsRead($id);
     }
 
     public function actionSentToTrash() {

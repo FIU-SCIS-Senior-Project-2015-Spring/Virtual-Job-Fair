@@ -23,14 +23,16 @@ class HomeController extends Controller
 		
 		$skillids = JobSkillMap::model()->findAll($criteria);
 				
-		$most_wanted_skills =  Array();
+		$most_wanted_skills = Array();
 		$i = 0;
 		
-		foreach ($skillids as $sk){
+		foreach ($skillids as $sk)
+                {
                     $most_wanted_skills[] = Skillset::model()->findByAttributes(array('id'=>$sk->skillid));
                     $i++;
-                    if ($i == 5){
-                            break;
+                    if ($i == 5)
+                    {
+                        break;
                     }
 		}		
 		
@@ -38,33 +40,43 @@ class HomeController extends Controller
 		$countmachingjobs = 0;
 		$countmessages = 0;
 		$countmisc =0;
-		foreach ($notification as $n) {
-                    if ($n->importancy == 4 & $n->been_read == 0 ) {
+                
+		foreach ($notification as $n) 
+                {
+                    if($n->importancy == 4 & $n->been_read == 0 ) 
+                    {
                         $countvideo++;		
                         $key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
-                        if($key != null){
-                        $n->keyid = $key->session_key;
+                        
+                        if($key != null)
+                            $n->keyid = $key->session_key;
 
-                        }
-                        //print "<pre>"; print_r($key);print "</pre>";return;
                     }
-                    else if ($n->importancy == 4 & $n->been_read != 0 ) {
+                    
+                    else if ($n->importancy == 4 & $n->been_read != 0 ) 
+                    {
                         //$countvideo++;
                         $key = VideoInterview::model()->findByAttributes(array('notification_id' => ($n->id + 1)));
-                        if($key != null){
-                                $n->keyid = $key->session_key;
+                        if($key != null)
+                        {
+                            $n->keyid = $key->session_key;
                                 //print "<pre>"; print_r($key);print "</pre>";return;
                         }
                     }
-                    elseif($n->importancy == 2 & $n->been_read == 0)
-                    $countmachingjobs++;
-                    elseif ($n->importancy == 3 & $n->been_read == 0)	
-                    $countmessages++;
-                    elseif ($n->importancy == 1 & $n->been_read == 0)
-                    $countmisc++;
+                    
+                    else if($n->importancy == 2 & $n->been_read == 0)
+                        $countmachingjobs++;
+                    
+                    else if($n->importancy == 3 & $n->been_read == 0)	
+                        $countmessages++;
+                    
+                    else if($n->importancy == 1 & $n->been_read == 0)
+                        $countmisc++;
 		}		
 		
-		
+		//$countmessages = 5;
+                
+                
 		$this->render('studenthome', array('user'=>$user,'companies'=>$companies,'skills'=>$skills, 'notification'=>$notification, 'mostwanted'=>$most_wanted_skills, 'countvideo'=>$countvideo, 'countmachingjobs'=>$countmachingjobs, 'countmessages'=>$countmessages, 'countmisc'=>$countmisc));
 
 	}
