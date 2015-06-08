@@ -36,7 +36,7 @@ $this->breadcrumbs = array(
             $("#message-content").empty();
             $("#message-content").append("<img class='img-spinner' src='/JobFair/images/ico/ajax-loader.gif' alt='Loading'/>");
             $("#delete_messages").show()
-            $('.tooltipster').tooltipster({position: 'bottom'});
+            //$('.tooltipster').tooltipster({position: 'bottom'});
 
             $.getJSON("/JobFair/index.php/message/getInbox",
                     function (data) {
@@ -74,7 +74,7 @@ $this->breadcrumbs = array(
                                         $(".img-spinner").hide();
                                         //var theDate = new Date(Date.parse(theMessage.date))
                                         //var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate() + ", " + theDate.getFullYear();
-                                        var messageDate = myDateParser(message.date);
+                                        var messageDate = myDateParser(theMessage.date);
                                         $("#message-content").append("<div class='message_Top'><span class='theSubject'>" +
                                                 theMessage.subject + "</span></div><img class='userImage' src='" + theMessage.userImage + "' " +
                                                 "width='45' height='60' /><a id='sender_link' href='/JobFair/index.php/profile/employer/user/" + theMessage.FK_sender
@@ -82,7 +82,7 @@ $this->breadcrumbs = array(
                                                 + theMessage.id + "' class='reply_image tooltipster' title='Reply'></a>"
                                                 + "<div id='trash_" + theMessage.id + "' class='trash_image tooltipster' title='Send to Trash'></div><span id='message_receiver'>To: "
                                                 + theMessage.FK_receiver + "</span><div style='clear:both'></div><pre class='messageContent'>" +
-                                                theMessage.message + "</pre><div id='message_footer'></div><div class='reply_image2 tooltipster' title='Reply'></div>");
+                                                theMessage.message + "</pre><div id='message_footer'></div>");
 
 
                                         $('.tooltipster').tooltipster({position: 'bottom'});
@@ -158,7 +158,7 @@ $this->breadcrumbs = array(
                                         $(".img-spinner").hide();
                                         //var theDate = new Date(Date.parse(theMessage.date))
                                         //var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate() + ", " + theDate.getFullYear();
-                                        var messageDate = myDateParser(message.date);
+                                        var messageDate = myDateParser(theMessage.date);
                                         $("#message-content").append("<div class='message_Top'><span class='theSubject'>" +
                                                 theMessage.subject + "</span></div><img class='userImage' src='" + theMessage.userImage + "' " +
                                                 "width='45' height='60' /><a id='sender_link' href='/JobFair/index.php/profile/employer/user/" + theMessage.FK_sender
@@ -289,7 +289,7 @@ $this->breadcrumbs = array(
                                 //var theDate = new Date(Date.parse(message.date));
                                 //var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate();
                                 var messageDate = myDateParser(message.date);
-                                alert("" + messageDate);
+                                //alert("" + messageDate);
                                 $("#message-content").append("<input type='checkbox' class='message_checkbox' id='s_" + message.id
                                         + "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 300px'>"
                                         + fromSender + "</span>" + "<span style='margin-left:70px'>"
@@ -310,7 +310,7 @@ $this->breadcrumbs = array(
                                             $(".img-spinner").hide();
                                             //var theDate = new Date(Date.parse(theMessage.date));
                                             //var messageDate = monthNames[theDate.getMonth()] + " " + theDate.getDate() + ", " + c;
-                                            var messageDate = myDateParser(message.date);
+                                            var messageDate = myDateParser(theMessage.date);
                                             $("#message-content").append("<div class='message_Top'><span class='theSubject'>" +
                                                     theMessage.subject + "</span></div><img class='userImage' src='" + theMessage.userImage + "' " +
                                                     "width='45' height='60' /><a id='sender_link' href='/JobFair/index.php/profile/employer/user/" + theMessage.FK_sender

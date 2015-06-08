@@ -26,8 +26,9 @@ class MessageController extends Controller {
             );
         }
         
-        // Get Message[subject] input array from the view
-        if (isset($_POST['Message'])) {
+        // Send the message
+        if (isset($_POST['Message']) && isset($_POST['receiver'])) {
+            
             $model->attributes = $_POST['Message'];
             $model->FK_sender = Yii::app()->user->name;             // Write the sender user name to the message table
             date_default_timezone_set('America/New_York');          // Set time zone for the script
@@ -37,15 +38,13 @@ class MessageController extends Controller {
             $receivers = $this->getReceivers($_POST["receiver"]);   // Get the receivers from the View parse and save the returned array
             $receiverCount = count($receivers);                     // Count the number of recipients
 
-           
-            
             // Write the message record to each recipient
             for ($i = 0; $i < $receiverCount; $i++) 
             {
                 $model->FK_receiver = $receivers[$i];                   // Write the name of each receiver
                 
                 if(User::model()->find("username=:username", array(':username' => $model->FK_receiver)) != null)
-                {  
+                {  echo 'user exist';
                     $model->save(); // Save it the the user exist. -> Rene: What? This just saves the message.
                     
                     // Rene: create a notification.
@@ -63,26 +62,39 @@ class MessageController extends Controller {
 
            // Rene: this is wrong -> User::sendUserNotificationMessageAlart(Yii::app()->user->id, $model->FK_receiver, 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message', 3);
             $link = CHtml::link('here', 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/message');
-            $recive = User::model()->find("username=:username", array(':username' => $model->FK_receiver));
+            $receiver = User::model()->find("username=:username", array(':username' => $model->FK_receiver));
             
-            if ($recive != NULL) {
+            if ($receiver != NULL) {
                 $message = "You just got a message from $model->FK_sender<br/> '$model->message'<br/> Access the message $link";
                 //$html = User::replaceMessage($recive->username, $message);
-                User::sendEmail($recive->email, "Virtual Job Fair Message", "Message from Virtual Job Fair", $message);
+                User::sendEmail($receiver->email, "Virtual Job Fair Message", "Message from Virtual Job Fair", $message);
                 //User::sendEmailMessageNotificationAlart($recive->email, $recive->username, $model->FK_sender, $message);
             }
+
             $this->redirect("/JobFair/index.php/message");
             return;
+        }
+        
+        // Get the autocomplete list from the database on the To: line
+        foreach ($models as $aUser) {
+            $users[] = array(
+                'label' => CHtml::image($aUser->image_url, '', array('width' => '20px')) . '  ' . $aUser->first_name . ' ' . $aUser->last_name,
+                'value' => "\"" . $aUser->first_name . " " . $aUser->last_name . "\" <" . $aUser->username . ">"
+            );
         }
 
         if ($reply != null) {
             $message = Message::model()->findByPK($reply);
 
-            if (Yii::app()->user->name == $message->FK_sender)
-                $username = $message->FK_receiver;
-            else
+            if (Yii::app()->user->name == $message->FK_sender){
+                $username = $message->FK_receiver;                
+            } else {
                 $username = $message->FK_sender;
-
+            }
+            $updatedSender = User::model()->find("username=:username", array(':username' => $username));
+            $fullname = $updatedSender->first_name. ' ' .$updatedSender->last_name;
+            
+            $username = '"'.$fullname.'"'.'<'.$username.'>'; //"student four"
             $model->subject = $message->subject;
             $model->message = "\n\n\nOn " . $message->date . ", " . $message->FK_sender . " wrote:\n" . $message->message;
         }
