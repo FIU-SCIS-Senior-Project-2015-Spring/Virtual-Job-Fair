@@ -44,7 +44,7 @@ class MessageController extends Controller {
                 $model->FK_receiver = $receivers[$i];                   // Write the name of each receiver
                 
                 if(User::model()->find("username=:username", array(':username' => $model->FK_receiver)) != null)
-                {  echo 'user exist';
+                { 
                     $model->save(); // Save it the the user exist. -> Rene: What? This just saves the message.
                     
                     // Rene: create a notification.

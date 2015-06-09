@@ -169,12 +169,13 @@ class ProfileController extends Controller
 
     public function actionDeleteInterest()
     {
-
         $model = SavedQuery::model()->findByPk($_GET['id']);
+        
         //var_dump($model);die;
         $model->delete();
         $this->redirect('/JobFair/index.php/profile/view');
     }
+    
 	
 	public function actionSaveSkills(){
 		$user = User::getCurrentUser();
@@ -714,28 +715,27 @@ class ProfileController extends Controller
 	
 	
 	//Specifies access rules
-	public function accessRules()
-	{
-		return array(
-				array('allow',  // allow authenticated users to perform these actions
-					  'actions'=>array('View', 'ViewEmployer', 'DeleteEducation', 'AddEducation',
-					  		'DeleteExperience', 'AddExperience', 'UploadImage', 
-					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
-                            'LinkToo','LinkNotification','errorZip','DuplicationError','UserChoice',
-					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
-                            'getJobInterest', 'saveInterest', 'DeleteInterest'),
-					  'users'=>array('@')),
-				array('allow',
-					  'actions'=>array('videoemployer','videostudent','googleAuth','fiuCsSeniorAuth','fiuAuth',),
-					  'users'=>array('*')),
-				array('deny', //deny all users anything not specified
-					  'users'=>array('*'),
-					  'message'=>'Access Denied. Site is unbreakable'),
-				);
-	}
-	
+        public function accessRules()
+        {
+            return array(
+                array('allow', // allow authenticated users to perform these actions
+                    'actions' => array('View', 'ViewEmployer', 'DeleteEducation', 'AddEducation',
+                        'DeleteExperience', 'AddExperience', 'UploadImage',
+                        'EditStudent', 'UploadResume', 'EditCompanyInfo',
+                        'LinkToo', 'LinkNotification', 'errorZip', 'DuplicationError', 'UserChoice',
+                        'EditBasicInfo', 'Student', 'Employer', 'Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
+                        'getJobInterest', 'saveInterest', 'DeleteInterest', ),
+                    'users' => array('@')),
+                array('allow',
+                    'actions' => array('videoemployer', 'videostudent', 'googleAuth', 'fiuCsSeniorAuth', 'fiuAuth',),
+                    'users' => array('*')),
+                array('deny', //deny all users anything not specified
+                    'users' => array('*'),
+                    'message' => 'Access Denied. Site is unbreakable'),
+            );
+        }
 
-	public function filters()
+        public function filters()
 	{
 		// return the filter configuration for this controller, e.g.:
 		return array(

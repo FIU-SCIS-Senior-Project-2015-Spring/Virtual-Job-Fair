@@ -261,12 +261,15 @@ function getURLParameter(name) {
                 ?>
                 <?php if(!$isGuestStudent){
                     foreach ($saveQ as $query) { ?>
-                    <?php if($query['active'] == '1')
+                    <?php 
+                    // Check if the query has been used for a search.
+                    // This is for the student.
+                    if($query['active'] == '1')
                     {?>
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
-                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                            <del><a href="/JobFair/index.php/home/deleteAdvSearchQueryStu?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                         </div>
                     <?php } else
@@ -274,7 +277,7 @@ function getURLParameter(name) {
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
-                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                            <del><a href="/JobFair/index.php/home/deleteAdvSearchQueryStu?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                         </div>
                     <?php } ?>

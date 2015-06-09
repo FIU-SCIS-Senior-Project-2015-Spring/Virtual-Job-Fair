@@ -111,7 +111,46 @@
 	<td>css=h2</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=savebutton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=tagName</td>
+	<td>MiamiQuery</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=saveempBT</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=OK</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='searchForm']/div/div/div[8]/del/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//form[@id='searchForm']/div/div/div[8]/del/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Emphome Job</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

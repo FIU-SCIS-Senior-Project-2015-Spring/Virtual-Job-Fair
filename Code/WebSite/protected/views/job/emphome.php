@@ -102,12 +102,14 @@ if (!isset($_GET['tagName'])) {
 
             <div style= "text-align:left;">
                 <?php foreach ($saveQ as $query) { ?>
-                    <?php if($query['active'] == '1')
+                    <?php 
+                        // Check if query has been used for a search.
+                        if($query['active'] == '1') 
                     {?>
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
-                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                            <del><a href="/JobFair/index.php/home/DeleteAdvSearchQueryEmp?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                         </div>
                     <?php } else
@@ -115,7 +117,7 @@ if (!isset($_GET['tagName'])) {
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
-                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                            <del><a href="/JobFair/index.php/home/DeleteAdvSearchQueryEmp?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                         </div>
                     <?php } ?>
@@ -248,7 +250,7 @@ if (!isset($_GET['tagName'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="btClose" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="saveempBT" value="true">Save name</button>
+                        <button type="button" class="btn btn-primary" id="saveempBT" value="true">Save</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
