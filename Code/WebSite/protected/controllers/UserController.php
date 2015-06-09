@@ -67,48 +67,64 @@ class UserController extends Controller
         }
       
 	
-	public function actionChangePassword() {
-		$model = User::getCurrentUser();
-		$error = '';
-		if(isset($_POST['User'])) {
-			$pass = $_POST['User']['password'];
-			$p1 = $_POST['User']['password1'];
-			$p2 = $_POST['User']['password2'];
-                        
-                        //This address the bug in card #341 (Allowing blank passwords and leaving users locked out) 
-                        if ($p1 == $p2 && strlen($p1) < 6) { //Check that the new password is at least 6 characters
-                            $error .= "New password must have at least 6 characters. Please enter another password. <br />";
-                            $this->render('ChangePassword',array('model'=>$model, 'error' => $error));
-                            exit();
-                        }
-			//verify old password
-			$username = Yii::app()->user->name;
-			$hasher = new PasswordHash(8, false);
-			$login = new LoginForm;
-			$login->username = $username;
-			$login->password = $pass;
+	public function actionChangePassword()
+        {
+            $model = User::getCurrentUser();
+            $error = '';
+            if (isset($_POST['User']))
+            {
+                $pass = $_POST['User']['password'];
+                $p1 = $_POST['User']['password1'];
+                $p2 = $_POST['User']['password2'];
 
-			//$user = User::model()->find("username=:username AND password=:password", array(":username"=> $username, ":password"=>$password));
-			if (!$login->validate()){
-				$error = "Old Password was incorrect.";
-				$this->render('ChangePassword',array('model'=>$model, 'error' => $error));
-			} elseif ($p1 == $p2) {
-				//Hash the password before storing it into the database
-				$hasher = new PasswordHash(8, false);
-				$user = User::getCurrentUser();
-				$user->password = $hasher->HashPassword($p1);
-				$user->save(false);
-				$this->redirect("/JobFair/index.php/profile/view");
-			} else {
-				$error = "Passwords do not match.";
-				$this->render('ChangePassword',array('model'=>$model, 'error' => $error));
-			}
-		} else {
-			$this->render('ChangePassword',array('model'=>$model, 'error' => $error));
-		}
-	}
-	
-	public function mynl2br($text) {
+                //This address the bug in card #341 (Allowing blank passwords and leaving users locked out) 
+                if ($p1 == $p2 && strlen($p1) < 6)
+                { //Check that the new password is at least 6 characters
+                    $error .= "New password must have at least 6 characters. Please enter another password. <br />";
+                    $this->render('ChangePassword', array('model' => $model, 'error' => $error));
+                    exit();
+                }
+                //verify old password
+                $username = Yii::app()->user->name;
+                $hasher = new PasswordHash(8, false);
+                $login = new LoginForm;
+                $login->username = $username;
+                $login->password = $pass;
+
+                //$user = User::model()->find("username=:username AND password=:password", array(":username"=> $username, ":password"=>$password));
+                if (!$login->validate())
+                {
+                    $error = "Old Password was incorrect.";
+                    $this->render('ChangePassword', array('model' => $model, 'error' => $error));
+                }
+                elseif ($p1 == $p2)
+                {
+                    //Hash the password before storing it into the database
+                    $hasher = new PasswordHash(8, false);
+                    $user = User::getCurrentUser();
+                    $user->password = $hasher->HashPassword($p1);
+                    $user->save(false);
+                    
+                    // Check if user is Admin.
+                    if($user->FK_usertype >= 3)
+                        $this->redirect("/JobFair/index.php/UserCrud/admin");
+                    
+                    else // Student or Employer.
+                        $this->redirect("/JobFair/index.php/profile/view");
+                }
+                else
+                {
+                    $error = "Passwords do not match.";
+                    $this->render('ChangePassword', array('model' => $model, 'error' => $error));
+                }
+            }
+            else
+            {
+                $this->render('ChangePassword', array('model' => $model, 'error' => $error));
+            }
+        }
+
+        public function mynl2br($text) {
 		return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />'));
 	}
 
