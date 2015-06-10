@@ -165,7 +165,7 @@
          * @param type $link Link to the message.
          * @author Rene Alfonso
          */
-        public static function createMessageNotification($senderObj, $reciver, $link, $msgID)
+        public static function createMessageNotification($senderObj, $receiver, $link, $msgID)
         {
             // Create a new model.
             $model = new Notification;
@@ -174,12 +174,12 @@
             $model->sender_id = $senderObj->id;
 
             // Look in database for the matching username. 
-            $reciverObj = User::model()->find("username=:username", array(':username' => $reciver));
+            $receiverObj = User::model()->find("username=:username", array(':username' => $receiver));
 
             // If not null, then actually save the notification.
-            if ($reciverObj != NULL)
+            if ($receiverObj != NULL)
             {
-                $model->receiver_id = $reciverObj->id;
+                $model->receiver_id = $receiverObj->id;
                 $model->datetime = date('Y-m-d H:i:s');
                 $model->been_read = 0;
                 $model->link = $link;

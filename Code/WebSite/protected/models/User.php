@@ -82,7 +82,9 @@
                 // The following rule is used by search().
                 // Please remove those attributes that should not be searched.
                 array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'safe', 'on' => 'search'),
-                array('image_url', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true, 'on' => 'update')
+                array('image_url', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true, 'on' => 'update'),
+                // Added to activate/deactivate user.
+                array('activated', 'required'),
             );
         }
 
@@ -146,7 +148,8 @@
                 'hide_email' => 'Hide email from students?',
                 'disable' => "Disable",
                 'job_notification' => "Job Match Notifications",
-                'looking_for_job' => "Searching for job"
+                'looking_for_job' => "Searching for job",
+                'activated' => "Activated",
             );
         }
 
