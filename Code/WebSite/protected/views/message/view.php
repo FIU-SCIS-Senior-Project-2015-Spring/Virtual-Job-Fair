@@ -368,9 +368,9 @@ $this->breadcrumbs = array(
 
         <div id="top-nav">
             <span id="messages">Messages</span>
+            <div id='recover_messages' class='label label-success tooltipster' title='Recover Message'><a href="#"></a> <i class="fa fa-undo fa-lg" style="margin-top:4px;"></i></div>
             <div id='delete_messages' class='trash_image2 tooltipster' title='Send to Trash' style='float: right; display: block;'></div>
-            <div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever' style='width:40px; height:30px; text-align: center;'></div>	
-            <div id='recover_messages' class='tooltipster' title='Recover Message' style='margin-top: 12px; float:left; display: block; margin-left: 70px'><i class="fa fa-undo fa-lg" style="margin-left: 4px;"></i></div>
+            <div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever'></div>	           
         </div>
         <div id="top-nav" class="span8">
             <h4><strong>

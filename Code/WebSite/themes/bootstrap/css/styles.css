@@ -1411,7 +1411,7 @@ border-left-color: #111111;
 }
 
 .trash_image2{
-	width:50px;
+	width:40px;
 	height:35px;
 	background-color:#FAFAFA;
 	float:left;
@@ -1429,7 +1429,7 @@ border-left-color: #111111;
 }
 
 .trash_image3{
-	width:50px;
+	width:40px;
 	height:30px;
 	background-color:#FAFAFA;
 	float:right;
@@ -1443,24 +1443,36 @@ border-left-color: #111111;
 	margin-right:-105px
 }
 .trash_image3:hover{
+        float: right;
 	background-color:#F5F5F5;
 	border-color:#DFDFDF;
 }
 
+#recover_messages {
+        text-align: center;
+        float:right;
+	width:20px;
+	height:20px;
+	background-size:60%;
+        margin-top: 7px;
+        margin-left: 5px;
+}
+
 #delete_messages{
+	float:right;
 	width:40px;
-	height:15px;
-	background-size:40%;
-	margin-top:10px;
-	margin-left: 85px !important;	
+	height:30px;
+	background-size:60%;
+        margin-bottom: 3px;
 }
 
 #delete_messages_forever{
+        float:right;
 	width:40px;
-	height:15px;
-	background-size:40%;
-	margin-top:10px;
-	margin-left: 85px !important;	
+	height:30px;
+	background-size:60%;
+        margin-bottom: 3px;
+		
 }
 
 
