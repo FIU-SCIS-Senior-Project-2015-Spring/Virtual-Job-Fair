@@ -368,9 +368,10 @@ $this->breadcrumbs = array(
 
         <div id="top-nav">
             <span id="messages">Messages</span>
-            <div id='recover_messages' class='label label-success tooltipster' title='Recover Message'><a href="#"></a> <i class="fa fa-undo fa-lg" style="margin-top:4px;"></i></div>
+            
             <div id='delete_messages' class='trash_image2 tooltipster' title='Send to Trash' style='float: right; display: block;'></div>
-            <div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever'></div>	           
+            <div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever'></div>
+            <div id='recover_messages' class='label label-success tooltipster' title='Recover Message'><a href="#"></a> <i class="fa fa-undo fa-lg" style="margin-top:4px;"></i></div>
         </div>
         <div id="top-nav" class="span8">
             <h4><strong>
@@ -385,10 +386,10 @@ $this->breadcrumbs = array(
 
             <div id="options" class="span2 pull-left">
                 <ul class="nav nav-pills nav-stacked divider-vertical" role="navigation">
-                    <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send">Compose</a></li>
-                    <li id="inbox-option" class="active"><a href="#">Inbox</a></li>
-                    <li id ="sent-option" class="active"><a href="#">Sent</a></li>
-                    <li id="trash-option" class="active"><a href="#">Trash</a></li>                       
+                    <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
+                    <li id="inbox-option" class="active"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox </a></li>
+                    <li id ="sent-option" class="active"><a href="#"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
+                    <li id="trash-option" class="active"><a href="#"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
                 </ul>
             </div>
             <div id="message-content" class="span8">		                   
