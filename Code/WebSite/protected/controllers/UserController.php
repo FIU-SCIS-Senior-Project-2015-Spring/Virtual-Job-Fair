@@ -70,6 +70,9 @@
         {
             $model = User::getCurrentUser();
             $error = '';
+            
+            $confirmation;
+            
             if (isset($_POST['User']))
             {
                 $pass = $_POST['User']['password'];
@@ -105,10 +108,22 @@
                     $user->save(false);
 
                     // Check if user is Admin.
-                    if ($user->FK_usertype >= 3)
-                        $this->redirect("/JobFair/index.php/UserCrud/admin");
-                    else // Student or Employer.
-                        $this->redirect("/JobFair/index.php/profile/view");
+                    //if($user->FK_usertype >= 3)
+                      //  $this->redirect("/JobFair/index.php/UserCrud/admin");
+                    
+                    //else // Student or Employer.
+                      //  $this->redirect("/JobFair/index.php/profile/view");
+                    $confirmation = "Your password was changed succesfully!";
+                    
+                    //$redirectUrl = 'http://' . Yii:app()->request->getServerName() . '';
+                    
+                    if($user->FK_usertype >= 3)
+                        $redirectUrl = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin';
+                    
+                    else
+                        $redirectUrl =  'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/view';
+                    
+                    $this->render('ChangePassword', array('model' => $model, 'confirmation'=>$confirmation, 'redirectUrl'=>$redirectUrl));
                 }
                 else
                 {

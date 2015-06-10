@@ -97,9 +97,6 @@
                 alert('error');
             }
         });
-
-
-
     }
 
     // Helper function to get the image extension.

@@ -155,6 +155,26 @@
                 
             }
         }
+        
+        /**
+         * Use this for changing Message notifications to unread.
+         * @param type $msgID the ID of the message.
+         * @author Rene Alfonso
+         */
+        public static function markMessageAsUnRead($msgID)
+        {
+            try
+            {
+                $n = Notification::model()->find("msgID=:msgID", array('msgID' => $msgID));
+
+                $n->been_read = 0;
+                $n->save(false);
+            } 
+            catch (Exception $ex)
+            {
+                
+            }
+        }
 
         /**
          * Rene: Someone started this code on the User model, that was a bad idea.
