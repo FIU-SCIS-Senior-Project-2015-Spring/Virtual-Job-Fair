@@ -226,7 +226,7 @@ $this->breadcrumbs = array(
                 $("#message-content").append("<img class='img-spinner' src='/JobFair/images/ico/ajax-loader.gif' alt='Loading'/>");
                 $.ajax({
                     type: "POST",
-                    url: "/JobFair/index.php/message/deleteMessages",
+                    url: "/JobFair/index.php/message/deleteMessage",
                     data: {messages: ids},
                     success: function () {
                         $("#trash-option").trigger("click");
