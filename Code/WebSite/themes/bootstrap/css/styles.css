@@ -1237,6 +1237,30 @@ div.nav ul
 	background-color: white !important;
 }
 
+
+.navbar .divider-vertical {
+height: 50px;
+margin: 0 9px;
+border-right: 1px solid #ffffff;
+border-left: 1px solid #f2f2f2;
+}
+
+.navbar-inverse .divider-vertical {
+border-right-color: #222222;
+border-left-color: #111111;
+}
+
+@media (max-width: 767px) {
+.navbar-collapse .nav > .divider-vertical {
+    display: none;
+  }
+}
+
+
+
+
+
+/*
 #compose-box{
 	display:block;
 	margin-top:5px;
@@ -1258,7 +1282,7 @@ div.nav ul
 	-webkit-box-shadow: 0 0 3px #4A8CCE;
 	box-shadow: 0 0 3px #4A8CCE;
 }
-
+*/
 .option-selection{
 	display:block;
 	height:30px;
@@ -1388,7 +1412,7 @@ div.nav ul
 
 .trash_image2{
 	width:50px;
-	height:25px;
+	height:35px;
 	background-color:#FAFAFA;
 	float:left;
 	background-image:url(/JobFair/images/ico/trash.png);
@@ -1406,7 +1430,7 @@ div.nav ul
 
 .trash_image3{
 	width:50px;
-	height:25px;
+	height:30px;
 	background-color:#FAFAFA;
 	float:right;
 	background-image:url(/JobFair/images/ico/trash.png);

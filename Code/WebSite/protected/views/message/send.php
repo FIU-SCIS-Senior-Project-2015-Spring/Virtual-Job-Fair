@@ -93,97 +93,80 @@ $this->breadcrumbs = array(
     </script>
 <?php } ?>
 
+    <div class="container">
+        <div class="span12">
+            <!-- Message Header -->
+            <div class="row span12">
+                <span id="messages">Messages</span>           
+            </div>
+            
+            <div class="row span12">
+                <!-- Left Message menu -->
+                <div class="span2">
+                    <ul class="nav nav-pills nav-stacked" role="navigation">
+                        <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send">Compose</a></li>
+                        <li id="inbox-option" class="active"><a href="/JobFair/index.php/message">Inbox</a></li>
+                        <li id ="sent-option" class="active"><a href="/JobFair/index.php/message?target=sent">Sent</a></li>
+                        <li id="trash-option" class="active"><a href="/JobFair/index.php/message?target=trash">Trash</a></li>                       
+                    </ul>                        
+                </div>
+                <div id="message-content" class="span9">
+                    
+                    <?php
+                        $form = $this->beginWidget('CActiveForm', array('id' => 'Message', 'action' => '/JobFair/index.php/message/send',
+                                                    'enableAjaxValidation' => false,'htmlOptions' => array('enctype' => 'multipart/form-data', 'name' => 'send_form','style' => 'margin-left:5%;',
+                                                    'onsubmit' => 'return validateForm()'),));
+                    ?>
+                    <label>To:</label>
+                    
+                    <?php
+                        /* if ($username != null)
+                          echo $form->textField($model,'FK_receiver', array('value'=>$username));
+                          else
+                          echo $form->textField($model,'FK_receiver', array('id'=>'receiver')); */
 
-<div id="top-nav">
-    <span id="messages">Messages</span>
-</div>
-<div id="wrapper">	
-    <div id="options">
+                        if ($username != null)
+                            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                'name' => 'receiver',
+                                'source' => $users,
+                                'value' => $username,
+                                'options' => array('html' => true),
+                                'htmlOptions' => array('class' => 'span8'),
+                                //'select'=>'js: function(event,ui){$("#data").val(ui.item.name);return false;}',
+                            ));
+                        else
+                            $this->widget('MultiComplete', array(
+                                'name' => 'receiver',
+                                'source' => $users,
+                                'splitter' => ',',
+                                'options' => array('html' => true),
+                                'htmlOptions' => array('class' => 'span8'),
+                            ));
+                        ?>
+                    
+                        <?php echo $form->error($model, 'FK_receiver'); ?>
+                     
+                    <label>Subject:</label>
+                    
+                        <?php
+                            if ($model->message != null)
+                                echo $form->textField($model, 'subject', array('id' => 'theSubject',
+                                    'value' => "Re: " . $model->subject, 'class' => 'span8'));
+                            else
+                                echo $form->textField($model, 'subject', array('id' => 'theSubject', 'class' => 'span8'));
 
-        <a id="compose-box" href="/JobFair/index.php/message/send">Compose</a>
-
-
-        <a id="inbox-option" class="option-selection" href="/JobFair/index.php/message"
-           style="text-decoration:none">Inbox</a>	   
-
-        <a id ="sent-option" class="option-selection" href="/JobFair/index.php/message?target=sent" 
-           style="text-decoration:none">Sent</a>
-
-
-        <a class="option-selection" href="/JobFair/index.php/message?target=trash" 
-           style="text-decoration:none">Trash</a>
-
+                            echo $form->error($model, 'subject');
+                        ?>
+                        <?php echo $form->textArea($model, 'message', array('id' => 'theMessage', 'rows' => 15,'style'=>'margin-left:0px;','class' => 'span8')); ?>
+                     <div class="span8">   
+                        <input id="send_button" class="btn-primary pull-right" type="submit" name="yt0" value="Send" />
+                    </div>
+                        <?php //echo CHtml::submitButton('Send', array('id'=>'send_button'));  ?>
+                
+                        <?php $this->endWidget(); ?>        
+                </div>               
+            </div>
+           
+        </div>        
     </div>
-
-    <div id="message-content">	
-
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'Message', 'action' => '/JobFair/index.php/message/send',
-    'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data', 'name' => 'send_form',
-        'onsubmit' => 'return validateForm()'),
-        ));
-?>
-
-        <div style="margin-top:5px">
-            <span style="margin-left:30px">To</span>
-            <?php
-            /* if ($username != null)
-              echo $form->textField($model,'FK_receiver', array('value'=>$username));
-              else
-              echo $form->textField($model,'FK_receiver', array('id'=>'receiver')); */
-
-            if ($username != null)
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name' => 'receiver',
-                    'source' => $users,
-                    'value' => $username,
-                    'options' => array('html' => true),
-                    'htmlOptions' => array('size' => 100),
-                    //'select'=>'js: function(event,ui){$("#data").val(ui.item.name);return false;}',
-                ));
-            else
-                $this->widget('MultiComplete', array(
-                    'name' => 'receiver',
-                    'source' => $users,
-                    'splitter' => ',',
-                    'options' => array('html' => true),
-                    'htmlOptions' => array('size' => 100),
-                ));
-            ?>
-
-            <?php echo $form->error($model, 'FK_receiver'); ?>
-        </div>
-
-        <div>
-            <span>Subject</span>
-            <?php
-            if ($model->message != null)
-                echo $form->textField($model, 'subject', array('id' => 'theSubject',
-                    'value' => "Re: " . $model->subject, 'style' => 'width:631px'));
-            else
-                echo $form->textField($model, 'subject', array('id' => 'theSubject', 'style' => 'width:631px'));
-
-            echo $form->error($model, 'subject');
-            ?>
-        </div>
-
-        <div>
-<?php echo $form->textArea($model, 'message', array('id' => 'theMessage', 'cols' => 110, 'rows' => 15,
-    'width' => '691px'));
-?>
-        </div>
-
-        <div>
-            <input id="send_button" type="submit" name="yt0" value="Send" />
-        <?php //echo CHtml::submitButton('Send', array('id'=>'send_button'));  ?>
-        </div>
-
-
-<?php $this->endWidget(); ?>
-    </div>
-
-</div>
-
-
+    
