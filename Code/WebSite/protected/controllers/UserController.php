@@ -117,13 +117,13 @@
                     
                     //$redirectUrl = 'http://' . Yii:app()->request->getServerName() . '';
                     
-                    if($user->FK_usertype >= 3)
+                    /*if($user->FK_usertype >= 3)
                         $redirectUrl = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin';
                     
                     else
-                        $redirectUrl =  'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/view';
+                        $redirectUrl =  'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/view';*/
                     
-                    $this->render('ChangePassword', array('model' => $model, 'confirmation'=>$confirmation, 'redirectUrl'=>$redirectUrl));
+                    $this->render('ChangePassword', array('model' => $model, 'confirmation'=>$confirmation));
                 }
                 else
                 {

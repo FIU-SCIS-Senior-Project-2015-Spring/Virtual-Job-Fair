@@ -7,7 +7,7 @@
 <br/><br/>
 
 <div id="error">
-    <?php if ($error != '')
+    <?php if (isset($error) && $error != '')
         { ?>
            <div class="alert alert-danger" style='text-align: center;' role="alert"> <strong> <p><?php echo $error ?> </p> </strong></div> 
  
