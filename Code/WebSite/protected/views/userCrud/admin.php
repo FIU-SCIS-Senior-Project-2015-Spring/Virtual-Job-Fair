@@ -1,6 +1,5 @@
 <h2>Manage Users</h2>
 
-
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed well',
     'dataProvider'=>$model->search(),
@@ -50,5 +49,6 @@
             'htmlOptions'=>array('style'=>'width: 50px'),
         ),
     ),
-)); ?>
+)); 
+?>
 

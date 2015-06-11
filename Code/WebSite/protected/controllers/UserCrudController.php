@@ -1,8 +1,10 @@
 <?php
 
+    /**
+     * Controller for the Admin.
+     */
     class UserCrudController extends Controller
-    {
-
+    {             
         /**
          * @return array action filters
          */
@@ -23,8 +25,8 @@
         {
             return array(
                 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                    'actions' => array('admin', 'delete', 'update', 'index', 'toggleActivateButton',),
-                    'users' => array('admin', 'administrator'),
+                    'actions' => array('admin', 'delete', 'update', 'index', 'toggleActivateButton',)
+                    ,'users' => array('admin', 'administrator'),
                 ),
                 array('deny', // deny all users
                     'users' => array('*'),
@@ -74,6 +76,8 @@
         public function actionUpdate($id)
         {
             $model = $this->loadModel($id);
+            
+            $confirmation = '';
 
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
@@ -83,10 +87,13 @@
                 $model->attributes = $_POST['User'];
 
                 if($model->validate(array('username', 'first_name', 'last_name', 'email', 'activated',)) && $model->save(false))
-                    $this->redirect(array('admin', 'id' => $model->id));
+                {    //$this->redirect(array('admin', 'id' => $model->id));
+                    // Show confirmation message.
+                    $confirmation = 'User information updated successfully!';
+                }
             }
 
-            $this->render('update', array('model' => $model,));
+            $this->render('update', array('model' => $model, 'confirmation'=>$confirmation));
         }
 
         /**
@@ -109,6 +116,7 @@
             // Else, delete the user.
             else
                 $this->loadModel($id)->cascade_delete();
+
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
@@ -133,9 +141,7 @@
             if (isset($_GET['User']))
                 $model->attributes = $_GET['User'];
 
-            $this->render('admin', array(
-                'model' => $model,
-            ));
+            $this->render('admin', array('model' => $model));
         }
 
         /**
@@ -168,6 +174,5 @@
                 Yii::app()->end();
             }
         }
-
-    }
-    
+        
+    } 
