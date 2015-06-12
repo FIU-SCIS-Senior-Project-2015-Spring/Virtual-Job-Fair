@@ -152,11 +152,6 @@ class ProfileController extends Controller {
     public function actionSaveSkills() {
         $user = User::getCurrentUser();
 
-        foreach ($_POST['Skill'] as $my) {
-            $data[] = urldecode($my);
-        }
-
-        //print_r($_POST['Skill']);
         if (!isset($_POST['Skill'])) {
             foreach ($user->studentSkillMaps as $skill) {
                 $skill->delete();
