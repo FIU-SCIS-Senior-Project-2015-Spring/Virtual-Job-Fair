@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<div class="alert alert-danger" style='text-align: center;' role="alert"> <h1>Your account has been disabled from the system.</h1> </div>
+<div class="alert alert-danger" style='text-align: center;' role="alert"> <h3>Your account has been disabled from the system.</h3> </div>
 
 
 
