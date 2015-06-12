@@ -164,8 +164,9 @@
                     alert("Skill was left empty");
                     return;
                 }
-                $.get("/JobFair/index.php/profile/getskill?name=" + $('#addskillname').val(), function(data, status) {
-
+                
+                $.get("/JobFair/index.php/profile/getskill?name=" + encodeURIComponent($('#addskillname').val()), function(data, status) {
+                    
                     $("#skills ul").append('<li id="newskill' + i + '"><span class="skilldrag">' + $('#addskillname').val() +
                             "<input type='hidden' name='Skill[]' value='" + data + "' /></span>" +
                             '<a class="deletenewskill" id="newskill' + i + '"><img src="/JobFair/images/ico/del.gif"/></a></li>');
@@ -895,10 +896,10 @@
             <?php
                 $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'user-saveSkills-form', 'action' => '/JobFair/index.php/Profile/saveSkills',
-                    'enableAjaxValidation' => false,
-                    'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                    'htmlOptions' => array('enctype' => 'multipart/form-data'),
                 ));
             ?>
+            
             <div id="skills">
                 <div class="titlebox">SKILLS</div>
 
@@ -918,12 +919,12 @@
 <?php foreach ($user->studentSkillMaps as $skill)
     {
         ?>
-                                    <?php $i ++ ?>
+                                    <?php $i++; ?>
 
-                            <li id="skill<?php echo $i ?>">
+                            <li id="skill<?php echo $i; ?>">
 
 
-                                <span class="skilldrag" id="skill<?php echo $i ?>">
+                                <span class="skilldrag" id="skill<?php echo $i; ?>">
         <?php echo $skill->skill->name; ?>
                                     <input type="hidden" name="Skill[]" value="<?php echo $skill->skill->id; ?>" />
                                 </span>
@@ -939,7 +940,9 @@
                 </ul>
                 <?php $this->endWidget(); ?>
                 <hr>
+                 
                 <?php
+                    // Create autocomplete
                     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                         'name' => 'addskillname',
                         'id' => 'addskillname',
@@ -948,6 +951,7 @@
                 ?>
 
                 <?php
+                    // Style Add Skill button
                     $this->widget('bootstrap.widgets.TbButton', array(
                         'label' => 'Add Skill',
                         'type' => 'primary',
@@ -962,6 +966,7 @@
                     ));
                 ?>
                 <?php
+                    // Style Save Skill button
                     $this->widget('bootstrap.widgets.TbButton', array(
                         'label' => 'Save Skills',
                         'type' => 'primary',
