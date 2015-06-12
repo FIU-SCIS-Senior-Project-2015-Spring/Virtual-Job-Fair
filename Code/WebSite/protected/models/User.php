@@ -71,8 +71,7 @@
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                array('username, password, password_repeat, email, first_name,
-					 last_name, hide_email', 'required'),
+                array('username, password, password_repeat, email, first_name, last_name, hide_email', 'required'),
                 array('username, email', 'unique'),
                 array('password', 'compare'),
                 array('password_repeat', 'safe'),

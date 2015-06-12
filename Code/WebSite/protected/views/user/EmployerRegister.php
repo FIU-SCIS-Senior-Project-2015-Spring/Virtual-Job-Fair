@@ -73,6 +73,10 @@ $(document).ready(function () {
 });
 </script>
 
+<?php
+    //if(isset($errorMsg) && $errorMsg != '')
+      //  echo $errorMsg;
+    ?>
 
 
 

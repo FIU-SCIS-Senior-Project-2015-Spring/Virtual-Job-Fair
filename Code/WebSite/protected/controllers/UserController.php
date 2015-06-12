@@ -155,28 +155,31 @@
               }
              */
 
-
             if (isset($_POST['User']))
             {
                 $model->attributes = $_POST['User'];
+                $model->activated = '1';
+                
                 //print "<pre>";print_r($model);print "</pre>";return;
                 if ($model->validate())
                 {
                     if ($this->actionVerifyEmployerRegistration() != "")
-                    {
                         $this->render('EmployerRegister');
-                    }
+                  
                     //Form inputs are valid
                     //Populate user attributes
                     $model->FK_usertype = 2;
                     $model->registration_date = new CDbExpression('NOW()');
                     $model->activation_string = $this->genRandomString(10);
                     $model->image_url = '/JobFair/images/profileimages/user-default.png';
+                    //$model->actived = null;
 
                     //Hash the password before storing it into the database
                     $hasher = new PasswordHash(8, false);
                     $model->password = $hasher->HashPassword($model->password);
 
+                    $model->activated = null;
+                    
                     //Save user into database. Account still needs to be activated
                     //save employers company info
                     if ($model->save($runValidation = false))
@@ -196,7 +199,6 @@
                         $basicInfo->save(false);
                     }
 
-
                     $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/employer/user/' . $model->username;
                     $link2 = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/employer/user/' . $model->username;
                     $message = $model->username . " just joined VJF, click here to view their profile.";
@@ -211,7 +213,9 @@
                     return;
                 }
             }
-            $this->render('EmployerRegister', array('model' => $model));
+            
+          //  $errorMsg = 'Something failed.';
+            $this->render('EmployerRegister', array('model' => $model)); //'errorMsg' => $errorMsg));
         }
 
         public function actionNewEmployer()
