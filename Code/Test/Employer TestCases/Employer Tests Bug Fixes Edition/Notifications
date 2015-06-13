@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
+<title>Notifications</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Notifications</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>android</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Compose</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=receiver</td>
+	<td>&quot;Rene Alfonso&quot; &lt;ralfo028&gt;, </td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=theSubject</td>
+	<td>Hello</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=send_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Sent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.message_heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=(android)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout (android)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>ralfo028</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#div3 &gt; span.notificationtitle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=You have a new message from android</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete_messages</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Trash</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=div3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Trash</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=recover_messages</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=inbox-option</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=div3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=div3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.message_heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete_messages</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Trash</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='message-content']/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete_messages_forever</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#div3 &gt; span.notificationtitle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#div3 &gt; span.notificationtitle</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
