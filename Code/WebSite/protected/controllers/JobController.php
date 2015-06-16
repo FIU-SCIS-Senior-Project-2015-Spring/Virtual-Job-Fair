@@ -1639,7 +1639,7 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
            $jobCloned = new Job;
            $jobCloned->attributes = $oldJob->attributes;
            
-        // Display a message if we cannot find the job
+        // Display a message if we cannot find the job id
            if ($jobCloned == null){                       
                 $this->render('JobInvalid');            
            } 
