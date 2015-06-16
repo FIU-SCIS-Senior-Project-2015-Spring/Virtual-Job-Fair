@@ -107,21 +107,7 @@
                     $user->password = $hasher->HashPassword($p1);
                     $user->save(false);
 
-                    // Check if user is Admin.
-                    //if($user->FK_usertype >= 3)
-                      //  $this->redirect("/JobFair/index.php/UserCrud/admin");
-                    
-                    //else // Student or Employer.
-                      //  $this->redirect("/JobFair/index.php/profile/view");
                     $confirmation = "Your password was changed succesfully!";
-                    
-                    //$redirectUrl = 'http://' . Yii:app()->request->getServerName() . '';
-                    
-                    /*if($user->FK_usertype >= 3)
-                        $redirectUrl = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin';
-                    
-                    else
-                        $redirectUrl =  'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/view';*/
                     
                     $this->render('ChangePassword', array('model' => $model, 'confirmation'=>$confirmation));
                 }
@@ -132,16 +118,15 @@
                 }
             }
             else
-            {
                 $this->render('ChangePassword', array('model' => $model, 'error' => $error));
-            }
+
         }
 
         public function mynl2br($text)
         {
             return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />'));
         }
-
+        
         public function actionEmployerRegister()
         {
             $model = new User;
@@ -160,7 +145,6 @@
                 $model->attributes = $_POST['User'];
                 $model->activated = '1';
                 
-                //print "<pre>";print_r($model);print "</pre>";return;
                 if ($model->validate())
                 {
                     if ($this->actionVerifyEmployerRegistration() != "")
@@ -203,13 +187,20 @@
                     $link2 = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/employer/user/' . $model->username;
                     $message = $model->username . " just joined VJF, click here to view their profile.";
                     User::sendAllStudentVerificationAlart($model->id, $model->username, $model->email, $message, $link);
-                    $message1 = "There is a new employer named " . $model->username . " that is waiting for acctivation";
+                    $message1 = "There is a new employer named " . $model->username . " that is waiting for activation";
                     $admins = User::model()->findAllByAttributes(array('FK_usertype' => 3));
                     User::sendAdminNotificationNewEmpolyer($model, $admins, $link2, $message1);
                     $message = "You have successfully registered. Once your account has been approved, you will receive an email stating your account is active.";
                     $message .= "<br/>Your username: $model->username";
-                    User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
-                    $this->render('NewEmployer');
+                    
+                    // Comment this line below if you are using a local machine. 
+                    // Sends an email.
+                    //User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
+                    
+                  //  $this->redirect('NewEmployer', array('username' => $model->username));
+                    
+                    $this->redirect(array('user/newEmployer', 'name'=> $model->first_name));
+                   
                     return;
                 }
             }
@@ -218,9 +209,18 @@
             $this->render('EmployerRegister', array('model' => $model)); //'errorMsg' => $errorMsg));
         }
 
+        
+        
         public function actionNewEmployer()
         {
-            $this->render('NewEmployer');
+            $name = '';
+            
+            // Check if username was set.
+            if(isset($_REQUEST['name']))
+                $name = $_REQUEST['name'];
+            
+            // Render the page.
+            $this->render('NewEmployer', array('name' => $name));
         }
 
         public function actionSendVerificationEmail($email = null)
