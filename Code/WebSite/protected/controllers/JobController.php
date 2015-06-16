@@ -1109,9 +1109,12 @@ class JobController extends Controller
         
         $model = new Job;
 
-        if (isset($_POST['Job'])) {
-             $data = $_POST['Job'];
-            print_r($data);
+        if (isset($_POST['Job'])) 
+        {
+            $data = $_POST['Job'];
+             
+            // Printing in a controller can cause exceptions, don't do it.
+           // print_r($data);
             
             if (!($this->actionVerifyJobPost() == "")) {
                 $this->render('post', array('model' => $model));
