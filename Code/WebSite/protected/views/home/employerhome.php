@@ -124,6 +124,9 @@ $this->breadcrumbs = array(
                                 <form  target="blank" style="float:left;" action="/JobFair/index.php/job/studentmatch/jobid/<?php echo $job->id ?>" >
                                     <input class="btn btn-primary" type="submit" value="Matches">
                                 </form>
+                                <form method="get" target="blank" style="float:left; margin:0 5px 0 5px" action="/JobFair/index.php/Job/CloneJobPosting/jobid/<?php echo $job->id ?>">
+                                    <input class="btn btn-info" type="submit"  value="Clone">
+                                </form>
                                 <form style="float:left;margin:0 5px 0 5px" action="/JobFair/index.php/Job/Close/jobid/<?php echo $job->id ?>" >			
                                     <?php if (($user != null) && ($job->FK_poster == $user->id)) { ?>
                                         <?php if ($job->active) { ?>

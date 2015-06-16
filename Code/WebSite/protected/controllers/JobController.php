@@ -15,7 +15,7 @@ class JobController extends Controller
         }
     }
   
-	public function actionView($jobid)
+    public function actionView($jobid)
 	{  
         $job = Job::model()->findByPk($jobid);
 
@@ -31,8 +31,7 @@ class JobController extends Controller
             $this->render('View', array('job' => $job));
         }
     }
-    
-    
+   
   //the function emphome gets called everytime the advance search button is clicked.
     public function actionEmphome($allWords = null, $city = null, $ZIPcode = null, $school = null, $major = null, $graduationdate = null, $workedasa = null, $workedin = null) {
         
@@ -1107,9 +1106,13 @@ class JobController extends Controller
     }
 
     public function actionPost() {
+        
         $model = new Job;
 
         if (isset($_POST['Job'])) {
+             $data = $_POST['Job'];
+            print_r($data);
+            
             if (!($this->actionVerifyJobPost() == "")) {
                 $this->render('post', array('model' => $model));
             }
@@ -1511,7 +1514,7 @@ class JobController extends Controller
             array('allow', // allow authenticated users to perform these actions
                 'actions' => array('StudentMatch', 'View', 'Home', 'Post',
                     'SaveSkills', 'studentMatch', 'EditJobPost', 'VerifyJobPost', 'View', 'VirtualHandshake', 'QuerySkill', 'Apply',
-                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome', 'PostGuestEmployer'),
+                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome', 'PostGuestEmployer','CloneJobPosting'),
                 'users' => array('@')),
             array('allow',
                 'actions' => array('Home'),
@@ -1622,6 +1625,31 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
          $this->render('home',array('result'=>$result1, 'cbresults'=>$result2,'result3'=> $result3, 'mjresults'=> $result4,'ghresults'=>$result5,
                                     'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag, 'saveQ'=>$saveQ, ));//'keyword'=>$keyword));
         
+    }
+    
+    // This function clone any Job Posting
+    public function actionCloneJobPosting(){ 
+       
+        $jobid = $_GET['jobid'];
+        // Check if we can clone an existing Job
+        if(isset($_GET['jobid'])){
+        
+        // Cloning the data from the existing post by its ID 
+           $oldJob = Job::model()->findByPk($jobid);
+           $jobCloned = new Job;
+           $jobCloned->attributes = $oldJob->attributes;
+           
+        // Display a message if we cannot find the job
+           if ($jobCloned == null){                       
+                $this->render('JobInvalid');            
+           } 
+           $jobCloned->id = NULL; // Set the id to NULL to be able to insert new record
+           $this->render('post', array('model' => $jobCloned));             
+        } else { 
+            $this->render('JobInvalid');
+            return;
+        }
+               
     }
 
 

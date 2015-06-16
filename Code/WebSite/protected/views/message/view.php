@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 <?php
 $js = Yii::app()->clientScript;
 $js->registerCoreScript('jquery.ui');
@@ -396,6 +397,20 @@ $this->breadcrumbs = array(
             </div>
         </div>
     </div></div>
+
+<script>
+/*    $(document).ready(function(){
+        $('li.active').click(function(){            
+                $('.active').each(fuction(){
+                    $(this).removeClass("active");
+                    $(this).addClass("inactive");
+                });
+                $(this).addClass("active");
+        }); 
+    }); */   
+</script>
+    
+    
 
 
 

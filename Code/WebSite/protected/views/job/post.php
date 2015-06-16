@@ -133,12 +133,12 @@ $(document).delegate('.deletenewskill','click',function(){
 </script>
 <div id="fullcontent">
 <?php $form=$this->beginWidget('CActiveForm', array(
+        'action' => Yii::app()->createUrl('job/post'),
+        'method'=>'post',
 	'id'=>'job-post-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 <div id="subcontent">
-
-
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
