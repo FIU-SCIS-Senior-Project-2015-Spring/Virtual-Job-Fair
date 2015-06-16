@@ -127,6 +127,9 @@
             return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />'));
         }
         
+        /**
+         * Handles employer registration.
+         */
         public function actionEmployerRegister()
         {
             $model = new User;
@@ -195,12 +198,10 @@
                     
                     // Comment this line below if you are using a local machine. 
                     // Sends an email.
-                    //User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
-                    
-                  //  $this->redirect('NewEmployer', array('username' => $model->username));
-                    
+                    User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
+
+                    // Redirect to confirmation page.
                     $this->redirect(array('user/newEmployer', 'name'=> $model->first_name));
-                   
                     return;
                 }
             }
@@ -210,22 +211,31 @@
         }
 
         
-        
+        /**
+         * Rene: Display the confirmation page.
+         */
         public function actionNewEmployer()
         {
-            $name = '';
-            
-            // Check if username was set.
             if(isset($_REQUEST['name']))
+            {
                 $name = $_REQUEST['name'];
-            
-            // Render the page.
-            $this->render('NewEmployer', array('name' => $name));
+                
+                // Check if registration was done by admin.
+                if(User::getCurrentUser()->FK_usertype == 3)
+                    $this->render('NewEmployer', array('byAdmin' => $name));
+                 
+                // Registration was done by employer.
+                else
+                    $this->render('NewEmployer', array('byEmployer' => $name));
+            }
+
+            $this->render('NewEmployer');
+                
         }
 
+        
         public function actionSendVerificationEmail($email = null)
         {
-
             if (!isset($email))
             {
                 $username = $_GET['username'];
@@ -243,6 +253,7 @@
             $this->redirect('/JobFair/index.php/site/page?view=verification');
         }
 
+        
         public function actionStudentRegister()
         {
             $model = new User;

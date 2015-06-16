@@ -3,11 +3,26 @@
 
 $this->breadcrumbs=array('User',);
 
-// Print out the username in a message.
-echo '<h2>Thank you, ' . $name . ', for registering with Virtual Job Fair</h2>';
+?>
 
-?>    
+<?php 
+    // Check if registration was done by admin.
+    if(isset($byAdmin))
+    { ?>
+        <div id="adminMSG">
+            <?php
+                echo '<div class="alert alert-success" style="text-align: center;" role="alert">  <h3> Employer, ' . $byAdmin . ', was registered successfully. </h3>   </div>'; 
+            ?>
+        </div>
+    <?php } 
     
-<p>
-	Soon you will receive an email when your account has been verified and activated. 
-</p>
+    // Check if registration was done by employer.
+    else if(isset($byEmployer))
+    { ?>
+        <div id="userMsg">
+            <?php 
+                echo '<div class="alert alert-success" style="text-align: center;" role="alert">  <h3> Thank you, ' . $byEmployer . ', for registering with Virtual Job Fair </h3> </div>'; 
+                echo '<div class="" style="text-align: center;"> Soon you will receive an email when your account has been verified and activated. </div>';
+            ?>
+        </div>   
+<?php } ?>
