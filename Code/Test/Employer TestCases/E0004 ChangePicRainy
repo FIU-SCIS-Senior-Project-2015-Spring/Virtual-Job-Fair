@@ -4,16 +4,36 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
-<title>004 ChangePicRainy</title>
+<title>005 ChangePicRainy2</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">004 ChangePicRainy</td></tr>
+<tr><td rowspan="1" colspan="3">005 ChangePicRainy2</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/JobFair/index.php/home/employerhome</td>
+	<td>/JobFair/index.php/site/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>android</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
@@ -32,18 +52,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>typeAndWait</td>
+	<td>type</td>
 	<td>id=User_image_url</td>
-	<td>/Library/WebServer/Documents/Virtual-Job-Fair/Code/Test/Test Resources/EmployerPicture1.jpg</td>
+	<td>/Library/WebServer/Documents/Virtual-Job-Fair/Code/Test/Test Resources/Video Resume.MP4</td>
 </tr>
 <tr>
-	<td>assertElementPresent</td>
-	<td>css=#upload &gt; img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Virtual Job Fair - ViewEmployer Profile</td>
+	<td>assertAlert</td>
+	<td>Image must be in JPG or PNG format.</td>
 	<td></td>
 </tr>
 </tbody></table>

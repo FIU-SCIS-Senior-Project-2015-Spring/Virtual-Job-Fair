@@ -4,21 +4,31 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://vjf-dev.cis.fiu.edu/" />
-<title>005 ChangePicRainy2</title>
+<title>Save-Delete-EmpQuery</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">005 ChangePicRainy2</td></tr>
+<tr><td rowspan="1" colspan="3">Save-Delete-EmpQuery</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/JobFair/index.php/home/employerhome</td>
+	<td>/JobFair/index.php/site/login</td>
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=LoginForm_username</td>
+	<td>android</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>link=My Profile</td>
+	<td>name=yt0</td>
 	<td></td>
 </tr>
 <tr>
@@ -27,26 +37,40 @@
 	<td></td>
 </tr>
 <tr>
-	<td>selectWindow</td>
-	<td>null</td>
+	<td>clickAndWait</td>
+	<td>link=Advanced Student Search</td>
 	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=city</td>
+	<td>Miami</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=uploadlink</td>
+	<td>id=savebutton</td>
 	<td></td>
 </tr>
 <tr>
-	<td>typeAndWait</td>
-	<td>id=User_image_url</td>
-	<td>/Library/WebServer/Documents/Virtual-Job-Fair/Code/Test/Test Resources/Video Resume.MP4</td>
+	<td>type</td>
+	<td>id=tagName</td>
+	<td>Miami</td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Virtual Job Fair - ViewEmployer Profile</td>
+	<td>clickAndWait</td>
+	<td>id=saveempBT</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>clickAndWait</td>
+	<td>link=OK</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a &gt; img</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

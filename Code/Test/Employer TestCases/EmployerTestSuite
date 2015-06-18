@@ -13,7 +13,7 @@
 <tr><td><a href="E0002 VideoInterviews">VideoInterviews</a></td></tr>
 <tr><td><a href="E0003 ViewProfile">ViewProfile</a></td></tr>
 <tr><td><a href="E0004 ChangePicRainy">ChangePicRainy</a></td></tr>
-<tr><td><a href="E0005 ChangePicRainy2">ChangePicRainy2</a></td></tr>
+<tr><td><a href="E0005 ChangePic">ChangePic</a></td></tr>
 <tr><td><a href="E0006 ViewJobPosting">ViewJobPosting</a></td></tr>
 <tr><td><a href="E0007 EditJobPosting">EditJobPosting</a></td></tr>
 <tr><td><a href="E0008 OpenStudentProfile">OpenStudentProfile</a></td></tr>
@@ -28,6 +28,10 @@
 <tr><td><a href="E0017 AdvanceStudentSearch">AdvanceStudentSearch</a></td></tr>
 <tr><td><a href="E0018 NewJobPosting">NewJobPosting</a></td></tr>
 <tr><td><a href="E0019 Clone Job Posting.html">Clone Job Posting</a></td></tr>
+<tr><td><a href="E0020 ChangePassword">ChangePassword</a></td></tr>
+<tr><td><a href="E0021 CandidateVidResume">CandidateVidResume</a></td></tr>
+<tr><td><a href="E0022 Notifications">Notifications</a></td></tr>
+<tr><td><a href="E0023 Save-Delete-EmpQuery">Save-Delete-EmpQuery</a></td></tr>
 </tbody></table>
 </body>
 </html>
