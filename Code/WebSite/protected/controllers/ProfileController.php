@@ -1,20 +1,23 @@
 <?php
 
-class ProfileController extends Controller {
+class ProfileController extends Controller 
+{
+    
+    public function actionView() 
+    {
 
-    public function actionView() {
-
-        if (isset($_GET['user'])) {
+        if (isset($_GET['user'])) 
             $username = $_GET['user'];
-        } else {
+
+        else 
             $username = Yii::app()->user->name;
-        }
+        
         $user = User::model()->find("username=:username", array(':username' => $username));
 
-//                print_r($user);
         $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id' => $user->id));
 
-        if ($user->FK_usertype == 2) {
+        if ($user->FK_usertype == 2) 
+        {
             $this->actionViewEmployer();
             return;
         }
@@ -22,14 +25,72 @@ class ProfileController extends Controller {
         //Get all schools
         $allSchools = School::getAllSchools();
 
-        // Get Resume
+        // Get Resumes.
         $resume = Resume::model()->findByPk($user->id);
         $videoresume = VideoResume::model()->findByPk($user->id);
-// 		print "<pre>"; print_r($videoresume->video_path);print "</pre>";return;
 
-        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'saveQ' => $saveQ));
+        // Profile completion code.
+        $profileCompStatus = $this->getProfileCompletionStatus($user, $videoresume, $resume);
+        
+        // Rene: The if statements below don't belong in the view. 
+        if (!isset($resume))
+            $resume = new Resume;
+
+        // Check if video resume has been added to the model.
+        if (!isset($videoresume))
+            $videoresume = new VideoResume;
+
+        if (!isset($user->basicInfo))
+            $user->basicInfo = new BasicInfo;
+  
+        // Send what will be rendered.
+        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus));
     }
 
+    /**
+     * Helper function that calculates the profile completeness percentage.
+     * @param type $userModel The User model.
+     * @param type $vidResume The Video Resume.
+     * @param type $resume The PDF resume.
+     * @return type The percentage.
+     * @author Rene Alfonso
+     */
+    private function getProfileCompletionStatus($userModel, $vidResume, $resume)
+    {
+        // Free 10 points for creating an account.
+        $profileCompStatus = 1;
+        
+        $MAX = 8; // The maximum number of points you can get.
+
+
+        if(isset($vidResume) && $vidResume->video_path != null)
+            $profileCompStatus++;
+        
+        if(isset($resume) && $resume->resume != null)
+            $profileCompStatus++;
+        
+        if(isset($userModel->linkedinid))
+            $profileCompStatus++;
+        
+        if(isset($userModel->googleid))
+            $profileCompStatus++;
+        
+        if(isset($userModel->fiucsid))
+            $profileCompStatus++;
+        
+        // Check if user has an unique profile picture.
+        if($userModel->image_url != '/JobFair/images/profileimages/user-default.png')
+            $profileCompStatus++;
+        
+        // Find user skills.
+        if(StudentSkillMap::model()->exists('userid = :userid', array('userid' => $userModel->id)))
+            $profileCompStatus++;
+        
+        
+        return intval($profileCompStatus * 100.0 / $MAX);
+    }
+    
+    
     public function actionViewEmployer() {
 
         $username = Yii::app()->user->name;

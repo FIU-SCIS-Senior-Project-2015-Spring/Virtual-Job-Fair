@@ -3,25 +3,14 @@
 
     require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
 
-    $this->breadcrumbs = array(
-        'Profile' => array('/profile'),
-        'View',
-    );
-
-    if (!isset($resume))
-    {
-        $resume = new Resume;
-    }
-
-    // Rene: Check if video resume has been added to the model.
-    if (!isset($videoresume))
-        $videoresume = new VideoResume;
-
-    if (!isset($user->basicInfo))
-    {
-        $user->basicInfo = new BasicInfo;
-    }
+    $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
 ?>
+
+<!--
+<head>
+<link rel="stylesheet" type="text/css" href="/css/ProgressBar.css">
+</head> -->
+
 
 <div class="form">
     <script src="/JobFair/themes/bootstrap/js/jquery.bpopup-0.8.0.min.js"></script>
@@ -109,7 +98,8 @@
                     $("#edit").attr("name", "yt0");
                     $("#edit img").attr("src", "/JobFair/images/ico/done.gif");
                     $("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
-                } else {
+                } 
+                else {
                     //Fixes Bug on card #359 (Allowing a blank email address for the user profile)
                     var sEmail = $('#User_email').val();
                     if($.trim(sEmail).length == 0) { //Email can't be left blank
@@ -223,16 +213,19 @@
                     document.getElementById("user-uploadPicture-form").submit();
                
                 else
-                    alert('Image must be in jpg or png format');
+                    alert('Image must be in JPG or PNG format');
             }
         }
 
        
-        function uploadresume() {
+        function uploadresume() 
+        {
 
             document.getElementById("Resume_resume").click();
-            document.getElementById("Resume_resume").onchange = function() {
-                if(endWith(document.getElementById("Resume_resume").value, 'pdf')) {
+            document.getElementById("Resume_resume").onchange = function() 
+            {
+                if(endWith(document.getElementById("Resume_resume").value, 'pdf')) 
+                {
                     document.getElementById("user-uploadResume-form").submit();
                 }
                 else
@@ -362,6 +355,20 @@
                     'htmlOptions' => array('enctype' => 'multipart/form-data',),
                 ));
             ?>
+            
+            <?php
+                $hasCompletedSkill = 84;
+                $hasCompletedBooks = 15;
+                $maximumPoints = 100;
+                $percentage = ($hasCompletedSkill + $hasCompletedBooks) * $maximumPoints / 100;
+
+                /* echo "
+                  <div style='width:100px; background-color:white; height:30px; border:1px solid #000;'>
+                  <div style='width:".$percentage."px; background-color:green; height:30px;'></div>
+                  </div>"; */
+            ?>
+
+
 
             <div style="clear:both"></div>
 
@@ -372,9 +379,25 @@
                 <a id="uploadlink" href="#" onclick="uploadpic()"><img style="margin-top: 5px;" src='/JobFair/images/ico/add.gif' />Upload Image</a>
 
                 <?php echo CHtml::activeFileField($user, 'image_url', array('style' => 'display: none;')); ?>  
+            
+                <p </p>
+                <p </p>
+                <?php echo 'Profile Completion';?>
+                
+                <?php 
+                    echo '<div class="progress progress-success progress-striped active"> <div class="bar" style="width:'.$profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span> </div> </div>';
+                    ?>
+                
+            
+            
+            
             </div>
 
             <?php $this->endWidget(); ?>
+            
+           
+
+            
 
             <?php
                 $form = $this->beginWidget('CActiveForm', array(
@@ -542,9 +565,7 @@
                         echo CHtml::link(CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'));
                     }
                     else
-                    {
-                        echo 'Upload a resume! PDF format only';
-                    }
+                        echo 'Upload a PDF resume!';
 
                     $this->endWidget();
                 ?> 
@@ -552,7 +573,7 @@
                 <br>
                 <hr>
 
-<?php ?>
+                <?php ?>
                 </php>
 
                 <?php
@@ -592,7 +613,7 @@
 
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
-        <?php echo $uploadButtonText; ?>
+                            <?php echo $uploadButtonText; ?>
                         </button>
 
                         <!-- Modal -->
