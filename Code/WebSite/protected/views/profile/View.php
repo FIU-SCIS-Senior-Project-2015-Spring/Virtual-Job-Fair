@@ -385,20 +385,13 @@
                 <?php echo 'Profile Completion';?>
                 
                 <?php 
+                    // Rene: Profile Completion Progress bar graph.
                     echo '<div class="progress progress-success progress-striped active"> <div class="bar" style="width:'.$profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span> </div> </div>';
                     ?>
-                
-            
-            
-            
             </div>
 
             <?php $this->endWidget(); ?>
             
-           
-
-            
-
             <?php
                 $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/EditBasicInfo',

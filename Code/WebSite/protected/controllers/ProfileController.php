@@ -3,6 +3,11 @@
 class ProfileController extends Controller 
 {
     
+    /**
+     * The function that is responsible for displaying the student's profile
+     * from the student's perspective. 
+     * @author Rene Alfonso
+     */
     public function actionView() 
     {
 
@@ -30,7 +35,7 @@ class ProfileController extends Controller
         $videoresume = VideoResume::model()->findByPk($user->id);
 
         // Profile completion code.
-        $profileCompStatus = $this->getProfileCompletionStatus($user, $videoresume, $resume);
+        $profileCompStatus = $this->getStudentProfileCompletionStatus($user, $videoresume, $resume);
         
         // Rene: The if statements below don't belong in the view. 
         if (!isset($resume))
@@ -55,14 +60,14 @@ class ProfileController extends Controller
      * @return type The percentage.
      * @author Rene Alfonso
      */
-    private function getProfileCompletionStatus($userModel, $vidResume, $resume)
+    private function getStudentProfileCompletionStatus($userModel, $vidResume, $resume)
     {
-        // Free 10 points for creating an account.
+        // Free points for creating an account.
         $profileCompStatus = 1;
         
-        $MAX = 8; // The maximum number of points you can get.
+        $MAX = 9; // The maximum number of points you can get.
 
-
+        
         if(isset($vidResume) && $vidResume->video_path != null)
             $profileCompStatus++;
         
@@ -82,6 +87,34 @@ class ProfileController extends Controller
         if($userModel->image_url != '/JobFair/images/profileimages/user-default.png')
             $profileCompStatus++;
         
+        
+        // Check basicInfo.
+        if(isset($userModel->basicInfo))
+        {
+            $allFieldsFilled = true;
+            
+           // $userModel->basicInfo->hide_phone = '1';
+        
+            
+            // Check all fields of the basicInfo.
+            foreach($userModel->basicInfo as $key => $value) 
+            {
+                // Check that value is not empty and ignore `street2`.
+                if(!isset($value) || $value == '') 
+                {
+                    $allFieldsFilled = false;
+                    break;
+                }
+            }
+            
+            if($allFieldsFilled) // All the Company fields are filled.
+                $profileCompStatus++;
+            
+            //$userModel->basicInfo->hide_phone = '';
+       
+
+        }
+        
         // Find user skills.
         if(StudentSkillMap::model()->exists('userid = :userid', array('userid' => $userModel->id)))
             $profileCompStatus++;
@@ -90,17 +123,113 @@ class ProfileController extends Controller
         return intval($profileCompStatus * 100.0 / $MAX);
     }
     
-    
-    public function actionViewEmployer() {
-
+    /**
+     * The function that is responsible for displaying the employer's profile
+     * from the employer's perspective. 
+     * @author Rene Alfonso
+     */
+    public function actionViewEmployer() 
+    {
+        // Get the username.
         $username = Yii::app()->user->name;
 
+        // Find the model corresponding to the username.
         $user = User::model()->find("username=:username", array(':username' => $username));
+        
         $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id' => $user->id));
-        $this->render('ViewEmployer', array('user' => $user, 'saveQ' => $saveQ));
+        
+        // Profile completion code.
+        $profileCompStatus = $this->getEmployerProfileCompletionStatus($user);
+        
+        if (!isset($user->basicInfo))
+            $user->basicInfo = new BasicInfo;
+
+        if (!isset($user->companyInfo))
+            $user->companyInfo = new CompanyInfo;
+
+        // What will be rendered.
+        $this->render('ViewEmployer', array('user' => $user, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus));
+    }
+    
+    /**
+     * Helper function that calculates the profile completeness percentage for employers.
+     * @param type $userModel The User model.
+     * @param type $vidResume The Video Resume.
+     * @param type $resume The PDF resume.
+     * @return type The percentage.
+     * @author Rene Alfonso
+     */
+    private function getEmployerProfileCompletionStatus($userModel)
+    {
+        // Free points for creating an account.
+        $profileCompStatus = 1;
+        
+        $MAX = 5; // The maximum number of points you can get.
+
+
+        // Check if user has an unique profile picture.
+        if($userModel->image_url != '/JobFair/images/profileimages/user-default.png')
+            $profileCompStatus++;
+        
+        // Check basicInfo.
+        if(isset($userModel->basicInfo))
+        {
+            $allFieldsFilled = true;
+            
+            // Check all fields of the basicInfo.
+            foreach($userModel->basicInfo as $key => $value) 
+            {
+                // Check that value is not empty and ignore `street2`.
+                if(empty($value)) // smsCode
+                {
+                    $allFieldsFilled = false;
+                    break;
+                }
+            }
+            
+            if($allFieldsFilled) // All the Company fields are filled.
+                $profileCompStatus++;
+
+        }
+        
+        // Check company info.
+        if(isset($userModel->companyInfo))
+        {
+            $allFieldsFilled = true;
+            
+            // Ignore the street2 field.
+            $userModel->companyInfo->street2 = 'temp';
+            
+            // Check all fields of the companyInfo.
+            foreach($userModel->companyInfo as $key => $value) 
+            {
+                // Check that value is not empty and ignore `street2`.
+                if(empty($value)) //&& $value != $userModel->companyInfo->street2) 
+                {
+                    $allFieldsFilled = false;
+                    break;
+                }
+            }
+            
+            if($allFieldsFilled) // All the Company fields are filled.
+                $profileCompStatus++;
+            
+            // Reset it back just incase.
+            $userModel->companyInfo->street2 = '';
+            
+        }
+        
+        // Find jobs.
+        if(Job::model()->exists('FK_poster = :FK_poster', array('FK_poster' => $userModel->id)))
+            $profileCompStatus++;
+        
+        
+        return intval($profileCompStatus * 100.0 / $MAX);
     }
 
-    public function actionVideoEmployer() {
+    
+    public function actionVideoEmployer() 
+    {
 
         if (isset($_GET["notificationRead"])) {
             //print "<pre>"; print_r($_GET["notificationRead"]);print "</pre>";return;

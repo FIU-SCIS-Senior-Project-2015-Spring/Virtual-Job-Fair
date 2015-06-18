@@ -4,19 +4,10 @@
     /* @var $form CActiveForm */
     /* @var $user User */
 
-    $this->breadcrumbs = array(
-        'Profile' => array('/profile'),
-        'View',
-    );
-
-    if (!isset($user->basicInfo))
-    {
-        $user->basicInfo = new BasicInfo;
-    }
-    if (!isset($user->companyInfo))
-    {
-        $user->companyInfo = new CompanyInfo;
-    }
+    // This is the View for the employer's profile from the perspective of 
+    // the employer.
+    
+    $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
 ?>
 
 
@@ -100,7 +91,7 @@
     }
 
     // Helper function to get the image extension.
-    function endWith(str, suffix) 
+    function endWith(str, suffix)
     {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
@@ -113,40 +104,35 @@
         document.getElementById("User_image_url").onchange = function()
         {
             var imageExt = document.getElementById("User_image_url").value;
-            
+
             // Check for valid picture type.
             if(endWith(imageExt, 'JPG') || endWith(imageExt, 'jpg') || endWith(imageExt, 'PNG') || endWith(imageExt, 'png'))
                 document.getElementById("user-uploadPicture-form").submit();
 
             else
-               alert('Image must be in JPG or PNG format.');
+                alert('Image must be in JPG or PNG format.');
         }
     }
 
 
-
-    function toggleJobMatching() 
+    function toggleJobMatching()
     {
         var val = $('#myonoffswitch').val();
 
         if(val == '1')
-        {
             $('#myonoffswitch').val('0');
-        }
+
         else
-        {
             $('#myonoffswitch').val('1');
-        }
+    
         $.get("/JobFair/index.php/user/toggleEmailMatch", {"value": val}, function(data) {
             data = JSON.parse(data);
             if(data["status"] == '0')
-            {
                 $("#myonoffswitch").prop('checked', false);
-            }
+            
             else
-            {
                 $("#myonoffswitch").prop('checked', true);
-            }
+
             $("#user_lastmodified").html(data["username"]);
             $("#user_lastmodifieddate").html(data["last_modified"]);
             $("#myonoffswitch").val(data["status"]);
@@ -191,17 +177,16 @@
 
     <div id="basicInfo">
 
-        <?php
-            // Form for uploading a profile picture.
-            $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'user-uploadPicture-form', 'action' => '/JobFair/index.php/Profile/uploadImage',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => array('enctype' => 'multipart/form-data',),
-            ));
-        ?>
+<?php
+    // Form for uploading a profile picture.
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'user-uploadPicture-form', 'action' => '/JobFair/index.php/Profile/uploadImage',
+        'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data',),
+    ));
+?>
 
-        <div style=clear:both></div>
-
+    <div style=clear:both></div>
         <div  id="profileImage">
             <div id="upload">
                 <img style="width:200px; 
@@ -210,23 +195,37 @@
             <a id="uploadlink" href="#" onclick="uploadpic()"><img style="margin-top: 5px;" src='/JobFair/images/ico/add.gif' />Upload Image</a>
         <?php echo CHtml::activeFileField($user, 'image_url', array('style' => 'display: none;')); ?>  
 
-        </div>
-
-        <?php $this->endWidget(); ?>
+            <br>
+            <br>
 
         <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/EditBasicInfo',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => array('enctype' => 'multipart/form-data',),
-            ));
+            // Rene: Profile Completion Progress bar graph.
+            echo 'Profile Completion';
+            echo '<div class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span> </div> </div>';
         ?>
+
+        </div>
+
+    <?php $this->endWidget(); ?>
+
+
+
+
+<?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/EditBasicInfo',
+        'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data',),
+    ));
+?>
 
         <div id="insidebasicinfo" >
             <name><?php echo $user->first_name . " " . $user->last_name ?></name><br>
 
             <aboutme>
-<?php echo $form->textArea($user->basicInfo, 'about_me', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
+                <?php 
+                    echo $form->textArea($user->basicInfo, 'about_me', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); 
+                ?>
             </aboutme><br>
 
             <lab>EMAIL:</lab> <?php echo $form->textField($user, 'email', array('class' => 'tb5', 'disabled' => 'true')); ?>
@@ -238,13 +237,14 @@
 
         <p><a style="float: left; margin-left:230px; width:80px" href="#" id="edit" class="editbox"><img src='/JobFair/images/ico/editButton.gif'/> Edit Info.</a></p>
 
+
     </div> <!--  END BASIC INFO -->
-
-
-
 
     <div style="clear:both"></div>
 <?php $this->endWidget(); ?>
+
+    <br>
+    <br>
     <hr>
 
     <div id="leftside">
@@ -252,32 +252,26 @@
     </div>
 
     <div id="subcontent2" >
-
-
         <div style=clear:both></div>
         <div id="menutools">
             <div class="titlebox">SETTINGS</div><br><br>
-            <?php
-                $checked = $checked_lfj = '';
-                $job_notif = null;
-                $looking_for_job = null;
-                if (isset($user['looking_for_job']))
-                {
-                    $looking_for_job = $user->looking_for_job;
-                    if ($user->looking_for_job == '1')
-                    {
-                        $checked_lfj = 'checked';
-                    }
-                }
-                if (isset($user['job_notification']))
-                {
-                    $job_notif = $user->job_notification;
-                    if ($user->job_notification == '1')
-                    {
-                        $checked = 'checked';
-                    }
-                }
-            ?>
+<?php
+    $checked = $checked_lfj = '';
+    $job_notif = null;
+    $looking_for_job = null;
+    if (isset($user['looking_for_job']))
+    {
+        $looking_for_job = $user->looking_for_job;
+        if ($user->looking_for_job == '1')
+            $checked_lfj = 'checked';
+    }
+    if (isset($user['job_notification']))
+    {
+        $job_notif = $user->job_notification;
+        if ($user->job_notification == '1')
+            $checked = 'checked';
+    }
+?>
             <div style="overflow: hidden;">
                 <div style="float: left;">Email Student Notifications:</div>
                 <div style="margin-left: 130px;" class="onoffswitch">
@@ -301,18 +295,21 @@
             <p>Select queries to search for jobs</p>
             <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
                 <div style= "text-align:left;">
-<?php foreach ($saveQ as $query)
-    { ?>
-        <?php if ($query['active'] == '1')
-        {
-            ?>
+    <?php 
+        foreach ($saveQ as $query)
+        { ?>
+                            <?php
+                            if ($query['active'] == '1')
+                            {
+                                ?>
                                 <div class="checkbox">
                                     <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
                                     <strong> <?php echo ($query['query_tag']) . ":"; ?></strong> <?php echo ($query['query']); ?>
                                     <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                                 </div>
-                            <?php }
+                            <?php
+                            }
                             else
                             {
                                 ?>
@@ -322,8 +319,8 @@
                                     <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id ?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                                 </div>
-                        <?php } ?>
-                    <?php } ?>
+                            <?php } ?>
+    <?php } ?>
                 </div>
                 <hr>
                 <p>Select email frequency</p>
@@ -355,15 +352,15 @@
         </div>
 
 
-<?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/editCompanyInfo',
-        'enableAjaxValidation' => false,
-        'htmlOptions' => array('enctype' => 'multipart/form-data',),
-    ));
-?>	
+        <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'user-EditStudent-form', 'action' => '/JobFair/index.php/Profile/editCompanyInfo',
+                'enableAjaxValidation' => false,
+                'htmlOptions' => array('enctype' => 'multipart/form-data',),
+            ));
+        ?>	
 
-
+        <br>
         <div class="companyinfo " style="float:right!important; margin-top:-20px;">
             <div class="titlebox ">COMPANY INFO</div>
 
@@ -372,8 +369,10 @@
             <name><?php echo $user->companyInfo->name ?></name><br>
 
             <aboutme>
-        <?php echo $form->textArea($user->companyInfo, 'description', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); ?>
-            </aboutme><br>
+            <?php 
+                echo $form->textArea($user->companyInfo, 'description', array('rows' => 3, 'cols' => 75, 'border' => 0, 'class' => 'ta', 'disabled' => 'true')); 
+            ?>
+            </aboutme> <br>
 
             <lab>WEBSITE:</lab> <?php echo $form->textField($user->companyInfo, 'website', array('class' => 'tb5', 'disabled' => 'true')); ?>
             <lab>LOCATION:</lab> <?php echo $form->textField($user->companyInfo, 'city', array('class' => 'tb5', 'disabled' => 'true')); ?><br>
@@ -382,35 +381,38 @@
 
         </div> <!--  END COMPANY INFO -->
 
-<?php $this->endWidget(); ?>
-        <div style="clear:one"></div>
+    <?php $this->endWidget(); ?>
 
-        <div class="companyinfo" style="float:right!important; margin-top:-20px;">
-            <div class="titlebox">COMPANY JOBS</div>
-            <p><a href="/JobFair/index.php/job/post" id="postJob" class="editbox"><img src='/JobFair/images/ico/add.gif'"/></a></p>
-            <br>
-            <br>
-<?php foreach ($user->jobs as $job)
-    { ?>
-                    <jobtitle>
-                        <a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id ?>"><?php echo $job->title ?></a>
-                    </jobtitle>
-                    <div style="clear:both;"></div>
-                    <hr>
-            <?php } ?>
-        </div> <!--  END COMPANY JOBS -->
+    </div> 
+    <div style="clear:one"></div>
+
+    <div class="companyjobs" style="float:right; margin-top:-40px;">
+
+        <div class="titlebox">COMPANY JOBS</div>
+        <p><a href="/JobFair/index.php/job/post" id="postJob" class="editbox"><img src='/JobFair/images/ico/add.gif'"/></a></p>
+        <br>
+        <br>
+        <?php 
+            foreach ($user->jobs as $job)
+            { ?>
+                <jobtitle>
+                    <a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id ?>"><?php echo $job->title ?></a>
+                </jobtitle>
+                <div style="clear:both;"></div>
+                <hr>
+    <?php } ?>
+    </div> <!--  END COMPANY JOBS -->
 
 
-<?php
+    <?php
+        function formatDate($mysqldate)
+        {
+            $time = strtotime($mysqldate);
+            return date("F Y", $time);
+        }
+    ?>
 
-    function formatDate($mysqldate)
-    {
-        $time = strtotime($mysqldate);
-        return date("F Y", $time);
-    }
-?>
-
-    </div><!--  END CONTENT -->
+</div><!--  END CONTENT -->
 </div><!--  END FULL CONTENT -->
 
 
