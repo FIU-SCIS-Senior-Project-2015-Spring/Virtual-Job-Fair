@@ -97,4 +97,9 @@ class JobSkillMap extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        
+        
+        
+        
 }

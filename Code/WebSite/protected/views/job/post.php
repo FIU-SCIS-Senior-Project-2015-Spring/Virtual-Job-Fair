@@ -24,7 +24,7 @@ $(document).ready(function() {
 			return;
 		}
         
-		$.get("/JobFair/index.php/profile/getskill?name=" + $('#addskillname').val(), function (data,status) {
+		$.get("/JobFair/index.php/profile/getskill?name=" + encodeURIComponent($('#addskillname').val()), function (data,status) {
 			skillsarray.push($('#addskillname').val());
 			$("#skills ul").append('<li id="newskill' + i + '"><span class="skilldrag">' + $('#addskillname').val() + 
 					"<input type='hidden' name='Skill[]' value='" + data + "' /></span>"  +
@@ -69,7 +69,7 @@ $("#Job_description").keyup(function(e){
 			
 			words.push(search);
 			
-			$.get("/JobFair/index.php/job/querySkill?name=" + search, function (data,status) {
+			$.get("/JobFair/index.php/job/querySkill?name=" + encodeURIComponent(search), function (data,status) {
 				var place = data.split(',');
 				var skillname = place[0];
 				var skillid = place[1];
@@ -104,7 +104,7 @@ $("#Job_description").change(function(e){
 		words.push(search);
 		
 		
-		$.get("/JobFair/index.php/job/querySkill?name=" + search, function (data,status) {
+		$.get("/JobFair/index.php/job/querySkill?name=" + encodeURIComponent(search), function (data,status) {
 			var place = data.split(',');
 			var skillname = place[0];
 			var skillid = place[1];
@@ -199,10 +199,10 @@ $(document).delegate('.deletenewskill','click',function(){
 	</ul>
 	<br/>
 	<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-    'name'=>'addskillname',
+        'name'=>'addskillname',
 	'id'=>'addskillname',
 	'source'=>Skillset::getNames(),
-    'htmlOptions'=>array(),)); ?>
+        'htmlOptions'=>array(),)); ?>
     <br>
 
 	

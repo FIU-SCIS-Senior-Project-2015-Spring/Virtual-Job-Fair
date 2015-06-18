@@ -1864,7 +1864,7 @@ matchlab{
 }
 
 /* LIST #4 */
-#list4 { width:750px;font-size: 15pt;
+#list4 { width:100%;font-size: 15pt;
 color: #0088cc;
 font-weight: bold;
 height: 600px;

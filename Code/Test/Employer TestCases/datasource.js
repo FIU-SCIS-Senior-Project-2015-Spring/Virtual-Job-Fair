@@ -13,3 +13,6 @@ passAdmin = "123456"
 
 devUserName = "vjfuser"
 devPassword = "s3n10rpr0j3ct"
+
+empUser10 = "employer10"
+empUserPass = "123456"

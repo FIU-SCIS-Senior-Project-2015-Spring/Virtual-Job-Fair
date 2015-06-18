@@ -103,10 +103,12 @@ $this->breadcrumbs = array(
                                 <lab2>TYPE:</lab2>
                                 <?php echo $form->dropDownList($job,'type',array ('Part Time'=>'Part Time', 'Full Time'=>'Full Time', 'Internship'=>'Internship', 'Co-op'=>'Co-op', 'Research'=>'Research'), array('class'=>'span2')); ?>
                                 <br>
-                                <lab2>COMPENSATION:</lab2> <?php echo $form->textField($job, 'compensation'); ?><br>
+                                <lab2>COMPENSATION: </lab2> <?php echo $form->textField($job, 'compensation'); ?><br>
                             </div>
                             <div style="display:block!important; float:left; margin: 15px;">
-                                <lab2>DESCRIPTION:</lab2> <br><?php echo $form->textArea($job, 'description', array('rows' => 6, 'cols' => 40, 'style' => 'margin: 10px;')); ?><br>
+                                
+                                <?php $job->description = strtr($job->description, array('<br />' => "\r\n" , '<br />' => "\r", '<br />' => "\n")); // parse html from DB to text ?>
+                                <lab2>DESCRIPTION:</lab2> <br><?php echo $form->textArea($job, 'description', array('rows' => 10, 'cols' => 40, 'style' => 'margin: 10px; text-align:left;')); ?><br>
                                 <div style="clear:both;display:block!important "></div>
                                 <p style="margin-left:-330px;">SKILLS:<?php foreach ($job->jobSkillMaps as $jobskill) { ?>
         <?php echo $jobskill->skill->name; ?>

@@ -1100,9 +1100,14 @@ class JobController extends Controller
             $item = $this->xmlToArray($item, $callback, true);}
         return (!is_array($data) && is_callable($callback)) ? call_user_func($callback, $data) : $data;
     }
-
+    // Replace return character by new line html tags
     public function mynl2br($text) {
         return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />'));
+    }
+    
+    // Replace new line html tags by return character
+    public function mybr2nl($text) {
+        return strtr($text, array('<br />' => "\r\n" , '<br />' => "\r", '<br />' => "\n"));
     }
 
     public function actionPost() {
@@ -1112,9 +1117,6 @@ class JobController extends Controller
         if (isset($_POST['Job'])) 
         {
             $data = $_POST['Job'];
-             
-            // Printing in a controller can cause exceptions, don't do it.
-           // print_r($data);
             
             if (!($this->actionVerifyJobPost() == "")) {
                 $this->render('post', array('model' => $model));
@@ -1125,6 +1127,7 @@ class JobController extends Controller
             $model->comp_name = CompanyInfo::getCompanyNamesUser(User::getCurrentUser()->id);
             $model->post_date = date('Y-m-d H:i:s');
             $model->description = $this->mynl2br($_POST['Job']['description']);
+            //$model->description = ($_POST['Job']['description']);
             $model->save(false);
             if (isset($_POST['Skill'])) {
                 $this->actionSaveSkills($model->id);
@@ -1191,7 +1194,11 @@ class JobController extends Controller
             $model = Job::model()->findByPk($jobid);
             //print "<pre>"; print_r($userid);print "</pre>";return;
             //$model = Job::model()->find("FK_poster=:FK_poster",array(':FK_poster'=>$jobid));
-            $model->attributes = $_POST['Job'];
+            
+            $updatedJob = $_POST['Job'];
+            $updatedJob['description'] = $this->mynl2br($updatedJob['description']);
+
+            $model->attributes = $updatedJob;            
             $model->save(false);
             if (isset($_POST['Skill'])) {
                 $this->actionSaveSkills($model->id);
@@ -1632,27 +1639,25 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
     
     // This function clone any Job Posting
     public function actionCloneJobPosting(){ 
-       
-        $jobid = $_GET['jobid'];
+               
         // Check if we can clone an existing Job
         if(isset($_GET['jobid'])){
-        
+            $jobid = $_GET['jobid'];
         // Cloning the data from the existing post by its ID 
-           $oldJob = Job::model()->findByPk($jobid);
-           $jobCloned = new Job;
-           $jobCloned->attributes = $oldJob->attributes;
+            $oldJob = Job::model()->findByPk($jobid);
+            $jobCloned = new Job;
+            $jobCloned->attributes = $oldJob->attributes;
            
         // Display a message if we cannot find the job id
-           if ($jobCloned == null){                       
+            if ($jobCloned == null){                       
                 $this->render('JobInvalid');            
-           } 
-           $jobCloned->id = NULL; // Set the id to NULL to be able to insert new record
-           $this->render('post', array('model' => $jobCloned));             
+            } 
+            $jobCloned->id = NULL; // Set the id to NULL to be able to insert new record
+            $this->render('post', array('model' => $jobCloned));             
         } else { 
             $this->render('JobInvalid');
             return;
-        }
-               
+        }               
     }
 
 
