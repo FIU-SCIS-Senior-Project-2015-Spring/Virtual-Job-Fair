@@ -1645,8 +1645,10 @@ $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
             $jobid = $_GET['jobid'];
         // Cloning the data from the existing post by its ID 
             $oldJob = Job::model()->findByPk($jobid);
+            
             $jobCloned = new Job;
             $jobCloned->attributes = $oldJob->attributes;
+            $jobCloned->description = $this->mybr2nl($oldJob->description);
            
         // Display a message if we cannot find the job id
             if ($jobCloned == null){                       
