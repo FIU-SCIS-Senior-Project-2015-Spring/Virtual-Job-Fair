@@ -204,11 +204,33 @@
 
         <?php
             // Rene: Profile Completion Progress bar graph.
-            echo 'Profile Completion Graph';
-            echo '<span title="'. $incompleteComponents .'"> <div span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div> </span>';
-        ?>
+            //echo 'Profile Completion Graph';
+            //echo '<span title="'. $incompleteComponents .'"> <div span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div> </span>';
+
+            echo '<div>Profile Completion Graph</div>';
+            echo '<div id="box" span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+            $pending = explode(",", $incompleteComponents);                    
+                    
+            echo '<div id="incomplete-box"><ul>';
+                    
+            foreach ($pending as $key=>$value)             
+                echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
+                   
+            echo '</ul></div>';
+
+         ?> 
 
         </div>
+    
+        <script>
+            // Toggle for the pending notice of the profile completion graph.
+            $("#box").hover(function()
+            {
+                $("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
+                $("#incomplete-box").toggle();
+            });
+
+        </script>
 
     <?php $this->endWidget(); ?>
 

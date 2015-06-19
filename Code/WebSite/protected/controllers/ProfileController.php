@@ -71,7 +71,7 @@ class ProfileController extends Controller
         // Free points for creating an account.
         $profileCompStatus = 1;
         
-        $MAX = 9; // The maximum number of points you can get.
+        $MAX = 11; // The maximum number of points you can get.
 
         
         if(isset($vidResume) && $vidResume->video_path != null)
@@ -119,6 +119,7 @@ class ProfileController extends Controller
             $allFieldsFilled = true;
             
             $userModel->basicInfo->smsCode = 'ignore';
+            $userModel->basicInfo->hide_phone = 'ignore';
             
             // Check all fields of the basicInfo.
             foreach($userModel->basicInfo as $key => $value) 

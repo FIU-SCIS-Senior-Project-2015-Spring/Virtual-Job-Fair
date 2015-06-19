@@ -29,6 +29,8 @@
                         $("#tabpage_1").html($("#profile<?php echo $i ?>").html());
                         $("#tabpage_2").html($("#resume<?php echo $i ?>").html());
                         $("#tabpage_3").html($("#videoresume<?php echo $i ?>").html());
+                        $("#tabpage_4").html($("#coverLetter<?php echo $i ?>").html());
+                        
                         $("#tabHeader_1").trigger("click");
                     });
                     $("#handshake<?php echo $i ?>").click(function(e) {
@@ -202,6 +204,25 @@
                                 </div><!-- End Skills -->
                             </div>
                         </div>
+                        
+                        <div id="coverLetter<?php echo $i ?>" style="display: none;">
+                            <?php
+                                $coverLetter;// = $student->coverLetter;
+                                if(isset($coverLetter))
+                                {
+                                    $link; //= 'http://' . Yii::app()->request->getServerName() . '/' . $resume->resume;
+                                    ?>
+
+                                    <iframe src="http://docs.google.com/gview?url=<?php echo $link ?>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
+                                    <?php
+                                }
+                                
+                                else
+                                    echo 'No cover letter yet!';
+                             
+                                ?>
+                        </div>
+                        
                         <div id="resume<?php echo $i ?>" style="display: none;">
                             <?php
                             $resume = $student->resume;
@@ -215,9 +236,8 @@
                                 <?php
                             }
                             else
-                            {
-                                echo 'No Resume Uploaded Yet!';
-                            }
+                                echo 'No PDF resume uploaded yet!';
+                            
                             ?>
 
                         </div>
@@ -250,9 +270,12 @@
             <div id="tabContainer">
                 <div class="tabs">
                     <ul>
+                        <!-- The order of the tabs. -->
                         <li id="tabHeader_1">Profile</li>
+                        <li id="tabHeader_4">Cover Letter</li>
                         <li id="tabHeader_2">Resume</li>
                         <li id="tabHeader_3">Video Resume</li>
+                        
                     </ul>
                 </div>
                 <div id="tabsContent">
@@ -261,6 +284,8 @@
                     <div class="tabpage" id="tabpage_2">
                     </div>
                     <div class="tabpage" id="tabpage_3"> 
+                    </div>
+                    <div class="tabpage" id="tabpage_4">
                     </div>
                 </div>
                 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tabs.js"></script>

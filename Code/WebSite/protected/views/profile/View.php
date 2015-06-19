@@ -396,19 +396,22 @@
                     
                     echo '<div id="incomplete-box"><ul>';
                     
-                    foreach ($pending as $key=>$value){                       
-                            echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
-                    }
+                    foreach ($pending as $key=>$value)             
+                        echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
+                   
                     echo '</ul></div>';
 
                     ?> 
             </div>
             
             <script>
-                $("#box").on("mouseover",function(){
-                    $("#incomplete-box:contains('Profile Completed!')").css("color","green");                    
+                // Toggle for the pending notice of the profile completion graph.
+                $("#box").hover(function()
+                {
+                    $("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
                     $("#incomplete-box").toggle();
                 });
+
             </script>
                 
                 
