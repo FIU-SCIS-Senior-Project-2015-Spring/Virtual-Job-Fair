@@ -2,6 +2,8 @@
 
 class ProfileController extends Controller 
 {
+    // Keeps track of the missing components in the profile.
+    private $incompleteComponents = '';
     
     /**
      * The function that is responsible for displaying the student's profile
@@ -48,8 +50,12 @@ class ProfileController extends Controller
         if (!isset($user->basicInfo))
             $user->basicInfo = new BasicInfo;
   
+        // Check if profile completion message is empty.
+        if($this->incompleteComponents == '')
+            $this->incompleteComponents = 'Profile Completed!';
+        
         // Send what will be rendered.
-        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus));
+        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus, 'incompleteComponents' => $this->incompleteComponents));
     }
 
     /**
@@ -71,21 +77,40 @@ class ProfileController extends Controller
         if(isset($vidResume) && $vidResume->video_path != null)
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('Video Resume');
+            
+        
         if(isset($resume) && $resume->resume != null)
             $profileCompStatus++;
+           
+        else
+            $this->setIncompleteProfileComponents('PDF Resume');
         
         if(isset($userModel->linkedinid))
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('LinkedIn Sync');
+        
         if(isset($userModel->googleid))
             $profileCompStatus++;
+        
+        else
+            $this->setIncompleteProfileComponents('Google Sync');
         
         if(isset($userModel->fiucsid))
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('FIU Sync');
+        
         // Check if user has an unique profile picture.
         if($userModel->image_url != '/JobFair/images/profileimages/user-default.png')
             $profileCompStatus++;
+        
+        else
+            $this->setIncompleteProfileComponents('Profile Image');
         
         
         // Check basicInfo.
@@ -93,8 +118,7 @@ class ProfileController extends Controller
         {
             $allFieldsFilled = true;
             
-           // $userModel->basicInfo->hide_phone = '1';
-        
+            $userModel->basicInfo->smsCode = 'ignore';
             
             // Check all fields of the basicInfo.
             foreach($userModel->basicInfo as $key => $value) 
@@ -103,25 +127,39 @@ class ProfileController extends Controller
                 if(!isset($value) || $value == '') 
                 {
                     $allFieldsFilled = false;
+                    $this->setIncompleteProfileComponents('Basic info');
                     break;
                 }
             }
             
             if($allFieldsFilled) // All the Company fields are filled.
                 $profileCompStatus++;
-            
-            //$userModel->basicInfo->hide_phone = '';
-       
-
         }
         
         // Find user skills.
         if(StudentSkillMap::model()->exists('userid = :userid', array('userid' => $userModel->id)))
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('Skills');
+        
+        // Check education.
+        if(Education::model()->exists('FK_user_id = :FK_user_id', array('FK_user_id' => $userModel->id)))
+            $profileCompStatus++;
+        
+        else
+            $this->setIncompleteProfileComponents('Education');
+        
+        if(Experience::model()->exists('FK_userid = :FK_userid', array('FK_userid' => $userModel->id)))
+            $profileCompStatus++;
+        
+        else
+            $this->setIncompleteProfileComponents('Experience');
         
         return intval($profileCompStatus * 100.0 / $MAX);
     }
+    
+   
     
     /**
      * The function that is responsible for displaying the employer's profile
@@ -147,8 +185,12 @@ class ProfileController extends Controller
         if (!isset($user->companyInfo))
             $user->companyInfo = new CompanyInfo;
 
+        // Check if profile completion message is empty.
+        if($this->incompleteComponents == '')
+            $this->incompleteComponents = 'Profile Completed!';
+            
         // What will be rendered.
-        $this->render('ViewEmployer', array('user' => $user, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus));
+        $this->render('ViewEmployer', array('user' => $user, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus, 'incompleteComponents' => $this->incompleteComponents));
     }
     
     /**
@@ -171,25 +213,34 @@ class ProfileController extends Controller
         if($userModel->image_url != '/JobFair/images/profileimages/user-default.png')
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('Profile picture');
+            
+        
         // Check basicInfo.
         if(isset($userModel->basicInfo))
         {
             $allFieldsFilled = true;
             
+            $userModel->basicInfo->zip_code = 'ignore';
+            $userModel->basicInfo->smsCode = 'ignore';
+            
             // Check all fields of the basicInfo.
             foreach($userModel->basicInfo as $key => $value) 
             {
                 // Check that value is not empty and ignore `street2`.
-                if(empty($value)) // smsCode
+                if(!isset($value) || $value == '') // smsCode
                 {
                     $allFieldsFilled = false;
+                    $this->setIncompleteProfileComponents('Basic info');
                     break;
                 }
             }
             
             if($allFieldsFilled) // All the Company fields are filled.
                 $profileCompStatus++;
-
+            
+            $userModel->basicInfo->zip_code = '';
         }
         
         // Check company info.
@@ -204,9 +255,10 @@ class ProfileController extends Controller
             foreach($userModel->companyInfo as $key => $value) 
             {
                 // Check that value is not empty and ignore `street2`.
-                if(empty($value)) //&& $value != $userModel->companyInfo->street2) 
+                if(!isset($value) || $value == '') //&& $value != $userModel->companyInfo->street2) 
                 {
                     $allFieldsFilled = false;
+                    $this->setIncompleteProfileComponents('Company info');
                     break;
                 }
             }
@@ -223,10 +275,28 @@ class ProfileController extends Controller
         if(Job::model()->exists('FK_poster = :FK_poster', array('FK_poster' => $userModel->id)))
             $profileCompStatus++;
         
+        else
+            $this->setIncompleteProfileComponents('Jobs');
         
         return intval($profileCompStatus * 100.0 / $MAX);
+        
     }
 
+    /**
+     * Appends missing components to the incompleteComponents string.
+     * @param type $componentName The component that is missing.
+     */
+    private function setIncompleteProfileComponents($componentName)
+    {
+        // Check if it is the first element.
+        if(empty($this->incompleteComponents))
+            $this->incompleteComponents .= 'Missing: ' . $componentName;
+            
+        else
+            $this->incompleteComponents .= ', ' . $componentName;
+        
+    }
+    
     
     public function actionVideoEmployer() 
     {

@@ -4,7 +4,11 @@
     require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
 
     $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
+    
+
 ?>
+
+
 
 <!--
 <head>
@@ -380,13 +384,12 @@
 
                 <?php echo CHtml::activeFileField($user, 'image_url', array('style' => 'display: none;')); ?>  
             
-                <p </p>
-                <p </p>
-                <?php echo 'Profile Completion';?>
-                
+                <br>
+                <br>
                 <?php 
                     // Rene: Profile Completion Progress bar graph.
-                    echo '<div class="progress progress-success progress-striped active"> <div class="bar" style="width:'.$profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span> </div> </div>';
+                    echo 'Profile Completion Graph';
+                    echo '<span title="'. $incompleteComponents .'"> <div span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div> </span>';
                     ?>
             </div>
 

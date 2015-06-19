@@ -8,6 +8,10 @@
     // the employer.
     
     $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
+    
+    
+        
+   // echo $incompleteProfile;
 ?>
 
 
@@ -200,8 +204,8 @@
 
         <?php
             // Rene: Profile Completion Progress bar graph.
-            echo 'Profile Completion';
-            echo '<div class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span> </div> </div>';
+            echo 'Profile Completion Graph';
+            echo '<span title="'. $incompleteComponents .'"> <div span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div> </span>';
         ?>
 
         </div>
@@ -322,6 +326,7 @@
                             <?php } ?>
     <?php } ?>
                 </div>
+                
                 <hr>
                 <p>Select email frequency</p>
                 <?php
@@ -383,10 +388,10 @@
 
     <?php $this->endWidget(); ?>
 
-    </div> 
+        <br>
     <div style="clear:one"></div>
 
-    <div class="companyjobs" style="float:right; margin-top:-40px;">
+    <div class="companyjobs" style="float:right; margin-top:20px;">
 
         <div class="titlebox">COMPANY JOBS</div>
         <p><a href="/JobFair/index.php/job/post" id="postJob" class="editbox"><img src='/JobFair/images/ico/add.gif'"/></a></p>
