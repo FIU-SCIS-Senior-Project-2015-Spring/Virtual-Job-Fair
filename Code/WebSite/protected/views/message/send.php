@@ -9,6 +9,7 @@ $js->registerScriptFile(Yii::app()->theme->baseUrl . '/js/autocomplete/autocompl
 ?>
 
 <?php
+
 $this->breadcrumbs = array(
     'Message' => array('/message'),
     'Send',
@@ -16,6 +17,20 @@ $this->breadcrumbs = array(
 ?>
 
 <script>
+    
+    $.getJSON("/JobFair/index.php/message/getInbox", function (data) {      
+        var unreadMsg = 0;
+        for (var i = 0; i < data.length; i++)
+        {
+            var message = data[i];
+            if (message.been_read == 0)
+            {
+                $("#" + message.id).css("font-weight", "bold");
+                unreadMsg++;                                
+            }                             
+        } 
+        $("#inbox-badge").text(unreadMsg);
+    });
 
     function validateForm()
     {
@@ -107,7 +122,7 @@ $this->breadcrumbs = array(
                 <div class="span2">
                     <ul class="nav nav-pills nav-stacked" role="navigation">
                         <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
-                        <li id="inbox-option" class="active"><a href="/JobFair/index.php/message"><i class="fa fa-inbox fa-lg"></i> Inbox</a></li>
+                        <li id="inbox-option" class="active"><a href="/JobFair/index.php/message"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a></li>
                         <li id ="sent-option" class="active"><a href="/JobFair/index.php/message?target=sent"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
                         <li id="trash-option" class="active"><a href="/JobFair/index.php/message?target=trash"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
                     </ul>                        
@@ -173,7 +188,7 @@ $this->breadcrumbs = array(
     </div>
   
 <script>
-    $(document).ready(function(){
+/*    $(document).ready(function(){
         $('li.active').click(function(){            
                 $('.active').each(fuction(){
                     $(this).removeClass("active");
@@ -181,6 +196,6 @@ $this->breadcrumbs = array(
                 });
                 $(this).addClass("active");
         }); 
-    });    
+    });*/    
 </script>
     

@@ -32,15 +32,16 @@ $this->breadcrumbs = array(
 
         $(".option-selection").css("cursor", "pointer");
         $("#inbox-option").click(function () {
-
+            
+            var unreadMsg = 0;
             $("#delete_messages_forever").hide();
             $("#recover_messages").hide();
             $("#message-content").css("background-color", "#FAFAFA");
             $("#message-content").empty();
             $("#message-content").append("<img class='img-spinner' src='/JobFair/images/ico/ajax-loader.gif' alt='Loading'/>");
-            $("#delete_messages").show()
+            $("#delete_messages").show();
             //$('.tooltipster').tooltipster({position: 'bottom'});
-
+            
             $.getJSON("/JobFair/index.php/message/getInbox",
                     function (data) {
 
@@ -58,10 +59,10 @@ $this->breadcrumbs = array(
                             if (message.been_read == 0)
                             {
                                 $("#" + message.id).css("font-weight", "bold");
+                                unreadMsg++;                                
                             }
-
-                        }
-
+                        }                        
+                        $("#inbox-badge").text(unreadMsg);
 
                         $(".aMessage").click(function () {
 
@@ -388,7 +389,7 @@ $this->breadcrumbs = array(
             <div id="options" class="span2 pull-left">
                 <ul class="nav nav-pills nav-stacked divider-vertical" role="navigation">
                     <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
-                    <li id="inbox-option" class="active"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox </a></li>
+                    <li id="inbox-option" class="active"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a> </li>
                     <li id ="sent-option" class="active"><a href="#"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
                     <li id="trash-option" class="active"><a href="#"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
                 </ul>
