@@ -287,7 +287,11 @@ class SMSController extends Controller
 		$token = "15871d8b55c402145f12c77dd7525644";
 		$client = new Services_Twilio($sid, $token);
 			
-		$client->account->messages->sendMessage("+17863017621", "+1".$info->phone  ,$msg );
+                
+                
+		$client->account->sms_messages->create("+17863017621", "+1".$info->phone  ,$msg );
+                //$client->account->sms_messages->create("+17863017621", "+1".$info->phone  ,$msg );
+                
 		spl_autoload_register(array('YiiBase','autoload'));
 		
 		echo "";
