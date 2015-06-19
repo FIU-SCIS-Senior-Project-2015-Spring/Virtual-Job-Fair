@@ -290,10 +290,10 @@ class ProfileController extends Controller
     {
         // Check if it is the first element.
         if(empty($this->incompleteComponents))
-            $this->incompleteComponents .= 'Missing: ' . $componentName;
+            $this->incompleteComponents .= '<strong><h5>Pending:</h5></strong>'.$componentName;
             
         else
-            $this->incompleteComponents .= ', ' . $componentName;
+            $this->incompleteComponents .= ',' . $componentName;
         
     }
     

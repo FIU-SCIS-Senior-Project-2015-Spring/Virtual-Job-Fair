@@ -2020,5 +2020,21 @@ padding-left: 40px;
     color: #0088cc;
 }
 
-
-
+#incomplete-box{
+    display: none;
+    position:absolute;
+    text-align: left;
+    margin-top: -20px;
+    margin-left: 90px;
+    background: white;
+    color: #FC5757;
+    border: 2px solid #E7E3E3;
+    border-radius: 0px 0px 7px 7px;
+    padding: 5px;
+    z-index: 999;
+}
+#incomplete-box ul{
+    margin: 0px;
+    list-style-type: none;
+    padding: 3px;
+}

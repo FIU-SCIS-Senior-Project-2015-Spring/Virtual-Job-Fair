@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 <?php
     /* this ProfileController */
 
@@ -388,11 +390,28 @@
                 <br>
                 <?php 
                     // Rene: Profile Completion Progress bar graph.
-                    echo 'Profile Completion Graph';
-                    echo '<span title="'. $incompleteComponents .'"> <div span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div> </span>';
-                    ?>
-            </div>
+                    echo '<div>Profile Completion Graph</div>';
+                    echo '<div id="box" span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+                    $pending = explode(",", $incompleteComponents);                    
+                    
+                    echo '<div id="incomplete-box"><ul>';
+                    
+                    foreach ($pending as $key=>$value){                       
+                            echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
+                    }
+                    echo '</ul></div>';
 
+                    ?> 
+            </div>
+            
+            <script>
+                $("#box").on("mouseover",function(){
+                    $("#incomplete-box:contains('Profile Completed!')").css("color","green");                    
+                    $("#incomplete-box").toggle();
+                });
+            </script>
+                
+                
             <?php $this->endWidget(); ?>
             
             <?php
