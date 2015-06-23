@@ -82,10 +82,16 @@ $this->breadcrumbs = array(
                                     overflow-y: auto;
                                     display: block !important;
                                     background-color: rgb(245, 245, 245);"><?php
-                                    foreach ($apps as $app) {
-                                        $auser = User::model()->findByAttributes(array('id' => $app->userid));
+                                    $profImage="";
+                                    foreach ($apps as $app) {                         
+                                        $auser = User::model()->findByAttributes(array('id' => $app->userid));                                        
+                                        //if(file_exists($profImage)){            
+                                            $profImage = '/JobFair/images/profileimages/'.$auser->username.'avatar.jpg';                                            
+                                        //} else {
+                                        //    $profImage = '/JobFair/images/profileimages/user-default.png'; 
+                                        //}
                                         ?>
-                                        <a class="applicants" href="/JobFair/index.php/profile/student/user/<?php echo $auser->username; ?>" target="_blank" > <img src='/JobFair/images/imgs/user-default.png' height="20" width="20"/> <?php echo $auser->first_name . " " . $auser->last_name ?></a>
+                                <a class="applicants" href="/JobFair/index.php/profile/student/user/<?php echo $auser->username; ?>" target="_blank" > <img src="<?php echo $profImage;?>" height="20" width="20"/> <?php echo $auser->first_name . " " . $auser->last_name ?></a>
 
                                     <?php
                                 }

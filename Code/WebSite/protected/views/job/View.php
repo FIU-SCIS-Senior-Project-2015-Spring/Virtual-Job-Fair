@@ -76,9 +76,17 @@ $user = User::getCurrentUser();
 	<div class="titlebox">APPLICANTS</div>
 	<div style=clear:both></div>
 	<br>
-	<?php foreach ($job->applications as $application) {?>
-		<?php $applicant = User::getUser($application->userid);?>
-		<a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src='/JobFair/images/imgs/user-default.png' height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
+	<?php 
+        $profImage="";
+        foreach ($job->applications as $application) {?>                
+		<?php $applicant = User::getUser($application->userid);                    
+                //f(file_exists('/JobFair/images/profileimages/'.$applicant->username.'avatar.jpg')){
+                       $profImage = '/JobFair/images/profileimages/'.$applicant->username.'avatar.jpg';
+                   //} //else {
+                      //  $profImage = '/JobFair/images/profileimages/user-default.png'; 
+                    //}
+                ?>
+                <a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src="<?php echo $profImage;?>" height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
 	<?php }?>
 	</div>
 	<br/>
@@ -109,6 +117,7 @@ $user = User::getCurrentUser();
 
 <div id="jobInfo">
 <div class="titlebox">JOB INFO.</div>
+
 <name><?php echo $job->title?></name><br>
 <?php 
 $postdate = strtotime($job->post_date);
@@ -127,31 +136,44 @@ $deadline = strtotime($job->deadline);
 <jobdetail>DESCRIPTION:</jobdetail> <br>
 <p style="margin-left: 10px;"><?php echo $job->description; ?></p>
 
-
-
 <div style=clear:both></div>
 </div>
 </div>
-
-		<div id="rightside" style="margin-top: 20px;
+		<div id="rightside" style="margin-top: 20px;                     
 		border-left: 1px solid #eeeeee;
+                color:red;
 		padding-top: 10px;
 		padding-left: 10px;
 		height: 150px;
 		width: 150px;">
-<?php if (User::isCurrentUserStudent()) {?>
-	<div id="application" style="text-align:center">
-	<?php if (Application::hasApplied($job->id)) {?>
-		<p>You have already applied</p>
-	<?php } elseif ($job->active) {?>
-	<?php //href="/JobFair/index.php/Job/Apply/jobid/<?php echo $job->id?>
-<!--		<a id="applybutton" class="btn btn-primary" > Apply</a>-->
-	<?php } else {?>
-		<p>This posting is closed</p>
+<?php 
+    // Display the apply button to students for active jobs only.
+    if(User::isCurrentUserStudent() && $job->active){
+        if(Application::hasApplied($job->id)){
+            echo '<h4>You have already applied for this job.</h4>';
+        } else {
+            echo '<form method="get" action="/JobFair/index.php/Job/Apply/jobid/'.$job->id.'">';
+            echo '<input type="hidden" name="applicantID" value="'.$job->id.'"></br>';
+            echo '<input type="hidden" name="applicantID" value="'.User::getCurrentUser()->id.'"></br>';
+            echo '<input type="hidden" name="applicantUsername" value="'.User::getCurrentUser()->username.'"></br>';
+            echo '<button type="submit" class="btn btn-primary" name="apply" id="apply-btn"> Apply </button>';
+            echo '</form>';
+        }    
+    }        
+    ?>                       
+<?php //if (User::isCurrentUserStudent()) {?>
+	<!-- <div id="application" style="text-align:center"> -->
+	<?php //if (Application::hasApplied($job->id)) {?>
+		<!-- <p>You have already applied</p> -->
+	<?php // } elseif ($job->active) {?>
+	<?php //href="/JobFair/index.php/Job/Apply/jobid/<?php echo $job->id;?>
+		<!-- <a id="applybutton" class="btn btn-primary" > Apply</a> -->
+	<?php // } else {?>
+		<!-- <p>This posting is closed</p> -->
 		<?php //echo Yii::app()->getBaseUrl(true);?>
-	<?php }?>
-	</div>
-<?php }?>
+	<?php// }?>
+	<!-- </div> -->
+<?php //}?>
 
 <?php if (($user != null) && ($job->FK_poster == $user->id)) {?>
 	<?php if ($job->active) {?>
@@ -161,6 +183,8 @@ $deadline = strtotime($job->deadline);
 	<?php } ?>
 
 <?php }?>
+                
+                
 </div>
 
 </div>
