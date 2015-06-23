@@ -77,6 +77,7 @@
         {
             $i ++;
             ?>
+                
                     <div class="studentmatchbox" id="student<?php echo $i; ?>">
                         <div class="matchLeftSide">
                             <div class="matchProfileImage">
@@ -139,23 +140,37 @@
                         <div id="profile<?php echo $i ?>" style="display: none;">
                             <div class="matchProfileLeftSide">
                                 <div class="matchaboutme">
-                                    <?php $basicInfo = $student->basicInfo;
-                                    if ($basicInfo == null) $basicInfo = new BasicInfo; ?>
-                                    <name><?php echo $student->first_name . ' ' . $student->last_name; ?></name>
+                                    <?php 
+                                        $basicInfo = $student->basicInfo;
+                                    
+                                        if($basicInfo == null) 
+                                            $basicInfo = new BasicInfo; 
+                                        ?>
+                                    
+                                    <name>
+                                        <?php echo $student->first_name . ' ' . $student->last_name; 
+                                        ?>
+                                        <br><br>
+                                    </name>
                                     <aboutme>
-                                        <?php echo $basicInfo->about_me ?>
-                                    </aboutme><br>
+                                        <?php 
+                                            echo $basicInfo->about_me 
+                                        ?>
+                                    </aboutme><br><br>
                                     <matchlab>EMAIL:</matchlab> <?php echo $student->email; ?><br/>
                                     <matchlab>LOCATION:</matchlab> <?php echo $basicInfo->city . ', ' . $basicInfo->state; ?><br/>
+                                    
+                                    
                                 </div>
+                                <br><br><br>
                                 <div class="matcheducation">
                                     <div class="titlebox">EDUCATION</div>	
                                     <div style="clear:both"></div>
                                     <?php foreach ($student->educations as $education)
                                     { ?>
                                         <div>
-                                        <?php echo $education->fKSchool->name; ?> <br />
-                <?php echo $education->additional_info; ?><br />
+                                        <?php echo $education->fKSchool->name; ?> <br/>
+                                            <?php echo $education->additional_info; ?><br />
                                             <lab> Graduation:</lab><?php echo formatDate($education->graduation_date); ?> <br/>
                                             <lab> Degree:</lab><?php echo $education->degree; ?> <br/>
                                             <lab> Major:</lab><?php echo $education->major ?> <br/>
@@ -189,6 +204,8 @@
             ?>
                                 </div>
                             </div>
+                            
+                            <br>
                             <div class="matchProfileRightSide">
                                 <div id="skills">
                                     <div class="titlebox">SKILLS</div>

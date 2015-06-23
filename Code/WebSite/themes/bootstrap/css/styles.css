@@ -1685,7 +1685,7 @@ matchlab{
 	margin-top: 10px;
 	margin-bottom:30px;
 	float:left;
-	width:400px; 
+	width:380px; 
 	height:auto;
 	padding:10px;
 	border-width: 1px;
@@ -1708,7 +1708,7 @@ matchlab{
 
 .matchProfileImage{
 	float:left;
-	width:200px; 
+	width:150px; 
 	height:150px;
 	border-width: 1px;
 	border-color:white;
@@ -1720,7 +1720,7 @@ matchlab{
 	font-size:12px;
 }
 .matchProfileImage img{
-	width: 200px;
+	width: 150px;
 	height: 150px;
 }
 .matchboxes{
@@ -1747,6 +1747,8 @@ matchlab{
 	width:450px;
 }
 .matchProfileRightSide{
+    position:relative;
+    right: -20px;
 	float:right;
 	width:200px;
 }
