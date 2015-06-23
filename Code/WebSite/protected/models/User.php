@@ -272,6 +272,56 @@
         {
             $id = $this->id;
 
+            // Delete Cover Letter.
+            $coverletter = CoverLetter::model()->findByPk($id);
+            if(isset($coverletter))
+            {
+                $path = $coverletter->file_path;
+            
+                // Check if file exists before trying to delete it.
+                if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
+                    unlink(Yii::app()->basePath.'/..'.substr($path, 8));
+                
+                $coverletter->delete();
+            }
+        
+            // Delete Resume.
+            $resume = Resume::model()->findByPk($id);
+            if(isset($resume))
+            {
+                // Delete file from system.
+                $path = $resume->resume;
+                
+                if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
+                    unlink(Yii::app()->basePath.'/..'.substr($path, 8));
+                
+                $resume->delete();
+            }
+            
+            // Delete Video Resume.
+            $vidResume = VideoResume::model()->findByPk($id);
+            if(isset($vidResume))
+            {
+                // Check if user has a video resume on YouTube.
+                if(!empty($vidResume->video_path))
+                {
+                    include Yii::app()->basePath . '/youtube_subsystem/YouTubeHandler.php';
+                    
+                    // Delete the video resume from youtube.
+                    $yHandler = new YouTubeHandler();
+                    $yHandler->deleteVideo($vidResume);
+                
+                }       
+                
+                $vidResume->delete();
+            }
+            
+            // Profile picture.
+            $profileImagePath = $this->image_url;
+            if(strcmp($profileImagePath, "/JobFair/images/profileimages/user-default.png") != 0 && file_exists(Yii::app()->basePath.'/..'.substr($profileImagePath, 8)))
+                unlink(Yii::app()->basePath.'/..'.substr($profileImagePath, 8));
+            
+            
             // delete basic info mappings
             $basic_info = BasicInfo::model()->findByAttributes(array('userid' => $id));
             if (isset($basic_info))
