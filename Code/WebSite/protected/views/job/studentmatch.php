@@ -268,22 +268,26 @@
                         </div>
                     </div>
         <?php } ?>
+                  
             </div>
         </div>
+         
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <div class="matchprofile">
             <div id="tabContainer">
                 <div class="tabs">
                     <ul>
+
                         <!-- The order of the tabs. -->
-                        <li id="tabHeader_1">Profile</li>
-                        <li id="tabHeader_4">Cover Letter</li>
-                        <li id="tabHeader_2">Resume</li>
-                        <li id="tabHeader_3">Video Resume</li>
+                        <li id="tabHeader_1"> <i class="fa fa-user" > </i> Profile </li>
+                        <li id="tabHeader_4"> <i class="fa fa-file" > </i> Cover Letter </li>
+                        <li id="tabHeader_2"> <i class="fa fa-file-text" > </i> Resume </li>
+                        <li id="tabHeader_3"> <i class="fa fa-play-circle"> </i> Video Resume </li>
                         
                     </ul>
                 </div>
                 <div id="tabsContent">
-                    <div class="tabpage" id="tabpage_1">
+                    <div class="tabpage" id="tabpage_1">    
                     </div>
                     <div class="tabpage" id="tabpage_2">
                     </div>
