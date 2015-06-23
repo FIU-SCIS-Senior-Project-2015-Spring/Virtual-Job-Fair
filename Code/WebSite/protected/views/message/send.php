@@ -121,10 +121,10 @@ $this->breadcrumbs = array(
                 <!-- Left Message menu -->
                 <div class="span2">
                     <ul class="nav nav-pills nav-stacked" role="navigation">
-                        <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
-                        <li id="inbox-option" class="active"><a href="/JobFair/index.php/message"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a></li>
-                        <li id ="sent-option" class="active"><a href="/JobFair/index.php/message?target=sent"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
-                        <li id="trash-option" class="active"><a href="/JobFair/index.php/message?target=trash"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
+                        <li id="compose-box" class="message-btn2"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
+                        <li id="inbox-option" class="message-btn1"><a href="/JobFair/index.php/message"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a></li>
+                        <li id ="sent-option" class="message-btn1"><a href="/JobFair/index.php/message?target=sent"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
+                        <li id="trash-option" class="message-btn1"><a href="/JobFair/index.php/message?target=trash"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
                     </ul>                        
                 </div>
                 <div id="message-content" class="span9">

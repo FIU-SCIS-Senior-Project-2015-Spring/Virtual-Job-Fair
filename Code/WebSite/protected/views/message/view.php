@@ -29,11 +29,17 @@ $this->breadcrumbs = array(
     var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
     $(function () {
-
+        
         $(".option-selection").css("cursor", "pointer");
+        
+        // Inbox Button
         $("#inbox-option").click(function () {
-            
             var unreadMsg = 0;
+            $('.message-btn2').addClass("message-btn1");
+            $('.message-btn1').removeClass("message-btn2");
+            $(this).removeClass("message-btn1");
+            $(this).addClass("message-btn2");
+           
             $("#delete_messages_forever").hide();
             $("#recover_messages").hide();
             $("#message-content").css("background-color", "#FAFAFA");
@@ -109,8 +115,15 @@ $this->breadcrumbs = array(
 
                     });
         });
+        
+        // Sent Button
         $("#sent-option").click(function () {
-
+        
+            $('.message-btn2').addClass("message-btn1");
+            $('.message-btn1').removeClass("message-btn2");
+            $(this).removeClass("message-btn1");
+            $(this).addClass("message-btn2");
+            
             $("#delete_messages_forever").hide();
             $("#recover_messages").hide();
             $("#message-content").css("background-color", "#FAFAFA");
@@ -131,13 +144,9 @@ $this->breadcrumbs = array(
                             $("#message-content").append("<input type='checkbox' class='message_checkbox' id='s_" + message.id
                                     + "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 295px'>"
                                     + message.FK_receiver + "</span>" + "<span style='margin-left:70px'>"
-                                    + message.subject + "</span><span class='messageDate'>" + messageDate + "</span></div>");
-                            if (message.been_read == 0)
-                            {
-                                $("#" + message.id).css("font-weight", "bold");
-                            }
-                        }
-
+                                    + message.subject + "</span><span class='messageDate'>" + messageDate + "</span></div>");                            
+                        }                
+                            
                         $(".aMessage").click(function () {
 
                             $("#message-content").css("background-color", "#FFFFFF");
@@ -261,8 +270,15 @@ $this->breadcrumbs = array(
                 });
             }
         });
+        
+        // Trash Button
         $("#trash-option").click(function () {
-
+        
+            $('.message-btn2').addClass("message-btn1");
+            $('.message-btn1').removeClass("message-btn2");
+            $(this).removeClass("message-btn1");
+            $(this).addClass("message-btn2");
+            
             $("#message-content").css("background-color", "#FAFAFA");
             $("#message-content").empty();
             $("#message-content").append("<img class='img-spinner' src='/JobFair/images/ico/ajax-loader.gif' alt='Loading'/>");
@@ -295,9 +311,13 @@ $this->breadcrumbs = array(
                                         + "'><div class='aMessage' id='" + message.id + "'><span class='message_heading' style = 'width: 300px'>"
                                         + fromSender + "</span>" + "<span style='margin-left:70px'>"
                                         + message.subject + "</span><span class='messageDate'>" + messageDate + "</div>");
+                                if (message.been_read == 0){
+                                    
+                                    $("#" + message.id).css("font-weight", "bold");
+                                }
                             }
 
-
+                            
                             $(".aMessage").click(function () {
 
                                 $("#message-content").css("background-color", "#FFFFFF");
@@ -388,10 +408,10 @@ $this->breadcrumbs = array(
 
             <div id="options" class="span2 pull-left">
                 <ul class="nav nav-pills nav-stacked divider-vertical" role="navigation">
-                    <li id="compose-box" class="active"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
-                    <li id="inbox-option" class="active"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a> </li>
-                    <li id ="sent-option" class="active"><a href="#"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
-                    <li id="trash-option" class="active"><a href="#"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
+                    <li id="compose-box" class="message-btn1"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
+                    <li id="inbox-option" class="message-btn1"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a> </li>
+                    <li id ="sent-option" class="message-btn1"><a href="#"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
+                    <li id="trash-option" class="message-btn1"><a href="#"><i class="fa fa-trash-o fa-lg"></i> Trash</a></li>                       
                 </ul>
             </div>
             <div id="message-content" class="span8">		                   

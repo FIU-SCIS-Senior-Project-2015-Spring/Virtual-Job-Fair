@@ -504,6 +504,22 @@ margin: 0 10px 5px 0;
 	font-size: 12px !important;
 	width: 300px;
 }
+.hometitle a{
+    font-size: 14px;
+    font-weight: bold;  
+    padding: 7px 7px;
+    background: white;
+    color: #0088cc;
+    float: right;    
+    text-decoration: none;
+    border-radius: 5px 5px;
+}
+
+.hometitle a:hover{      
+    color:#0088cc;
+    background: #CEF6F5;
+    text-decoration: none;
+}
 
 
 
@@ -2058,4 +2074,16 @@ padding-left: 40px;
     -webkit-opacity: 1;
     -moz-opacity: 1;
 }
+
+.message-btn1 a {
+  color: white;  
+  background: #08C;
+}
+
+.message-btn2 a {
+  color: white;
+  background: #666;
+}
+
+
 
