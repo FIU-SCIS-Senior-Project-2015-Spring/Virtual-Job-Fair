@@ -726,6 +726,7 @@
 
         public static function replaceMessage($to, $message)
         {
+            try {
             $base = Yii::app()->basePath;
             $base = explode('/', $base);
             array_pop($base);
@@ -739,6 +740,9 @@
             $html = str_replace("%USER%", $to, $html);
             $html = str_replace("%MESSAGE%", $message, $html);
             return $html;
+            } catch (Exception $e){
+                
+            }
         }
 
     }

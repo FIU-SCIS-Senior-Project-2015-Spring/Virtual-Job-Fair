@@ -77,16 +77,10 @@ $user = User::getCurrentUser();
 	<div style=clear:both></div>
 	<br>
 	<?php 
-        $profImage="";
         foreach ($job->applications as $application) {?>                
 		<?php $applicant = User::getUser($application->userid);                    
-                //f(file_exists('/JobFair/images/profileimages/'.$applicant->username.'avatar.jpg')){
-                       $profImage = '/JobFair/images/profileimages/'.$applicant->username.'avatar.jpg';
-                   //} //else {
-                      //  $profImage = '/JobFair/images/profileimages/user-default.png'; 
-                    //}
                 ?>
-                <a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src="<?php echo $profImage;?>" height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
+                <a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src="<?php echo $applicant->image_url;?>" height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
 	<?php }?>
 	</div>
 	<br/>

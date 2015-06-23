@@ -1268,8 +1268,8 @@ class JobController extends Controller
         $message = "The User " . $user->username . " just applied for your job " . $job->title . ". Click here to view his profile";
         $message1 = "$user->username just applied for your job $job->title<br/>$link1";
         $html = User::replaceMessage($poster->username, $message1);
-        // temp commented User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
-        // temp commented User::sendEmail($poster->email, "Virtual Job Fair Application Submitted", "New Application Submitted", $message1);
+        User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
+        User::sendEmail($poster->email, "Virtual Job Fair Application Submitted", "New Application Submitted", $message1);
         //User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
         $this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
     }
