@@ -865,10 +865,8 @@ class ProfileController extends Controller
 
     public function actionStudent() {
 
-        if (isset($_GET['user'])) {
+        if (isset($_GET['user']))
             $username = $_GET['user'];
-        }
-
 
         $model = User::model()->find("username=:username", array(':username' => $username));
         if ((User::isCurrentUserStudent() && ($model->username != User::getCurrentUser()->username)) || ($model == null) || (Yii::app()->user->isGuest)) {
@@ -876,11 +874,12 @@ class ProfileController extends Controller
             return;
         }
         $videoresume = VideoResume::model()->findByPk($model->id);
+        
         $this->render('student', array('user' => $model, 'videoresume' => $videoresume,));
     }
 
-    public function actionEmployer() {
-
+    public function actionEmployer() 
+    {
         if (isset($_GET['user'])) {
             $username = $_GET['user'];
         }
