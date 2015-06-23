@@ -563,7 +563,7 @@
             <div id="menutools">
                 <div class="titlebox">DOCUMENTS</div><br><br>
                 
-                <p><a href="#" id="editCoverLetter" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadCoverLetter()"/></a></p>
+                <p><a href="#" id="editCoverLetter" class="editbox"><img title="Upload Cover Letter" style="position:relative; right:10px;" src='/JobFair/images/ico/add.png' onclick="uploadCoverLetter()"/></a></p>
                 
                 <?php
                     // Cover letter.
@@ -589,7 +589,7 @@
                 <br>
                 
                 
-                <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()" /></a></p>
+                <p><a href="#" id="editResume" class="editbox"><img title="Upload Resume" style="position:relative; right:10px;" src='/JobFair/images/ico/add.png' onclick="uploadresume()" /></a></p>
 
 
                 <?php
