@@ -95,10 +95,17 @@
         });
     }
 
-    // Helper function to get the image extension.
-    function endWith(str, suffix)
-    {
-        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    /** 
+     * Rene: Helper function to get the extension of a file.
+     * Checks file formats. No need to check for upper or lower cases anymore.
+     */ 
+    function endWith(str, suffix) 
+    {            
+        // Upper case to cover examples such as: pdf and PDF.
+        strUpperCase = str.toUpperCase();
+        suffixUpperCase = suffix.toUpperCase();
+            
+        return strUpperCase.indexOf(suffixUpperCase, str.length - suffix.length) !== -1;
     }
 
     // Code for uploading a profile picture.
@@ -111,7 +118,7 @@
             var imageExt = document.getElementById("User_image_url").value;
 
             // Check for valid picture type.
-            if(endWith(imageExt, 'JPG') || endWith(imageExt, 'jpg') || endWith(imageExt, 'PNG') || endWith(imageExt, 'png'))
+            if(endWith(imageExt, 'jpg') || endWith(imageExt, 'png'))
                 document.getElementById("user-uploadPicture-form").submit();
 
             else
@@ -173,6 +180,12 @@
             $("#myonoffswitch_1").val(data["status"]);
         });
     }
+    
+    // Rene: Change profile css only once. This is to avoid extra computation.
+    function changeProfileCompCSS()
+    {
+        $("#incomplete-box").css("color","#14BA14").css("background", "white"); 
+    }
 
 
 </script>
@@ -218,6 +231,10 @@
                 echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
                    
             echo '</ul></div>';
+            
+            // Changes the CSS if needed.
+            if($profileCompStatus == 100)
+                echo '<script> changeProfileCompCSS(); </script>';
 
          ?> 
 
@@ -227,7 +244,7 @@
             // Toggle for the pending notice of the profile completion graph.
             $("#box").hover(function()
             {
-                $("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
+                //$("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
                 $("#incomplete-box").toggle();
             });
 
@@ -299,9 +316,10 @@
             $checked = 'checked';
     }
 ?>
+            <!-- Receive notifications from students. -->
             <div style="overflow: hidden;">
-                <div style="float: left;">Email Student Notifications:</div>
-                <div style="margin-left: 130px;" class="onoffswitch">
+                <div style="float: left;">Get Student Notifications:</div>
+                <div style="margin-left: 140px;" class="onoffswitch">
                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
                     <label class="onoffswitch-label" for="myonoffswitch">
                         <span class="onoffswitch-inner"></span>
@@ -311,7 +329,7 @@
             </div>
             <div style="overflow: hidden;">
                 <div style="float: left;">Looking For Student:</div>
-                <div style="margin-left: 130px;" class="onoffswitch">
+                <div style="margin-left: 140px;" class="onoffswitch">
                     <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $looking_for_job; ?>' id="myonoffswitch_1" <?php echo $checked_lfj; ?> onclick="toggleLookingForJob()">
                     <label class="onoffswitch-label" for="myonoffswitch_1">
                         <span class="onoffswitch-inner"></span>

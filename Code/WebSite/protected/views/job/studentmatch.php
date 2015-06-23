@@ -65,8 +65,10 @@
 
         <p class="notice">
             Take a look at some students who have matched with your job skills. Consider giving them a "Virtual Handshake", which sends an email notification that shows you would like for them to apply to this job.
+           
         </p>
 
+         <br>
         <div style="float:left;">
             <div class="matchboxes" id="matchboxes">
         <?php
@@ -207,10 +209,12 @@
                         
                         <div id="coverLetter<?php echo $i ?>" style="display: none;">
                             <?php
-                                $coverLetter;// = $student->coverLetter;
-                                if(isset($coverLetter))
+                                $coverletter = $student->coverletter;
+                                if(isset($coverletter))
                                 {
-                                    $link; //= 'http://' . Yii::app()->request->getServerName() . '/' . $resume->resume;
+                                 //   CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'))
+                                    
+                                    $link = 'http://' . Yii::app()->request->getServerName() . '/' . $coverletter->file_path;
                                     ?>
 
                                     <iframe src="http://docs.google.com/gview?url=<?php echo $link ?>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>

@@ -1106,6 +1106,9 @@
             $this->render('auth1');
         }
 
+        /*
+         * Get notifications. These are not actually emails, just  system notifications.
+         */
         public function actionToggleEmailMatch()
         {
             // print_r("its getting here");

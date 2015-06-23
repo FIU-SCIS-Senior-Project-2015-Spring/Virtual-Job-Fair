@@ -1397,10 +1397,13 @@ class JobController extends Controller
                 $sender = User::model()->findByPk($job->FK_poster);
                 $message = "Hi " . $student->username . ", the company " . $sender->username . " just posted a job " . $job->title . " that matches your skills";
                 User::sendStudentNotificationMatchJobAlart($sender->id, $student->id, $link, $message);
-                //SEND EMAIL NOTIFICATION
+                
+                // SEND EMAIL NOTIFICATION
+                // TODO.
+
             }
         }
-        //return;
+
 
         $this->render('studentmatch', array('students' => $students));
     }

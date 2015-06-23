@@ -118,6 +118,24 @@
             $vidresume->save(true);
         }
 
+        
+        /**
+         * Stores the videoresume data on the database.
+         * @param type $videoresume A Video Resume Model.
+         * @param type $userID The User ID.
+         * @param type $videoID The youtube video ID.
+         */
+        function storeVideoPath($videoresume, $userID, $videoID)
+        {
+            if(!isset($videoresume))
+                return;
+            
+            // Save the video to the model VideoResume
+            $videoresume->id = $userID;
+            $videoresume->video_path = $videoID['id'];
+            $videoresume->save(true);            
+        }
+        
         /*
          * [Deprecated] Returns video frame as a string that can be 'echo' to show it.
          */

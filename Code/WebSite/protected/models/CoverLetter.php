@@ -1,21 +1,21 @@
 <?php
 
     /**
-     * This is the model class for table "video_resume".
+     * This is the model class for table "cover_letter".
      *
-     * The followings are the available columns in table 'video_resume':
+     * The followings are the available columns in table 'cover_letter':
      * @property integer $id
-     * @property string $video_path
+     * @property string $file_path
      * 
      * @author Rene Alfonso
      */
-    class VideoResume extends CActiveRecord
+    class CoverLetter extends CActiveRecord
     {
 
         /**
          * Returns the static model of the specified AR class.
          * @param string $className active record class name.
-         * @return VideoResume the static model class
+         * @return CoverLetter the static model class
          */
         public static function model($className = __CLASS__)
         {
@@ -27,7 +27,7 @@
          */
         public function tableName()
         {
-            return 'video_resume';
+            return 'cover_letter';
         }
 
         /**
@@ -40,10 +40,8 @@
             return array(
                 array('id', 'required'),
                 array('id', 'numerical', 'integerOnly' => true),
-                array('video_path', 'length', 'max' => 100),
-                array('video_path', 'file', 'types' => 'mp4, mov, MP4, MOV', 'allowEmpty' => true, 'on' => 'update'),
-                // The following rule is used by search().
-                // Please remove those attributes that should not be searched.
+                array('file_path', 'length', 'max' => 100),
+                array('file_path', 'file', 'types'=>'pdf'),
                 array('id', 'safe', 'on' => 'search'),
             );
         }
@@ -66,8 +64,7 @@
         {
             return array(
                 'id' => 'ID',
-                'video_path' => 'Youtube Video Path',
-                'publish_video' => 'Publish Video',
+                'file_path' => 'File Path',
             );
         }
 
@@ -83,12 +80,9 @@
             $criteria = new CDbCriteria;
 
             $criteria->compare('id', $this->id);
-            $criteria->compare('video_path', $this->video_path, true);
-            $criteria->compare('publish_video', $this->publish_video);
+            $criteria->compare('file_path', $this->file_path, true);
 
-            return new CActiveDataProvider($this, array(
-                'criteria' => $criteria,
-            ));
+            return new CActiveDataProvider($this, array('criteria' => $criteria,));
         }
 
     }

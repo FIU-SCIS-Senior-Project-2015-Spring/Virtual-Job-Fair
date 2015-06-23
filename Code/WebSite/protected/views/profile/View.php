@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 
 <?php
     /* this ProfileController */
@@ -7,15 +7,10 @@
 
     $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
     
-
 ?>
 
-
-
-<!--
-<head>
-<link rel="stylesheet" type="text/css" href="/css/ProgressBar.css">
-</head> -->
+<!-- Profile Completion incomplete-icon. -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 
 <div class="form">
@@ -33,31 +28,6 @@
 
     </script>
 
-    <script type="text/javascript">
-        function Checkfiles()
-        {
-            var fup = document.getElementById('Resume_resume');
-            var fileName = fup.value;
-            var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
-
-            //        var resume = document.getElementById("Resume_resume");
-            //        
-            //        if(/^\w+$/.test(resume)){
-            //            alert('Document name must ONLY contains letters, numbers and spaces.\n Please rename your resume and upload again!');
-            //            return false;
-            //        }
-            if(ext == "pdf" || ext == "PDF")
-            {
-                return true;
-            }
-            else
-            {
-                alert("Upload PDF files only");
-                return false;
-            }
-
-        }
-    </script>
 
 
     <script>
@@ -201,13 +171,24 @@
 
         });
 
-        // Helper function to get the image extension.
+ 
+        /** 
+         * Rene: Helper function to get the extension of a file.
+         * Checks file formats. No need to check for upper or lower cases anymore.
+         */ 
         function endWith(str, suffix) 
         {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+            // Upper case to cover examples such as: pdf and PDF.
+            strUpperCase = str.toUpperCase();
+            suffixUpperCase = suffix.toUpperCase();
+            
+            return strUpperCase.indexOf(suffixUpperCase, str.length - suffix.length) !== -1;
         }
+        
 
-        // Code for profile image upload.
+        /** 
+         * Code for profile image upload.
+         */
         function uploadpic() 
         {
             document.getElementById("User_image_url").click();
@@ -215,24 +196,43 @@
             {
                 var imageExt = document.getElementById("User_image_url").value;
                 
-                if(endWith(imageExt, 'JPG') || endWith(imageExt, 'jpg') || endWith(imageExt, 'PNG') || endWith(imageExt, 'png'))
+                if(endWith(imageExt, 'jpg') || endWith(imageExt, 'png'))
                     document.getElementById("user-uploadPicture-form").submit();
                
                 else
                     alert('Image must be in JPG or PNG format');
             }
         }
-
-       
+           
+           
+        /**
+         * Checks the format of a resume. 
+         */ 
         function uploadresume() 
         {
-
             document.getElementById("Resume_resume").click();
             document.getElementById("Resume_resume").onchange = function() 
             {
                 if(endWith(document.getElementById("Resume_resume").value, 'pdf')) 
-                {
                     document.getElementById("user-uploadResume-form").submit();
+
+                else
+                    alert('Document must be in PDF format');
+            }
+        }
+        
+        
+        /**
+         * Checks the format of a cover letter. 
+         */ 
+        function uploadCoverLetter()
+        {
+            document.getElementById("CoverLetter_coverletter").click();
+            document.getElementById("CoverLetter_coverletter").onchange = function() 
+            {
+                if(endWith(document.getElementById("CoverLetter_coverletter").value, 'pdf')) 
+                {
+                    document.getElementById("user-uploadCoverLetter-form").submit();
                 }
                 else
                 {
@@ -345,11 +345,15 @@
         {
             $("#publishVideoSwitch").prop('checked', setter);
         }
+        
+        // Rene: Change profile css only once. This is to avoid extra computation.
+        function changeProfileCompCSS()
+        {
+            $("#incomplete-box").css("color","#14BA14").css("background", "white"); 
+        }
 
 
     </script>
-
-
 
 
     <div id="fullcontent">
@@ -361,20 +365,6 @@
                     'htmlOptions' => array('enctype' => 'multipart/form-data',),
                 ));
             ?>
-            
-            <?php
-                $hasCompletedSkill = 84;
-                $hasCompletedBooks = 15;
-                $maximumPoints = 100;
-                $percentage = ($hasCompletedSkill + $hasCompletedBooks) * $maximumPoints / 100;
-
-                /* echo "
-                  <div style='width:100px; background-color:white; height:30px; border:1px solid #000;'>
-                  <div style='width:".$percentage."px; background-color:green; height:30px;'></div>
-                  </div>"; */
-            ?>
-
-
 
             <div style="clear:both"></div>
 
@@ -400,15 +390,20 @@
                         echo '<li>'.$value.'<i class="fa fa-exclamation-circle pull-right"></i></li>';                        
                    
                     echo '</ul></div>';
+                    
+                    // Changes the CSS if needed.
+                    if($profileCompStatus == 100)
+                        echo '<script> changeProfileCompCSS(); </script>';
 
                     ?> 
             </div>
             
             <script>
+                
                 // Toggle for the pending notice of the profile completion graph.
                 $("#box").hover(function()
                 {
-                    $("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
+                    //$("#incomplete-box:contains('Profile Completed!')").css("color","#14BA14").css("background", "white");                    
                     $("#incomplete-box").toggle();
                 });
 
@@ -477,8 +472,9 @@
                         }
                     }
                 ?>
+                <!-- Receive notifications from employers. -->
                 <div style="overflow: hidden;">
-                    <div style="float: left;">Email Jobs Notifications:</div>
+                    <div style="float: left;">Get Jobs Notifications:</div>
                     <div style="margin-left: 130px;" class="onoffswitch">
                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
                         <label class="onoffswitch-label" for="myonoffswitch">
@@ -532,7 +528,7 @@
 
                                         </div>
                                     <?php } ?>
-    <?php } ?>
+                        <?php } ?>
                         </div>
                         <hr>
                         <p>Select email frequency</p>
@@ -563,27 +559,54 @@
                 </form>
 
             </div>
-
+            
             <div id="menutools">
                 <div class="titlebox">DOCUMENTS</div><br><br>
-                <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()"/></a></p>
+                
+                <p><a href="#" id="editCoverLetter" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadCoverLetter()"/></a></p>
+                
+                <?php
+                    // Cover letter.
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'user-uploadCoverLetter-form', 'action' => '/JobFair/index.php/Profile/uploadCoverLetter',
+                        'enableAjaxValidation' => false,
+                        'htmlOptions' => array('enctype' => 'multipart/form-data',),
+                    ));
+
+                    echo CHtml::activeFileField($coverletter, 'coverletter', array('style' => 'display:none;'));
+                    if(!empty($coverletter->file_path))
+                    {
+                        $coverLetterURL = $coverletter->file_path; 
+                        echo '<strong>' . CHtml::link(CHtml::encode('Cover Letter'), $coverLetterURL, array('target' => '_blank', 'style' => 'float:left')) . '</strong>';
+                    }
+                    
+                    else
+                        echo '<strong> Upload a cover letter! </strong>';
+
+                    $this->endWidget();
+                    
+                ?> 
+                <br>
+                
+                
+                <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()" /></a></p>
 
 
                 <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'user-uploadResume-form', 'action' => '/JobFair/index.php/Profile/uploadResume',
                         'enableAjaxValidation' => false,
-                        'htmlOptions' => array('enctype' => 'multipart/form-data', 'onchange' => 'return Checkfiles();',),
+                        'htmlOptions' => array('enctype' => 'multipart/form-data',),
                     ));
 
                     echo CHtml::activeFileField($resume, 'resume', array('style' => 'display:none;'));
                     if (isset($resume->resume))
                     {
                         $resumeURL = $resume->resume; // This address the bug in card #354 giving the url for the resume file
-                        echo CHtml::link(CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'));
+                        echo '<strong>' . CHtml::link(CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left')) . '</strong>';
                     }
                     else
-                        echo 'Upload a PDF resume!';
+                        echo '<strong> Upload a PDF resume! </strong>';
 
                     $this->endWidget();
                 ?> 
@@ -591,16 +614,13 @@
                 <br>
                 <hr>
 
-                <?php ?>
-                </php>
-
                 <?php
                     // YouTube Code.
 
                     $uploadButtonText = "Upload Video Resume";
 
                     // Check if the Video Resume path exists. 
-                    if (isset($videoresume->video_path) || !empty($videoresume->video_path))
+                    if(isset($videoresume->video_path) || !empty($videoresume->video_path))
                     {
                         // Change the button text.
                         $uploadButtonText = "Upload New Video Resume";
@@ -609,6 +629,7 @@
                         echo YouTubeHandler::getVideoFrameV2($videoresume->video_path, '100%', '100%');
 
                         // Div for Video Resume toggle button.
+                        echo '<div style="float: left;">Publish Video Resume:</div>';
                         echo '<div style="margin-left: 130px;" class="onoffswitch">';
                         echo '<input type="checkbox" name="Videoonoffswitch" class="onoffswitch-checkbox" value="' . $videoresume->publish_video . '" id="publishVideoSwitch" checked onclick="toggleVideoPublishing()">';
                         echo '<label class="onoffswitch-label" for="publishVideoSwitch">';
@@ -616,12 +637,12 @@
                         echo '<span class="onoffswitch-switch"></span>';
                         echo '</label>';
                         echo '</div>';
+                        echo '<br>';
 
                         // Set the initial state of the button if there needs to be a change.
                         if ($videoresume->publish_video == 0)
-                        {
                             echo '<script> setPublish(false); </script>';
-                        }
+                        
                     }
 
                     // else // Display the upload button.
@@ -670,16 +691,19 @@
                                                 if (!empty($videoID['id']))
                                                 {
                                                     // Check if there is a previous video resume that needs to be removed.
-                                                    if (isset($videoresume->video_path))
+                                                    if(isset($videoresume->video_path))
                                                     {
                                                         $yHandler = new YouTubeHandler();
                                                         $yHandler->deleteVideo($videoresume);
                                                     }
+                                                    
+                                                    $yHandler = new YouTubeHandler();
+                                                    $yHandler->storeVideoPath($videoresume, $user->id, $videoID);
 
                                                     // Save the video to the model VideoResume
-                                                    $videoresume->id = $user->id;
-                                                    $videoresume->video_path = $videoID['id'];
-                                                    $videoresume->save(true);
+                                                   // $videoresume->id = $user->id;
+                                                   // $videoresume->video_path = $videoID['id'];
+                                                   // $videoresume->save(true);
 
                                                     $this->redirect('/JobFair/index.php/profile/view');
                                                 }

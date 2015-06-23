@@ -35,9 +35,12 @@ class ProfileController extends Controller
         // Get Resumes.
         $resume = Resume::model()->findByPk($user->id);
         $videoresume = VideoResume::model()->findByPk($user->id);
-
+        
+        // Get cover letter.
+        $coverletter = CoverLetter::model()->findByPk($user->id);
+        
         // Profile completion code.
-        $profileCompStatus = $this->getStudentProfileCompletionStatus($user, $videoresume, $resume);
+        $profileCompStatus = $this->getStudentProfileCompletionStatus($user, $videoresume, $resume, $coverletter);
         
         // Rene: The if statements below don't belong in the view. 
         if (!isset($resume))
@@ -46,16 +49,19 @@ class ProfileController extends Controller
         // Check if video resume has been added to the model.
         if (!isset($videoresume))
             $videoresume = new VideoResume;
+        
+        if(!isset($coverletter))
+            $coverletter = new CoverLetter;
 
         if (!isset($user->basicInfo))
             $user->basicInfo = new BasicInfo;
   
         // Check if profile completion message is empty.
-        if($this->incompleteComponents == '')
+        if($this->incompleteComponents == '' && $profileCompStatus == 100)
             $this->incompleteComponents = 'Profile Completed!';
         
         // Send what will be rendered.
-        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus, 'incompleteComponents' => $this->incompleteComponents));
+        $this->render('View', array('user' => $user, 'allSchools' => $allSchools, 'resume' => $resume, 'videoresume' => $videoresume, 'coverletter'=>$coverletter, 'saveQ' => $saveQ, 'profileCompStatus' => $profileCompStatus, 'incompleteComponents' => $this->incompleteComponents));
     }
 
     /**
@@ -66,12 +72,12 @@ class ProfileController extends Controller
      * @return type The percentage.
      * @author Rene Alfonso
      */
-    private function getStudentProfileCompletionStatus($userModel, $vidResume, $resume)
+    private function getStudentProfileCompletionStatus($userModel, $vidResume, $resume, $coverletter)
     {
         // Free points for creating an account.
         $profileCompStatus = 1;
         
-        $MAX = 11; // The maximum number of points you can get.
+        $MAX = 12; // The maximum number of points you can get.
 
         
         if(isset($vidResume) && $vidResume->video_path != null)
@@ -86,6 +92,12 @@ class ProfileController extends Controller
            
         else
             $this->setIncompleteProfileComponents('PDF Resume');
+        
+        if(isset($coverletter))
+            $profileCompStatus++;
+        
+        else
+             $this->setIncompleteProfileComponents('Cover letter');
         
         if(isset($userModel->linkedinid))
             $profileCompStatus++;
@@ -187,7 +199,7 @@ class ProfileController extends Controller
             $user->companyInfo = new CompanyInfo;
 
         // Check if profile completion message is empty.
-        if($this->incompleteComponents == '')
+        if($this->incompleteComponents == '' && $profileCompStatus == 100)
             $this->incompleteComponents = 'Profile Completed!';
             
         // What will be rendered.
@@ -564,7 +576,9 @@ class ProfileController extends Controller
                 }
             }
         }
-        $this->actionView();
+        
+        $this->redirect('/JobFair/index.php/profile/view');
+        //$this->actionView();
 //              MODIFIED BY ROGELIO  
 //              EXTRA CODE NOT NECESSARY AND REPLACED BY ABOVE LINE   
 //		$user = User::model()->find("username=:username",array(':username'=>$username));
@@ -591,33 +605,9 @@ class ProfileController extends Controller
             $oldUrl = $localvideo->video_path;
         }
 
-//                Code Rewritten by ROGER
-//                Address bug that unable the user to properly submit a video resume
-//		
-//		if (isset($oldUrl)) {
-//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume');
-//			if (isset( $uploadedFile)) {
-//				$uploadedFile->saveAs(Yii::app()->basePath.'/../..'.$oldUrl);
-//			}
-//			
-//			// else insert new image
-//		} else {
-//			$localvideo = new VideoResume();
-//			// code to upload image
-//			$rnd = $model->id;
-//			$uploadedFile=CUploadedFile::getInstance($localvideo,'videoresume'); // image object
-//			$fileName = "v{$rnd}-{$uploadedFile}";  // random number + file name
-//			$localvideo->video_path = '/JobFair/resumes/'.$fileName;
-//			$localvideo->id = $model->id;
-//			if($localvideo->validate(array('video_path'))){
-//				$localvideo->save(false); // save path in database
-//			
-//				if (isset( $uploadedFile)) {
-//					//print "<pre>"; print_r($model->attributes);print "</pre>";return;
-//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-//				}
-//			}
-//		}
+        //  Code Rewritten by ROGER
+        //  Address bug that unable the user to properly submit a video resume
+
         if (!isset($oldUrl)) {
             //upload a new video resume
             $localvideo = new VideoResume();
@@ -650,51 +640,82 @@ class ProfileController extends Controller
         $this->actionView();
     }
 
-    public function actionUploadResume() {
+    
+    public function actionUploadCoverLetter()
+    {        
+        $userId = User::getCurrentUser()->id;
+        
+        $coverletter = CoverLetter::model()->findByPk($userId);
+        
+        if(isset($coverletter))
+        {
+            $oldPath = $coverletter->file_path;
+            
+            // Check if file exists before trying to delete it.
+            if(file_exists(Yii::app()->basePath.'/..'.substr($oldPath, 8)))
+            {
+                // Rene: Fix for card #760. Delete the old PDF Resume.
+                unlink(Yii::app()->basePath.'/..'.substr($oldPath, 8));
+            }
+        }
+        
+        if(!isset($oldPath))
+            $coverletter = new CoverLetter();
+                       
+        $uploadedFile = CUploadedFile::getInstance($coverletter, 'coverletter'); //Resume Object
+        
+        $genericName = 'StudentCoverLetter.pdf';
+  
+        $fileName = '/JobFair/coverletters/';
+        $fileName .= "{$userId}-{$genericName}";
+        //$localresume->resume = $fileName;
 
-        $username = Yii::app()->user->name;
-        $model = User::model()->find("username=:username", array(':username' => $username));
-        $localresume = Resume::model()->findByAttributes(array('id' => $model->id));
+        if ($coverletter->validate(array('cover_letter'))) 
+        {
+            if (isset($uploadedFile)) 
+            {
+                $coverletter->id = $userId;
+                $coverletter->file_path = $fileName;
+                
+                $coverletter->save(false); //Update Resume Table for the user
+                $uploadedFile->saveAs(Yii::app()->basePath . '/..' . substr($fileName, 8), true); //Upload physical file to the server folder
+            } 
+            else 
+            {
+                //Render an error view
+                exit();
+            }
+        }
+        $this->redirect('/JobFair/index.php/profile/view');
+        
+    }
+    
+    /**
+     * Uploads a PDF Resume to DB and server.
+     */
+    public function actionUploadResume() 
+    {
+        //$username = Yii::app()->user->name;
+       // $model = User::model()->find("username=:username", array(':username' => $username));
+        
+        $userId = User::getCurrentUser()->id;
+        
+        $localresume = Resume::model()->findByPk($userId);
 
-
-        if (isset($localresume)) {
+        if(isset($localresume)) 
+        {
             $oldUrl = $localresume->resume;
+            
+            // Check if file exists before deleting it.
+            if(file_exists(Yii::app()->basePath.'/..'.substr($oldUrl, 8)))
+            {
+                // Rene: Fix for card #760. Delete the old PDF Resume.
+                unlink(Yii::app()->basePath.'/..'.substr($oldUrl, 8));
+            }
+  
         }
 
-
-
-//*************** THIS WAS DONE BY PREVIOUS VERSIONS ************************
-//		if (isset($oldUrl)) {
-//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume');  //Resume Object
-//			$fileName = "{$rnd}-{$uploadedFile}";  // student ID + resume file name
-//			$localresume->resume = $fileName;
-//			if($localresume->validate(array('resume'))){
-//				$localresume->save(false); // save path in database
-//				if (isset( $uploadedFile)) {
-//					$uploadedFile->saveAs(Yii::app()->basePath.'/../'.$oldUrl);
-//				}
-//			}
-//			// else insert new image
-//		} else {
-//			$localresume = new Resume;
-//			// code to upload image
-//			
-//			$uploadedFile=CUploadedFile::getInstance($localresume,'resume'); // image object
-//			$fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
-//			$localresume->resume = $fileName; //'/JobFair/resumes/'.$fileName;
-//			$localresume->id = $model->id;
-//			if($localresume->validate(array('resume'))){
-//				$localresume->save(false); // save path in database
-//			
-//				if (isset( $uploadedFile)) {
-//					
-//					$uploadedFile->saveAs(Yii::app()->basePath.'/../resumes/'.$fileName); // upload image to server
-//				}
-//			}
-//		}
-//*************** END OF CODE BY PREVIOUS VERSIONS **************************
-        //
-                //Code to replace an existing Resume
+        //Code to replace an existing Resume
         if (!isset($oldUrl)) {
             $localresume = new Resume();
             //Delete the file from the File system
@@ -705,9 +726,12 @@ class ProfileController extends Controller
         //$localresume->id = $model->id;
         //}
         $uploadedFile = CUploadedFile::getInstance($localresume, 'resume'); //Resume Object
-        $rnd = $model->id; //Prefix the id of the student before the name of the resume
+        
+        $genericName = 'StudentResume.pdf';
+        
+        $rnd = $userId; //Prefix the id of the student before the name of the resume
         $fileName = '/JobFair/resumes/';
-        $fileName .= "{$rnd}-{$uploadedFile}";
+        $fileName .= "{$rnd}-{$genericName}";
         //$localresume->resume = $fileName;
 
         if ($localresume->validate(array('resume'))) {
@@ -715,7 +739,7 @@ class ProfileController extends Controller
 
             if (isset($uploadedFile)) {
                 $localresume->resume = $fileName;
-                $localresume->id = $model->id;
+                $localresume->id = $userId;
                 $localresume->save(false); //Update Resume Table for the user
                 $uploadedFile->saveAs(Yii::app()->basePath . '/..' . substr($fileName, 8), true); //Upload physical file to the server folder
             } else {
@@ -723,9 +747,11 @@ class ProfileController extends Controller
                 exit();
             }
         }
-        $this->actionView();
+        //$this->actionView();
+        $this->redirect('/JobFair/index.php/profile/view');
     }
 
+    
     public function actionEditBasicInfo() {
 
         $username = Yii::app()->user->name;
@@ -922,7 +948,8 @@ class ProfileController extends Controller
                     'EditStudent', 'UploadResume', 'EditCompanyInfo',
                     'LinkToo', 'LinkNotification', 'errorZip', 'DuplicationError', 'UserChoice',
                     'EditBasicInfo', 'Student', 'Employer', 'Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
-                    'getJobInterest', 'saveInterest', 'DeleteInterest',),
+                    'getJobInterest', 'saveInterest', 'DeleteInterest', 'UploadCoverLetter',),
+                
                 'users' => array('@')),
             array('allow',
                 'actions' => array('videoemployer', 'videostudent', 'googleAuth', 'fiuCsSeniorAuth', 'fiuAuth',),
