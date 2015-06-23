@@ -29,6 +29,9 @@
 <tr><td><a href="018 SearchPostingTitle">018 SearchPostingTitle</a></td></tr>
 <tr><td><a href="019 DeletePosting">019 DeletePosting</a></td></tr>
 <tr><td><a href="020 Update-DeleteUser">020 Update-DeleteUser</a></td></tr>
+<tr><td><a href="021 DeleteAdmin">021 DeleteAdmin</a></td></tr>
+<tr><td><a href="022 Disable-ActivateUser">022 Disable-ActivateUser</a></td></tr>
+<tr><td><a href="023 SendMsgToEmployer">023 SendMsgToEmployer</a></td></tr>
 </tbody></table>
 </body>
 </html>

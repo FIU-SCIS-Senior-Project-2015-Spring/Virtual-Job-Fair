@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 17, 2015 at 01:46 AM
+-- Generation Time: Jun 23, 2015 at 05:44 AM
 -- Server version: 5.6.19
 -- PHP Version: 5.4.32
 
@@ -83,6 +83,16 @@ CREATE TABLE IF NOT EXISTS `application` (
   KEY `idx_jobid` (`jobid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES
+(144, 71, '2015-06-22 22:56:53', NULL),
+(151, 17, '2015-06-22 22:28:25', NULL),
+(151, 71, '2015-06-22 22:38:44', NULL),
+(151, 75, '2015-06-22 20:28:09', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -115,7 +125,7 @@ INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about
 (9, '', 'Alaska', 'Alaska', '99676', '', NULL, 0, 0, NULL, 0),
 (11, '', 'Miami', 'FL', '0', 'Just checking out your site. Yii sucks.', 0, 0, NULL, NULL, 0),
 (12, '', 'Miami', 'Florida', '0', 'This is my Bio.', 0, 0, 0, NULL, 0),
-(14, '3052224444', 'Columbia', 'Illinois', '65284', '', NULL, 0, 0, NULL, 0),
+(14, '3053334444', 'Columbia', 'Illinois', '65284', '', NULL, 0, 0, 3785, 0),
 (15, '', 'Great Bend', 'Kansas', '67530', '', NULL, 0, 0, NULL, 0),
 (16, '', 'Salt Lake City', 'Utah', '84645', '', NULL, 0, 0, NULL, 0),
 (17, '', 'Oregon', 'Oregon', '97754', '', NULL, 0, 0, NULL, 0),
@@ -128,11 +138,12 @@ INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about
 (57, '', 'Miami', 'Florida', NULL, 'This is a test employer', 0, 0, NULL, NULL, 0),
 (60, '1111111111', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
 (61, '2222222222', 'Miami', 'Florida', NULL, 'I am a test automated recruited @ VJF', 0, 0, NULL, NULL, 0),
-(71, '3055554444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
+(71, '3053334444', 'Miami', 'FL', '33172', 'I am a Computer Science student.', 1, 1, 0, 6349, 0),
 (72, '3055554444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
 (73, '3052224444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
-(74, '', 'Miami', 'FL', NULL, 'Hello', 1, 1, NULL, NULL, 0),
-(75, '9545873232', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0);
+(74, '3053334444', 'Miami', 'FL', NULL, 'Hello hi', 1, 1, 0, NULL, 0),
+(75, '9545873232', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
+(82, '3052224444', 'Miami', 'FL', NULL, 'This is a fake employer.', 1, 1, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -152,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `company_info` (
   `description` text,
   PRIMARY KEY (`FK_userid`),
   KEY `idx_FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
 
 --
 -- Dumping data for table `company_info`
@@ -166,7 +177,27 @@ INSERT INTO `company_info` (`FK_userid`, `name`, `street`, `street2`, `city`, `s
 (56, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
 (57, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
 (61, 'Virtual Company for Testing', '123 main', '', 'Miami', 'Florida', '330178', 'www.vjf.cis.fiu.edu', 'This is a virtual company for system testing purposes'),
-(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', '', 'Hello');
+(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', 'www.google.com', 'Hello this'),
+(82, 'RComp1', '8888 S Flagler St', '', 'Miami', 'FL', '33174', '', 'This is a fake company.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cover_letter`
+--
+
+CREATE TABLE IF NOT EXISTS `cover_letter` (
+  `id` int(11) NOT NULL,
+  `file_path` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cover_letter`
+--
+
+INSERT INTO `cover_letter` (`id`, `file_path`) VALUES
+(71, '/JobFair/coverletters/71-StudentCoverLetter.pdf');
 
 -- --------------------------------------------------------
 
@@ -186,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `education` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_school_id` (`FK_school_id`),
   KEY `idx_FK_user_id` (`FK_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=87 ;
 
 --
 -- Dumping data for table `education`
@@ -204,7 +235,8 @@ INSERT INTO `education` (`id`, `degree`, `major`, `graduation_date`, `FK_school_
 (57, 'Bachelor of Science (BS)', 'Computer Engineering', '1995-03-04', 13, 26, NULL, ''),
 (82, '', '', '2015-03-30', 1, 55, NULL, ''),
 (83, 'N+', 'Information Technology', '2015-03-30', 10, 55, NULL, ''),
-(84, 'Bachelor', 'Computer Science; Software Development', '1969-12-31', 1, 55, NULL, '');
+(84, 'Bachelor', 'Computer Science; Software Development', '1969-12-31', 1, 55, NULL, ''),
+(86, 'BS', 'Computer Science', '2015-07-31', 1, 71, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -224,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `experience` (
   `state` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `experience`
@@ -234,7 +266,8 @@ INSERT INTO `experience` (`id`, `FK_userid`, `company_name`, `job_title`, `job_d
 (22, 26, 'Florida International University', 'Director of Professional Master of Science in', '', '2014-01-01 00:00:00', '0000-00-00 00:00:00', '', ''),
 (23, 26, 'Flordia International University', 'Associate Professor', '', '2010-08-01 00:00:00', '0000-00-00 00:00:00', '', ''),
 (24, 26, 'Florida International University', 'Assistant Professor', '', '2004-08-01 00:00:00', '2010-08-01 00:00:00', '', ''),
-(33, 55, 'Ravenscroft Ship Management INC', 'IT Technical Support Officer', 'Supported the roll out of new servers and applications. Installed and configured computer operating systems and\napplications. Monitored and maintained corporation networks and computer systems. Supported and maintained\ncorporate databases playing a key role within the organization. Manage users creating and profiles policy scripts\nwhile dealing with passwords related issues. Provided offsite support to clients and staff to help resolve computer\nsystems issues. Tested and evaluated new technologies later used within the organization.', '2007-01-01 00:00:00', '2014-05-01 00:00:00', '', '');
+(33, 55, 'Ravenscroft Ship Management INC', 'IT Technical Support Officer', 'Supported the roll out of new servers and applications. Installed and configured computer operating systems and\napplications. Monitored and maintained corporation networks and computer systems. Supported and maintained\ncorporate databases playing a key role within the organization. Manage users creating and profiles policy scripts\nwhile dealing with passwords related issues. Provided offsite support to clients and staff to help resolve computer\nsystems issues. Tested and evaluated new technologies later used within the organization.', '2007-01-01 00:00:00', '2014-05-01 00:00:00', '', ''),
+(35, 71, 'Florida International University', 'Software Engineer ', 'Developer', '2015-06-10 00:00:00', '0000-00-00 00:00:00', 'Miami', 'FL');
 
 -- --------------------------------------------------------
 
@@ -301,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `job` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_poster` (`FK_poster`),
   FULLTEXT KEY `type` (`type`,`title`,`description`,`comp_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=140 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=154 ;
 
 --
 -- Dumping data for table `job`
@@ -328,9 +361,12 @@ INSERT INTO `job` (`id`, `type`, `title`, `FK_poster`, `post_date`, `deadline`, 
 (131, 'Full Time', 'Software Engineer ', 12, '2015-06-12 03:31:06', '2015-06-12 00:00:00', 'Excellent job opportunity for Software Engineers with knowledge of Design Patterns.', '80000', NULL, NULL, 0, NULL, NULL, 'asdasd', NULL),
 (132, 'Full Time', 'Software Engineer', 74, '2015-06-12 04:56:36', '2015-06-30 00:00:00', 'Wonderful job opportunity for Android developers.', '80000', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL),
 (133, 'Internship', 'Intership for VJF', 74, '2015-06-12 19:11:06', '2015-06-30 00:00:00', 'Test', '10', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL),
-(134, 'Full Time', 'System Administrator', 12, '2015-06-16 21:07:48', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '45,000', NULL, NULL, 0, NULL, NULL, 'asdasd', NULL),
-(138, 'Part Time', 'Senior Web Developer', 12, '2015-06-16 21:34:02', '2015-07-31 00:00:00', 'PHP, HTML and JavaScript.', '45000', NULL, NULL, 0, NULL, NULL, 'asdasd', NULL),
-(139, 'Full Time', 'System Administrator', 12, '2015-06-16 21:39:36', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '45,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL);
+(144, 'Full Time', 'System Administrator', 12, '2015-06-16 22:03:05', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '45,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
+(145, 'Internship', 'Junior System Administrator', 12, '2015-06-16 22:03:08', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '35,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
+(146, 'Full Time', 'SQL JOB', 12, '2015-06-17 00:13:44', '2015-06-30 00:00:00', 'ADDL REQUIREMENTS<br /><br />Exposure to Microsoft Internet Information Services (IIS) web server<br />Familiarity with web based systems designed with ASP.net, HTML and JavaScript<br />Strong working knowledge Microsoft client and server operating systems (XP/Vista/Win7/Server 2003/Server 2008)<br />Strong analytical and problem-solving skills<br />Excellent communication skills (both written and verbal) and the ability to interact with customers who may not be technically inclined or understand the technology. Ability to patiently work with a customer to resolve their issue.<br />Ability to simultaneously manage several projects/support cases<br />Ability to work and research independently<br />Willingness to learn and become an expert on new systems, software, and procedures<br />Must be highly productive, able to balance competing priorities and meet all established productivity measures.<br />Ability to work/be on call some nights and weekends as necessary<br />Live in the South Florida area', '45000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
+(151, 'Part Time', 'Yii Developer3', 12, '2015-06-19 20:18:15', '2015-06-27 00:00:00', 'We are looking for a Senior Web Developer with more than 5 years of experience working with Yii framework. Html, Css and Javascript is also required for this position. ', '65,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
+(152, 'Part Time', 'My new Job', 24, '2015-06-19 21:23:05', '2015-06-30 00:00:00', 'This is a test for Guess employer. I can edit this.', '', NULL, NULL, 1, NULL, NULL, '', 'test@lala.com'),
+(153, 'Full Time', 'S Test', 12, '2015-06-20 21:47:12', '2015-06-27 00:00:00', 'S', '1', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL);
 
 -- --------------------------------------------------------
 
@@ -347,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `job_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_jobid` (`jobid`),
   KEY `idx_skillid` (`skillid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2320 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2349 ;
 
 --
 -- Dumping data for table `job_skill_map`
@@ -668,15 +704,17 @@ INSERT INTO `job_skill_map` (`id`, `jobid`, `skillid`, `level`, `ordering`) VALU
 (2294, 133, 3, NULL, 1),
 (2295, 133, 30, NULL, 2),
 (2296, 133, 48, NULL, 3),
-(2297, 134, 2, NULL, 1),
-(2298, 134, 7, NULL, 2),
-(2299, 134, 58, NULL, 3),
-(2314, 138, 3, NULL, 1),
-(2315, 138, 8, NULL, 2),
-(2316, 138, 16, NULL, 3),
-(2317, 139, 2, NULL, 1),
-(2318, 139, 7, NULL, 2),
-(2319, 139, 58, NULL, 3);
+(2326, 144, 2, NULL, 1),
+(2327, 144, 7, NULL, 2),
+(2328, 144, 58, NULL, 3),
+(2329, 146, 8, NULL, 1),
+(2330, 146, 16, NULL, 2),
+(2331, 146, 45, NULL, 3),
+(2344, 151, 30, NULL, 1),
+(2345, 151, 8, NULL, 2),
+(2346, 151, 17, NULL, 3),
+(2347, 151, 16, NULL, 4),
+(2348, 151, 58, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -723,24 +761,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_receiver` (`FK_receiver`),
   KEY `idx_FK_sender` (`FK_sender`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
-
---
--- Dumping data for table `message`
---
-
-INSERT INTO `message` (`id`, `FK_receiver`, `FK_sender`, `message`, `date`, `been_read`, `been_deleted`, `sender_deleted`, `subject`, `userImage`) VALUES
-(5, 'student4', 'student4', '', '2015-06-11 23:58:17', 1, 1, 1, 'Hello', '/JobFair/images/profileimages/user-default.png'),
-(6, 'student3', 'student4', 'There is a new Job Posting for a Developer positions.\r\n\r\nRegards,\r\n\r\nStudent 4', '2015-06-12 00:20:09', 1, 0, 0, 'Important message', '/JobFair/images/profileimages/user-default.png'),
-(7, 'student4', 'student3', 'Thank you so much for the info. See you in class tomorrow.\r\n\r\nOn 2015-06-12 00:20:09, student4 wrote:\r\nThere is a new Job Posting for a Developer positions.\r\n\r\nRegards,\r\n\r\nStudent 4', '2015-06-12 00:23:19', 1, 0, 0, 'Re: Important message', '/JobFair/images/profileimages/user-default.png'),
-(8, 'student3', 'student4', 'No problem my friend.\r\n\r\nOn 2015-06-12 00:23:19, student3 wrote:\r\nThank you so much for the info. See you in class tomorrow.\r\n\r\nOn 2015-06-12 00:20:09, student4 wrote:\r\nThere is a new Job Posting for a Developer positions.\r\n\r\nRegards,\r\n\r\nStudent 4', '2015-06-12 00:26:28', 1, 0, 1, 'Re: Re: Important message', '/JobFair/images/profileimages/student4avatar.jpg'),
-(10, 'ralfo028', 'android', '', '2015-06-12 06:16:01', 1, 1, -1, 'Hello', '/JobFair/images/profileimages/androidavatar.png'),
-(14, 'android', 'admin', '', '2015-06-12 17:04:51', NULL, -1, 0, 'Hello', '/JobFair/images/profileimages/user-default.png'),
-(15, 'ralfo028', 'android', '', '2015-06-12 18:16:46', NULL, 0, -1, 'Hello', '/JobFair/images/profileimages/androidavatar.png'),
-(17, 'ralfo028', 'android', '', '2015-06-12 19:12:48', 1, 0, 1, 'Hello Rene', '/JobFair/images/profileimages/androidavatar.png'),
-(18, 'ralfo028', 'android', '', '2015-06-12 19:37:54', 1, -1, 1, 'Hello', '/JobFair/images/profileimages/androidavatar.png'),
-(19, 'android', 'admin', '', '2015-06-12 19:38:51', NULL, 1, 0, 'Hello', '/JobFair/images/profileimages/user-default.png'),
-(20, 'admin', 'admin', '', '2015-06-12 19:55:45', NULL, 1, 1, 'Delete Me', '/JobFair/images/profileimages/user-default.png');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -759,496 +780,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `importancy` int(11) NOT NULL,
   `msgID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=507 ;
-
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `sender_id`, `receiver_id`, `datetime`, `been_read`, `message`, `link`, `importancy`, `msgID`) VALUES
-(8, 12, 55, '23:41:32', 0, 'Hi RogerSTU, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(9, 12, 5, '23:41:32', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(10, 12, 14, '23:41:32', 1, 'Hi student3, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(12, 12, 55, '23:42:35', 0, 'Hi RogerSTU, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(13, 12, 5, '23:42:35', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(14, 12, 14, '23:42:35', 1, 'Hi student3, the company employer10 just posted a job Yii Developer that matches your skills', 'http://localhost/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(19, 15, 15, '23:58:17', 1, 'You have a new message from student4', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/message', 3, 5),
-(20, 15, 14, '00:20:09', 1, 'You have a new message from student4', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/message', 3, 6),
-(21, 14, 15, '00:23:19', 1, 'You have a new message from student3', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/message', 3, 7),
-(22, 15, 14, '00:26:28', 1, 'You have a new message from student4', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/message', 3, 8),
-(23, 12, 55, '00:36:21', 0, 'Hi RogerSTU, the company employer10 just posted a job Yii Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(24, 12, 5, '00:36:21', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Yii Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(25, 12, 14, '00:36:21', 0, 'Hi student3, the company employer10 just posted a job Yii Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(26, 12, 18, '00:36:21', 0, 'Hi student7, the company employer10 just posted a job Yii Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/130', 2, NULL),
-(27, 12, 5, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(28, 12, 9, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(29, 12, 14, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(30, 12, 15, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(31, 12, 16, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(32, 12, 17, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(33, 12, 18, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(34, 12, 19, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(35, 12, 22, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(36, 12, 26, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(37, 12, 55, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(38, 12, 60, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(39, 12, 63, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(40, 12, 64, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(41, 12, 66, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(42, 12, 71, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(43, 12, 72, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(44, 12, 73, '03:31:06', 0, 'employer10 just posted a new job: Software Engineer . Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 1, NULL),
-(46, 12, 55, '03:31:06', 0, 'Hi RogerSTU, the company employer10 just posted a job Software Engineer  that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 2, NULL),
-(47, 12, 5, '03:31:06', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Software Engineer  that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 2, NULL),
-(48, 12, 14, '03:31:06', 0, 'Hi student3, the company employer10 just posted a job Software Engineer  that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/131', 2, NULL),
-(49, 74, 5, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(50, 74, 9, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(51, 74, 14, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(52, 74, 15, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(53, 74, 16, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(54, 74, 17, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(55, 74, 18, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(56, 74, 19, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(57, 74, 22, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(58, 74, 26, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(59, 74, 55, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(60, 74, 60, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(61, 74, 63, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(62, 74, 64, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(63, 74, 66, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(64, 74, 71, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(65, 74, 72, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(66, 74, 73, '04:54:18', 0, 'android just joined VJF, click here to view their profile.', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(67, 74, 2, '04:54:18', 0, 'There is a new employer named android that is waiting for acctivation', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/profile/employer/user/android', 1, NULL),
-(68, 74, 5, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(69, 74, 9, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(70, 74, 14, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(71, 74, 15, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(72, 74, 16, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(73, 74, 17, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(74, 74, 18, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(75, 74, 19, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(76, 74, 22, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(77, 74, 26, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(78, 74, 55, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(79, 74, 60, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(80, 74, 63, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(81, 74, 64, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(82, 74, 66, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(83, 74, 71, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(84, 74, 72, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(85, 74, 73, '04:56:36', 0, 'android just posted a new job: Software Engineer. Click here to view the post. ', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 1, NULL),
-(87, 74, 5, '04:56:37', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(88, 74, 26, '04:56:37', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(89, 74, 55, '04:56:37', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(90, 74, 71, '04:58:58', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(91, 74, 5, '04:58:58', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(92, 74, 26, '04:58:58', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(93, 74, 55, '04:58:58', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(94, 74, 71, '04:59:38', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(95, 74, 5, '04:59:38', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(96, 74, 26, '04:59:38', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(97, 74, 55, '04:59:38', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(98, 74, 71, '05:00:54', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(99, 74, 5, '05:00:54', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(100, 74, 26, '05:00:54', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(101, 74, 55, '05:00:54', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(102, 74, 71, '05:01:01', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(103, 74, 5, '05:01:01', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(104, 74, 26, '05:01:01', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(105, 74, 55, '05:01:01', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(106, 74, 71, '05:51:40', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(107, 74, 5, '05:51:40', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(108, 74, 26, '05:51:40', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(109, 74, 55, '05:51:40', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(110, 74, 71, '05:52:19', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(111, 74, 5, '05:52:19', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(112, 74, 26, '05:52:19', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(113, 74, 55, '05:52:19', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(114, 74, 71, '05:52:36', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(115, 74, 5, '05:52:36', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(116, 74, 26, '05:52:36', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(117, 74, 55, '05:52:36', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(118, 74, 71, '05:53:13', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(119, 74, 5, '05:53:13', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(120, 74, 26, '05:53:13', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(121, 74, 55, '05:53:13', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(122, 74, 71, '05:53:17', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(123, 74, 5, '05:53:17', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(124, 74, 26, '05:53:17', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(125, 74, 55, '05:53:17', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(126, 74, 71, '05:53:28', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(127, 74, 5, '05:53:28', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(128, 74, 26, '05:53:28', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(129, 74, 55, '05:53:28', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(130, 74, 71, '05:54:05', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(131, 74, 5, '05:54:05', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(132, 74, 26, '05:54:05', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(133, 74, 55, '05:54:05', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(134, 74, 71, '05:54:35', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(135, 74, 5, '05:54:35', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(136, 74, 26, '05:54:35', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(137, 74, 55, '05:54:35', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(138, 74, 71, '05:56:25', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(139, 74, 5, '05:56:25', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(140, 74, 26, '05:56:25', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(141, 74, 55, '05:56:25', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(148, 74, 71, '18:05:16', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(149, 74, 5, '18:05:16', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(150, 74, 26, '18:05:16', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(151, 74, 55, '18:05:16', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(152, 74, 71, '18:06:06', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(153, 74, 5, '18:06:06', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(154, 74, 26, '18:06:06', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(155, 74, 55, '18:06:06', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(156, 74, 71, '18:06:28', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(157, 74, 5, '18:06:28', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(158, 74, 26, '18:06:28', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(159, 74, 55, '18:06:28', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(160, 74, 71, '18:10:39', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(161, 74, 5, '18:10:39', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(162, 74, 26, '18:10:39', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(163, 74, 55, '18:10:39', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(164, 74, 71, '18:10:49', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(165, 74, 5, '18:10:49', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(166, 74, 26, '18:10:49', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(167, 74, 55, '18:10:49', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(168, 74, 71, '18:11:46', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(169, 74, 5, '18:11:46', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(170, 74, 26, '18:11:46', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(171, 74, 55, '18:11:46', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(172, 74, 71, '18:12:00', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(173, 74, 5, '18:12:00', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(174, 74, 26, '18:12:00', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(175, 74, 55, '18:12:00', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(176, 74, 71, '18:12:05', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(177, 74, 5, '18:12:05', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(178, 74, 26, '18:12:05', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(179, 74, 55, '18:12:05', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(180, 74, 71, '18:15:20', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(181, 74, 5, '18:15:20', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(182, 74, 26, '18:15:20', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(183, 74, 55, '18:15:20', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(184, 74, 71, '18:15:39', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(185, 74, 5, '18:15:39', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(186, 74, 26, '18:15:39', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(187, 74, 55, '18:15:39', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(188, 74, 71, '18:15:57', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(189, 74, 5, '18:15:57', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(190, 74, 26, '18:15:57', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(191, 74, 55, '18:15:57', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(192, 74, 71, '18:16:10', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(193, 74, 5, '18:16:10', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(194, 74, 26, '18:16:10', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(195, 74, 55, '18:16:10', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(198, 74, 5, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(199, 74, 9, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(200, 74, 14, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(201, 74, 15, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(202, 74, 16, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(203, 74, 17, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(204, 74, 18, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(205, 74, 19, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(206, 74, 22, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(207, 74, 26, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(208, 74, 55, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(209, 74, 60, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(210, 74, 63, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(211, 74, 64, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(212, 74, 66, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(213, 74, 71, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(214, 74, 72, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(215, 74, 73, '19:11:06', 0, 'android just posted a new job: Intership for VJF. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 1, NULL),
-(216, 74, 55, '19:11:06', 0, 'Hi RogerSTU, the company android just posted a job Intership for VJF that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 2, NULL),
-(217, 74, 14, '19:11:06', 0, 'Hi student3, the company android just posted a job Intership for VJF that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 2, NULL),
-(218, 74, 17, '19:11:06', 0, 'Hi student6, the company android just posted a job Intership for VJF that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 2, NULL),
-(219, 74, 16, '19:11:06', 0, 'Hi student5, the company android just posted a job Intership for VJF that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 2, NULL),
-(220, 74, 5, '19:11:06', 0, 'Hi earen003@fiu.edu, the company android just posted a job Intership for VJF that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/133', 2, NULL),
-(221, 74, 71, '19:11:30', 1, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(222, 74, 5, '19:11:30', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(223, 74, 26, '19:11:30', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(224, 74, 55, '19:11:30', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(225, 74, 71, '19:12:48', 1, 'You have a new message from android', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/message', 3, 17),
-(226, 74, 71, '19:36:34', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(227, 74, 5, '19:36:34', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(228, 74, 26, '19:36:34', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(229, 74, 55, '19:36:34', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(230, 74, 71, '19:36:51', 0, 'Hi ralfo028, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(231, 74, 5, '19:36:51', 0, 'Hi earen003@fiu.edu, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(232, 74, 26, '19:36:51', 0, 'Hi sadjadis@gmail.com, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(233, 74, 55, '19:36:51', 0, 'Hi RogerSTU, the company android just posted a job Software Engineer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/132', 2, NULL),
-(236, 2, 2, '19:55:45', 1, 'You have a new message from admin', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/message', 3, 20),
-(237, 77, 5, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(238, 77, 9, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(239, 77, 14, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(240, 77, 15, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(241, 77, 16, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(242, 77, 17, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(243, 77, 18, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(244, 77, 19, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(245, 77, 22, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(246, 77, 26, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(247, 77, 55, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(248, 77, 60, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(249, 77, 63, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(250, 77, 64, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(251, 77, 66, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(252, 77, 71, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(253, 77, 72, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(254, 77, 73, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(255, 77, 75, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(256, 77, 76, '20:47:28', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(257, 77, 2, '20:47:28', 0, 'There is a new employer named RFakeEmp that is waiting for activation', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(258, 78, 5, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(259, 78, 9, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(260, 78, 14, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(261, 78, 15, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(262, 78, 16, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(263, 78, 17, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(264, 78, 18, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(265, 78, 19, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(266, 78, 22, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(267, 78, 26, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(268, 78, 55, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(269, 78, 60, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(270, 78, 63, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(271, 78, 64, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(272, 78, 66, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(273, 78, 71, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(274, 78, 72, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(275, 78, 73, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(276, 78, 75, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(277, 78, 76, '20:59:08', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(278, 78, 2, '20:59:08', 0, 'There is a new employer named RFakeEmp that is waiting for activation', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(279, 79, 5, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(280, 79, 9, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(281, 79, 14, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(282, 79, 15, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(283, 79, 16, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL);
-INSERT INTO `notification` (`id`, `sender_id`, `receiver_id`, `datetime`, `been_read`, `message`, `link`, `importancy`, `msgID`) VALUES
-(284, 79, 17, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(285, 79, 18, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(286, 79, 19, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(287, 79, 22, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(288, 79, 26, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(289, 79, 55, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(290, 79, 60, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(291, 79, 63, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(292, 79, 64, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(293, 79, 66, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(294, 79, 71, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(295, 79, 72, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(296, 79, 73, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(297, 79, 75, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(298, 79, 76, '21:01:37', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(299, 79, 2, '21:01:37', 0, 'There is a new employer named RFakeEmp that is waiting for activation', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(300, 80, 5, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(301, 80, 9, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(302, 80, 14, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(303, 80, 15, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(304, 80, 16, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(305, 80, 17, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(306, 80, 18, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(307, 80, 19, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(308, 80, 22, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(309, 80, 26, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(310, 80, 55, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(311, 80, 60, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(312, 80, 63, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(313, 80, 64, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(314, 80, 66, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(315, 80, 71, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(316, 80, 72, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(317, 80, 73, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(318, 80, 75, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(319, 80, 76, '21:02:31', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(320, 80, 2, '21:02:31', 0, 'There is a new employer named RFakeEmp that is waiting for activation', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(321, 81, 5, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(322, 81, 9, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(323, 81, 14, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(324, 81, 15, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(325, 81, 16, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(326, 81, 17, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(327, 81, 18, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(328, 81, 19, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(329, 81, 22, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(330, 81, 26, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(331, 81, 55, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(332, 81, 60, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(333, 81, 63, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(334, 81, 64, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(335, 81, 66, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(336, 81, 71, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(337, 81, 72, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(338, 81, 73, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(339, 81, 75, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(340, 81, 76, '21:03:11', 0, 'RFakeEmp just joined VJF, click here to view their profile.', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(341, 81, 2, '21:03:11', 0, 'There is a new employer named RFakeEmp that is waiting for activation', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/profile/employer/user/RFakeEmp', 1, NULL),
-(342, 12, 5, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(343, 12, 9, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(344, 12, 14, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(345, 12, 15, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(346, 12, 16, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(347, 12, 17, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(348, 12, 18, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(349, 12, 19, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(350, 12, 22, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(351, 12, 26, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(352, 12, 55, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(353, 12, 60, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(354, 12, 63, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(355, 12, 64, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(356, 12, 66, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(357, 12, 71, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(358, 12, 72, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(359, 12, 73, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(360, 12, 75, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(361, 12, 76, '21:07:48', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 1, NULL),
-(362, 12, 18, '21:07:48', 0, 'Hi student7, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 2, NULL),
-(363, 12, 14, '21:07:48', 0, 'Hi student3, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 2, NULL),
-(364, 12, 26, '21:07:48', 0, 'Hi sadjadis@gmail.com, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/134', 2, NULL),
-(365, 12, 5, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(366, 12, 9, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(367, 12, 14, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(368, 12, 15, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(369, 12, 16, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(370, 12, 17, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(371, 12, 18, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(372, 12, 19, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(373, 12, 22, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(374, 12, 26, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(375, 12, 55, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(376, 12, 60, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(377, 12, 63, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(378, 12, 64, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(379, 12, 66, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(380, 12, 71, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(381, 12, 72, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(382, 12, 73, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(383, 12, 75, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(384, 12, 76, '21:09:07', 0, 'employer10 just posted a new job: Junior System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 1, NULL),
-(385, 12, 18, '21:09:07', 0, 'Hi student7, the company employer10 just posted a job Junior System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 2, NULL),
-(386, 12, 14, '21:09:07', 0, 'Hi student3, the company employer10 just posted a job Junior System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 2, NULL),
-(387, 12, 26, '21:09:07', 0, 'Hi sadjadis@gmail.com, the company employer10 just posted a job Junior System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/135', 2, NULL),
-(388, 12, 5, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(389, 12, 9, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(390, 12, 14, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(391, 12, 15, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(392, 12, 16, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(393, 12, 17, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(394, 12, 18, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(395, 12, 19, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(396, 12, 22, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(397, 12, 26, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(398, 12, 55, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(399, 12, 60, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(400, 12, 63, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(401, 12, 64, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(402, 12, 66, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(403, 12, 71, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(404, 12, 72, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(405, 12, 73, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(406, 12, 75, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(407, 12, 76, '21:17:24', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 1, NULL),
-(408, 12, 55, '21:17:24', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 2, NULL),
-(409, 12, 5, '21:17:24', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 2, NULL),
-(410, 12, 14, '21:17:24', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 2, NULL),
-(411, 12, 16, '21:17:24', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/136', 2, NULL),
-(412, 12, 5, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(413, 12, 9, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(414, 12, 14, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(415, 12, 15, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(416, 12, 16, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(417, 12, 17, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(418, 12, 18, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(419, 12, 19, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(420, 12, 22, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(421, 12, 26, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(422, 12, 55, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(423, 12, 60, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(424, 12, 63, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(425, 12, 64, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(426, 12, 66, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(427, 12, 71, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(428, 12, 72, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(429, 12, 73, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(430, 12, 75, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(431, 12, 76, '21:18:20', 0, 'employer10 just posted a new job: Junior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 1, NULL),
-(432, 12, 55, '21:18:20', 0, 'Hi RogerSTU, the company employer10 just posted a job Junior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 2, NULL),
-(433, 12, 5, '21:18:20', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Junior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 2, NULL),
-(434, 12, 14, '21:18:20', 0, 'Hi student3, the company employer10 just posted a job Junior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 2, NULL),
-(435, 12, 16, '21:18:20', 0, 'Hi student5, the company employer10 just posted a job Junior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/137', 2, NULL),
-(436, 12, 5, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(437, 12, 9, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(438, 12, 14, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(439, 12, 15, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(440, 12, 16, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(441, 12, 17, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(442, 12, 18, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(443, 12, 19, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(444, 12, 22, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(445, 12, 26, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(446, 12, 55, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(447, 12, 60, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(448, 12, 63, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(449, 12, 64, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(450, 12, 66, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(451, 12, 71, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(452, 12, 72, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(453, 12, 73, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(454, 12, 75, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(455, 12, 76, '21:34:02', 0, 'employer10 just posted a new job: Senior Web Developer. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 1, NULL),
-(456, 12, 55, '21:34:02', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(457, 12, 5, '21:34:02', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(458, 12, 14, '21:34:02', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(459, 12, 16, '21:34:02', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(460, 12, 55, '21:35:08', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(461, 12, 5, '21:35:08', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(462, 12, 14, '21:35:08', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(463, 12, 16, '21:35:08', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(464, 12, 55, '21:36:37', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(465, 12, 5, '21:36:37', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(466, 12, 14, '21:36:37', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(467, 12, 16, '21:36:37', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(468, 12, 55, '21:37:44', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(469, 12, 5, '21:37:44', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(470, 12, 14, '21:37:44', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(471, 12, 16, '21:37:44', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(472, 12, 55, '21:37:45', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(473, 12, 5, '21:37:45', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(474, 12, 14, '21:37:45', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(475, 12, 16, '21:37:45', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(476, 12, 55, '21:37:46', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(477, 12, 5, '21:37:46', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(478, 12, 14, '21:37:46', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(479, 12, 16, '21:37:46', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(480, 12, 55, '21:38:07', 0, 'Hi RogerSTU, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(481, 12, 5, '21:38:07', 0, 'Hi earen003@fiu.edu, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(482, 12, 14, '21:38:07', 0, 'Hi student3, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(483, 12, 16, '21:38:07', 0, 'Hi student5, the company employer10 just posted a job Senior Web Developer that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/138', 2, NULL),
-(484, 12, 5, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(485, 12, 9, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(486, 12, 14, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(487, 12, 15, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(488, 12, 16, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(489, 12, 17, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(490, 12, 18, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(491, 12, 19, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(492, 12, 22, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(493, 12, 26, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(494, 12, 55, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(495, 12, 60, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(496, 12, 63, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(497, 12, 64, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(498, 12, 66, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(499, 12, 71, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(500, 12, 72, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(501, 12, 73, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(502, 12, 75, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(503, 12, 76, '21:39:36', 0, 'employer10 just posted a new job: System Administrator. Click here to view the post. ', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 1, NULL),
-(504, 12, 18, '21:39:36', 0, 'Hi student7, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 2, NULL),
-(505, 12, 14, '21:39:36', 0, 'Hi student3, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 2, NULL),
-(506, 12, 26, '21:39:36', 0, 'Hi sadjadis@gmail.com, the company employer10 just posted a job System Administrator that matches your skills', 'http://vjf-dev.cis.fiu.edu/JobFair/index.php/job/view/jobid/139', 2, NULL);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=876 ;
 
 -- --------------------------------------------------------
 
@@ -1269,7 +801,7 @@ CREATE TABLE IF NOT EXISTS `resume` (
 INSERT INTO `resume` (`id`, `resume`) VALUES
 (55, '/JobFair/resumes/55-Rogelio Alonso Resume.pdf'),
 (60, '/JobFair/resumes/60-Student.pdf'),
-(71, '/JobFair/resumes/71-Business Resume.pdf');
+(71, '/JobFair/resumes/71-StudentResume.pdf');
 
 -- --------------------------------------------------------
 
@@ -1317,7 +849,7 @@ CREATE TABLE IF NOT EXISTS `school` (
   `name` varchar(100) NOT NULL,
   `email_string` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `school`
@@ -1336,7 +868,8 @@ INSERT INTO `school` (`id`, `name`, `email_string`) VALUES
 (10, 'Pearson VUE Testing Center', NULL),
 (11, 'FIU', NULL),
 (12, 'Michigan State University', NULL),
-(13, 'University of Tehran', NULL);
+(13, 'University of Tehran', NULL),
+(14, 'h', NULL);
 
 -- --------------------------------------------------------
 
@@ -1349,7 +882,7 @@ CREATE TABLE IF NOT EXISTS `skillset` (
   `name` varchar(45) NOT NULL,
   `FK_general_skills` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=128 ;
 
 --
 -- Dumping data for table `skillset`
@@ -1472,7 +1005,9 @@ INSERT INTO `skillset` (`id`, `name`, `FK_general_skills`) VALUES
 (122, 'Bioinformatics', 0),
 (123, 'C#', 0),
 (124, 'Design Patterns', 0),
-(125, 'Testing', 0);
+(125, 'Testing', 0),
+(126, 'administrator', 0),
+(127, 'System Administrator', 0);
 
 -- --------------------------------------------------------
 
@@ -1533,7 +1068,7 @@ CREATE TABLE IF NOT EXISTS `student_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_skillid` (`skillid`),
   KEY `idx_userid` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=295 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=321 ;
 
 --
 -- Dumping data for table `student_skill_map`
@@ -1656,12 +1191,13 @@ INSERT INTO `student_skill_map` (`id`, `userid`, `skillid`, `level`, `ordering`)
 (286, 15, 53, NULL, 2),
 (287, 15, 50, NULL, 3),
 (288, 15, 30, NULL, 4),
-(289, 71, 123, NULL, 1),
-(290, 71, 1, NULL, 2),
-(291, 71, 124, NULL, 3),
-(292, 76, 3, NULL, 1),
-(293, 76, 30, NULL, 2),
-(294, 76, 125, NULL, 3);
+(302, 75, 30, NULL, 1),
+(303, 75, 3, NULL, 2),
+(316, 71, 123, NULL, 1),
+(317, 71, 57, NULL, 2),
+(318, 71, 3, NULL, 3),
+(319, 71, 30, NULL, 4),
+(320, 71, 127, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -1724,7 +1260,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_usertype` (`FK_usertype`),
   KEY `idx_FK_username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
 
 --
 -- Dumping data for table `user`
@@ -1736,16 +1272,16 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (8, 'test_cis_fiu_edu', '$2a$08$0L3h//kusVHOdsX1.63B5.eZsXumUFCzudt1EVJCEGFTowlIyRIIG', 2, 'test@cis.fiu.edu', '2014-10-11 20:36:39', NULL, 1, '/JobFair/images/profileimages/user-default.png', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (9, 'student8', '$2a$08$lc0rNoh.imE0DMCJPjqyGObn3m4ztqECqE2kKbmBgkX9oudrg0dHi', 1, 'arenaserick123@yahoo.com', '2014-11-06 13:30:00', '3vlsgjawyq', 1, '/JobFair/images/profileimages/user-default.png', 'erickkk', 'arenass', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 5),
 (11, 'nmad43', '$2a$08$41tQbGBVPNnLRY5pQxUicOqtmLy2t/SqbMuzJ4z7DAHdt3QfJtosK', 2, 'nmada002@fiu.edu', '2014-11-13 13:10:32', 'vihzwtsplq', NULL, '/JobFair/images/profileimages/user-default.png', 'Nicholas', 'Madariaga', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
-(12, 'employer10', '$2a$08$oLylkwLN2eMvx.B9AtLVhu4dSoLvAvVc7oWTSTGhKt2pDlZY8uBB.', 2, 'employertwo@mail.com', '2014-11-23 17:33:16', '5qjanjsv5n', 1, '/JobFair/images/profileimages/user-default.png', 'emp', 'two', 0, NULL, NULL, NULL, NULL, 0, 0, NULL, 1, 5),
+(12, 'employer10', '$2a$08$oLylkwLN2eMvx.B9AtLVhu4dSoLvAvVc7oWTSTGhKt2pDlZY8uBB.', 2, 'ymala001@fiu.edu', '2014-11-23 17:33:16', '5qjanjsv5n', 1, '/JobFair/images/profileimages/user-default.png', 'emp', 'two', 0, NULL, NULL, NULL, NULL, 0, 0, NULL, 1, 5),
 (14, 'student3', '$2a$08$oPt5manAQUtYPPwKBzEtW.Bjn4OXGYJvHqSfoLQ1neU4xn3sNcy5e', 1, 'student3@mail.com', '2014-12-08 12:10:29', '0dm6r4sm8x', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'three', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(15, 'student4', '$2a$08$CdHaBhoQniFWjXQxIztgX.BGeH0m2ApEjd4U.Hl11P9EUHtZi9c/i', 1, 'student4@mail.com', '2014-12-08 12:10:56', 'civrojoyt8', 0, '/JobFair/images/profileimages/student4avatar.jpg', 'student', 'four', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(15, 'student4', '$2a$08$CdHaBhoQniFWjXQxIztgX.BGeH0m2ApEjd4U.Hl11P9EUHtZi9c/i', 1, 'student4@mail.com', '2014-12-08 12:10:56', 'civrojoyt8', 1, '/JobFair/images/profileimages/student4avatar.jpg', 'student', 'four', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (16, 'student5', '$2a$08$1RtOrIfXEZFZEKF72IaKOewYIZodUdPaR7.uvjJ6ijwM3L6gv96nu', 1, 'student5@mail.com', '2014-12-08 12:11:33', 'yjupo61fkh', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'five', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (17, 'student6', '$2a$08$IMOemea88AkVFg9DyR8Luuh7LQ1Z7GV1T7x3iSr.ad6piQanEeq66', 1, 'student6@mail.com', '2014-12-08 12:11:54', 's85trcxv1p', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'six', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (18, 'student7', '$2a$08$5Q1dX6zQSfwlfsEINQx9WeuwMxLKIfQE3SPQOmR80TSWNYvac27CS', 1, 'student7@mail.com', '2014-12-08 12:12:27', '7kai06xc65', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'seven', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (19, 'student10', '$2a$08$vwEAweAqJJMnewbed.YVZOycFb4nvS9UdRGcWYcwPfg1RTE8dp2aG', 1, 'student10@mail.com', '2014-12-11 10:06:13', 'bosv3vqir3', NULL, '/JobFair/images/profileimages/user-default.png', 'student', 'ten', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (22, 'jtrav029@fiu.edu', '$2a$08$igvNQYv.yFI.3JrqELQXte2srqEr0sytDBPrfaNLQpkSRZCO/G9di', 1, 'jtrav029@fiu.edu', '2015-02-01 04:43:13', 'fiu', 1, 'https://lh3.googleusercontent.com/-xjXKxJLmagc/AAAAAAAAAAI/AAAAAAAAACI/8JbHCPrKBYM/photo.jpg', 'Jorge', 'Travieso', 0, NULL, NULL, NULL, NULL, NULL, 1, '116231147857551021368', 1, 0),
 (23, 'GuestStudent', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', 4, 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Student', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(24, 'GuestEmployer', '$2a$08$gWRjrpq9Xsd.XJmuWWc9.Ot/S/iP3MkrcyYewl7BXaknLNQupxKA6', 5, 'guestemployer@cs.fiu.edu', '2015-02-05 22:47:06', 'yekce5xo6s', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
+(24, 'GuestEmployer', '$2a$08$gWRjrpq9Xsd.XJmuWWc9.Ot/S/iP3MkrcyYewl7BXaknLNQupxKA6', 5, 'guestemployer@cs.fiu.edu', '2015-02-05 22:47:06', 'yekce5xo6s', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 2),
 (26, 'sadjadis@gmail.com', '$2a$08$czIQv8g6mh2xH/m/UlpPFOfJv1ksBHaFA4XIe1XgEcGtZ3/HvYy4W', 1, 'sadjadi@cs.fiu.edu', '2015-02-18 09:19:11', 'google', 1, 'https://lh3.googleusercontent.com/-QnmiMU0SQEQ/AAAAAAAAAAI/AAAAAAAAMtw/6TS6oscVgj8/photo.jpg', 'Masoud', 'Sadjadi', 0, 1, '-q_utmm44e', '110291442056614091691', NULL, NULL, 1, NULL, 1, 0),
 (55, 'RogerSTU', '$2a$08$NG1FTRUINW7fwsajTe06/eGjJ9uvKLIJAFGoUEMq78TJkrkXlX50m', 1, 'ralon038@fiu.edu', '2015-03-03 00:07:12', 'srxnpcjlcz', 1, '/JobFair/images/profileimages/RogerSTUavatar.JPG', 'Rogelio', 'Alonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (56, 'testemployer', '$2a$08$A0EViiZBj42D2UfBAhMxyOXy/BxulKDLuQR3HntZfkt9P/3XO32sC', 2, 'sadjadi@cis.fiu.edu', '2015-03-04 12:05:40', 'nt0tjgeiv3', 1, '/JobFair/images/profileimages/user-default.png', 'Test', 'Employer', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
@@ -1753,12 +1289,12 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (60, 'RogerStuTest1', '$2a$08$xRtI.tW7PieXx/zuVdKVhOMlmNZ2FfQhtozopEJdgE0trTT6t/rJ.', 1, 'rog.stu.001@gmail.com', '2015-03-04 12:18:09', 'la4k5nqbbv', 1, '/JobFair/images/profileimages/RogerStuTest1avatar.JPG', 'RogerTest', 'StudentTest', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (61, 'RogerEmpTest', '$2a$08$7JQwicSIr3u9kl.IwlZ.X.DWboOqTvuNLbe6VqsoyH/xUlUPLwDAy', 2, 'rog.emp.001@gmail.com', '2015-03-04 12:18:17', 'hgk9neax66', 1, '/JobFair/images/profileimages/user-default.png', 'RogerTest', 'EmployerTest', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (63, 'hgutierrez.jobs@gmail.com', '$2a$08$HYwdV8.ws5pUCgnL0RUh0ONXun0Km2gH5ihMMsreTW6rKps8972OK', 1, 'hgutierrez.jobs@gmail.com', '2015-04-06 23:27:15', 'google', 1, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', 'Heidy', 'Gutierrez', 0, NULL, NULL, '105478010618083573451', NULL, NULL, 1, NULL, 1, 0),
-(71, 'ralfo028', '$2a$08$3A7HpQcR8uNaCtbY7ERp..TLmrXBqgtOXOVUpcifnZyZyhJy5cbfW', 1, 'renefakeemail@mail.com', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(71, 'ralfo028', '$2a$08$3A7HpQcR8uNaCtbY7ERp..TLmrXBqgtOXOVUpcifnZyZyhJy5cbfW', 1, 'ralfo028@fiu.edu', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
 (72, 'student15', '$2a$08$XoClsAqz7SUAWGP70Ho2yu9dlls6dIs41e45jkZ3yk5EX0FJZVREe', 1, 'student15@mail.com', '2015-06-12 00:38:37', '70luwuk0hc', NULL, '/JobFair/images/profileimages/user-default.png', 'Student', 'Fifteen', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (73, 'newstudent', '$2a$08$3AEZmYlRVVrVmxYSC5QQ1u8G8Hj8R9DnSipD3byrm5tB4YiJNXM52', 1, 'newstu@mail.com', '2015-06-12 01:10:56', '0fnx8phdcs', 0, '/JobFair/images/profileimages/user-default.png', 'NewStudent', 'DeleteMe', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(74, 'android', '$2a$08$HcWWf.a.A81YQwmrwlCb4eUsl/Vyn9vXIKAN/AD1KaXtq/g/QywDK', 2, 'androidfake@mail.com', '2015-06-12 04:54:18', '54d847sv48', 1, '/JobFair/images/profileimages/androidavatar.png', 'Android', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
-(75, 'vjftester', '$2a$08$7jh2RaCJTSthoO4EGcSTeeRo.ZEip.zupEyAwdxbbb78FV.utFweK', 1, 'vjftester@gmail.com', '2015-06-12 19:48:33', 'jtcah42uk6', NULL, '/JobFair/images/profileimages/user-default.png', 'Virtual', 'Tester', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(76, 'ralon039@fiu.edu', '$2a$08$7jh2RaCJTSthoO4EGcSTeeRo.ZEip.zupEyAwdxbbb78FV.utFweK', 1, 'ralon039@fiu.edu', '2015-06-16 11:08:31', 'google', 1, 'https://lh3.googleusercontent.com/-Zq5RD96xaCU/AAAAAAAAAAI/AAAAAAAAAJM/JCnXPK3VeUo/photo.jpg', 'Rogelio', 'Alonso', 0, 1, NULL, '111259815576282894477', NULL, NULL, 1, NULL, 1, 0);
+(74, 'android', '$2a$08$HcWWf.a.A81YQwmrwlCb4eUsl/Vyn9vXIKAN/AD1KaXtq/g/QywDK', 2, 'androidfake@mail.com', '2015-06-12 04:54:18', '54d847sv48', 1, '/JobFair/images/profileimages/androidavatar.png', 'Android', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 1),
+(75, 'vjftester', '$2a$08$7jh2RaCJTSthoO4EGcSTeeRo.ZEip.zupEyAwdxbbb78FV.utFweK', 1, 'vjftester@gmail.com', '2015-06-12 19:48:33', 'jtcah42uk6', 1, '/JobFair/images/profileimages/user-default.png', 'Virtual', 'Tester', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(82, 'RFakeEmp', '$2a$08$zTJMPu8y7j2F4YWpQDj16uIVzAwKp/NKiHPU9jHf.Prs8AdGPCd1S', 2, 'RFakeEmployer@gmail.com', '2015-06-19 20:13:22', 'w5q1wn0jr2', NULL, '/JobFair/images/profileimages/user-default.png', 'Employer', 'REmpLast', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1848,7 +1384,9 @@ CREATE TABLE IF NOT EXISTS `video_resume` (
 
 INSERT INTO `video_resume` (`id`, `video_path`, `publish_video`) VALUES
 (15, 'dJjg2_7PnYA', 0),
-(71, 'qM9i_MoaZiM', 1);
+(17, 'iNh_PcB2QJ4', 0),
+(71, 'qM9i_MoaZiM', 1),
+(75, '7UKXmUPwa7w', 0);
 
 -- --------------------------------------------------------
 
