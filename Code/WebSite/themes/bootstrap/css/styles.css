@@ -506,18 +506,18 @@ margin: 0 10px 5px 0;
 }
 .hometitle a{
     font-size: 14px;
-    font-weight: bold;  
     padding: 7px 7px;
-    background: white;
-    color: #0088cc;
+    color: white/*#0088cc*/;
+    background: #383838 /*#CEF6F5*/;
     float: right;    
     text-decoration: none;
-    border-radius: 5px 5px;
+    border-radius: 9px 9px;
 }
 
-.hometitle a:hover{      
-    color:#0088cc;
-    background: #CEF6F5;
+.hometitle a:hover{
+    //font-weight: bold; 
+    background: white;
+    color: #0088cc;
     text-decoration: none;
 }
 

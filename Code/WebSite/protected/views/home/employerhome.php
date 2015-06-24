@@ -37,7 +37,7 @@ $this->breadcrumbs = array(
         <div style="clear:both"></div>
         <hr>
 
-        <div class="hometitle" style="width:790px;">JOB POSTS | <a href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">POST NEW JOB <i class="fa fa-plus"></i>
+        <div class="hometitle" style="width:790px;">JOB POSTS | <a href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">Post New Job  <i class="fa fa-plus-circle fa-lg"></i>
             </a>
         </div>
         <div style="clear:both"></div>
