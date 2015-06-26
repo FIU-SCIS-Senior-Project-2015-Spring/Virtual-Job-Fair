@@ -381,7 +381,19 @@
                 <?php 
                     // Rene: Profile Completion Progress bar graph.
                     echo '<div>Profile Completion Graph</div>';
-                    echo '<div id="box" span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+                    
+                    // Green bar.
+                    if($profileCompStatus >= 75)
+                        echo '<div id="box" span class="progress progress-success progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+                   
+                    // Blue bar.
+                    else if($profileCompStatus >= 50)
+                        echo '<div id="box" span class="progress progress-info progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+                    
+                    // Yellow bar.
+                    else
+                        echo '<div id="box" span class="progress progress-warning progress-striped active"> <div class="bar" style="width:' . $profileCompStatus . '%' . '"> <span class="sr-only">' . $profileCompStatus . '%' . '</span>  </div> </div>';
+                    
                     $pending = explode(",", $incompleteComponents);                    
                     
                     echo '<div id="incomplete-box"><ul>';
