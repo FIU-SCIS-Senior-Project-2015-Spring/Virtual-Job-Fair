@@ -26,8 +26,6 @@ $(function() {
 </script>
 
 <div id="fullcontent" style="width:1200px;">
-
-
 <div id="leftside3" style="border-right: 1px solid rgb(228, 228, 228);min-height: 380px;">
 <h1><?php echo 'Welcome to Virtual Job Fair' ?></h1> <br>
 <h3 style="margin: -10px 0 0 10px"><i><?php echo  $user->first_name ." ". $user->last_name  ?></i></h3>
@@ -38,13 +36,16 @@ $(function() {
 $jobs = Job::getMatchingJobs();
 if ($jobs == null) $jobs = array();
 ?>
-<div id="yourmatch" >
+<div class="student-home-container" id="yourmatch" >
 <div class="titlebox">MATCHING JOBS</div>	
 <br/><br/>
-	<?php foreach($jobs as $job) {?>
-	<a class="mostwantedskills" href="/JobFair/index.php/job/view/jobid/<?php echo $job->id  ?>"><?php echo $job->title; ?></a>
-	<br/>
-	<?php }?>
+        <ul>
+	<?php 
+            foreach($jobs as $job) {
+            echo '<li><a class="mostwantedskills" href="/JobFair/index.php/job/view/jobid/'.$job->id.'">'.$job->title.'</a></li>';
+	}
+        ?>
+        </ul>    
 </div>	
 <div id="mostwanted">
 <div class="titlebox">MOST WANTED SKILLS</div><br><br>
@@ -76,11 +77,23 @@ if ($jobs == null) $jobs = array();
 <?php }?></ul>
 
 	<br>
-</div>	
-
-
-
+ 
 </div>
+ <?php
+    echo '<div class="student-home-container">';
+    echo '<div class="titlebox">JOBS APPLIED</div><br><br>';
+    echo '<ul>';
+    if (isset($jobsApplied) && $jobsApplied != NULL){        
+        foreach ($jobsApplied as $ja){
+            echo '<span class="glyphicon glyphicon-search"></span><li class="mostwantedskills"><a href="/JobFair/index.php/job/view/jobid/'.$ja->id.'">'.$ja->title.'</a>.</li>';
+        }
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+?>    
+
+
 <div id="notificationside">
 
 <div id="notificationemployer">
@@ -407,7 +420,7 @@ margin-right: -15px;;">
 
 </div>
 
-
+</div>
 
 
 

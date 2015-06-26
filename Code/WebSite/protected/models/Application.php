@@ -97,4 +97,13 @@ class Application extends CActiveRecord
 		$application = Application::model()->find("jobid=:jobid AND userid=:userid", array(":jobid"=>$jobid, ":userid"=>$user->id));
 		return ($application != null);
 	}
+        
+        // Return a list of the jobs the user has applied for
+        public function getUserJobApplications($userID)
+        {
+            $applicationsList = Application::model()->findAll(array("condition" => "userid = $userID"), array("order" => "id desc"));
+
+            return $applicationsList;
+        }
+        
 }

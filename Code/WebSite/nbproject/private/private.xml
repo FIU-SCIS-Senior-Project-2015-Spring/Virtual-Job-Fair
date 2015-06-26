@@ -3,20 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/home/studenthome.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/job/post.php</file>
-            <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/profile/ViewEmployer.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/config/mail.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/controllers/MessageController.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/job/View.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/config/main.php</file>
+            <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/models/Application.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/profile/student.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/message/send.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/themes/bootstrap/css/styles.css</file>
+            <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/controllers/HomeController.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/extensions/YiiMailer/YiiMailer.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/models/User.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/controllers/UserController.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/controllers/JobController.php</file>
-            <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/controllers/ProfileController.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/home/employerhome.php</file>
             <file>file:/C:/xampp/htdocs/Virtual-Job-Fair/Code/WebSite/protected/views/message/view.php</file>
         </group>

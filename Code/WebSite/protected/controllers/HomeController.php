@@ -9,6 +9,7 @@
             $username = Yii::app()->user->name;
             $user = User::model()->find("username=:username", array(':username' => $username)); // pass the user
             $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+            $applicationsList = Application::model()->getUserJobApplications($user->id); // get the jobs that the student has applied for
             $companies = CompanyInfo::getNames(); // pass the companies
             $skills = Skillset::getNames(); // pass the skills
 //  		$dbCommand = Yii::app()->db->createCommand("SELECT skillid,COUNT(*) as count1 FROM `job_skill_map` GROUP BY `skillid` ORDER BY 'count1'");
@@ -71,11 +72,17 @@
                 else if ($n->importancy == 1 & $n->been_read == 0)
                     $countmisc++;
             }
+            
+            $jobsApplied = Array();
+            foreach ($applicationsList as $job)
+            { 
+                $jobsApplied[] = Job::model()->findByAttributes(array('id' => $job->jobid));
+            }
+            
 
             //$countmessages = 5;
 
-
-            $this->render('studenthome', array('user' => $user, 'companies' => $companies, 'skills' => $skills, 'notification' => $notification, 'mostwanted' => $most_wanted_skills, 'countvideo' => $countvideo, 'countmachingjobs' => $countmachingjobs, 'countmessages' => $countmessages, 'countmisc' => $countmisc));
+            $this->render('studenthome', array('user' => $user, 'companies' => $companies, 'skills' => $skills, 'notification' => $notification, 'mostwanted' => $most_wanted_skills, 'countvideo' => $countvideo, 'countmachingjobs' => $countmachingjobs, 'countmessages' => $countmessages, 'countmisc' => $countmisc, 'jobsApplied'=> $jobsApplied));
         }
 
         public function actionNew()

@@ -36,10 +36,13 @@ $this->breadcrumbs = array(
         <h3 style="margin: -10px 0 0 10px"><i><?php echo $user->first_name . " " . $user->last_name ?></i></h3>
         <div style="clear:both"></div>
         <hr>
-
-        <div class="hometitle" style="width:790px;">JOB POSTS | <a href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">Post New Job  <i class="fa fa-plus-circle fa-lg"></i>
-            </a>
-        </div>
+        <div id="wraper" style="width:800px; margin:0px; padding:0px;">
+            <div class="hometitle" style="width:641px; float:left;"> JOB POSTS |                          
+            </div>
+            <div id="new-post-btn"> 
+                    <a href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">Post New Job  <i class="fa fa-plus-circle fa-lg"></i></a>
+            </div>
+        </div>     
         <div style="clear:both"></div>
         <div id="list4">
 

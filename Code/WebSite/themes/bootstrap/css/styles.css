@@ -504,20 +504,23 @@ margin: 0 10px 5px 0;
 	font-size: 12px !important;
 	width: 300px;
 }
-.hometitle a{
-    font-size: 14px;
-    padding: 7px 7px;
+#new-post-btn a {
+    width:135px; 
+    float:left; 
+    height:24px;
+    font-size: 16px;
+    padding-top: 6px;
+    padding-left: 14px;
     color: white/*#0088cc*/;
     background: #383838 /*#CEF6F5*/;
-    float: right;    
     text-decoration: none;
-    border-radius: 9px 9px;
+    //border-radius: 9px 9px;
 }
 
-.hometitle a:hover{
-    //font-weight: bold; 
-    background: white;
-    color: #0088cc;
+#new-post-btn a:hover{
+    // border-right:4px solid #0088cc; 
+    background: #E69010/*#F2F5A9*/;
+    color: white/*#0088cc*/;
     text-decoration: none;
 }
 
@@ -690,7 +693,7 @@ opacity: 1.5;
 #adminSearchbox{
 	margin-top:5px;
  	float: left;
-    width:600px;
+        width:600px;
 	min-height:200px;
 	padding:5px;
 	border-width: 1px;
@@ -707,8 +710,8 @@ opacity: 1.5;
 #searchforjobs{
  	margin-top:30px;   
  	float: left;
-    width:510px;
-    margin-left:20px;
+        width:510px;
+        margin-left:20px;
 	min-height:50px;
 	padding:5px;
 	border-width: 1px;
@@ -749,10 +752,27 @@ opacity: 1.5;
 	border-color:white;
 	border-style:solid;
  	border-radius: 5px 5px 5px 5px;
-
  	font-size:12px;
  	background-color: transparent;
 	border-color: rgb(178, 197, 252);
+}
+
+.student-home-container{
+ 	margin-top:30px;   
+ 	float: left;
+        width:350px;
+	min-height:200px;
+	padding:5px;
+	border: 1px solid white ;
+ 	border-radius: 5px 5px 5px 5px;
+ 	font-size:12px;
+ 	background-color: transparent;
+	border-color: rgb(178, 197, 252);        
+}
+
+.student-home-container ul{        
+        margin-left: 10px;
+        list-style: none;
 }
 
 
@@ -2077,14 +2097,14 @@ padding-left: 40px;
     -moz-opacity: 1;
 }
 
+// Styling for Messages Menu buttons
 .message-btn1 a {
   color: white;  
   background: #08C;
 }
-
 .message-btn2 a {
   color: white;
-  background: #666;
+  background: #E69010;
 }
 
 
