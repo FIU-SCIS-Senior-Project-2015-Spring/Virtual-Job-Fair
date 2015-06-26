@@ -1265,9 +1265,10 @@ class JobController extends Controller
         $application->save(false);
         $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/student/user/' . $user->username;
         $link1 = CHtml::link('click here to see ' . $user->username . ' profile', 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/student/user/' . $user->username);
+        $link2 = CHtml::link('Check Job Here.','http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id);
         $message = "The User " . $user->username . " just applied for your job " . $job->title . ". Click here to view his profile";
         $message1 = "$user->username just applied for your job $job->title<br/>$link1";
-        $message2= "Thank for applying for the ".$job->title." position.";
+        $message2= 'Thank for applying for the '.$job->title.' position.</br>'.$link2;
         $html = User::replaceMessage($poster->username, $message1);
         User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
         User::sendEmail($poster->email, "Virtual Job Fair Application Submitted", "New Application Submitted", $message1);
@@ -1275,7 +1276,7 @@ class JobController extends Controller
         //User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
         $this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
     }
-
+            
     public function actionClose($jobid) {
         $user = User::getCurrentUser();
 
