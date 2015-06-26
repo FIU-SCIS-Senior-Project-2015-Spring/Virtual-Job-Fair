@@ -1,7 +1,7 @@
 <br/><br/><br/>
 <?php
     // Uses the JobController.php class.
-    
+
     $js = Yii::app()->clientScript;
     $js->registerCoreScript('jquery.ui');
     $js->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.slimscroll.js');
@@ -9,11 +9,13 @@
     include Yii::app()->basePath . '/youtube_subsystem/YouTubeHandler.php';
 ?>
 
-<?php if (isset($students))
-    { ?>
+<?php 
+    if(isset($students))
+    {
+        ?>
         <script>
 
-            $(document).ready(function() 
+            $(document).ready(function()
             {
         <?php
         $i = 0;
@@ -30,7 +32,7 @@
                         $("#tabpage_2").html($("#resume<?php echo $i ?>").html());
                         $("#tabpage_3").html($("#videoresume<?php echo $i ?>").html());
                         $("#tabpage_4").html($("#coverLetter<?php echo $i ?>").html());
-                        
+
                         $("#tabHeader_1").trigger("click");
                     });
                     $("#handshake<?php echo $i ?>").click(function(e) {
@@ -44,7 +46,8 @@
 
         <?php } ?>
         <?php if (isset($students))
-        { ?>
+        {
+            ?>
                     $("#profilebutton1").trigger("click");
         <?php } ?>
                 $("#matchboxes").slimScroll({
@@ -60,24 +63,26 @@
 
         </script>
     <?php } ?>
-<?php if (isset($students))
-    { ?>
+<?php 
+    if (isset($students))
+    {
+        ?>
 
         <p class="notice">
             Take a look at some students who have matched with your job skills. Consider giving them a "Virtual Handshake", which sends an email notification that shows you would like for them to apply to this job.
-           
+
         </p>
 
-         <br>
+        <br>
         <div style="float:left;">
             <div class="matchboxes" id="matchboxes">
-        <?php
-        $i = 0;
-        foreach ($students as $student)
-        {
-            $i ++;
-            ?>
-                
+                <?php
+                $i = 0;
+                foreach ($students as $student)
+                {
+                    $i ++;
+                    ?>
+
                     <div class="studentmatchbox" id="student<?php echo $i; ?>">
                         <div class="matchLeftSide">
                             <div class="matchProfileImage">
@@ -86,11 +91,11 @@
                         </div>
                         <div class="matchRightSide">
                             <div class="matchName">
-                                <strong><?php echo $student->first_name . ' ' . $student->last_name . ' ' . $student->skillrating ?></strong>
+                                <strong><?php echo $student->first_name . ' ' . $student->last_name . '<br> Match rating: ' . intval($student->skillrating * 100) . '%' ?></strong>
                             </div>
-                            <?php
-                            $handshake = Job::hasHandshake($_GET['jobid'], User::getCurrentUser()->id, $student->id);
-                            ?>
+            <?php
+            $handshake = Job::hasHandshake($_GET['jobid'], User::getCurrentUser()->id, $student->id);
+            ?>
 
 
                             <?php
@@ -140,36 +145,37 @@
                         <div id="profile<?php echo $i ?>" style="display: none;">
                             <div class="matchProfileLeftSide">
                                 <div class="matchaboutme">
-                                    <?php 
-                                        $basicInfo = $student->basicInfo;
-                                    
-                                        if($basicInfo == null) 
-                                            $basicInfo = new BasicInfo; 
-                                        ?>
-                                    
+                                    <?php
+                                    $basicInfo = $student->basicInfo;
+
+                                    if ($basicInfo == null)
+                                        $basicInfo = new BasicInfo;
+                                    ?>
+
                                     <name>
-                                        <?php echo $student->first_name . ' ' . $student->last_name; 
-                                        ?>
+            <?php echo $student->first_name . ' ' . $student->last_name;
+            ?>
                                         <br><br>
                                     </name>
                                     <aboutme>
-                                        <?php 
-                                            echo $basicInfo->about_me 
-                                        ?>
+            <?php
+            echo $basicInfo->about_me
+            ?>
                                     </aboutme><br><br>
                                     <matchlab>EMAIL:</matchlab> <?php echo $student->email; ?><br/>
                                     <matchlab>LOCATION:</matchlab> <?php echo $basicInfo->city . ', ' . $basicInfo->state; ?><br/>
-                                    
-                                    
+
+
                                 </div>
                                 <br><br><br>
                                 <div class="matcheducation">
                                     <div class="titlebox">EDUCATION</div>	
                                     <div style="clear:both"></div>
-                                    <?php foreach ($student->educations as $education)
-                                    { ?>
+                                        <?php foreach ($student->educations as $education)
+                                        {
+                                            ?>
                                         <div>
-                                        <?php echo $education->fKSchool->name; ?> <br/>
+                                            <?php echo $education->fKSchool->name; ?> <br/>
                                             <?php echo $education->additional_info; ?><br />
                                             <lab> Graduation:</lab><?php echo formatDate($education->graduation_date); ?> <br/>
                                             <lab> Degree:</lab><?php echo $education->degree; ?> <br/>
@@ -187,11 +193,12 @@
                                     <div class="titlebox">EXPERIENCE</div>	
 
                                     <div style="clear:both"></div>
-                                    <?php foreach ($student->experiences as $experience)
-                                    { ?>
+                                        <?php foreach ($student->experiences as $experience)
+                                        {
+                                            ?>
                                         <div>
-                <?php echo $experience->job_title; ?><br />
-                <?php echo $experience->job_description ?> <br />
+                                            <?php echo $experience->job_title; ?><br />
+                                            <?php echo $experience->job_description ?> <br />
                                             <lab>Start:</lab><?php echo formatDate($experience->startdate); ?><br />
                                             <lab>End:</lab><?php echo getExperienceEnd($experience->enddate); ?><br />
                                             <lab>Employer:</lab><?php echo $experience->company_name ?><br />
@@ -204,17 +211,18 @@
             ?>
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="matchProfileRightSide">
                                 <div id="skills">
                                     <div class="titlebox">SKILLS</div>
                                     <ul id="sortable">
-                            <?php foreach ($student->studentSkillMaps as $skill)
-                            { ?>
+                                    <?php foreach ($student->studentSkillMaps as $skill)
+            {
+                ?>
                                             <li >
                                                 <span class="skilldrag">
-                                <?php echo $skill->skill->name; ?>
+                                                    <?php echo $skill->skill->name; ?>
                                                 </span>
                                             </li>
             <?php } ?>
@@ -223,27 +231,25 @@
                                 </div><!-- End Skills -->
                             </div>
                         </div>
-                        
+
                         <div id="coverLetter<?php echo $i ?>" style="display: none;">
                             <?php
-                                $coverletter = $student->coverletter;
-                                if(isset($coverletter))
-                                {
-                                 //   CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'))
-                                    
-                                    $link = 'http://' . Yii::app()->request->getServerName() . '/' . $coverletter->file_path;
-                                    ?>
+                            $coverletter = $student->coverletter;
+                            if (isset($coverletter))
+                            {
+                                //   CHtml::encode('Resume'), $resumeURL/* $resume->resume */, array('target' => '_blank', 'style' => 'float:left'))
 
-                                    <iframe src="http://docs.google.com/gview?url=<?php echo $link ?>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
-                                    <?php
-                                }
-                                
-                                else
-                                    echo 'No cover letter yet!';
-                             
+                                $link = 'http://' . Yii::app()->request->getServerName() . '/' . $coverletter->file_path;
                                 ?>
+
+                                <iframe src="http://docs.google.com/gview?url=<?php echo $link ?>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
+                                <?php
+                            }
+                            else
+                                echo 'No cover letter yet!';
+                            ?>
                         </div>
-                        
+
                         <div id="resume<?php echo $i ?>" style="display: none;">
                             <?php
                             $resume = $student->resume;
@@ -258,7 +264,6 @@
                             }
                             else
                                 echo 'No PDF resume uploaded yet!';
-                            
                             ?>
 
                         </div>
@@ -272,11 +277,9 @@
 
                                 if (isset($vidResume) && $vidResume->publish_video == 1)
                                     echo YouTubeHandler::getVideoFrameV2($vidResume->video_path, 256, 256);
-                                
                                 else
                                     echo 'No video resume yet!';
-                            } 
-                            catch (Exception $ex)
+                            } catch (Exception $ex)
                             {
                                 
                             }
@@ -285,10 +288,10 @@
                         </div>
                     </div>
         <?php } ?>
-                  
+
             </div>
         </div>
-         
+
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <div class="matchprofile">
             <div id="tabContainer">
@@ -300,7 +303,7 @@
                         <li id="tabHeader_4"> <i class="fa fa-file" > </i> Cover Letter </li>
                         <li id="tabHeader_2"> <i class="fa fa-file-text" > </i> Resume </li>
                         <li id="tabHeader_3"> <i class="fa fa-play-circle"> </i> Video Resume </li>
-                        
+
                     </ul>
                 </div>
                 <div id="tabsContent">
@@ -315,9 +318,11 @@
                 </div>
                 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/tabs.js"></script>
             </div>
-        <?php }
+        <?php
+        }
         else
-        { ?>
+        {
+            ?>
 
             <p class="notice">
                 There were no matches for your job. Consider adding skills to your job.
