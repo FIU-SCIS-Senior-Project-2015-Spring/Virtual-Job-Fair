@@ -2097,14 +2097,13 @@ padding-left: 40px;
     -moz-opacity: 1;
 }
 
-// Styling for Messages Menu buttons
 .message-btn1 a {
-  color: white;  
-  background: #08C;
+  color: white;
+  background: #08c;// orange
 }
 .message-btn2 a {
   color: white;
-  background: #E69010;
+  background: #E69010; // blue
 }
 
 

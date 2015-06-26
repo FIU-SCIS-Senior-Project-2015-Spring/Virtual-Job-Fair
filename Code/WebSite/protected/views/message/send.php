@@ -186,16 +186,4 @@ $this->breadcrumbs = array(
            
         </div>        
     </div>
-  
-<script>
-/*    $(document).ready(function(){
-        $('li.active').click(function(){            
-                $('.active').each(fuction(){
-                    $(this).removeClass("active");
-                    $(this).addClass("inactive");
-                });
-                $(this).addClass("active");
-        }); 
-    });*/    
-</script>
     
