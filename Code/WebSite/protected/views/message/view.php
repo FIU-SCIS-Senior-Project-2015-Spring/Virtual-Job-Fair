@@ -404,10 +404,10 @@ $this->breadcrumbs = array(
             </h4>
         </div>
 
-        <div id="wrapper1" class="span2">
+        <div id="wrapper" class="span2">
 
             <div id="options" class="span2 pull-left">
-                <ul class="nav nav-pills nav-stacked" role="navigation">
+                <ul class="nav nav-pills nav-stacked divider-vertical" role="navigation">
                     <li id="compose-box" class="message-btn1"><a href="/JobFair/index.php/message/send"><i class="fa fa-plus-square fa-lg"></i> Compose</a></li>
                     <li id="inbox-option" class="message-btn1"><a href="#"><i class="fa fa-inbox fa-lg"></i> Inbox <span id="inbox-badge" class="badge pull-right"></span></a> </li>
                     <li id ="sent-option" class="message-btn1"><a href="#"><i class="fa fa-share-square-o fa-lg"></i> Sent</a></li>
@@ -419,6 +419,17 @@ $this->breadcrumbs = array(
         </div>
     </div></div>
 
+<script>
+/*    $(document).ready(function(){
+        $('li.active').click(function(){            
+                $('.active').each(fuction(){
+                    $(this).removeClass("active");
+                    $(this).addClass("inactive");
+                });
+                $(this).addClass("active");
+        }); 
+    }); */   
+</script>
     
     
 
