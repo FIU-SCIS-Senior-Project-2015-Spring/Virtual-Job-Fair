@@ -1,3 +1,8 @@
+<?php
+    if(isset($appMsg)){
+        echo $appMsg;
+    };
+?>
 
 <?php
 /* @var $this JobController */
@@ -143,9 +148,10 @@ $deadline = strtotime($job->deadline);
 <?php 
     // Display the apply button to students for active jobs only.
     if(User::isCurrentUserStudent() && $job->active){
-        if(Application::hasApplied($job->id)){
+        if(Application::hasApplied($job->id) && !isset($appMsg)){            
             echo '<h4>You have already applied for this job.</h4>';
-        } else {
+        } elseif (isset($appMsg)){
+        }else {
             echo '<form method="get" action="/JobFair/index.php/Job/Apply/jobid/'.$job->id.'">';
             echo '<input type="hidden" name="applicantID" value="'.$job->id.'"></br>';
             echo '<input type="hidden" name="applicantID" value="'.User::getCurrentUser()->id.'"></br>';

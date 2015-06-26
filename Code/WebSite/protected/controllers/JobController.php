@@ -14,9 +14,9 @@ class JobController extends Controller
             return false;
         }
     }
-  
+
     public function actionView($jobid)
-	{  
+	{
         $job = Job::model()->findByPk($jobid);
 
         //foreach ($skills->skillset as $skillset) {
@@ -1274,7 +1274,8 @@ class JobController extends Controller
         User::sendEmail($poster->email, "Virtual Job Fair Application Submitted", "New Application Submitted", $message1);
         User::sendEmail($user->email, "Virtual Job Fair Application Submitted", "Your application has been received.", $message2);
         //User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
-        $this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
+        $this->render('view',array('job' => $job,'appMsg'=>'<div class="alert alert-success" style="text-align:center; width:800px; margin:auto;">Your Application has been submitted successfully!</div>'));
+        //$this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
     }
             
     public function actionClose($jobid) {
