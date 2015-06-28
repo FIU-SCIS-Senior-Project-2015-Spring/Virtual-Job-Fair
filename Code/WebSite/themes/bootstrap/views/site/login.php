@@ -90,14 +90,21 @@ making the links dynamic so if the base Url changed the program won not be affec
 ?><br><br>
 
 <?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestEmployer2.png');
-    echo CHtml::link($image, array('user/GuestEmployerAuth'));
+    //$image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestEmployer2.png');
+    //echo CHtml::link($image, array('user/GuestEmployerAuth'));
+    //<br><br>
+?>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<?php    
+    $guest = '<button id="guestButton" style="width:100%; height: 36px" class="btn btn-info" name="GuestButton" type="submit"> '
+            . '<span> <strong style="font-size:17px"> Guest Login </strong> <i class="fa fa-user pull-left fa-lg" style="font-size:30px; vertical-align: middle;"></i> '
+            . '</button>';
+    
+    echo CHtml::link($guest, array('user/GuestStudentAuth'));
 ?><br><br>
 
-<?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/GuestStudent2.png');
-    echo CHtml::link($image, array('user/GuestStudentAuth'));
-?><br><br>
 
 <?php
     $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/google_login.png');
