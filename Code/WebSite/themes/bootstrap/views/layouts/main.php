@@ -1,222 +1,202 @@
-<?php /* @var $this Controller */ ?>
-<?php date_default_timezone_set('America/New_York'); ?>
+<?php
+    /* @var $this Controller */
+    date_default_timezone_set('America/New_York');
+?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="en" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquery.jgrowl.css" />
-    <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
-	<script src="http://vjs.zencdn.net/c/video.js"></script>
-    
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquery.jgrowl.css" />
+        <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+            <script src="http://vjs.zencdn.net/c/video.js"></script>
 
-	<?php Yii::app()->bootstrap->register();  ?>
+            <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-        .sidebar-nav {
-            padding: 9px 0;
-            width: 260px;
-        }
-    </style>
-	
-	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.jgrowl.js"></script>
-	<link rel="shortcut icon" href="/JobFair/images/ico/icon.ico">
-</head>
+            <?php Yii::app()->bootstrap->register(); ?>
 
-<body>
+            <style type="text/css">
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+                .sidebar-nav {
+                    padding: 9px 0;
+                    width: 260px;
+                }
+            </style>
 
-<?php
-if (!isset($_GET['keyword'])) {
-    $_GET['keyword'] = '';
-}
+            <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.jgrowl.js"></script>
+            <link rel="shortcut icon" href="/JobFair/images/ico/icon.ico">
+                </head>
 
-        $userTypeEmp = User::isCurrentUserEmployer(Yii::app()->user->name);
-        $userTypeStu = User::isCurrentUserStudent(Yii::app()->user->name);
+                <body>
 
-	if ($userTypeStu || User::isCurrentUserGuestStudent())//User::isStudent(Yii::app()->user->name))
-		$profile = '/profile/view';
-	else 
-		$profile = '/profile/viewEmployer';
-	?>
-	
-	<?php /*
-	if (!User::isStudent(Yii::app()->user->name) & !Yii::app()->user->isGuest)
-		$home = '/home/employerhome';
-	else if (User::isStudent(Yii::app()->user->name))
-		$home = '/home/studenthome';
-	else 
-		$home = '/site/index';
-	
-	*/?>
-	<?php
-	$search = "";   
-        
-	if (User::isCurrentUserAdmin(Yii::app()->user->name)) {
-		$home = '/home/adminhome';
-	} else if ($userTypeEmp || User::isCurrentUserGuestEmployer()) {
-		
-            if($userTypeEmp){
-                $home = '/home/employerhome';
-            }
-            else {//The user is a Guest Employer
-                $home = 'user/GuestEmployerAuth';
-            }
-            
-		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/home/employersearch" >'
-					. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-		    		'name'=>'skillkeyword',
-					'source'=>Skillset::getNames(),
-		    		'htmlOptions'=>array('class'=>'search-query span2','placeholder'=>'Search Students by Skill'
-		    	),
-			), true
-		).
-		    		'<button type="submit" style="background-color:transparent ; border:0"  >
-		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
-		</form>';
-	} else if ($userTypeStu || User::isCurrentUserGuestStudent()){
-            
-            if($userTypeStu){
-                $home = '/home/studenthome';
-            }
-            else{$home = '/home/studenthome';
-                //$home = '/user/guestStudentAuth';
-            }
-		
-		$search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
-                    . $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                    'name'=>'keyword',
-                    'id'=>'keyword',
-                    'value'=> $_GET['keyword'],
-                    'htmlOptions'=>array('class'=>'search-query span2',
-                        'style'=>'width: 250px',
-                        'placeholder'=>'Search by Position, Skills, Company, Type'
-                    ),
-                ), true
-            ).
-            '<button type="submit" style="background-color:transparent ; border:0" >
-		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
-		</form>';
-	} else {
-		$home = '/site/index';
-	}
+                    <?php
+                        if(!isset($_GET['keyword']))
+                            $_GET['keyword'] = '';
 
-	?>
+                        $search = "";
 
-<?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    //'type'=>'inverse', // null or 'inverse'
-    'htmlOptions' => array('role' => 'navigation'),
-    'items'=>array(
-        array(
-            'class'=>'bootstrap.widgets.TbMenu',
-            'items'=>array(
-                array('label'=>'Home', 'url'=>array($home),'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'Register', 'url'=>array('/user/register'), 'visible'=>Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
-                array('label'=>'Jobs', 'url'=>array("/job/home"), 'visible'=>User::isCUrrentUserStudent() || User::isCurrentUserGuestStudent()),
-                array('label'=>'Message', 'url'=>array('/message'), 'visible'=>!Yii::app()->user->isGuest ),
-                //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
-               // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
-                array('label'=>'Advanced Student Search', 'url'=>array("/job/emphome"), 'visible'=>User::isCurrentUserEmployer() || User::isCurrentUserGuestEmployer()),
-                array('label'=>'SMS', 'url'=>array('/SMS/Sendsms'), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
-            ),
-        ),$search
-,
-
-   array(
-            'class'=>'bootstrap.widgets.TbMenu',
-            'htmlOptions'=>array('class'=>'pull-left'),
-            'items'=>   array('-',
-                        array('label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
-                        array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
-                        array('label'=>'Merge Accounts','visible'=>(User::isCurrentUserStudent(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/user/MergeAccounts'),
-                        array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest && !User::isCurrentUserGuestEmployer() && !User::isCurrentUserGuestStudent(), 'url'=>'/JobFair/index.php/user/ChangePassword'),
-                        '----',
-                        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                        // Check if user is admin.
+                        if(User::isCurrentUserAdmin(Yii::app()->user->name))
+                            $home = '/home/adminhome';
+                      
+                        // Check if user is employer.
+                        else if(User::isCurrentUserEmployer(Yii::app()->user->name) || User::isCurrentUserGuestEmployer())
+                        {
+                            $home = '/home/employerhome';
+                            
+                            $profile = '/profile/viewEmployer';
+                            
+                            $search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/home/employersearch" >'
+                                . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                    'name' => 'skillkeyword',
+                                    'source' => Skillset::getNames(),
+                                    'htmlOptions' => array('class' => 'search-query span2', 'placeholder' => 'Search Students by Skill'
+                                    ),
+                                    ), true
+                                ) .
+                                '<button type="submit" style="background-color:transparent ; border:0"  >
+                                <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
+                                </form>';
+                        }
                         
-                )),
-            ),
-        ),
-    ),
-)); ?>
+                        // Check if user is a student.
+                        else if(User::isCurrentUserStudent(Yii::app()->user->name) || User::isCurrentUserGuestStudent())
+                        {
+                            $profile = '/profile/view';
 
-<div class="container-fluid" id="page">
+                            $home = '/home/studenthome';
+                            
+                            $search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
+                                . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                    'name' => 'keyword',
+                                    'id' => 'keyword',
+                                    'value' => $_GET['keyword'],
+                                    'htmlOptions' => array('class' => 'search-query span2',
+                                        'style' => 'width: 250px',
+                                        'placeholder' => 'Search by Position, Skills, Company, Type'
+                                    ),
+                                    ), true
+                                ) .
+                                '<button type="submit" style="background-color:transparent ; border:0" >
+                                <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
+                                </form>';
+                        }
+                        
+                        else
+                            $home = '/site/index';
+                        
+                    ?>
+
+                    <?php
+                        $this->widget('bootstrap.widgets.TbNavbar', array(
+                            //'type'=>'inverse', // null or 'inverse'
+                            'htmlOptions' => array('role' => 'navigation'),
+                            'items' => array(
+                                array(
+                                    'class' => 'bootstrap.widgets.TbMenu',
+                                    'items' => array(
+                                        array('label' => 'Home', 'url' => array($home)),
+                                        array('label' => 'Register', 'url' => array('/user/register'), 'visible' => Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
+                                        array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => User::isCUrrentUserStudent() || User::isCurrentUserGuestStudent()),
+                                        array('label' => 'Message', 'url' => array('/message'), 'visible' => !User::isCurrentUserGuestStudent()),
+                                        
+                                        array('label' => 'Messages', 'url' => array('/user/register'), 'visible' => User::isCurrentUserGuestStudent()),
+                                        //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
+                                        // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
+                                        array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer() || User::isCurrentUserGuestEmployer()),
+                                    // Hide the SMS button.
+                                    //array('label'=>'SMS', 'url'=>array('/SMS/Sendsms'), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
+                                    ),
+                                ), $search
+                                ,
+                                array(
+                                    'class' => 'bootstrap.widgets.TbMenu',
+                                    'htmlOptions' => array('class' => 'pull-left'),
+                                    'items' => array('-',
+                                        array('label' => '(' . Yii::app()->user->name . ')', 'url' => '#', 'items' => array(
+                                                array('label' => 'My Profile', 'url' => array($profile), 'visible' => !Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
+                                                array('label' => 'Merge Accounts', 'visible' => (User::isCurrentUserStudent(Yii::app()->user->name)), 'url' => '/JobFair/index.php/user/MergeAccounts'),
+                                                array('label' => 'Change Password', 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserGuestEmployer() && !User::isCurrentUserGuestStudent(), 'url' => '/JobFair/index.php/user/ChangePassword'),
+                                                '----',
+                                                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
+                                                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                                            )),
+                                    ),
+                                ),
+                            ),
+                        ));
+                    ?>
+
+                    <div class="container-fluid" id="page">
+
+                        <?php
+                            if (User::isCurrentUserAdmin(Yii::app()->user->name))
+                            {
+                                echo "<div class=\"row-fluid\"><div class=\"span3\">";
+                                echo "<div class=\"well sidebar-nav affix\">";
+                                $actionid = $this->getUniqueId() . '/' . $this->getAction()->getId();
+                                $this->widget('bootstrap.widgets.TbMenu', array(
+                                    'type' => 'list',
+                                    'items' => array(
+                                        array('label' => 'ADMINISTRATION'),
+                                        //   array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
+                                        array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
+                                        array('label' => 'Add Student', 'icon' => 'plus', 'url' => $this->createUrl('user/create'), 'active' => in_array($actionid, array('user/create'))),
+                                        array('label' => 'Add Employer', 'icon' => 'plus', 'url' => $this->createUrl('user/CreateEmployer'), 'active' => in_array($actionid, array('user/CreateEmployer'))),
+                                        array('label' => 'Website Statistics', 'icon' => 'globe', 'url' => $this->createUrl('site/DashboardCreate'), 'active' => in_array($actionid, array('site/DashboardCreate'))),
+                                        array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
+                                        array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
+                                        array('label' => 'CAREEPATH API'),
+                                        array('label' => 'Authentication', 'icon' => 'lock', 'url' => $this->createUrl('ApiAuth/index'), 'active' => in_array($actionid, array('apiAuth/index', 'apiAuth/home', 'apiAuth/create', 'apiAuth/update'))),
+                                        array('label' => 'Import Jobs', 'icon' => 'briefcase', 'url' => $this->createUrl('ApiConfig/home'), 'active' => in_array($actionid, array('apiConfig/home', 'apiConfig/index'))),
+                                        array('label' => 'NOTIFICATIONS'),
+                                        array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin'), 'active' => in_array($actionid, array('home/notificationAdmin'))),
+                                    ),
+                                ));
+                                echo "</div></div>";
+
+                                echo "<div class=\"span9\">";
+                                //  echo $this->getUniqueId() . '<br>';
+                                //  echo $this->getAction()->getId();
+                                echo $content;
+                                echo "</div>";
+
+                                echo "</div>";
+                            }
+                            
+                            else
+                                echo $content;
+                        ?>
+
+                    </div>
+
+                </body>
+                <div style="height: 50px"></div>
+                <div style="position:fixed; text-align:center; width:100%; height:20px; background-color:white;border-top: 1px solid rgb(206, 206, 206); padding:5px; bottom:0px; ">
+
+                    <a target="blank" href="http://fiu.edu">Florida International University</a> | Virtual Job Fair - Senior Project - Summer 2015
+                </div>
+
+                </html>
+
+                <?php
+                    if(isset($_GET["notificationRead"]))
+                        Notification::markHasBeenRead($_GET["notificationRead"]);
+                    
+                ?>
 
 <?php
-    if (User::isCurrentUserAdmin(Yii::app()->user->name))
-    {
-        echo "<div class=\"row-fluid\"><div class=\"span3\">";
-        echo "<div class=\"well sidebar-nav affix\">";
-        $actionid = $this->getUniqueId() . '/' . $this->getAction()->getId();
-        $this->widget('bootstrap.widgets.TbMenu', array(
-            'type' => 'list',
-            'items' => array(
-                array('label' => 'ADMINISTRATION'),
-             //   array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
-                
-                array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
-                array('label' => 'Add Student', 'icon' => 'plus', 'url' => $this->createUrl('user/create'), 'active' => in_array($actionid, array('user/create'))),
-                array('label' => 'Add Employer', 'icon' => 'plus', 'url' => $this->createUrl('user/CreateEmployer'), 'active' => in_array($actionid, array('user/CreateEmployer'))),
-                array('label' => 'Website Statistics', 'icon' => 'globe', 'url' => $this->createUrl('site/DashboardCreate'), 'active' => in_array($actionid, array('site/DashboardCreate'))),
-                array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
-                array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
-                array('label' => 'CAREEPATH API'),
-                array('label' => 'Authentication', 'icon' => 'lock', 'url' => $this->createUrl('ApiAuth/index'), 'active' => in_array($actionid, array('apiAuth/index', 'apiAuth/home', 'apiAuth/create', 'apiAuth/update'))),
-                array('label' => 'Import Jobs', 'icon' => 'briefcase', 'url' => $this->createUrl('ApiConfig/home'), 'active' => in_array($actionid, array('apiConfig/home', 'apiConfig/index'))),
-                array('label' => 'NOTIFICATIONS'),
-                array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin'), 'active' => in_array($actionid, array('home/notificationAdmin'))),
-            ),
-        ));
-        echo "</div></div>";
-
-        echo "<div class=\"span9\">";
-//        echo $this->getUniqueId() . '<br>';
-//        echo $this->getAction()->getId();
-        echo $content;
-        echo "</div>";  
-
-        echo "</div>";
-    }
-    else
-    {
-        echo $content;
-    }
-
-?>
-
-</div>
-
-</body>
-        <div style="height: 50px"></div>
-        <div style="position:fixed; text-align:center; width:100%; height:20px; background-color:white;border-top: 1px solid rgb(206, 206, 206); padding:5px; bottom:0px; ">
-
-           <a target="blank" href="http://fiu.edu">Florida International University</a> | Virtual Job Fair - Senior Project 2014
-        </div>
-
-</html>
-
-<?php  if (isset($_GET["notificationRead"]))
-		{
-			//print "<pre>"; print_r($_GET["notificationRead"]);print "</pre>";return;
-			Notification::markHasBeenRead($_GET["notificationRead"]);
-		}
-
-
-?>
-
-<?php // if (isset($_GET["activation"]))
+// if (isset($_GET["activation"]))
 //		{
 //			//print "<pre>"; print_r($_GET["notificationRead"]);print "</pre>";return;
 //			User::activeEmployer($_GET["activation"]);
 //			User::sendEmployerVerificationEmail($_GET["activation"]);
 //		}
-
-
 ?>

@@ -1386,21 +1386,17 @@
 
         public function actionGuestStudentAuth()
         {
-
             $user = new User();
             $user = User::model()->getGuestStudentUser();
 
-            if ($user->disable != 0)
-            {
+            if($user->disable != 0)
                 $this->redirect("/JobFair/index.php/site/page?view=disableUser");
-            }
 
             $userIdentity = new UserIdentity($user->username, $user->password);
 
             if ($userIdentity->authenticateOutside())
             {
                 Yii::app()->user->login($userIdentity);
-
 
                 //Prepare Dashboard Objects for Guest Student
 
@@ -1436,15 +1432,17 @@
                 $countmessages = 0;
                 $countmisc = 0;
 
+                $this->redirect('http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/home/studenthome');
+                
                 //Send to his home page
-                $this->render('guestStudentAuth', array('user' => $user,
+                /*$this->render('guestStudentAuth', array('user' => $user,
                     'companies' => $companies,
                     'skills' => $skills, 'notification' => $notification,
                     'mostwanted' => $most_wanted_skills,
                     'countvideo' => $countvideo,
                     'countmachingjobs' => $countmachingjobs,
                     'countmessages' => $countmessages,
-                    'countmisc' => $countmisc));
+                    'countmisc' => $countmisc));*/
             }
             //Redirect to the contact form of the site due to failed authentication
             //Crate array with information to be shown to the user

@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 	'Register',
 );
 ?>
-<h1>Virtual Job Fair Registration </h1>
+<h1 align="center"> Virtual Job Fair Registration </h1>
 
 <div id="register">
 
