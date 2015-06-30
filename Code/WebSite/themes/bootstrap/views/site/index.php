@@ -8,7 +8,7 @@
     else if (User::isCurrentUserEmployer())
         $this->redirect("/JobFair/index.php/home/employerhome");
 
-    else if(User::isCurrentUserStudent() )
+    else if(User::isCurrentUserStudent())
         $this->redirect("/JobFair/index.php/home/studenthome");
     
     /*elseif (User::isCurrentUserGuestStudent())

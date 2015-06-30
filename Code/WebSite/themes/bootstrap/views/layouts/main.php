@@ -40,7 +40,7 @@
                         if(!isset($_GET['keyword']))
                             $_GET['keyword'] = '';
 
-                        $search = "";
+                        $search = '';
                         $profile = '';
                         $home = '';
 
@@ -55,17 +55,20 @@
                             
                             $profile = '/profile/viewEmployer';
                             
-                            $search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/home/employersearch" >'
-                                . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                    'name' => 'skillkeyword',
-                                    'source' => Skillset::getNames(),
-                                    'htmlOptions' => array('class' => 'search-query span2', 'placeholder' => 'Search Students by Skill'
-                                    ),
-                                    ), true
-                                ) .
-                                '<button type="submit" style="background-color:transparent ; border:0"  >
-                                <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
-                                </form>';
+                            if(!Yii::app()->user->isGuest)
+                            {
+                                $search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/home/employersearch" >'
+                                    . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                        'name' => 'skillkeyword',
+                                        'source' => Skillset::getNames(),
+                                        'htmlOptions' => array('class' => 'search-query span2', 'placeholder' => 'Search Students by Skill'
+                                        ),
+                                        ), true
+                                    ) .
+                                    '<button type="submit" style="background-color:transparent ; border:0"  >
+                                    <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
+                                    </form>';
+                            }
                         }
                         
                         // Check if user is a student.
@@ -75,60 +78,56 @@
 
                             $home = '/home/studenthome';
                             
-                            $search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
-                                . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                    'name' => 'keyword',
-                                    'id' => 'keyword',
-                                    'value' => $_GET['keyword'],
-                                    'htmlOptions' => array('class' => 'search-query span2',
-                                        'style' => 'width: 250px',
-                                        'placeholder' => 'Search by Position, Skills, Company, Type'
-                                    ),
-                                    ), true
-                                ) .
-                                '<button type="submit" style="background-color:transparent ; border:0" >
-                                <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
-                                </form>';
+                            if(!Yii::app()->user->isGuest)
+                            {
+                                $search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
+                                    . $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                        'name' => 'keyword',
+                                        'id' => 'keyword',
+                                        'value' => $_GET['keyword'],
+                                        'htmlOptions' => array('class' => 'search-query span2',
+                                            'style' => 'width: 250px',
+                                            'placeholder' => 'Search by Position, Skills, Company, Type'
+                                        ),
+                                        ), true
+                                    ) .
+                                    '<button type="submit" style="background-color:transparent ; border:0" >
+                                    <img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
+                                    </form>';
+                            }
                         }
                         
                         else
                             $home = '/site/index';
-                        
-                    ?>
 
-                    <?php
+                        
                         $this->widget('bootstrap.widgets.TbNavbar', array(
-                            //'type'=>'inverse', // null or 'inverse'
+                           
                             'htmlOptions' => array('role' => 'navigation'),
                             'items' => array(
                                 array(
                                     'class' => 'bootstrap.widgets.TbMenu',
                                     'items' => array(
-                                        array('label'=>'Home', 'url'=>array($home),'visible'=>!Yii::app()->user->isGuest),
+                                        array('label'=>'Home', 'url'=>array($home),'visible'=> !Yii::app()->user->isGuest),
                                         array('label' => 'Register', 'url' => array('/user/register'), 'visible' => Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
-                                        array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => User::isCUrrentUserStudent() || User::isCurrentUserGuestStudent()),
-                                        array('label' => 'Message', 'url' => array('/message'), 'visible' => !User::isCurrentUserGuestStudent()),
-                                        
-                                       // array('label' => 'Messages', 'url' => array('/user/register'), 'visible' => User::isCurrentUserGuestStudent()),
-                                        //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
-                                        // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
-                                        array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer() || User::isCurrentUserGuestEmployer()),
-                                    // Hide the SMS button.
-                                    //array('label'=>'SMS', 'url'=>array('/SMS/Sendsms'), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
+                                        array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserAdmin() && !User::isCurrentUserEmployer()),
+                                        array('label' => 'Message', 'url' => array('/message'), 'visible' => !Yii::app()->user->isGuest),
+                                        array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer()),
+                                    
                                     ),
                                 ), $search
                                 ,
                                 array(
                                     'class' => 'bootstrap.widgets.TbMenu',
                                     'htmlOptions' => array('class' => 'pull-left'),
-                                    'items' => array('-',
-                                        array('label' => '(' . Yii::app()->user->name . ')', 'url' => '#', 'items' => array(
+                                    'items' => array('-', 
+                                        array('label' => '(' . Yii::app()->user->name . ')', 'url' => '#', 'visible' => !Yii::app()->user->isGuest, 'items' => array( 
                                                 array('label' => 'My Profile', 'url' => array($profile), 'visible' => !Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                                                 array('label' => 'Merge Accounts', 'visible' => (User::isCurrentUserStudent(Yii::app()->user->name)), 'url' => '/JobFair/index.php/user/MergeAccounts'),
                                                 array('label' => 'Change Password', 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserGuestEmployer() && !User::isCurrentUserGuestStudent(), 'url' => '/JobFair/index.php/user/ChangePassword'),
                                                 '----',
                                                 array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
-                                                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                                                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => false),
                                             )),
                                     ),
                                 ),
