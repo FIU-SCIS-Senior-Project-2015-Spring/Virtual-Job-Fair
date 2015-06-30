@@ -127,7 +127,17 @@ $deadline = strtotime($job->deadline);
 <jobdetail>JOB TYPE:</jobdetail> <?php echo $job->type; ?> </br>
 <jobdetail>OPEN DATE:</jobdetail> <?php echo date('F j, Y', $postdate);?></br>
 <jobdetail>CLOSE DATE:</jobdetail><?php echo date('F j, Y', $deadline);?></br>
-<jobdetail>JOB POSTER:</jobdetail> <?php print "<a href='/JobFair/index.php/Profile/employer/user/$username'>$username</a>"?></br>
+
+<jobdetail>JOB POSTER:</jobdetail> 
+    <?php 
+        if(User::isCurrentUserStudent())
+            print "<a href='/JobFair/index.php/Profile/employer/user/$username'>$username</a>";
+        
+        else if(User::isCurrentUserGuestStudent())
+            print "<a href='/JobFair/index.php/user/register' title='Register to view employer'> $username</a>";
+
+    ?></br>
+    
 <jobdetail>POSTER EMAIL:</jobdetail> <?php echo $job->poster_email;?></br>
 <jobdetail>COMPENSATION:</jobdetail> <?php echo $job->compensation;?></br>
 
@@ -147,11 +157,17 @@ $deadline = strtotime($job->deadline);
 		width: 150px;">
 <?php 
     // Display the apply button to students for active jobs only.
-    if(User::isCurrentUserStudent() && $job->active){
+    if(User::isCurrentUserStudent() && $job->active)
+    {
         if(Application::hasApplied($job->id) && !isset($appMsg)){            
             echo '<h4>You have already applied for this job.</h4>';
-        } elseif (isset($appMsg)){
-        }else {
+        } 
+        elseif (isset($appMsg))
+        {
+        }
+
+        else 
+        {
             echo '<form method="get" action="/JobFair/index.php/Job/Apply/jobid/'.$job->id.'">';
             echo '<input type="hidden" name="applicantID" value="'.$job->id.'"></br>';
             echo '<input type="hidden" name="applicantID" value="'.User::getCurrentUser()->id.'"></br>';
@@ -159,7 +175,12 @@ $deadline = strtotime($job->deadline);
             echo '<button type="submit" class="btn btn-primary" name="apply" id="apply-btn"> Apply </button>';
             echo '</form>';
         }    
-    }        
+    }    
+        
+    else if(User::isCurrentUserGuestStudent())
+        echo '<button type="submit" title="Please register before applying" class="btn" name="apply"> Apply </button>';
+        
+        
     ?>                       
 <?php //if (User::isCurrentUserStudent()) {?>
 	<!-- <div id="application" style="text-align:center"> -->

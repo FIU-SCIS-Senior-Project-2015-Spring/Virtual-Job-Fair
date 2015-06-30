@@ -7,6 +7,9 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 $this->breadcrumbs=array(
 	'Login',
 );
+
+//if(!Yii::app()->user->isGuest)
+  //  $this->redirect($this->redirect('http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/home/studenthome'));
 ?>
 
 
