@@ -2,14 +2,14 @@
     /* @var $this SiteController */
 
     // Check if user is logged in; if so, then redirect accordingly. 
-    if(User::isCurrentUserStudent() || User::isCurrentUserGuestStudent())
-        $this->redirect("/JobFair/index.php/home/studenthome");
+    if (User::isCurrentUserAdmin())
+        $this->redirect("/JobFair/index.php/home/adminhome");
 
     else if (User::isCurrentUserEmployer())
         $this->redirect("/JobFair/index.php/home/employerhome");
 
-    elseif (User::isCurrentUserAdmin())
-        $this->redirect("/JobFair/index.php/home/adminhome");
+    else if(User::isCurrentUserStudent() )
+        $this->redirect("/JobFair/index.php/home/studenthome");
     
     /*elseif (User::isCurrentUserGuestStudent())
     {

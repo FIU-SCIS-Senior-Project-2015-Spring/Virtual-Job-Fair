@@ -41,6 +41,8 @@
                             $_GET['keyword'] = '';
 
                         $search = "";
+                        $profile = '';
+                        $home = '';
 
                         // Check if user is admin.
                         if(User::isCurrentUserAdmin(Yii::app()->user->name))
@@ -102,12 +104,12 @@
                                 array(
                                     'class' => 'bootstrap.widgets.TbMenu',
                                     'items' => array(
-                                        array('label' => 'Home', 'url' => array($home)),
+                                        array('label'=>'Home', 'url'=>array($home),'visible'=>!Yii::app()->user->isGuest),
                                         array('label' => 'Register', 'url' => array('/user/register'), 'visible' => Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
                                         array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => User::isCUrrentUserStudent() || User::isCurrentUserGuestStudent()),
                                         array('label' => 'Message', 'url' => array('/message'), 'visible' => !User::isCurrentUserGuestStudent()),
                                         
-                                        array('label' => 'Messages', 'url' => array('/user/register'), 'visible' => User::isCurrentUserGuestStudent()),
+                                       // array('label' => 'Messages', 'url' => array('/user/register'), 'visible' => User::isCurrentUserGuestStudent()),
                                         //array('label'=>'Post Job', 'url'=>array('/job/post'), 'visible'=>User::isCurrentUserEmployer()),
                                         // array('label'=>'Post Job', 'url'=>"#", 'visible'=>User::isCurrentUserEmployer()),
                                         array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer() || User::isCurrentUserGuestEmployer()),
