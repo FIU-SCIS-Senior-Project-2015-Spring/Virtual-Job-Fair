@@ -19,6 +19,7 @@
             {
         <?php
         $i = 0;
+        
         foreach ($students as $student)
         {
             $i++;
@@ -134,7 +135,7 @@
                                 'type' => 'primary',
                                 'htmlOptions' => array(
                                     'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                                    'href' => '/JobFair/index.php/message/send?username=' . $student->username,
+                                    'href' => '/JobFair/index.php/message/send?username=' . '"'.$student->first_name.' '.$student->last_name.'"<'.$student->username.'>',
                                     'target' => 'new',
                                 ),
                             ));
