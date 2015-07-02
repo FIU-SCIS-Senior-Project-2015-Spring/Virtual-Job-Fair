@@ -34,6 +34,29 @@
 
     $(document).ready(function()
     {
+        //Validates Email is a regular expression in the form xxxx@xxxxx.xxxx as per Regex below
+            function validateEmail(sEmail) {
+                var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Regular Expression
+                if(filter.test(sEmail)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            //Enables the Form fields for editing
+            function enableBasicInfo() {
+                $("#BasicInfo_about_me").attr("disabled", false);
+                $("#User_email").attr("disabled", false);
+                $("#BasicInfo_phone").attr("disabled", false);
+                $("#BasicInfo_city").attr("disabled", false);
+                $("#BasicInfo_state").attr("disabled", false);
+                $("#BasicInfo_zip_code").attr("disabled", false);
+                $("#edit").attr("name", "yt0");
+                $("#edit img").attr("src", "/JobFair/images/ico/done.gif");
+                //$("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
+            }       
+        
         $("#saveInterest").click(function(e) {
             $(this).closest('form').submit();
         });
@@ -51,7 +74,21 @@
                 $("#edit img").attr("src", "/JobFair/images/ico/done.gif");
                 $("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
             } else {
-                $(this).closest('form').submit()
+                var sEmail = $('#User_email').val();
+                    if($.trim(sEmail).length == 0) { //Email can't be left blank
+                        window.alert('The email field is mandatory.');
+                        e.preventDefault();
+                    } else {
+                        if(validateEmail(sEmail)) {//Validate email against Regex
+                            $(this).closest('form').submit();
+                        }
+                        else {
+                            window.alert('Invalid email format.');
+                            e.preventDefault();
+                        }
+                    }
+                enableBasicInfo();    
+                //$(this).closest('form').submit()
             }
         });
 
