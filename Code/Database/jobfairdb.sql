@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2015 at 05:44 AM
+-- Generation Time: Jul 02, 2015 at 01:08 AM
 -- Server version: 5.6.19
 -- PHP Version: 5.4.32
 
@@ -83,16 +83,6 @@ CREATE TABLE IF NOT EXISTS `application` (
   KEY `idx_jobid` (`jobid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `application`
---
-
-INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES
-(144, 71, '2015-06-22 22:56:53', NULL),
-(151, 17, '2015-06-22 22:28:25', NULL),
-(151, 71, '2015-06-22 22:38:44', NULL),
-(151, 75, '2015-06-22 20:28:09', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -143,7 +133,9 @@ INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about
 (73, '3052224444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
 (74, '3053334444', 'Miami', 'FL', NULL, 'Hello hi', 1, 1, 0, NULL, 0),
 (75, '9545873232', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
-(82, '3052224444', 'Miami', 'FL', NULL, 'This is a fake employer.', 1, 1, NULL, NULL, 0);
+(82, '3052224444', 'Miami', 'FL', NULL, 'This is a fake employer.', 1, 1, NULL, NULL, 0),
+(83, '3053334444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
+(84, '3053334444', 'Miami', 'FL', NULL, 'g', 1, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `company_info` (
   `description` text,
   PRIMARY KEY (`FK_userid`),
   KEY `idx_FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
 
 --
 -- Dumping data for table `company_info`
@@ -177,8 +169,9 @@ INSERT INTO `company_info` (`FK_userid`, `name`, `street`, `street2`, `city`, `s
 (56, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
 (57, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
 (61, 'Virtual Company for Testing', '123 main', '', 'Miami', 'Florida', '330178', 'www.vjf.cis.fiu.edu', 'This is a virtual company for system testing purposes'),
-(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', 'www.google.com', 'Hello this'),
-(82, 'RComp1', '8888 S Flagler St', '', 'Miami', 'FL', '33174', '', 'This is a fake company.');
+(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', '', 'Hello this'),
+(82, 'RComp1', '8888 S Flagler St', '', 'Miami', 'FL', '33174', '', 'This is a fake company.'),
+(84, 'Fake', '123 Main St', '', 'Miami', 'FL', '33133', '', 'g');
 
 -- --------------------------------------------------------
 
@@ -334,39 +327,21 @@ CREATE TABLE IF NOT EXISTS `job` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_poster` (`FK_poster`),
   FULLTEXT KEY `type` (`type`,`title`,`description`,`comp_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=154 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=157 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `job`
+-- Table structure for table `job_match`
 --
 
-INSERT INTO `job` (`id`, `type`, `title`, `FK_poster`, `post_date`, `deadline`, `description`, `compensation`, `other_requirements`, `email_notification`, `active`, `matches_found`, `posting_url`, `comp_name`, `poster_email`) VALUES
-(114, 'CIS', ' The Great Minds in STEM (GMiS) 2015-16 HENAA', 8, '2015-04-08 00:00:00', '2015-05-30 00:00:00', '<p>Graduating high school seniors, undergraduate students and graduate students, who intend to or are currently pursuing a science, technology, engineering, or math (STEM) degree at an accredited college/university in the U.S. or Puerto Rico, are encouraged to apply for these merit-based scholarships. In addition, students must have an overall minimum 3.0 GPA and must be of Hispanic descent <strong><em>or </em></strong>demonstrate leadership/service within the Hispanic community.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Scholarships offered by GMiS:</strong></h3>\r\n\r\n<p><strong>Corporate / Government Sponsored Scholarships</strong> &ndash; These scholarships are made possible thanks to our dedicated scholarship sponsors from corporate America, federal agencies and affinity groups.<br />\r\n<br />\r\n<strong>Graduate Computer Science Scholarships </strong>&ndash; These highly-competitive $10,000 scholarships are awarded to qualified masters students pursuing a computer science, IT or related software development degree.<br />\r\n<br />\r\n<strong>U.S. Navy STEM Scholarship </strong>- These highly-competitive $10,000 scholarships, in partnership with NAVSEA and SSP,&nbsp;are awarded to qualified graduating high school seniors, who have a minimum 3.0 GPA, and will be pursuing a STEM degree at a Hispanic-Serving Institution (HSI). During their first semester in college, these scholars have the opportunity to apply for the Student Employment Program, which provides them a summer internship and continued funding through their undergraduate career, so long as the student maintains a competitive GPA in a STEM degree.<br />\r\n<br />\r\n<strong>In Memoriam and Personal Scholarships </strong>- Great Minds in STEM awards some very special scholarships, which have been established in the loving memory of an endeared supporter of GMiS or have been established by long-time supporters and dear friends of GMiS.</p>\r\n\r\n<p><br />\r\nTo learn more about all the various types of scholarships offered by GMiS please visit its website.</p>\r\n<p>null</p>\r\n<p>Graduating high school seniors, undergraduate students and graduate students, who intend to or are currently pursuing a science, technology, engineering, or math (STEM) degree at an accredited college/university in the U.S. or Puerto Rico, are encouraged to apply for these merit-based scholarships. In addition, students must have an overall minimum 3.0 GPA and must be of Hispanic descent <strong><em>or </em></strong>demonstrate leadership/service within the Hispanic community.&nbsp;</p>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$gZDkcsNJoj4Nz9rZuenzquBZA7thKW4aNKsZpG27thHzLoNfib8Vm', 'Great Minds in STEM (GMiS)', NULL),
-(115, 'CIS', 'Startup Partner - User Experience Lead - Inno', 8, '2015-04-15 00:00:00', '2015-05-15 00:00:00', '<p>As a Startup Partner championing the user&#39;s point of view and desiging for their best expeirences, you will engage with entrepreneurs to cobuild ideas that change the world. You will leverage your highly creative problem solving skill set, an incomparable end-to-end vision that leverages digital and non-digital design understanding, superior oral/written communication skills, and an unquenchable thirst for building &#39;unicorn&#39; companies.&nbsp;</p>\r\n<ul>\r\n	<li>Drive UX, IA, and design from end-to-end, including use cases, wireframes, gap analyses, mock-ups, prototypes and final product delivery</li>\r\n	<li>Envision (and drive) how users will see and interact with various aspects of an idea as it is brought to life across its different stages</li>\r\n	<li>Collaborate with other startup partners and entrepreneurs within startup cells to execute the user experience vision&nbsp;</li>\r\n	<li>Take ownership at every level of startup ideas&#39; lifecycles</li>\r\n	<li>Design cross platform experiences for mobile, tablet, desktop and any other relevant device</li>\r\n	<li>Manage and develop relationships with entrepreneurs</li>\r\n	<li>Provide a highly seasoned/high-touch experience for entrepreneurs as they enter the Rokk3r Labs portfolio</li>\r\n	<li>Work to establish Rokk3r Labs as the world&#39;s most exciting brand, and help to develop it as the most sought after destination for the world&#39;s best entrepreneurs/ideas and talent.</li>\r\n</ul>\r\n<ul>\r\n	<li>Highly creative problem solving skills (analytical, technical &amp; strategic)</li>\r\n	<li>Superior ability to present to executives</li>\r\n	<li>Superior written/oral communication skills</li>\r\n	<li>Experience as a UX or concept designer&nbsp;</li>\r\n	<li>Experience developing user experiences for startup ideas</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$D5DXnHRaEOiO.abM.AewIuxjDkQxWJOG1VxvphpeXmv1IwShlrG1e', 'Rokk3r Labs', NULL),
-(116, 'CIS', 'Statistical Analyst and Programmer', 8, '2015-04-01 00:00:00', '2015-05-31 00:00:00', '<p>We are looking for a smart and talented individual with skills in statistical analysis, regression, business intelligence and programming.&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Strong statistical analysis skills</li>\r\n	<li>Knowledge of statistical theorems</li>\r\n	<li>Knowledge of core technologies such as Python and REST API.</li>\r\n	<li>Knowledge of SCALA programming is a plus</li>\r\n</ul>\r\n\r\n<p>You must be:</p>\r\n\r\n<ul>\r\n	<li>Energetic</li>\r\n	<li>Detailed orientated&nbsp;</li>\r\n	<li>Goal driven</li>\r\n	<li>Fast learner&nbsp;</li>\r\n</ul>\r\n<p>The overall duties are to help us come up with statistical models to common problems and strategies that we have created in addition to observing data and finding patterns and produce and suggest reports, ideas, dashboards and other tools to help our clients.&nbsp;</p>\r\n<ul>\r\n	<li>Programming knowledge</li>\r\n	<li>Statistical analysis</li>\r\n	<li>Calculus</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$fqZ09Dckj2FMVR33lU9t1.1AUJiPf/YBAktC/NWJpBYV0mzR363Gu', 'smartBeemo LLC', NULL),
-(117, 'CIS', 'Software Development Intern', 8, '2015-04-03 00:00:00', '2015-12-31 00:00:00', '<p>&bull; Are you a top-notch programmer?<br />\r\n&bull; Are your skills awe-inspiring?<br />\r\n&bull; Are you driven by solving problems that stump 99% of people?</p>\r\n\r\n<p>Then you could work for P1 Analytics!&nbsp; We are looking for great IOS, Android, and web developers to work in our offices as full-time employees or paid interns.&nbsp; Please send us your resume, including any links to interesting products you&rsquo;ve developed, to jobs@p1analytics.com.&nbsp; You have a chance to join a great tech start-up on the ground floor!</p>\r\n<p>Software development.</p>\r\n<p>Programming knowledge at an advanced level for one and at an intermediate level for two of the following: IOS, Android, Javascript, JQuery, Python, SQL, C, C++, PHP, CSS</p>\r\n', '', NULL, NULL, 1, NULL, '$2a$08$T7SXgRrT3Y5Sg3KiGjazuu2eIHxhqgx1YdbG6H73qq/uZJ0CbAW.O', 'P1 Analytics', NULL),
-(118, 'CIS', 'Software Developer', 8, '2015-04-07 00:00:00', '2015-05-07 00:00:00', '<p><strong>Software Developer - Front End</strong></p>\r\n\r\n<p>We are looking for software developers to work on a multi-year project in Miami. The project will involve writing a application framework and various applications that plug into the framework. &nbsp;The goal is an innovative UI/UX that is visually appealing, easy to use and a departure from &quot;the usual&quot;. The target harware will include both mobile devices and large, high-resolution, displays.</p>\r\n<ul style="list-style-type:square">\r\n	<li>Work with UI/UX designers to understand usability, design and aesthetic goals</li>\r\n	<li>Follow coding and design guidelines established by project and company managers</li>\r\n	<li>Write software and unit tests for the software</li>\r\n	<li>Identify and fix defects as needed</li>\r\n	<li>Communicate status to project management</li>\r\n	<li>Identify and recommend improvements as needed</li>\r\n</ul>\r\n<p>Required:</p>\r\n\r\n<ul style="list-style-type:square">\r\n	<li>Proficiency with JavaScript and manipulating browser DOM elements</li>\r\n	<li>Proficiency with using browser development tools (debugger, DOM inspector, etc.)</li>\r\n	<li>Knowledge of core computer science fundamentals (algorithms, data structures, etc.)</li>\r\n	<li>Ability to quick learn new ideas and techniques</li>\r\n</ul>\r\n\r\n<p>Desired:</p>\r\n\r\n<ul style="list-style-type:square">\r\n	<li>Proficiency with C# and VIsual Studio</li>\r\n	<li>Proficiency with Ajax and other asynchronous or parallel programming techniques</li>\r\n	<li>Familiarity with mobile app development (native or HTML)</li>\r\n	<li>Familiarity with OpenGL/WebGL and/or with HTML Canvas</li>\r\n	<li>Experience working in a software team environment</li>\r\n	<li>Experience with common software development practices (source control, automated builds, continuous integration, etc.)</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$bkEpNB6TaR4A0aQMS83ZieJTRVQslY/zaGAo3FT.cy62FBNzBuRaW', 'Level 11', NULL),
-(119, 'CIS', 'Mobile Developer Internship', 8, '2015-04-07 00:00:00', '2015-05-07 00:00:00', '<p><strong>As part of this internship, you&rsquo;ll be learning:</strong></p>\r\n\r\n<ul>\r\n	<li>Best practices in programming.</li>\r\n	<li>Mobile development on iOS and Android.</li>\r\n	<li>How to develop and test code efficiently and effectively.</li>\r\n	<li>To interpret user requirements.</li>\r\n	<li>How to create user stories.</li>\r\n	<li>To integrate API&rsquo;s based on requirements.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong>As an intern, you&rsquo;ll be working with our team to:</strong></p>\r\n\r\n<ul>\r\n	<li>Create scalable mobile&nbsp;applications on iOS and Android.</li>\r\n	<li>Utilize the most advanced, commercially available cloud technology available today.</li>\r\n	<li>Work with various programming languages and protocols.</li>\r\n	<li>Integrate various API&rsquo;s from Facebook to Google Maps.</li>\r\n	<li>Collaborate and iterate to create functional, working software.</li>\r\n	<li>Work on building applications for the mobile web.</li>\r\n</ul>\r\n<ul>\r\n<li>Student enrolled in Computer Science or related program&nbsp;at an accredited college or university.</li>\r\n<li>Work a minimum of 20 hours per week.</li>\r\n</ul>\r\n<p><strong>Other Details:</strong></p>\r\n<ul>\r\n<li>Hours: 20 hours per week.</li>\r\n<li>Duration of Internship: 14 weeks.</li>\r\n<li>Work at our location: 2100 Coral Way Suite 701 Miami, FL 33145.</li>\r\n<li>Must be a U.S. Citizen, Permanent Resident or eligible to work in the US.</li>\r\n</ul>\r\n\r\n<p><strong>NOTE</strong>: IT IS THE RESPONSIBILITY OF THE STUDENT TO ARRANGE FOR APPROVAL FOR ACADEMIC CREDIT FROM THE APPROPRIATE ACADEMIC DEPARTMENT PRIOR TO ACCEPTING THE INTERNSHIP FOR CREDIT.</p>\r\n', '', NULL, NULL, 1, NULL, '$2a$08$KPAW9TD2RatGPJPDnw.rFuRRS39CU0tKy25s1GxKU4L3sbkqg.f/q', 'TECKpert', NULL),
-(120, 'CIS', 'Web Developer Internship', 8, '2015-04-07 00:00:00', '2015-05-07 00:00:00', '<p><strong>As part of this internship, you&#39;ll be learning:</strong></p>\r\n\r\n<ul>\r\n	<li>Best practices in programming.</li>\r\n	<li>How to develop and test code efficiently and effectively.</li>\r\n	<li>To interpret user requirements.</li>\r\n	<li>How to create user stories.</li>\r\n	<li>To integrate API&#39;s based on requirements.</li>\r\n</ul>\r\n<p><strong>As an intern, you&#39;ll be working with our team to:</strong></p>\r\n\r\n<ul>\r\n	<li>Create scalable web applications across multiple platforms.</li>\r\n	<li>Build on commercial, open-source, and custom frameworks.</li>\r\n	<li>Utilize the most advanced, commercially available cloud technology available today.</li>\r\n	<li>Create front, and back-end applications.</li>\r\n	<li>Work with various programming languages and protocols.</li>\r\n	<li>Integrate various API&#39;s from Facebook to Google Maps.</li>\r\n	<li>Collaborate and iterate to create functional, working software.</li>\r\n	<li>Work on building applications for the mobile web.</li>\r\n</ul>\r\n<ul>\r\n	<li>Student enrolled in Computer Science or related program&nbsp;at an accredited college or university.</li>\r\n	<li>Work a minimum of 20 hours per week.</li>\r\n</ul>\r\n\r\n<p><strong>Other Details:</strong></p>\r\n\r\n<ul>\r\n	<li>Hours: 20 hours per week.</li>\r\n	<li>Duration of Internship: 14 weeks.</li>\r\n	<li>Work at our location: 2100 Coral Way Suite 701 Miami, FL 33145.</li>\r\n	<li>Must be a U.S. Citizen, Permanent Resident or eligible to work in the US.</li>\r\n</ul>\r\n\r\n<p><strong>NOTE</strong>: IT IS THE RESPONSIBILITY OF THE STUDENT TO ARRANGE FOR APPROVAL FOR ACADEMIC CREDIT FROM THE APPROPRIATE ACADEMIC DEPARTMENT PRIOR TO ACCEPTING THE INTERNSHIP FOR CREDIT.</p>\r\n', '', NULL, NULL, 1, NULL, '$2a$08$4OcOABR.2yLwXRQ4J4PgAOmRSIi7LvGZ2DPyFmYwQ7YnQtew1YYY.', 'TECKpert', NULL),
-(121, 'CIS', ' The Great Minds in STEM (GMiS) 2015-16 HENAA', 8, '2015-04-08 00:00:00', '2015-04-30 00:00:00', '<p>Graduating high school seniors, undergraduate students and graduate students, who intend to or are currently pursuing a science, technology, engineering, or math (STEM) degree at an accredited college/university in the U.S. or Puerto Rico, are encouraged to apply for these merit-based scholarships. In addition, students must have an overall minimum 3.0 GPA and must be of Hispanic descent <strong><em>or </em></strong>demonstrate leadership/service within the Hispanic community.&nbsp;</p>\r\n\r\n<p><em>Here is a small sample of some of the numerous scholarships offered by GMiS:</em></p>\r\n\r\n<p><strong>Corporate / Government Sponsored Scholarships</strong> &ndash; These scholarships are made possible thanks to our dedicated scholarship sponsors from corporate America, federal agencies and affinity groups.<br />\r\n<br />\r\n<strong>Graduate Computer Science Scholarships </strong>&ndash; These highly-competitive $10,000 scholarships are awarded to qualified masters students pursuing a computer science, IT or related software development degree.<br />\r\n<br />\r\n<strong>U.S. Navy STEM Scholarship </strong>- These highly-competitive $10,000 scholarships, in partnership with NAVSEA and SSP,&nbsp;are awarded to qualified graduating high school seniors, who have a minimum 3.0 GPA, and will be pursuing a STEM degree at a Hispanic-Serving Institution (HSI). During their first semester in college, these scholars have the opportunity to apply for the Student Employment Program, which provides them a summer internship and continued funding through their undergraduate career, so long as the student maintains a competitive GPA in a STEM degree.<br />\r\n<br />\r\n<strong>In Memoriam and Personal Scholarships </strong>- Great Minds in STEM awards some very special scholarships, which have been established in the loving memory of an endeared supporter of GMiS or have been established by long-time supporters and dear friends of GMiS.<br />\r\n<br />\r\nTo learn more about all the various types of scholarships offered by GMiS please visit its website.</p>\r\n<p>null</p>\r\n<p>Graduating high school seniors, undergraduate students and graduate students, who intend to or are currently pursuing a science, technology, engineering, or math (STEM) degree at an accredited college/university in the U.S. or Puerto Rico, are encouraged to apply for these merit-based scholarships. In addition, students must have an overall minimum 3.0 GPA and must be of Hispanic descent <strong><em>or </em></strong>demonstrate leadership/service within the Hispanic community.&nbsp;</p>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$zQASXlbajExbz6fNtc8fAeHEm4.U1ETcVcdez7EWUOt0JZaPnHiCu', 'Great Minds in STEM (GMiS)', NULL),
-(122, 'CIS', 'Perl-SQL developer / Linux SysAdmin', 8, '2015-04-09 00:00:00', '2015-06-01 00:00:00', '<p><span style="line-height:1.6em">There are two positions being hired for: a dev job (job #1) and an ops job (job #2).</span></p>\r\n\r\n<p>The developer job seeks candidates familiar with Object Oriented Programming, SQL, and GUI event based programming. &nbsp;We are a perl/postgres/gtk shop so experience with any of those technologies is a plus.</p>\r\n\r\n<p>The operations job requires some travel and on-call duty, and seeks candidates familiar with Unix administration, database administration, and webserver administration. &nbsp;The technologies we use are Linux/Apache/mod_perl/PostgreSQL so experience with any of those technologies is a plus.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><span style="line-height:1.6em">For the developer job you will be working directly under the CIO on the core product as well as any supplementary products around that codebase.</span></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>For the operations job you will work under my direction primarily servicing the contractual obligations of each state regulatory body we do business with.</p>\r\n<p>Bachelor&#39;s degree, preferably in STEM.</p>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$Xt5extWQHpDtx1tElTQS2.WK9UQm6LsoSwhOjMX.rVdpZ3IONU98S', 'Bio-Tech Medical Software, Inc.', NULL),
-(123, 'CIS', 'Part-Time Opportunity for Student on Webpage ', 8, '2015-04-10 00:00:00', '2015-05-15 00:00:00', '<p>The Physical Oceanography Division is seeking one degree-seeking student in a local College or University to work part-time in web page development.</p>\r\n\r\n<p>This part-time position will require a maximum of 15 hours of work per week and can be partly done remotely. The hourly pay will depend on qualifications. It ranges between $20 and $30.</p>\r\n\r\n<p>The candidate should be legally eligible to take this part-time job.</p>\r\n<p>The selected candidate will maintain and improve the divisional web pages in collaboration with scientists from the Laboratory.</p>\r\n<p>The candidates are expected to have strong knowledge in web page development and design (e.g., php, html, css, java, etc) with general interest in science and very good English writing skills.</p>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$ZBD4fa0BH09B6mfFIMKkUOZpkEiSyWtyJjDmHP./G/XwpepLYuJbG', 'NOAA Atlantic Oceanographic and Meteorological Laboratory', NULL),
-(124, 'CIS', 'Startup Partner - Strategist &amp; Dreamer', 8, '2015-04-15 00:00:00', '2015-05-15 00:00:00', '<p>As a Startup Partner that focuses on bringing ideas to life through the use of development platforms, you will engage with entrepreneurs to cobuild ideas that change the world. You will leverage your insight and experience leveraging mobile and web technologies, a highly creative problem solving skill set, superior oral/written communication skills, and an unquenchable thirst for building &#39;unicorn&#39; companies.</p>\r\n<ul>\r\n	<li>Command technologies to build platforms &amp; products&nbsp;</li>\r\n	<li>Manage and lead the strategic evaluation of startup ideas that enter the Rokk3r Labs ideas pipeline</li>\r\n	<li>Manage and develop relationships with entrepreneurs&nbsp;</li>\r\n	<li>Provide a highly seasoned/high-touch experience for entrepreneurs as they enter the Rokk3r Labs portfolio&nbsp;</li>\r\n	<li>Lead the strategic vision of a startup idea as part of &#39;startup cells&#39; in the pre-launch and post-launch phases</li>\r\n	<li>Work to establish Rokk3r Labs as the world&#39;s most exciting brand, and help to develop it as the most sought after destination for the world&#39;s best entrepreneurs/ideas and talent.&nbsp;</li>\r\n	<li>Think big and fast to enable entrepreneurs to change the world</li>\r\n</ul>\r\n<ul>\r\n	<li>Know you programming stuff!&nbsp;</li>\r\n	<li>Highly creative problem solving skills (analytical, technical &amp; strategic)</li>\r\n	<li>Superior ability to present to executives</li>\r\n	<li>Superior written/oral communication skills</li>\r\n	<li>Ability to recognize business risks and execute pivots</li>\r\n	<li>Think BIG &amp; be fearless!</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$hJKSS2lplAba.4bqhPXSu.dD6xcX/H1wlPIFf6Leznhlix.8oiGTm', 'Rokk3r Labs', NULL),
-(125, 'CIS', 'Database Developer', 8, '2015-04-16 00:00:00', '2015-05-16 00:00:00', '<p>The database developer will create a new databse.</p>\r\n<p>We presently have an old database created with Clarion, and need to develop a new one. The new database can be created with any software adequate for rthe job. It will require multiple tables that can merge and combine with one another. Other requirements are: creating reports, extracting reports to a CSV format, creating custom queries, and merging documents with Microsoft Word and Excel.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n<p>The applicant should be an existing student seeking for a paid intership or a graduate interested in freelance work.</p>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$rbkIQgCdLOErHiSmvoKOq.ws/4jzcTPIwV8iEN7pNWWSmsIF7ijfW', 'Property Tax Specialist Inc', NULL),
-(126, 'CIS', 'iOS Developer', 8, '2015-04-21 00:00:00', '2015-07-31 00:00:00', '<p>Fortytwo Sports is looking for an exceptional iOS developer who will assist in the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As an iOS Developer, you will be responsible for implementing front-end and back-end technologies for building a mobile application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a &lsquo;can-do, will do&rsquo; attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies.</p>\r\n\r\n<p>As a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.</p>\r\n<p><strong>Responsibilities:</strong></p>\r\n\r\n<ul>\r\n	<li>Lead the developmental process for building an iOS application.</li>\r\n	<li>Support the testing and launching efforts of new internet-based applications.</li>\r\n	<li>Serve as a key technical resource in programming applications.</li>\r\n	<li>Assist in developing an optimized back-end codebase.</li>\r\n	<li>Design and improve an ever-expanding database.</li>\r\n</ul>\r\n<p><strong>Preferred Qualifications:</strong></p>\r\n\r\n<ul>\r\n	<li>Fluent in Objective-C or C++.</li>\r\n	<li>Knowledgeable in database and web application development.</li>\r\n	<li>Pursuing or accomplished a BS in Computer Science or related field.</li>\r\n	<li>Interest in user interface design.</li>\r\n	<li>Knowledge of UI frameworks, MVP application design and complex, reactive touch based UI.</li>\r\n	<li>Deep technical knowledge of mobile application development (iOS).</li>\r\n</ul>\r\n', '', NULL, NULL, 1, NULL, '$2a$08$cdY1o/w6AeuJis/lNUgxXu47L0J6nIq8Dw837.4/sWn1UNOXjtuZa', 'Fortytwo Sports', NULL),
-(127, 'CIS', 'Java Developer', 8, '2015-04-21 00:00:00', '2015-07-31 00:00:00', '<p>Fortytwo Sports is looking for an exceptional java developer who will assist in the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As a Java Developer, you will be responsible for implementing front-end and back-end technologies for building a web application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a &lsquo;can-do, will do&rsquo; attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies. &nbsp;</p>\r\n\r\n<p>As a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.</p>\r\n<p><strong>Responsibilities:</strong></p>\r\n\r\n<ul>\r\n	<li>Assist in the developmental process for building a web application.</li>\r\n	<li>Support the testing and launching efforts of new internet-based applications.</li>\r\n	<li>Serve as a key technical resource in programming applications.</li>\r\n	<li>Develop an optimized back-end codebase.</li>\r\n	<li>Design and improve an ever-expanding database.</li>\r\n</ul>\r\n<p><strong>Preferred Qualifications:</strong></p>\r\n\r\n<ul>\r\n	<li>Fluent in Java.</li>\r\n	<li>Knowledgeable in database and web application development.</li>\r\n	<li>Pursuing or accomplished a BS in Computer Science or related field.</li>\r\n	<li>Interest in user interface design.</li>\r\n	<li>Strong written and oral communication skills.</li>\r\n</ul>\r\n', '', NULL, NULL, 1, NULL, '$2a$08$4naEtknm8m0NBAsaqdmNFu/EqkK1UdbaPPSC22vxNJ/OCIBcBpKa2', 'Fortytwo Sports', NULL),
-(128, 'CIS', 'QA Engineer', 8, '2015-04-22 00:00:00', '2015-05-22 00:00:00', '<p><strong>Basic Purpose</strong></p>\r\n\r\n<p>Performs complex testing tasks requiring planning, scheduling, and testing to assure that developed products meet design specifications and are within total quality management limits and standards. Develops and executes test plans, and reviews the product from a user perspective to ensure that all functional requirements are met. Communicates with product developers and technical support specialists on product issues. Operates under minimal supervision.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong>Responsibilities</strong></p>\r\n\r\n<ul>\r\n	<li>Participate in project design sessions from a usability perspective and/or as a domain expert</li>\r\n	<li>Interface with Developers and Business Analysts to develop and implement test plans, test cases and maintain an audit trail</li>\r\n	<li>Participate in review of test cases written by other testers</li>\r\n	<li>Perform functional, installation, integration, stress, load, performance, system, and documentation testing</li>\r\n	<li>Test user interfaces and APIs if applicable</li>\r\n	<li>Identify and prioritize important program defects and enter into defect-tracking tool; track status of reported defects and take appropriate action for timely resolution of outstanding problems</li>\r\n	<li>Contribute to development estimates and schedule</li>\r\n	<li>Demonstrate/encourage teamwork among Aderant, clients, and other parties</li>\r\n	<li>Continual self development in technical, business and analytic areas</li>\r\n	<li>&nbsp;</li>\r\n</ul>\r\n<p><strong>Skills &amp; Requirements</strong></p>\r\n\r\n<ul>\r\n	<li>Bachelor degree in business or computer science is preferred</li>\r\n	<li>Strong communication, writing and editing skills</li>\r\n	<li>Ability to manage multiple projects</li>\r\n	<li>Proficiency in problem recognition and solving skills</li>\r\n	<li>Be able to work well as part of a team and to form liaisons with other groups in order to achieve a desired objective</li>\r\n	<li>Be a self-starter and have an ability to work with little direct supervision on projects</li>\r\n	<li>Dedication to producing quality work and completing tasks within specified time frames</li>\r\n	<li>Some proficiency in testing methodologies, testing products, UI best practices, and design</li>\r\n	<li>Demonstrates troubleshooting and issue resolution skills</li>\r\n	<li>Desire/initiative/ability to learn more advanced technical and design concepts</li>\r\n	<li>Operational understanding of MS Office Applications: Word, Excel, Access, PowerPoint, Visio</li>\r\n	<li>Microsoft Outlook experience</li>\r\n	<li>Microsoft SQL Server experience</li>\r\n	<li>Microsoft Windows experience, all versions and editions</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$zgjqPabN90kNMF4tFFkXqOeHh4Mylg3MfDZUQABJIrrKB/MDsKIxy', 'Aderant', NULL),
-(129, 'CIS', 'Software Engineer', 8, '2015-04-22 00:00:00', '2015-05-22 00:00:00', '<p>This is a great opportunity to launch your IT career, and put your strong problem solving and technical skills to good use. As part of our succession and growth plans we&rsquo;re excited about adding a group of highly capable and enthusiastic graduate engineers to our Tallahassee operations.<br />\r\n<br />\r\nYou&rsquo;ll be joining a talented development team working on the latest Aderant Expert application. The team is utilizing some of the most up to date MS technologies, and though you may not have used these in the past, you&rsquo;ll be provided with excellent guidance and support to grow your skills and knowledge.</p>\r\n\r\n<p><br />\r\nWe work in a very team centric environment &ndash; so we&rsquo;re expecting an unusually high level of general communication and relating skills so that you work effectively with your peers and clients.<br />\r\n<br />\r\nThis is a fantastic opportunity for the right people to start and grow a career within the software industry.</p>\r\n<p>After your initial induction period you&rsquo;ll be working on the following duties alongside your team:</p>\r\n\r\n<ul>\r\n	<li>Deliver quality, commercially robust applications, written in .Net and C# and other relevant tools and languages.</li>\r\n	<li>Adopt agile philosophies and contribute towards improving methodology implementation.<br />\r\n	Participate in source code and design reviews as required.</li>\r\n	<li>Work collaboratively with your team to ensure the Project/Development manager is aware of any problems or potential problems that may impact scheduled deadlines to projects.</li>\r\n	<li>Conduct research; prepare models, prototypes, requirement documents and other appropriate documentation to enhance the functional and technical aspects of our products.</li>\r\n</ul>\r\n\r\n<p>We expect that you&rsquo;ll have recently completed an appropriate tertiary qualification. Though this may not be in the computer science field, you are passionate about software development, and looking for your first opportunity to get into a serious software development role. You&rsquo;ll have a real interest in technology and be very proactive solving problems and using your initiative.</p>\r\n<ul>\r\n	<li>4 year degree in Computer Science, Software Engineering or related major</li>\r\n	<li>Experience with .NET and C# is preferred</li>\r\n</ul>\r\n', '', NULL, NULL, 0, NULL, '$2a$08$wH7WcTtuUDauWhfAx2.fHeLETQKlqmjx3xbuE52dTFWDMZADrbe3y', 'Aderant', NULL),
-(130, 'Part Time', 'Yii Developer', 12, '2015-06-04 00:37:15', '2015-06-30 00:00:00', 'We are looking for a Senior Web Developer with more than 5 years of experience working with Yii framework. Html, Css and Javascript is also required for this position.', '65,000', NULL, NULL, 0, NULL, NULL, 'asdasd', NULL),
-(131, 'Full Time', 'Software Engineer ', 12, '2015-06-12 03:31:06', '2015-06-12 00:00:00', 'Excellent job opportunity for Software Engineers with knowledge of Design Patterns.', '80000', NULL, NULL, 0, NULL, NULL, 'asdasd', NULL),
-(132, 'Full Time', 'Software Engineer', 74, '2015-06-12 04:56:36', '2015-06-30 00:00:00', 'Wonderful job opportunity for Android developers.', '80000', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL),
-(133, 'Internship', 'Intership for VJF', 74, '2015-06-12 19:11:06', '2015-06-30 00:00:00', 'Test', '10', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL),
-(144, 'Full Time', 'System Administrator', 12, '2015-06-16 22:03:05', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '45,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
-(145, 'Internship', 'Junior System Administrator', 12, '2015-06-16 22:03:08', '2015-07-31 00:00:00', 'We are looking for an experienced system administrator for a full time position at out company. Some of the requirements are: SQL, Windows 2012 Server and MS Exchange 2008. ', '35,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
-(146, 'Full Time', 'SQL JOB', 12, '2015-06-17 00:13:44', '2015-06-30 00:00:00', 'ADDL REQUIREMENTS<br /><br />Exposure to Microsoft Internet Information Services (IIS) web server<br />Familiarity with web based systems designed with ASP.net, HTML and JavaScript<br />Strong working knowledge Microsoft client and server operating systems (XP/Vista/Win7/Server 2003/Server 2008)<br />Strong analytical and problem-solving skills<br />Excellent communication skills (both written and verbal) and the ability to interact with customers who may not be technically inclined or understand the technology. Ability to patiently work with a customer to resolve their issue.<br />Ability to simultaneously manage several projects/support cases<br />Ability to work and research independently<br />Willingness to learn and become an expert on new systems, software, and procedures<br />Must be highly productive, able to balance competing priorities and meet all established productivity measures.<br />Ability to work/be on call some nights and weekends as necessary<br />Live in the South Florida area', '45000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
-(151, 'Part Time', 'Yii Developer3', 12, '2015-06-19 20:18:15', '2015-06-27 00:00:00', 'We are looking for a Senior Web Developer with more than 5 years of experience working with Yii framework. Html, Css and Javascript is also required for this position. ', '65,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
-(152, 'Part Time', 'My new Job', 24, '2015-06-19 21:23:05', '2015-06-30 00:00:00', 'This is a test for Guess employer. I can edit this.', '', NULL, NULL, 1, NULL, NULL, '', 'test@lala.com'),
-(153, 'Full Time', 'S Test', 12, '2015-06-20 21:47:12', '2015-06-27 00:00:00', 'S', '1', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL);
+CREATE TABLE IF NOT EXISTS `job_match` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jobID` int(11) NOT NULL,
+  `studentID` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_jobid` (`jobID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -383,338 +358,7 @@ CREATE TABLE IF NOT EXISTS `job_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_jobid` (`jobid`),
   KEY `idx_skillid` (`skillid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2349 ;
-
---
--- Dumping data for table `job_skill_map`
---
-
-INSERT INTO `job_skill_map` (`id`, `jobid`, `skillid`, `level`, `ordering`) VALUES
-(1983, 114, 58, NULL, 0),
-(1984, 114, 58, NULL, 1),
-(1985, 114, 58, NULL, 2),
-(1986, 114, 58, NULL, 3),
-(1987, 114, 58, NULL, 4),
-(1988, 114, 58, NULL, 5),
-(1989, 114, 58, NULL, 6),
-(1990, 114, 58, NULL, 7),
-(1991, 114, 58, NULL, 8),
-(1992, 114, 58, NULL, 9),
-(1993, 114, 58, NULL, 10),
-(1994, 114, 58, NULL, 11),
-(1995, 114, 58, NULL, 12),
-(1996, 114, 58, NULL, 13),
-(1997, 114, 58, NULL, 14),
-(1998, 114, 58, NULL, 15),
-(1999, 114, 58, NULL, 16),
-(2000, 114, 58, NULL, 17),
-(2001, 114, 58, NULL, 18),
-(2002, 114, 58, NULL, 19),
-(2003, 114, 58, NULL, 20),
-(2004, 114, 58, NULL, 21),
-(2005, 114, 58, NULL, 22),
-(2006, 114, 58, NULL, 23),
-(2007, 114, 58, NULL, 24),
-(2008, 114, 58, NULL, 25),
-(2009, 114, 58, NULL, 26),
-(2010, 114, 58, NULL, 27),
-(2011, 114, 58, NULL, 28),
-(2012, 114, 58, NULL, 29),
-(2013, 114, 58, NULL, 30),
-(2014, 114, 58, NULL, 31),
-(2015, 114, 58, NULL, 32),
-(2016, 114, 58, NULL, 33),
-(2017, 114, 58, NULL, 34),
-(2018, 114, 58, NULL, 35),
-(2019, 114, 58, NULL, 36),
-(2020, 114, 58, NULL, 37),
-(2021, 115, 58, NULL, 0),
-(2022, 115, 58, NULL, 1),
-(2023, 115, 58, NULL, 2),
-(2024, 115, 58, NULL, 3),
-(2025, 115, 58, NULL, 4),
-(2026, 115, 58, NULL, 5),
-(2027, 115, 58, NULL, 6),
-(2028, 115, 58, NULL, 7),
-(2029, 115, 58, NULL, 8),
-(2030, 115, 58, NULL, 9),
-(2031, 115, 58, NULL, 10),
-(2032, 115, 58, NULL, 11),
-(2033, 115, 58, NULL, 12),
-(2034, 115, 58, NULL, 13),
-(2035, 115, 58, NULL, 14),
-(2036, 115, 58, NULL, 15),
-(2037, 116, 58, NULL, 0),
-(2038, 116, 58, NULL, 1),
-(2039, 116, 54, NULL, 2),
-(2040, 116, 99, NULL, 3),
-(2041, 116, 76, NULL, 4),
-(2042, 116, 54, NULL, 5),
-(2043, 116, 58, NULL, 6),
-(2044, 116, 58, NULL, 7),
-(2045, 117, 58, NULL, 0),
-(2046, 117, 58, NULL, 1),
-(2047, 117, 58, NULL, 2),
-(2048, 117, 58, NULL, 3),
-(2049, 117, 58, NULL, 4),
-(2050, 117, 58, NULL, 5),
-(2051, 117, 58, NULL, 6),
-(2052, 117, 58, NULL, 7),
-(2053, 117, 16, NULL, 8),
-(2054, 117, 58, NULL, 9),
-(2055, 117, 27, NULL, 10),
-(2056, 117, 58, NULL, 11),
-(2057, 117, 99, NULL, 12),
-(2058, 117, 58, NULL, 13),
-(2059, 117, 2, NULL, 14),
-(2060, 117, 58, NULL, 15),
-(2061, 117, 33, NULL, 16),
-(2062, 117, 58, NULL, 17),
-(2063, 117, 50, NULL, 18),
-(2064, 117, 58, NULL, 19),
-(2065, 117, 3, NULL, 20),
-(2066, 117, 58, NULL, 21),
-(2067, 118, 58, NULL, 0),
-(2068, 118, 58, NULL, 1),
-(2069, 118, 58, NULL, 2),
-(2070, 118, 58, NULL, 3),
-(2071, 118, 58, NULL, 4),
-(2072, 118, 58, NULL, 5),
-(2073, 118, 58, NULL, 6),
-(2074, 118, 16, NULL, 7),
-(2075, 118, 58, NULL, 8),
-(2076, 118, 58, NULL, 9),
-(2077, 118, 58, NULL, 10),
-(2078, 118, 58, NULL, 11),
-(2079, 118, 25, NULL, 12),
-(2080, 118, 54, NULL, 13),
-(2081, 118, 8, NULL, 14),
-(2082, 118, 58, NULL, 15),
-(2083, 118, 58, NULL, 16),
-(2084, 118, 58, NULL, 17),
-(2085, 119, 58, NULL, 0),
-(2086, 119, 54, NULL, 1),
-(2087, 119, 58, NULL, 2),
-(2088, 119, 58, NULL, 3),
-(2089, 119, 54, NULL, 4),
-(2090, 119, 58, NULL, 5),
-(2091, 119, 58, NULL, 6),
-(2092, 119, 58, NULL, 7),
-(2093, 119, 58, NULL, 8),
-(2094, 120, 58, NULL, 0),
-(2095, 120, 54, NULL, 1),
-(2096, 120, 58, NULL, 2),
-(2097, 120, 58, NULL, 3),
-(2098, 120, 58, NULL, 4),
-(2099, 120, 58, NULL, 5),
-(2100, 120, 58, NULL, 6),
-(2101, 120, 54, NULL, 7),
-(2102, 120, 58, NULL, 8),
-(2103, 120, 58, NULL, 9),
-(2104, 120, 58, NULL, 10),
-(2105, 120, 58, NULL, 11),
-(2106, 121, 58, NULL, 0),
-(2107, 121, 58, NULL, 1),
-(2108, 121, 58, NULL, 2),
-(2109, 121, 58, NULL, 3),
-(2110, 121, 58, NULL, 4),
-(2111, 121, 58, NULL, 5),
-(2112, 121, 58, NULL, 6),
-(2113, 121, 58, NULL, 7),
-(2114, 121, 58, NULL, 8),
-(2115, 121, 58, NULL, 9),
-(2116, 121, 58, NULL, 10),
-(2117, 121, 58, NULL, 11),
-(2118, 121, 58, NULL, 12),
-(2119, 121, 58, NULL, 13),
-(2120, 121, 58, NULL, 14),
-(2121, 121, 58, NULL, 15),
-(2122, 121, 58, NULL, 16),
-(2123, 121, 58, NULL, 17),
-(2124, 121, 58, NULL, 18),
-(2125, 121, 58, NULL, 19),
-(2126, 121, 58, NULL, 20),
-(2127, 121, 58, NULL, 21),
-(2128, 121, 58, NULL, 22),
-(2129, 121, 58, NULL, 23),
-(2130, 121, 58, NULL, 24),
-(2131, 121, 58, NULL, 25),
-(2132, 121, 58, NULL, 26),
-(2133, 121, 58, NULL, 27),
-(2134, 121, 58, NULL, 28),
-(2135, 121, 58, NULL, 29),
-(2136, 121, 58, NULL, 30),
-(2137, 121, 58, NULL, 31),
-(2138, 121, 58, NULL, 32),
-(2139, 121, 58, NULL, 33),
-(2140, 121, 58, NULL, 34),
-(2141, 121, 58, NULL, 35),
-(2142, 121, 58, NULL, 36),
-(2143, 121, 58, NULL, 37),
-(2144, 121, 58, NULL, 38),
-(2145, 122, 54, NULL, 0),
-(2146, 122, 58, NULL, 1),
-(2147, 122, 2, NULL, 2),
-(2148, 122, 58, NULL, 3),
-(2149, 122, 54, NULL, 4),
-(2150, 122, 58, NULL, 5),
-(2151, 122, 101, NULL, 6),
-(2152, 122, 58, NULL, 7),
-(2153, 122, 24, NULL, 8),
-(2154, 122, 58, NULL, 9),
-(2155, 122, 58, NULL, 10),
-(2156, 122, 58, NULL, 11),
-(2157, 122, 20, NULL, 12),
-(2158, 122, 70, NULL, 13),
-(2159, 122, 21, NULL, 14),
-(2160, 122, 58, NULL, 15),
-(2161, 123, 58, NULL, 0),
-(2162, 123, 58, NULL, 1),
-(2163, 123, 58, NULL, 2),
-(2164, 123, 58, NULL, 3),
-(2165, 123, 3, NULL, 4),
-(2166, 123, 58, NULL, 5),
-(2167, 123, 8, NULL, 6),
-(2168, 123, 58, NULL, 7),
-(2169, 123, 17, NULL, 8),
-(2170, 123, 58, NULL, 9),
-(2171, 123, 1, NULL, 10),
-(2172, 123, 58, NULL, 11),
-(2173, 124, 58, NULL, 0),
-(2174, 124, 58, NULL, 1),
-(2175, 124, 58, NULL, 2),
-(2176, 124, 58, NULL, 3),
-(2177, 124, 58, NULL, 4),
-(2178, 124, 58, NULL, 5),
-(2179, 124, 54, NULL, 6),
-(2180, 124, 58, NULL, 7),
-(2181, 125, 58, NULL, 0),
-(2182, 125, 58, NULL, 1),
-(2183, 125, 58, NULL, 2),
-(2184, 125, 58, NULL, 3),
-(2185, 125, 58, NULL, 4),
-(2186, 125, 58, NULL, 5),
-(2187, 125, 58, NULL, 6),
-(2188, 126, 58, NULL, 0),
-(2189, 126, 58, NULL, 1),
-(2190, 126, 58, NULL, 2),
-(2191, 126, 58, NULL, 3),
-(2192, 126, 58, NULL, 4),
-(2193, 126, 58, NULL, 5),
-(2194, 126, 58, NULL, 6),
-(2195, 126, 58, NULL, 7),
-(2196, 126, 58, NULL, 8),
-(2197, 126, 58, NULL, 9),
-(2198, 126, 58, NULL, 10),
-(2199, 126, 58, NULL, 11),
-(2200, 126, 58, NULL, 12),
-(2201, 126, 58, NULL, 13),
-(2202, 126, 58, NULL, 14),
-(2203, 126, 54, NULL, 15),
-(2204, 126, 39, NULL, 16),
-(2205, 126, 50, NULL, 17),
-(2206, 126, 58, NULL, 18),
-(2207, 126, 58, NULL, 19),
-(2208, 127, 1, NULL, 0),
-(2209, 127, 58, NULL, 1),
-(2210, 127, 58, NULL, 2),
-(2211, 127, 58, NULL, 3),
-(2212, 127, 58, NULL, 4),
-(2213, 127, 1, NULL, 5),
-(2214, 127, 58, NULL, 6),
-(2215, 127, 58, NULL, 7),
-(2216, 127, 58, NULL, 8),
-(2217, 127, 58, NULL, 9),
-(2218, 127, 58, NULL, 10),
-(2219, 127, 58, NULL, 11),
-(2220, 127, 58, NULL, 12),
-(2221, 127, 58, NULL, 13),
-(2222, 127, 58, NULL, 14),
-(2223, 127, 58, NULL, 15),
-(2224, 127, 58, NULL, 16),
-(2225, 127, 58, NULL, 17),
-(2226, 127, 54, NULL, 18),
-(2227, 127, 1, NULL, 19),
-(2228, 128, 58, NULL, 0),
-(2229, 128, 58, NULL, 1),
-(2230, 128, 58, NULL, 2),
-(2231, 128, 58, NULL, 3),
-(2232, 128, 58, NULL, 4),
-(2233, 128, 58, NULL, 5),
-(2234, 128, 58, NULL, 6),
-(2235, 128, 58, NULL, 7),
-(2236, 128, 58, NULL, 8),
-(2237, 128, 58, NULL, 9),
-(2238, 128, 58, NULL, 10),
-(2239, 128, 58, NULL, 11),
-(2240, 128, 58, NULL, 12),
-(2241, 128, 58, NULL, 13),
-(2242, 128, 48, NULL, 14),
-(2243, 128, 58, NULL, 15),
-(2244, 128, 58, NULL, 16),
-(2245, 128, 58, NULL, 17),
-(2246, 128, 58, NULL, 18),
-(2247, 128, 58, NULL, 19),
-(2248, 128, 58, NULL, 20),
-(2249, 128, 58, NULL, 21),
-(2250, 128, 58, NULL, 22),
-(2251, 128, 58, NULL, 23),
-(2252, 128, 58, NULL, 24),
-(2253, 128, 44, NULL, 25),
-(2254, 128, 58, NULL, 26),
-(2255, 128, 2, NULL, 27),
-(2256, 128, 7, NULL, 28),
-(2257, 128, 58, NULL, 29),
-(2258, 129, 58, NULL, 0),
-(2259, 129, 58, NULL, 1),
-(2260, 129, 58, NULL, 2),
-(2261, 129, 58, NULL, 3),
-(2262, 129, 58, NULL, 4),
-(2263, 129, 58, NULL, 5),
-(2264, 129, 58, NULL, 6),
-(2265, 129, 58, NULL, 7),
-(2266, 129, 58, NULL, 8),
-(2267, 129, 58, NULL, 9),
-(2268, 129, 58, NULL, 10),
-(2269, 129, 58, NULL, 11),
-(2270, 129, 58, NULL, 12),
-(2271, 129, 58, NULL, 13),
-(2272, 129, 58, NULL, 14),
-(2273, 129, 58, NULL, 15),
-(2274, 129, 58, NULL, 16),
-(2275, 129, 58, NULL, 17),
-(2276, 129, 58, NULL, 18),
-(2277, 129, 58, NULL, 19),
-(2278, 129, 58, NULL, 20),
-(2279, 129, 58, NULL, 21),
-(2280, 130, 30, NULL, 1),
-(2281, 130, 2, NULL, 2),
-(2282, 130, 1, NULL, 3),
-(2283, 130, 8, NULL, 4),
-(2284, 130, 17, NULL, 5),
-(2285, 130, 16, NULL, 6),
-(2286, 130, 58, NULL, 7),
-(2287, 131, 124, NULL, 1),
-(2288, 131, 1, NULL, 2),
-(2289, 131, 32, NULL, 3),
-(2290, 132, 57, NULL, 1),
-(2291, 132, 124, NULL, 2),
-(2292, 132, 1, NULL, 3),
-(2293, 132, 32, NULL, 4),
-(2294, 133, 3, NULL, 1),
-(2295, 133, 30, NULL, 2),
-(2296, 133, 48, NULL, 3),
-(2326, 144, 2, NULL, 1),
-(2327, 144, 7, NULL, 2),
-(2328, 144, 58, NULL, 3),
-(2329, 146, 8, NULL, 1),
-(2330, 146, 16, NULL, 2),
-(2331, 146, 45, NULL, 3),
-(2344, 151, 30, NULL, 1),
-(2345, 151, 8, NULL, 2),
-(2346, 151, 17, NULL, 3),
-(2347, 151, 16, NULL, 4),
-(2348, 151, 58, NULL, 5);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2352 ;
 
 -- --------------------------------------------------------
 
@@ -779,8 +423,9 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `link` varchar(150) DEFAULT NULL,
   `importancy` int(11) NOT NULL,
   `msgID` int(11) DEFAULT NULL,
+  `jobMatchID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=876 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1009 ;
 
 -- --------------------------------------------------------
 
@@ -818,7 +463,7 @@ CREATE TABLE IF NOT EXISTS `saved_queries` (
   `active` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `saved_queries`
@@ -882,7 +527,7 @@ CREATE TABLE IF NOT EXISTS `skillset` (
   `name` varchar(45) NOT NULL,
   `FK_general_skills` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=128 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
 
 --
 -- Dumping data for table `skillset`
@@ -1005,9 +650,7 @@ INSERT INTO `skillset` (`id`, `name`, `FK_general_skills`) VALUES
 (122, 'Bioinformatics', 0),
 (123, 'C#', 0),
 (124, 'Design Patterns', 0),
-(125, 'Testing', 0),
-(126, 'administrator', 0),
-(127, 'System Administrator', 0);
+(125, 'Testing', 0);
 
 -- --------------------------------------------------------
 
@@ -1068,7 +711,7 @@ CREATE TABLE IF NOT EXISTS `student_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_skillid` (`skillid`),
   KEY `idx_userid` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=321 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=305 ;
 
 --
 -- Dumping data for table `student_skill_map`
@@ -1191,13 +834,13 @@ INSERT INTO `student_skill_map` (`id`, `userid`, `skillid`, `level`, `ordering`)
 (286, 15, 53, NULL, 2),
 (287, 15, 50, NULL, 3),
 (288, 15, 30, NULL, 4),
-(302, 75, 30, NULL, 1),
-(303, 75, 3, NULL, 2),
-(316, 71, 123, NULL, 1),
-(317, 71, 57, NULL, 2),
-(318, 71, 3, NULL, 3),
-(319, 71, 30, NULL, 4),
-(320, 71, 127, NULL, 5);
+(295, 76, 3, NULL, 1),
+(296, 76, 30, NULL, 2),
+(297, 76, 125, NULL, 3),
+(298, 76, 1, NULL, 4),
+(302, 71, 123, NULL, 1),
+(303, 71, 57, NULL, 2),
+(304, 71, 124, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -1272,7 +915,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (8, 'test_cis_fiu_edu', '$2a$08$0L3h//kusVHOdsX1.63B5.eZsXumUFCzudt1EVJCEGFTowlIyRIIG', 2, 'test@cis.fiu.edu', '2014-10-11 20:36:39', NULL, 1, '/JobFair/images/profileimages/user-default.png', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (9, 'student8', '$2a$08$lc0rNoh.imE0DMCJPjqyGObn3m4ztqECqE2kKbmBgkX9oudrg0dHi', 1, 'arenaserick123@yahoo.com', '2014-11-06 13:30:00', '3vlsgjawyq', 1, '/JobFair/images/profileimages/user-default.png', 'erickkk', 'arenass', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 5),
 (11, 'nmad43', '$2a$08$41tQbGBVPNnLRY5pQxUicOqtmLy2t/SqbMuzJ4z7DAHdt3QfJtosK', 2, 'nmada002@fiu.edu', '2014-11-13 13:10:32', 'vihzwtsplq', NULL, '/JobFair/images/profileimages/user-default.png', 'Nicholas', 'Madariaga', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
-(12, 'employer10', '$2a$08$oLylkwLN2eMvx.B9AtLVhu4dSoLvAvVc7oWTSTGhKt2pDlZY8uBB.', 2, 'ymala001@fiu.edu', '2014-11-23 17:33:16', '5qjanjsv5n', 1, '/JobFair/images/profileimages/user-default.png', 'emp', 'two', 0, NULL, NULL, NULL, NULL, 0, 0, NULL, 1, 5),
+(12, 'employer10', '$2a$08$oLylkwLN2eMvx.B9AtLVhu4dSoLvAvVc7oWTSTGhKt2pDlZY8uBB.', 2, 'employertwo@mail.com', '2014-11-23 17:33:16', '5qjanjsv5n', 1, '/JobFair/images/profileimages/user-default.png', 'emp', 'two', 0, NULL, NULL, NULL, NULL, 0, 0, NULL, 1, 5),
 (14, 'student3', '$2a$08$oPt5manAQUtYPPwKBzEtW.Bjn4OXGYJvHqSfoLQ1neU4xn3sNcy5e', 1, 'student3@mail.com', '2014-12-08 12:10:29', '0dm6r4sm8x', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'three', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (15, 'student4', '$2a$08$CdHaBhoQniFWjXQxIztgX.BGeH0m2ApEjd4U.Hl11P9EUHtZi9c/i', 1, 'student4@mail.com', '2014-12-08 12:10:56', 'civrojoyt8', 1, '/JobFair/images/profileimages/student4avatar.jpg', 'student', 'four', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (16, 'student5', '$2a$08$1RtOrIfXEZFZEKF72IaKOewYIZodUdPaR7.uvjJ6ijwM3L6gv96nu', 1, 'student5@mail.com', '2014-12-08 12:11:33', 'yjupo61fkh', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'five', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
@@ -1280,7 +923,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (18, 'student7', '$2a$08$5Q1dX6zQSfwlfsEINQx9WeuwMxLKIfQE3SPQOmR80TSWNYvac27CS', 1, 'student7@mail.com', '2014-12-08 12:12:27', '7kai06xc65', 1, '/JobFair/images/profileimages/user-default.png', 'student', 'seven', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (19, 'student10', '$2a$08$vwEAweAqJJMnewbed.YVZOycFb4nvS9UdRGcWYcwPfg1RTE8dp2aG', 1, 'student10@mail.com', '2014-12-11 10:06:13', 'bosv3vqir3', NULL, '/JobFair/images/profileimages/user-default.png', 'student', 'ten', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (22, 'jtrav029@fiu.edu', '$2a$08$igvNQYv.yFI.3JrqELQXte2srqEr0sytDBPrfaNLQpkSRZCO/G9di', 1, 'jtrav029@fiu.edu', '2015-02-01 04:43:13', 'fiu', 1, 'https://lh3.googleusercontent.com/-xjXKxJLmagc/AAAAAAAAAAI/AAAAAAAAACI/8JbHCPrKBYM/photo.jpg', 'Jorge', 'Travieso', 0, NULL, NULL, NULL, NULL, NULL, 1, '116231147857551021368', 1, 0),
-(23, 'GuestStudent', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', 4, 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Student', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(23, 'Guest', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', 4, 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Account', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (24, 'GuestEmployer', '$2a$08$gWRjrpq9Xsd.XJmuWWc9.Ot/S/iP3MkrcyYewl7BXaknLNQupxKA6', 5, 'guestemployer@cs.fiu.edu', '2015-02-05 22:47:06', 'yekce5xo6s', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 2),
 (26, 'sadjadis@gmail.com', '$2a$08$czIQv8g6mh2xH/m/UlpPFOfJv1ksBHaFA4XIe1XgEcGtZ3/HvYy4W', 1, 'sadjadi@cs.fiu.edu', '2015-02-18 09:19:11', 'google', 1, 'https://lh3.googleusercontent.com/-QnmiMU0SQEQ/AAAAAAAAAAI/AAAAAAAAMtw/6TS6oscVgj8/photo.jpg', 'Masoud', 'Sadjadi', 0, 1, '-q_utmm44e', '110291442056614091691', NULL, NULL, 1, NULL, 1, 0),
 (55, 'RogerSTU', '$2a$08$NG1FTRUINW7fwsajTe06/eGjJ9uvKLIJAFGoUEMq78TJkrkXlX50m', 1, 'ralon038@fiu.edu', '2015-03-03 00:07:12', 'srxnpcjlcz', 1, '/JobFair/images/profileimages/RogerSTUavatar.JPG', 'Rogelio', 'Alonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
@@ -1289,12 +932,15 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (60, 'RogerStuTest1', '$2a$08$xRtI.tW7PieXx/zuVdKVhOMlmNZ2FfQhtozopEJdgE0trTT6t/rJ.', 1, 'rog.stu.001@gmail.com', '2015-03-04 12:18:09', 'la4k5nqbbv', 1, '/JobFair/images/profileimages/RogerStuTest1avatar.JPG', 'RogerTest', 'StudentTest', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (61, 'RogerEmpTest', '$2a$08$7JQwicSIr3u9kl.IwlZ.X.DWboOqTvuNLbe6VqsoyH/xUlUPLwDAy', 2, 'rog.emp.001@gmail.com', '2015-03-04 12:18:17', 'hgk9neax66', 1, '/JobFair/images/profileimages/user-default.png', 'RogerTest', 'EmployerTest', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (63, 'hgutierrez.jobs@gmail.com', '$2a$08$HYwdV8.ws5pUCgnL0RUh0ONXun0Km2gH5ihMMsreTW6rKps8972OK', 1, 'hgutierrez.jobs@gmail.com', '2015-04-06 23:27:15', 'google', 1, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', 'Heidy', 'Gutierrez', 0, NULL, NULL, '105478010618083573451', NULL, NULL, 1, NULL, 1, 0),
-(71, 'ralfo028', '$2a$08$3A7HpQcR8uNaCtbY7ERp..TLmrXBqgtOXOVUpcifnZyZyhJy5cbfW', 1, 'ralfo028@fiu.edu', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
+(71, 'ralfo028', '$2a$08$3A7HpQcR8uNaCtbY7ERp..TLmrXBqgtOXOVUpcifnZyZyhJy5cbfW', 1, 'renefakeemail@mail.com', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
 (72, 'student15', '$2a$08$XoClsAqz7SUAWGP70Ho2yu9dlls6dIs41e45jkZ3yk5EX0FJZVREe', 1, 'student15@mail.com', '2015-06-12 00:38:37', '70luwuk0hc', NULL, '/JobFair/images/profileimages/user-default.png', 'Student', 'Fifteen', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (73, 'newstudent', '$2a$08$3AEZmYlRVVrVmxYSC5QQ1u8G8Hj8R9DnSipD3byrm5tB4YiJNXM52', 1, 'newstu@mail.com', '2015-06-12 01:10:56', '0fnx8phdcs', 0, '/JobFair/images/profileimages/user-default.png', 'NewStudent', 'DeleteMe', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (74, 'android', '$2a$08$HcWWf.a.A81YQwmrwlCb4eUsl/Vyn9vXIKAN/AD1KaXtq/g/QywDK', 2, 'androidfake@mail.com', '2015-06-12 04:54:18', '54d847sv48', 1, '/JobFair/images/profileimages/androidavatar.png', 'Android', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 1),
 (75, 'vjftester', '$2a$08$7jh2RaCJTSthoO4EGcSTeeRo.ZEip.zupEyAwdxbbb78FV.utFweK', 1, 'vjftester@gmail.com', '2015-06-12 19:48:33', 'jtcah42uk6', 1, '/JobFair/images/profileimages/user-default.png', 'Virtual', 'Tester', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(82, 'RFakeEmp', '$2a$08$zTJMPu8y7j2F4YWpQDj16uIVzAwKp/NKiHPU9jHf.Prs8AdGPCd1S', 2, 'RFakeEmployer@gmail.com', '2015-06-19 20:13:22', 'w5q1wn0jr2', NULL, '/JobFair/images/profileimages/user-default.png', 'Employer', 'REmpLast', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0);
+(76, 'ralon039@fiu.edu', '$2a$08$7jh2RaCJTSthoO4EGcSTeeRo.ZEip.zupEyAwdxbbb78FV.utFweK', 1, 'ralon039@fiu.edu', '2015-06-16 11:08:31', 'google', 1, 'https://lh3.googleusercontent.com/-Zq5RD96xaCU/AAAAAAAAAAI/AAAAAAAAAJM/JCnXPK3VeUo/photo.jpg', 'Rogelio', 'Alonso', 0, 1, NULL, '111259815576282894477', NULL, NULL, 1, NULL, 1, 0),
+(82, 'RFakeEmp', '$2a$08$zTJMPu8y7j2F4YWpQDj16uIVzAwKp/NKiHPU9jHf.Prs8AdGPCd1S', 2, 'RFakeEmployer@gmail.com', '2015-06-19 20:13:22', 'w5q1wn0jr2', NULL, '/JobFair/images/profileimages/user-default.png', 'Employer', 'REmpLast', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
+(83, 'NotificationStudent', '$2a$08$9RZ4H8eHYwI6YHWYdZCpI.uh.UQZgiedewvuUkofaAv0wPyMakZMa', 1, 'ofake@gmail.com', '2015-06-20 22:12:02', '73u6idruvh', 1, '/JobFair/images/profileimages/user-default.png', 'NotificationStudent', 'Student', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(84, 'testEmpDelete', '$2a$08$uCS0z3drTyCPAtl0kIj/VemhoR/GC3GU9c1I8wy2QOKnNuOOrsD.q', 2, 'fd@mail.com', '2015-06-30 21:52:06', '3qi0nil8ar', NULL, '/JobFair/images/profileimages/user-default.png', 'Rene', 'Lasr', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1383,9 +1029,7 @@ CREATE TABLE IF NOT EXISTS `video_resume` (
 --
 
 INSERT INTO `video_resume` (`id`, `video_path`, `publish_video`) VALUES
-(15, 'dJjg2_7PnYA', 0),
-(17, 'iNh_PcB2QJ4', 0),
-(71, 'qM9i_MoaZiM', 1),
+(71, 'YtV9zNqi_t0', 1),
 (75, '7UKXmUPwa7w', 0);
 
 -- --------------------------------------------------------
