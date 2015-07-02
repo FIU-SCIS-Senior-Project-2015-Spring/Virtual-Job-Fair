@@ -97,7 +97,7 @@ if ($jobs == null) $jobs = array();
 <div id="notificationside">
 
 <div id="notificationemployer">
-<div class="hometitle"><?php echo date_default_timezone_set("America/New_York"); date("D M d, Y "); ?> | News and Updates</div>
+<div class="hometitle"> NEWS AND UPDATES | <?php date_default_timezone_set('America/New_York'); echo date("D M d, Y "); ?> </div>
 <br><br>
 
 

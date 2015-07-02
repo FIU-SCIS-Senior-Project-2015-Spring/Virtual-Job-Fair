@@ -10,28 +10,18 @@
 
     else if(User::isCurrentUserStudent())
         $this->redirect("/JobFair/index.php/home/studenthome");
-    
-    /*elseif (User::isCurrentUserGuestStudent())
-    {
-        $this->redirect("JobFair/index.php/user/guestStudentAuth");
-    }
-    elseif (User::isCurrentUserGuestEmployer())
-    {
-        $this->redirect("JobFair/index.php/user/guestEmployerAuth");
-    }*/
-    
+            
     /// Redirect to login page.
     else
         $this->redirect("/JobFair/index.php/site/login");
-
+    
     $this->pageTitle = Yii::app()->name;
 ?>
 
 <?php
 
     $this->beginWidget('bootstrap.widgets.TbHeroUnit', array(
-        'heading' => CHtml::encode(Yii::app()->name
-        ),));
+        'heading' => CHtml::encode(Yii::app()->name),));
 ?>
 <i>Making Connections</i>
 

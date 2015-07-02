@@ -76,7 +76,14 @@ class TbNavbar extends CWidget
 				$this->brand = CHtml::encode(Yii::app()->name);
 
 			if (!isset($this->brandUrl))
+                        {
+                            // Bug fix card #851.
+                            if(User::isCurrentUserGuestStudent())
+                                $this->brandUrl = '/JobFair/index.php/home/studenthome';
+                            
+                            else
 				$this->brandUrl = Yii::app()->homeUrl;
+                        }
 
 			$this->brandOptions['href'] = CHtml::normalizeUrl($this->brandUrl);
 

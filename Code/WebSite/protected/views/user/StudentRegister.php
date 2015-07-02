@@ -115,8 +115,12 @@
 		<?php echo $form->labelEx($model->basicInfo,'phone'); ?>
 		<?php echo $form->textField($model->basicInfo,'phone'); ?>
 		
-		<br/><?php echo $form->labelEx($model->basicInfo,'allowSMS', array('style'=>'display:inline-block;!important')); ?>
-		<?php echo $form->checkBox($model->basicInfo,'allowSMS'); ?>
+		<br/>
+                <?php 
+                    // Hide SMS. Card #810
+                    // echo $form->labelEx($model->basicInfo,'allowSMS', array('style'=>'display:inline-block;!important')); 
+                    // echo $form->checkBox($model->basicInfo,'allowSMS'); 
+                ?>
 		
 			<div>
 		<?php echo CHtml::submitButton('Submit', array("class"=>"btn btn-primary", "onclick"=>"return validateRegistrationForm();")); ?>

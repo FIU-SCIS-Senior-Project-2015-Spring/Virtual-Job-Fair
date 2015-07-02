@@ -99,7 +99,18 @@
                         
                         else
                             $home = '/site/index';
-
+           
+                        $messagePageUrl = '/message';
+                        
+                        // Edit some of the redirects for the guest account.
+                        if(User::isCurrentUserGuestStudent())
+                        {                            
+                            $registerUrl = '/user/register?msg=Please register before ';
+                            
+                            $messagePageUrl = $registerUrl . 'sending messages';
+                            $profile = $registerUrl . 'editing your profile';
+                        }
+                        
                         
                         $this->widget('bootstrap.widgets.TbNavbar', array(
                            
@@ -111,7 +122,7 @@
                                         array('label'=>'Home', 'url'=>array($home),'visible'=> !Yii::app()->user->isGuest),
                                         array('label' => 'Register', 'url' => array('/user/register'), 'visible' => Yii::app()->user->isGuest || User::isCurrentUserGuestEmployer() || User::isCurrentUserGuestStudent()),
                                         array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserAdmin() && !User::isCurrentUserEmployer()),
-                                        array('label' => 'Message', 'url' => array('/message'), 'visible' => !Yii::app()->user->isGuest),
+                                        array('label' => 'Message', 'url' => array($messagePageUrl), 'visible' => !Yii::app()->user->isGuest),
                                         array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer()),
                                     
                                     ),

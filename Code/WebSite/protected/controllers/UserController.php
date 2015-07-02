@@ -21,6 +21,7 @@
         {
             $this->render('register');
         }
+        
 
         //administration function that creates employers
         public function actionCreateEmployer()
@@ -1384,7 +1385,7 @@
             //$this->redirect('');
         }
 
-        public function actionGuestStudentAuth()
+        public function actionGuestAuth()
         {
             $user = new User();
             $user = User::model()->getGuestStudentUser();
@@ -1432,17 +1433,20 @@
                 $countmessages = 0;
                 $countmisc = 0;
 
-                $this->redirect('http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/home/studenthome');
+                if(User::isCurrentUserGuestStudent())
+                {
+                   $this->redirect('/JobFair/index.php/home/studenthome');
                 
-                //Send to his home page
-                /*$this->render('guestStudentAuth', array('user' => $user,
-                    'companies' => $companies,
-                    'skills' => $skills, 'notification' => $notification,
-                    'mostwanted' => $most_wanted_skills,
-                    'countvideo' => $countvideo,
-                    'countmachingjobs' => $countmachingjobs,
-                    'countmessages' => $countmessages,
-                    'countmisc' => $countmisc));*/
+                    //Send to his home page
+                    /*$this->render('/home/studenthome', array('user' => $user,
+                        'companies' => $companies,
+                        'skills' => $skills, 'notification' => $notification,
+                        'mostwanted' => $most_wanted_skills,
+                        'countvideo' => $countvideo,
+                        'countmachingjobs' => $countmachingjobs,
+                        'countmessages' => $countmessages,
+                        'countmisc' => $countmisc));*/
+                }
             }
             //Redirect to the contact form of the site due to failed authentication
             //Crate array with information to be shown to the user

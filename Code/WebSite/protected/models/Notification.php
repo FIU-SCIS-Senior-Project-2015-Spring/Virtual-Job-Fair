@@ -77,6 +77,7 @@
                 'link' => 'Link',
                 'importancy' => 'Importancy',
                 'msgID' => 'MessageID',
+                'jobMatchID' => 'JobMatchID',
             );
         }
 
@@ -150,7 +151,8 @@
 
                 $n->been_read = 1;
                 $n->save(false);
-            } catch (Exception $ex)
+            } 
+            catch (Exception $ex)
             {
                 
             }

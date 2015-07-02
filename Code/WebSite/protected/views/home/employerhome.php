@@ -126,13 +126,13 @@ $this->breadcrumbs = array(
                             <div style="display:block!important; ">
     <?php echo CHtml::submitButton('Save', array("class" => "btn btn-primary", "style" => "float:left")); ?>			
     <?php $this->endWidget(); ?>
-                                <form target="blank" style="float:left; margin:0 5px 0 5px"action="/JobFair/index.php/job/view/jobid/<?php echo $job->id ?>" >
+                                <form style="float:left; margin:0 5px 0 5px"action="/JobFair/index.php/job/view/jobid/<?php echo $job->id ?>" >
                                     <input class="btn btn-primary" type="submit"  value="Preview">
                                 </form>
-                                <form  target="blank" style="float:left;" action="/JobFair/index.php/job/studentmatch/jobid/<?php echo $job->id ?>" >
+                                <form style="float:left;" action="/JobFair/index.php/job/studentmatch/jobid/<?php echo $job->id ?>" >
                                     <input class="btn btn-primary" type="submit" value="Matches">
                                 </form>
-                                <form method="get" target="blank" style="float:left; margin:0 5px 0 5px" action="/JobFair/index.php/Job/CloneJobPosting/jobid/<?php echo $job->id ?>">
+                                <form method="get" style="float:left; margin:0 5px 0 5px" action="/JobFair/index.php/Job/CloneJobPosting/jobid/<?php echo $job->id ?>">
                                     <input class="btn btn-info" type="submit"  value="Clone">
                                 </form>
                                 <form style="float:left;margin:0 5px 0 5px" action="/JobFair/index.php/Job/Close/jobid/<?php echo $job->id ?>" >			
@@ -192,8 +192,7 @@ $this->breadcrumbs = array(
     <div id="notificationside">
 
         <div id="notificationemployer">
-            <div class="hometitle">NEWS AND UPDATES | <?php echo date_default_timezone_set('America/New_York');
-date("D M d, Y "); ?> </div>
+            <div class="hometitle"> NEWS AND UPDATES | <?php date_default_timezone_set('America/New_York'); echo date("D M d, Y "); ?> </div>
             <br><br>
 
 

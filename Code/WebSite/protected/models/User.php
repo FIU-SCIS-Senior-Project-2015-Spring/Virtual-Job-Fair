@@ -657,9 +657,10 @@
             $model->save(false);
         }
 
+        // Rene: This function has been deprecated and added to the NotificationController
         public static function sendStudentNotificationMatchJobAlart($sender, $reciver, $link, $message)
         {
-            $model = new Notification;
+            /*$model = new Notification;
             $model->sender_id = $sender;
 
             $model->receiver_id = $reciver;
@@ -670,9 +671,10 @@
             //print "<pre>"; print_r($model->link);print "</pre>";return;
             $model->message = $message;
             $model->importancy = 2;
-            $model->save(false);
+            $model->save(false);*/
         }
 
+        
         public static function sendAdminNotificationNewEmpolyer($employer, $admins, $link, $message)
         {
             foreach ($admins as $admin)

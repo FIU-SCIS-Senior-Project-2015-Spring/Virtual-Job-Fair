@@ -131,8 +131,12 @@ $(document).ready(function () {
 	<br/><?php echo $form->labelEx($model->basicInfo,'hide_phone', array('style'=>'display:inline-block;!important')); ?>
 		<?php echo $form->checkBox($model->basicInfo,'hide_phone'); ?>
 		
-		<br/><?php echo $form->labelEx($model->basicInfo,'allowSMS', array('style'=>'display:inline-block;!important')); ?>
-		<?php echo $form->checkBox($model->basicInfo,'allowSMS'); ?>
+		<br/>
+                <?php 
+                    // Hide SMS. Card #810
+                    //echo $form->labelEx($model->basicInfo,'allowSMS', array('style'=>'display:inline-block;!important'));
+                    //echo $form->checkBox($model->basicInfo,'allowSMS'); 
+                ?>
 
 		<?php echo $form->labelEx($model->basicInfo,'about_me'); ?><p style="color:red" id="aboutmeleft">500 characters left</p>
 		<?php echo $form->textArea($model->basicInfo,'about_me', array('cols' => 70, 'rows'=>10)); ?>

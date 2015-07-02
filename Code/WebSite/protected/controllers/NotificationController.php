@@ -1,48 +1,48 @@
 <?php
 
-class NotificationController extends Controller
-{
-	public function actionView()
-	{
-		
-		$this->render('View');
-		
-	}
+    class NotificationController extends Controller
+    {
 
-	public function actionGetNotification()
-	{
-		$username = Yii::app()->user->name;
-		$user = User::model()->find("username=:username",array(':username'=>$username));
-	}
-	
+        public function actionView()
+        {
 
+            $this->render('View');
+        }
 
-	
-	
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
-}
+        public function actionGetNotification()
+        {
+            $username = Yii::app()->user->name;
+            $user = User::model()->find("username=:username", array(':username' => $username));
+        }
+        
+        
+        /**
+         * 
+         * @param type $sender
+         * @param type $receiver
+         * @param type $link
+         * @param type $message
+         * @param type $jobID
+         * @author Rene Alfonso
+         */
+        public static function createStudentJobMatchNotification($sender, $receiver, $link, $message, $jobID)
+        {
+            $n = new Notification();
+            $n->sender_id = $sender;
+            
+            $n->receiver_id = $receiver;
+            date_default_timezone_set('America/New_York');
+            $n->datetime = date('Y-m-d H:i:s');
+            $n->been_read = 0;
+            $n->link = $link;
+            
+            $n->message = $message;
+            $n->importancy = 2;
+            $n->jobMatchID = $jobID;
+            
+            $n->save(false);
+            
+        }
+        
+    }
+    

@@ -3,6 +3,8 @@ require ('GuestEmployerPostForm.php');
 $flag = 0;
 $saveQuery = "";
 
+include 'NotificationController.php';
+
 
 class JobController extends Controller
 {
@@ -1110,7 +1112,11 @@ class JobController extends Controller
         return strtr($text, array('<br />' => "\r\n" , '<br />' => "\r", '<br />' => "\n"));
     }
 
-    public function actionPost() {
+    /**
+     * Posts a new job.
+     */
+    public function actionPost() 
+    {
         
         $model = new Job;
 
@@ -1118,32 +1124,41 @@ class JobController extends Controller
         {
             $data = $_POST['Job'];
             
-            if (!($this->actionVerifyJobPost() == "")) {
+            if(!($this->actionVerifyJobPost() == "")) 
+            {
                 $this->render('post', array('model' => $model));
             }
+            
             $model->attributes = $_POST['Job'];
             $model->FK_poster = User::getCurrentUser()->id;
             date_default_timezone_set('America/New_York');
             $model->comp_name = CompanyInfo::getCompanyNamesUser(User::getCurrentUser()->id);
             $model->post_date = date('Y-m-d H:i:s');
             $model->description = $this->mynl2br($_POST['Job']['description']);
-            //$model->description = ($_POST['Job']['description']);
+          
             $model->save(false);
-            if (isset($_POST['Skill'])) {
+            
+            if (isset($_POST['Skill'])) 
+            {
                 $this->actionSaveSkills($model->id);
             }
 
-
             $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $model->id;
-            //$link = 'http://localhost/JobFair/JobFair/index.php/job/view/jobid/'.$model->id;
+            
             $message = User::getCurrentUser()->username . " just posted a new job: " . $model->title . ". Click here to view the post. ";
+            
+            // Send a notification to all students.
             User::sendAllStudentVerificationAlart($model->FK_poster, $model->fKPoster->username, $model->fKPoster->email, $message, $link);
+            
+            
             $this->redirect("/JobFair/index.php/Job/studentmatch/jobid/" . $model->id);
         }
 
         $this->render('post', array('model' => $model));
     }
     
+    
+    // It was agreed that guest employers can't post jobs.
     public function actionPostGuestEmployer(){
         $model = new GuestEmployerPostForm();
         $job = new Job();
@@ -1186,6 +1201,7 @@ class JobController extends Controller
         
     }
 
+    
     public function actionEditJobPost() {
         if (isset($_POST['Job'])) {
             $jobid = $_POST['Job'];
@@ -1337,7 +1353,7 @@ class JobController extends Controller
 
     
     /**
-     * JobMatch page
+     * JobMatch algorithm for the Job Match page.
      */
     public function actionStudentMatch($jobid) 
     {
@@ -1350,7 +1366,9 @@ class JobController extends Controller
             $this->render('JobInvalid');
             return;
         }
-        if ($job->FK_poster != User::getCurrentUser()->id) {
+        
+        if ($job->FK_poster != User::getCurrentUser()->id) 
+        {
             $this->render('studentmatcherror', array('students' => $students));
             return;
         }
@@ -1361,12 +1379,13 @@ class JobController extends Controller
             return;
         }
 
-        foreach ($students as $student) {
+        foreach ($students as $student) 
+        {
             $student->skillrating = $this->compare_skills($job->jobSkillMaps, $student->studentSkillMaps);
         }
 
-        //return;
-        function cmp($student1, $student2) {
+        function cmp($student1, $student2) 
+        {
             if ($student1->skillrating == $student2->skillrating)
                 return 0;
             return ($student1->skillrating < $student2->skillrating) ? 1 : -1;
@@ -1375,17 +1394,19 @@ class JobController extends Controller
         usort($students, 'cmp');
         $size = 3;
 
-        foreach ($students as $key => $student) {
-            if ($student->skillrating <= 0) {
+        foreach ($students as $key => $student) 
+        {
+            if ($student->skillrating <= 0)
                 unset($students[$key]);
-            }
         }
-        while (isset($students[$size + 1])) {
-            if ($students[$size]->skillrating == $students[$size + 1]->skillrating) {
+        
+        while (isset($students[$size + 1])) 
+        {
+            if($students[$size]->skillrating == $students[$size + 1]->skillrating) 
                 $size ++;
-            } else {
+            
+            else 
                 break;
-            }
         }
 
         $students = array_slice($students, 0, $size + 1);
@@ -1394,16 +1415,35 @@ class JobController extends Controller
             $job->matches_found = 1;
             
             foreach ($students as $student) 
-            {
-                //SENDNOTIFICATION to each student, a job has been posted that matches your skills
-                $joblink = CHtml::link(CHtml::encode('View Job'), "/JobFair/index.php/job/view/jobid/" . $job->id, array('target' => '_blank', 'style' => 'float:left'));
-                $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id;
-                $sender = User::model()->findByPk($job->FK_poster);
-                $message = "Hi " . $student->username . ", the company " . $sender->username . " just posted a job " . $job->title . " that matches your skills";
-                User::sendStudentNotificationMatchJobAlart($sender->id, $student->id, $link, $message);
+            {                
                 
-                // SEND EMAIL NOTIFICATION
-                // TODO.
+                $jMatch = JobMatchRelation::model()->findBySql('SELECT * FROM job_match WHERE(jobID = ' . $job->id . ' AND studentID = ' . $student->id . ')');
+                
+                // Rene: Check if Job match has already happened for this student.
+                // This will avoid sending extra notifications. Bug fix card #818.
+                if($jMatch == null)
+                {    
+                    // Create the Job Match log.
+                    $jMatch = new JobMatchRelation();
+                    $jMatch->jobID = $job->id;
+                    $jMatch->studentID = $student->id;
+                    $jMatch->save(false);
+                    
+                    //Send notification to each student, a job has been posted that matches your skills
+                    $joblink = CHtml::link(CHtml::encode('View Job'), "/JobFair/index.php/job/view/jobid/" . $job->id, array('target' => '_blank', 'style' => 'float:left'));
+                    $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/job/view/jobid/' . $job->id;
+                    $sender = User::model()->findByPk($job->FK_poster);
+                    $message = "Hi " . $student->username . ", the company " . $sender->username . " just posted a job " . $job->title . " that matches your skills";
+
+                    // Rene: Send match notification.
+                    NotificationController::createStudentJobMatchNotification($sender->id, $student->id, $link, $message, $job->id);
+
+                    // Send email notification.
+                    //$emailMsg = $message . '<br>' . $link;
+                    //User::sendEmail($student->email, 'You Are A Match for Job: ' . $job->title, "Job Match", $emailMsg);
+                    
+                    
+                }
 
             }
         }

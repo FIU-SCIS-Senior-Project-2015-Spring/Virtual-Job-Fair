@@ -7,9 +7,6 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 $this->breadcrumbs=array(
 	'Login',
 );
-
-//if(!Yii::app()->user->isGuest)
-  //  $this->redirect($this->redirect('http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/home/studenthome'));
 ?>
 
 
@@ -20,7 +17,7 @@ $this->breadcrumbs=array(
     <div style="float:left; border:1px solid">
 <?php $this->widget('bootstrap.widgets.TbCarousel', array(
     'items'=>array(
-        array('image'=>'/JobFair/images/imgs/slider4.gif', 'label'=>'Virtual Job Fair', 'caption'=>'Virtual Job Fair is an efficient way to make a connection between employers and job seeking students. Recruiting high quality employees or finding the perfect job is no easy task; Virtual Job Fair provides a simple an efficient solution to this.'),
+        array('image'=>'/JobFair/images/imgs/slider4.gif', 'label'=>'Virtual Job Fair', 'caption'=>'Virtual Job Fair is an efficient way to make a connection between employers and job seeking students. Recruiting high quality employees or finding the perfect job is no easy task; Virtual Job Fair provides a simple and efficient solution to this.'),
     	array('image'=>'/JobFair/images/imgs/slider5.gif', 'label'=>'-Employers-', 'caption'=>'Recruiting is difficult and expensive, especially when you need to send personnel to the universities to find students. Virtual Job Fair allows you to virtually do this. With our Live Video Interview, your personnel can interview the candidates without leaving the office. '),
     	array('image'=>'/JobFair/images/imgs/slider.png', 'label'=>'-Students-', 'caption'=>'Need a job and do not know where to start? Well start here. Virtual Job Fair allows you to create a profile and showcase your skills and abilities for free. We also match you with current job opening based on your skills.'),
     		 
@@ -31,6 +28,7 @@ $this->breadcrumbs=array(
 
 <img style="float:left; height:50px; margin-left:50px"src='/JobFair/images/imgs/vjflogo.jpg'/>
 <h2 style="margin-bottom:40px;float:left;margin-left:10px">Virtual Job Fair Login</h2>
+
 
     <div id="login">
 
@@ -105,7 +103,7 @@ making the links dynamic so if the base Url changed the program won not be affec
             . '<span> <strong style="font-size:17px"> Guest Login </strong> <i class="fa fa-user pull-left fa-lg" style="font-size:30px; vertical-align: middle;"></i> '
             . '</button>';
     
-    echo CHtml::link($guest, array('user/GuestStudentAuth'));
+    echo CHtml::link($guest, array('user/GuestAuth'));
 ?><br><br>
 
 
