@@ -41,16 +41,27 @@ if ($jobs == null) $jobs = array();
 <br/><br/>
         <ul>
 	<?php 
-            foreach($jobs as $job) {
-            echo '<li><a class="mostwantedskills" href="/JobFair/index.php/job/view/jobid/'.$job->id.'">'.$job->title.'</a></li>';
-	}
+            foreach($jobs as $job)
+            {
+                // Check if user has already applied for the job. Card #853. 
+                if(User::getCurrentUser()->id != Application::hasApplied($job->id))
+                    echo '<li><a class="mostwantedskills" href="/JobFair/index.php/job/view/jobid/'.$job->id.'">'.$job->title.'</a></li>';
+            }
+            
+            if(User::isCurrentUserGuestStudent())
+                echo 'Please ' . CHtml::link(CHtml::encode('register'), '/JobFair/index.php/user/register', array(null)) . ' with our system to see jobs that you are a match for.';
+
         ?>
+            
+        
         </ul>    
 </div>	
 <div id="mostwanted">
 <div class="titlebox">MOST WANTED SKILLS</div><br><br>
 <ul>
-<?php foreach ($mostwanted as $mmm){?>
+<?php 
+    foreach ($mostwanted as $mmm)
+    {?>
 	<li class="mostwantedskills"><?php echo $mmm->name;
 	$thecount = 0;
 	
@@ -61,16 +72,14 @@ if ($jobs == null) $jobs = array();
 	);*/
 
 	$sk = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$mmm->id));
-    foreach($sk as $sk2)
-    {
-        $thejob = Job::model()->findByPk($sk2->jobid);
-
-
-        if($thejob->active)
+        foreach($sk as $sk2)
         {
-            $thecount++;
+            $thejob = Job::model()->findByPk($sk2->jobid);
+
+            if($thejob->active)
+                $thecount++;
+
         }
-    }
         ?>
         <a class="mostwantedtext" href="/JobFair/index.php/home/Search2/?key=<?php echo $mmm->name  ?>"><?php  echo " - [ " . $thecount . " ] Jobs";?></a>
     </li>
@@ -83,11 +92,19 @@ if ($jobs == null) $jobs = array();
     echo '<div class="student-home-container">';
     echo '<div class="titlebox">JOBS APPLIED</div><br><br>';
     echo '<ul>';
-    if (isset($jobsApplied) && $jobsApplied != NULL){        
-        foreach ($jobsApplied as $ja){
+    
+    if(!empty($jobsApplied))
+    {        
+        foreach ($jobsApplied as $ja)
+        {
             echo '<span class="glyphicon glyphicon-search"></span><li class="mostwantedskills"><a href="/JobFair/index.php/job/view/jobid/'.$ja->id.'">'.$ja->title.'</a>.</li>';
         }
     }
+    
+    else if(User::isCurrentUserGuestStudent())
+        echo 'Please ' . CHtml::link(CHtml::encode('register'), '/JobFair/index.php/user/register', array(null)) . ' with our system to keep track of the jobs you have applied for.';
+        
+        
     echo '</ul>';
     echo '</div>';
     echo '</div>';

@@ -157,7 +157,7 @@ $deadline = strtotime($job->deadline);
 		width: 150px;">
 <?php 
     // Display the apply button to students for active jobs only.
-    if(User::isCurrentUserStudent() && $job->active)
+    if(User::isCurrentUserStudent() || User::isCurrentUserGuestStudent() && $job->active)
     {
         if(Application::hasApplied($job->id) && !isset($appMsg)){            
             echo '<h4>You have already applied for this job.</h4>';
@@ -166,6 +166,14 @@ $deadline = strtotime($job->deadline);
         {
         }
 
+        else if(User::isCurrentUserGuestStudent())
+        {            
+            echo '<form title="Please register before applying" method="get" action="/JobFair/index.php/user/register">';
+            echo '<input type="hidden" name="msg" value="Please register before applying for a job">';
+            echo '<button type="submit" class="btn btn-primary" id="apply-btn"> Apply </button>';
+            echo '</form>';
+        }
+        
         else 
         {
             echo '<form method="get" action="/JobFair/index.php/Job/Apply/jobid/'.$job->id.'">';
@@ -176,10 +184,6 @@ $deadline = strtotime($job->deadline);
             echo '</form>';
         }    
     }    
-        
-    else if(User::isCurrentUserGuestStudent())
-        echo '<button type="submit" title="Please register before applying" class="btn" name="apply"> Apply </button>';
-        
         
     ?>                       
 <?php //if (User::isCurrentUserStudent()) {?>

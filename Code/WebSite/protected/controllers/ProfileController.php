@@ -949,10 +949,15 @@ class ProfileController extends Controller
                     'EditBasicInfo', 'Student', 'Employer', 'Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
                     'getJobInterest', 'saveInterest', 'DeleteInterest', 'UploadCoverLetter',),
                 
-                'users' => array('@')),
+                'users' => array('@'),
+                // These rules below won't let any user except Student or Employer use this controller.
+                'expression'=>'User::getCurrentUser()->FK_usertype == 1 || User::getCurrentUser()->FK_usertype == 2',
+                ),
+            
             array('allow',
                 'actions' => array('videoemployer', 'videostudent', 'googleAuth', 'fiuCsSeniorAuth', 'fiuAuth',),
                 'users' => array('*')),
+            
             array('deny', //deny all users anything not specified
                 'users' => array('*'),
                 'message' => 'Access Denied. Site is unbreakable'),
