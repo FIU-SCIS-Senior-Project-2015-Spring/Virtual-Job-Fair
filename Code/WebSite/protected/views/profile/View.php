@@ -73,22 +73,24 @@
                     $("#BasicInfo_zip_code").attr("disabled", false);
                     $("#edit").attr("name", "yt0");
                     $("#edit img").attr("src", "/JobFair/images/ico/done.gif");
-                    $("#edit").attr("onclick", "$(this).closest('form').submit(); return false;");
+                    $("#edit").attr("onclick", "(\"#user-EditStudent-form\").onsubmit(); return false;");
                 } 
                 else {
                     //Fixes Bug on card #359 (Allowing a blank email address for the user profile)
                     var sEmail = $('#User_email').val();
                     if($.trim(sEmail).length == 0) { //Email can't be left blank
-                        window.alert('The email field is mandatory.');
-                        e.stopPropagation();
+                        $("#edit").removeAttr("onclick",null);
+                        alert('The email field is mandatory.');
+                        e.preventDefault();
                     }
                     else {
                         if(validateEmail(sEmail)) {//Validate email against Regex
-                            $(this).closest('form').submit();
+                            $("#user-EditStudent-form").submit();
                         }
                         else {
-                            window.alert('Invalid email format.');
-                            e.stopPropagation();
+                            $("#edit").removeAttr("onclick",null);
+                            alert('Invalid email format.');
+                            e.preventDefault();
                         }
                     }
                     enableBasicInfo();
