@@ -134,7 +134,8 @@ $deadline = strtotime($job->deadline);
             print "<a href='/JobFair/index.php/Profile/employer/user/$username'>$username</a>";
         
         else if(User::isCurrentUserGuestStudent())
-            print "<a href='/JobFair/index.php/user/register' title='Register to view employer'> $username</a>";
+              echo CHtml::link(CHtml::encode($username), '/JobFair/index.php/user/register?msg=Please register before viewing employer profiles', array(null));
+            //print "<a href='/JobFair/index.php/user/register' title='Register to view employer'> $username</a>";
 
     ?></br>
     
