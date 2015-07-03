@@ -33,17 +33,21 @@ $this->breadcrumbs = array(
     });
 
     function validateForm()
-    {
+    { 
         var user = $("#receiver").val();
-
-        if (!user || /^\s*$/.test(user)) {
-            alert("'To' field is in the wrong format");
+        var user2 = $('#toField').val();
+        if(!user2){                
+            if (!user || /^\s*$/.test(user)) {
+                alert("'To' field is in the wrong format. Msg1");
             return false;
+            }
+        } else {
+            user = user + user2;
         }
 
-        var specialChar1 = 0;
-        var specialChar2 = 0;
-        var specialChar3 = 0
+        var specialChar1 = 0;   // Char1 = '<'
+        var specialChar2 = 0;   // Char2 = '>'
+        var specialChar3 = 0    // Char3 = '"'
         for (var i = 0; i < user.length; i++)
         {
             var aChar = user.charAt(i)
@@ -58,17 +62,17 @@ $this->breadcrumbs = array(
         }
 
         //if (specialChar1 != specialChar2 || (specialChar2 != 0 && user.charAt(user.length - 2) != '>')) {
-        // alert("'To' field is in the wrong format");
+        // alert("'To' field is in the wrong format");   "___" < >
         // return false; 
         // }
 
         if ((specialChar3 % 2 != 0) || (specialChar3 >= 2 && specialChar1 == 0) || (specialChar3 >= 2 && user.charAt(0) != '"')) {
-            alert("'To' field is in the wrong format");
+            alert("'To' field is in the wrong format. Msg2");
             return false;
         }
 
-        if (specialChar1 > specialChar3) {
-            alert("'To' field is in the wrong format");
+        if (specialChar1 > specialChar3 || (specialChar1 == 0) {
+            alert("'To' field is in the wrong format.Msg3");
             return false;
         }
 
@@ -142,7 +146,7 @@ $this->breadcrumbs = array(
                           else
                           echo $form->textField($model,'FK_receiver', array('id'=>'receiver')); */
 
-                        if ($username != null)
+                       /* if ($username != null)
                             $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                                 'name' => 'receiver',
                                 'source' => $users,
@@ -151,7 +155,19 @@ $this->breadcrumbs = array(
                                 'htmlOptions' => array('class' => 'span8'),
                                 //'select'=>'js: function(event,ui){$("#data").val(ui.item.name);return false;}',
                             ));
-                        else
+                        else */
+                            
+                        if($username != NULL){
+                            $this->widget('MultiComplete', array(
+                                'id' => 'toField',
+                                'name' => 'receiver',
+                                'source' => $users,
+                                'splitter' => ',',
+                                'options' => array('html' => true),
+                                'htmlOptions' => array('class' => 'span8'),
+                            ));
+                            echo '<input id="recipientOne" type="hidden" value="'.htmlentities($username).'">';
+                        } else {                           
                             $this->widget('MultiComplete', array(
                                 'name' => 'receiver',
                                 'source' => $users,
@@ -159,6 +175,7 @@ $this->breadcrumbs = array(
                                 'options' => array('html' => true),
                                 'htmlOptions' => array('class' => 'span8'),
                             ));
+                        }
                         ?>
                     
                         <?php echo $form->error($model, 'FK_receiver'); ?>
@@ -188,14 +205,18 @@ $this->breadcrumbs = array(
     </div>
   
 <script>
-/*    $(document).ready(function(){
-        $('li.active').click(function(){            
-                $('.active').each(fuction(){
-                    $(this).removeClass("active");
-                    $(this).addClass("inactive");
-                });
-                $(this).addClass("active");
-        }); 
-    });*/    
-</script>
     
+    // Set the first recipient if it comes from a request
+    function setFirstRecipient() {
+        var recip = document.getElementById('toField');
+        var recip1 = document.getElementById('recipientOne');
+        recip.value = recip1.value;
+    };
+    
+    $(document).ready(function () {
+        if(document.getElementById('toField') != null){
+            setFirstRecipient();
+        }
+        
+    });
+</script>

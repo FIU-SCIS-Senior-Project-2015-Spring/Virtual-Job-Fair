@@ -130,15 +130,19 @@
 
 
                             <?php
-                            $this->widget('bootstrap.widgets.TbButton', array(
+                            /*$this->widget('bootstrap.widgets.TbButton', array(
                                 'label' => 'Send Message',
                                 'type' => 'primary',
                                 'htmlOptions' => array(
                                     'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                                    'href' => '/JobFair/index.php/message/send?username=' . '"'.$student->first_name.' '.$student->last_name.'"<'.$student->username.'>',
+                                    'href' => '/JobFair/index.php/message/send?username=' . '"'.$student->first_name.' '.$student->last_name.'" <'.$student->username.'>, ',
                                     'target' => 'new',
                                 ),
-                            ));
+                            ));*/
+                            echo '<form method="post" action="/JobFair/index.php/message/send">';
+                            echo '<input type="hidden" name="send_Matched_Msg" value="'.$student->username.'">';
+                            echo '<button type="submit" class="btn btn-primary" style="margin-bottom:-15px; margin-top:5px; width:146px;"> Send Message </button>';
+                            echo '</form>';
                             ?>
 
 
