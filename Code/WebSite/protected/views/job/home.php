@@ -348,18 +348,24 @@ function getURLParameter(name) {
                 ),
             )); ?>
             <!-- save button -->
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'=>'Save Query',
-                'type'=>'info',
-                'htmlOptions'=>array(
-                    'data-toggle'=>'modal',
-                    'data-target'=>'#saveQmodal',
-                    'href'=> "#saveQmodal",
-                    'id' => "savebutton",
-                    'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
-                    'onclick' => "$('#saveQmodal').modal('show');",
-                ),
-            )); ?>
+            <?php 
+                // Hide the save button from guest.
+                if(User::isCurrentUserStudent())
+                {
+                    $this->widget('bootstrap.widgets.TbButton', array(
+                    'label'=>'Save Query',
+                    'type'=>'info',
+                    'htmlOptions'=>array(
+                        'data-toggle'=>'modal',
+                        'data-target'=>'#saveQmodal',
+                        'href'=> "#saveQmodal",
+                        'id' => "savebutton",
+                        'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
+                        'onclick' => "$('#saveQmodal').modal('show');",
+                        ),
+                    )); 
+                }
+             ?>
             <!-- Modal -->
             <div class="modal hide fade" id="saveQmodal" tabindex="-1">
                 <div class="modal-content">

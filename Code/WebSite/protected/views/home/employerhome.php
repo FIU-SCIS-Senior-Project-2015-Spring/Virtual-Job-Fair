@@ -200,14 +200,14 @@ $this->breadcrumbs = array(
 
             <script type="text/javascript">
                 //Register
-                $(function () {
+                /*$(function () {
                     $('div.one')
                             .css("cursor", "pointer")
                             .click(function () {
                                 $(this).siblings('.child-' + this.id).toggle();
                             });
                     $('div[class^=child-]').hide();
-                });
+                });*/
                 //Video Interviews
                 $(function () {
                     $('div.one')
