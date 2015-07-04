@@ -76,13 +76,15 @@
 
 
                 <?php
-                    $var = "/JobFair/index.php/message/send?username=" . $user->username;
+                    //$var = "/JobFair/index.php/message/send?username=" . $user->username;
 
                     $this->widget('bootstrap.widgets.TbButton', array(
                         'label' => 'Message',
                         'type' => 'primary',
-                        'htmlOptions' => array('style' => 'width: 100px; margin-top:10px'),
-                        'url' => $var,
+                        'htmlOptions' => array('style' => 'width: 100px; margin-top:10px',
+                        'href' => '/JobFair/index.php/message/send?username='.$user->username.'',                            
+                        //'url' => $var,
+                        ),
                     ));
                 ?>
 
