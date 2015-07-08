@@ -395,7 +395,7 @@ $this->breadcrumbs = array(
             <div id='delete_messages_forever' class='trash_image2 tooltipster' title='Delete Forever'></div>
             <div id='recover_messages' class='label label-success tooltipster' title='Recover Message'><a href="#"></a> <i class="fa fa-undo fa-lg" style="margin-top:4px;"></i></div>
         </div>
-        <div id="top-nav" class="span8">
+        <div id="top-nav" class="span8" style="margin-bottom: 15px;">
             <h4><strong>
                     <span style="margin-left: 270px">From/To</span>
                     <span style="margin-left: 330px">Subject</span>
@@ -419,17 +419,6 @@ $this->breadcrumbs = array(
         </div>
     </div></div>
 
-<script>
-/*    $(document).ready(function(){
-        $('li.active').click(function(){            
-                $('.active').each(fuction(){
-                    $(this).removeClass("active");
-                    $(this).addClass("inactive");
-                });
-                $(this).addClass("active");
-        }); 
-    }); */   
-</script>
     
     
 
