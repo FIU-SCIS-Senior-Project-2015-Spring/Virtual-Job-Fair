@@ -1,44 +1,72 @@
 <?php
-/* @var $this SiteController */
-/* @var $model LoginForm */
-/* @var $form CActiveForm  */
+    /* @var $this SiteController */
+    /* @var $model LoginForm */
+    /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - ForgotPassword';
-$this->breadcrumbs=array(
-	'Login',
-);
-$model = new User;
+    $this->pageTitle = Yii::app()->name . ' - ForgotPassword';
+
+    $this->breadcrumbs = array('Login',);
 ?>
 
-<h1>Forgot your Password?</h1>
+<h1> <center> Password Recovery </center> </h1>
+<br><br>
 
-<?php if ($error != '') {?>
-	<p  style="color:red;"> <?php echo $error?></p>
-	<?php }?>
+<?php
+    if (!empty($confirmationMsg))
+    {
+        echo '<div class="alert alert-success" style="text-align:center; width:800px; margin:auto;">' . $confirmationMsg . '</div>';
+        echo '<br>';
+    }
+    else
+    {
+        if (!empty($errorMsg))
+        {
+            echo '<div class="alert alert-danger" style="text-align:center; width:800px; margin:auto;">' . $errorMsg . '</div>';
+            echo '<br>';
+        }
+        ?>
+        
+        <?php 
+            
 
-<p>Please enter your email:</p>
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'login-form',
+                'enableClientValidation' => true,
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                ),
+            ));
+            
+            echo $form->errorSummary($userModel,NULL,NULL,array('class'=>'alert alert-error', 'style' => 'text-align:center; width:800px; margin:auto;'));
+            echo '<br>';
 
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-
-	<div class="">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
+        ?>
 
 
-	<div class="">
-		<?php echo CHtml::submitButton('Send Password', array("class"=>"btn btn-primary")); ?>
-	</div>
+        <p> <center> Please enter your email address: <center> </p>
 
-<?php $this->endWidget(); ?>
-</div><!-- form -->
+        <div class="form">
+
+        <div class="">
+        <?php
+            $form->labelEx($userModel, 'email');
+            echo $form->textField($userModel, 'email');
+            $form->error($userModel, 'email');
+        ?>
+            
+        </div>
+
+        <br>
+        <div class="">
+        <?php
+            echo CHtml::submitButton('Send Password', array("class" => "btn btn-primary"));
+        ?>
+        </div>
+
+        <?php $this->endWidget(); ?>
+        </div><!-- form -->
+        
+<?php         
+    } 
+    ?>
 

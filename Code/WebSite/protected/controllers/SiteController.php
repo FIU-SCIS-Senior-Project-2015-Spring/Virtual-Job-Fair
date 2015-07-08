@@ -185,7 +185,6 @@
                 $message = '<br/>Username: ' . $model->username . '<br/>Password: ' . $password . '<br/>Login: ' . $link;
                 User::sendEmail($email, "Your new password", "Your password has been reset", $message);
 
-                //$error = 'Email has been sent';
                 $confirmationMsg = 'A new password has been sent to your email. <br> Click '. $link .' to return to login page';
                 
                 $this->render('forgotPassword', array('confirmationMsg' => $confirmationMsg));
