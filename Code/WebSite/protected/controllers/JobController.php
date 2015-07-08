@@ -1569,13 +1569,33 @@ class JobController extends Controller
 
         return array(
             array('allow', // allow authenticated users to perform these actions
-                'actions' => array('StudentMatch', 'View', 'Home', 'Post',
-                    'SaveSkills', 'studentMatch', 'EditJobPost', 'VerifyJobPost', 'View', 'VirtualHandshake', 'QuerySkill', 'Apply',
-                    'viewApplication', 'Close', 'Search', 'SaveQuery','SaveEmpQuery' , 'Emphome', 'PostGuestEmployer','CloneJobPosting'),
+                'actions' => array('View', 'Home',
+                    'SaveSkills', 'VerifyJobPost', 'View', 'QuerySkill',
+                    'viewApplication', 'Search', 'SaveQuery','SaveEmpQuery', 'PostGuestEmployer', ),
                 'users' => array('@')),
+            
+                // Rules for the employer.
+                array('allow',
+                    'actions' => array('StudentMatch', 'Post', 'CloneJobPosting', 'Close', 'EditJobPost',
+                        'Emphome', 'VirtualHandshake'),
+                    
+                        'users' => array('@'),
+                        'expression' => 'User::getCurrentUser()->FK_usertype == 2',
+                     ),
+            
+                // Rules for the student.
+                array('allow',
+                    'actions' => array('Apply',),
+                    
+                        'users' => array('@'),
+                        'expression' => 'User::getCurrentUser()->FK_usertype == 1',
+                     ),
+            
+            
             array('allow',
                 'actions' => array('Home'),
                 'users' => array('*')),
+            
             array('deny', //deny all users anything not specified
                 'users' => array('*'),
                 'message' => 'Access Denied. Site is unbreakable'),

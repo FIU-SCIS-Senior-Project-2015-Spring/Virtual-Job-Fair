@@ -160,20 +160,40 @@
         {
             return array(
                 array('allow', // allow authenticated users to perform these actions
-                    'actions' => array('NotificationAdmin', 'StudentHome', 'MergeSkills',
-                        'AddSkill', 'EmployerHome', 'Search', 'Search2',
+                    'actions' => array('NotificationAdmin', 'MergeSkills',
+                        'AddSkill', 'Search', 'Search2',
                         'Employersearch', 'New', 'Hello', 'AdminHome',
                         'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob',
                         'DeleteNotification', 'AcceptNotificationSchedualInterview',
                         'CareerPathSync', 'GuestStudentAuth', 'GuestEmployerAuth',
                         'DeleteAdvSearchQueryEmp', 'DeleteAdvSearchQueryStu',),
-                    'users' => array('@')),
+                    'users' => array('@')
+                    ),
+                
+                 // Rules for the employer.
+                 array('allow',
+                    'actions' => array('EmployerHome',),
+                        'users' => array('@'),
+                        'expression' => 'User::getCurrentUser()->FK_usertype == 2',
+                     ),
+                
+                // Rules for the student or guest.
+                 array('allow',
+                    'actions' => array('StudentHome',),
+                        'users' => array('@'),
+                        'expression' => 'User::getCurrentUser()->FK_usertype == 1 || User::getCurrentUser()->FK_usertype == 4',
+                     ),
+                
+                
                 array('deny', //deny all users anything not specified
                     'users' => array('*'),
                     'message' => 'Access Denied. Site is unbreakable'),
             );
         }
-
+        
+        //'expression' => 'User::getCurrentUser()->FK_usertype == 2',),
+        
+        
         public function filters()
         {
             // return the filter configuration for this controller, e.g.:
