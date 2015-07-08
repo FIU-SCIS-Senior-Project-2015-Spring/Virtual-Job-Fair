@@ -1340,6 +1340,7 @@ class ProfileController extends Controller
                     }
                 }
                 $model = new User();
+                
                 //Populate user attributes
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
@@ -1355,6 +1356,11 @@ class ProfileController extends Controller
                 $model->password = $hasher->HashPassword('tester');
                 $model->activated = 1;
                 $model->save(false);
+                // Add user basic Info to create the VJF user profile sucessfully
+                $basicInfo = new BasicInfo();
+                $basicInfo->userid = $model->id;
+                // $basicInfo->about_me = "";
+                $basicInfo->save(false);
 
                 // LOGIN
                 $model = User::model()->find("username=:username", array(':username' => $model->email));
