@@ -23,50 +23,50 @@
         }
         
 
-        //administration function that creates employers
+        // Admin function that creates employers.
         public function actionCreateEmployer()
         {
-            $model = new User;
-
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-
-            if (isset($_POST['User']))
+            if(User::isCurrentUserAdmin())
             {
-                $model->attributes = $_POST['User'];
+                $model = new User;
 
-                //if($model->save())
-                //{
-                //$this->redirect(array('view','id'=>$model->id));
-                $this->actionEmployerRegister();
-                //}
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
+
+                if (isset($_POST['User']))
+                {
+                    $model->attributes = $_POST['User'];
+
+                    $this->actionEmployerRegister();
+                }
+
+                $this->render('EmployerRegister', array('model' => $model,));
             }
-
-            $this->render('EmployerRegister', array(
-                'model' => $model,
-            ));
         }
 
-        //administrator function that creates user
+        // Admin function that creates user.
         public function actionCreate()
         {
-            $model = new User;
-
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-
-            if (isset($_POST['User']))
+            if(User::isCurrentUserAdmin())
             {
-                $model->attributes = $_POST['User'];
+                $model = new User;
 
-                $this->actionStudentRegister();
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
+
+                if (isset($_POST['User']))
+                {
+                    $model->attributes = $_POST['User'];
+
+                    $this->actionStudentRegister();
+                }
+
+                $this->render('create', array('model' => $model,));
+                
             }
-
-            $this->render('create', array(
-                'model' => $model,
-            ));
         }
 
+        
         public function actionChangePassword()
         {
             $model = User::getCurrentUser();

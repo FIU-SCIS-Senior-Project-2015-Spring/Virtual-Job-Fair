@@ -25,11 +25,14 @@
         {
             return array(
                 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                    'actions' => array('admin', 'delete', 'update', 'index', 'toggleActivateButton',)
-                    ,'users' => array('admin', 'administrator'),
+                    'actions' => array('admin', 'delete', 'update', 'index', 'toggleActivateButton', 
+                        'DashboardCreate', ),
+                    
+                    'users' => array('admin', 'administrator'),
                 ),
                 array('deny', // deny all users
                     'users' => array('*'),
+                    'message' => 'Access Denied. You are not authorized to perform this action.',
                 ),
             );
         }
@@ -160,6 +163,32 @@
             
             return $model;
         }
+        
+        
+        public function actionDashboardCreate()
+        {
+
+            $model = new User;
+
+            $total = $model->countUsers();
+            $stu2 = $model->countStudents();
+            $emp = $model->countEmployers();
+            $admin = $model->countAdmin();
+
+            $stu = ($stu2 / $total) * 100;
+            $emp = ($emp / $total) * 100;
+            $admin = ($admin / $total) * 100;
+
+            $activestu = $model->countactiveStudents();
+            $jobs = $model->countJobs();
+            $activejobs = $model->countactiveJobs();
+
+
+            $this->render('dashboard', array(
+                'model' => $model, 'stu' => $stu, 'total' => $total, 'emp' => $emp, 'admin' => $admin, 'activestu' => $activestu, 'activejobs' => $activejobs, 'jobs' => $jobs, 'stu2' => $stu2,
+            ));
+        }
+        
 
         /**
          * Not currently in use.
@@ -174,5 +203,7 @@
                 Yii::app()->end();
             }
         }
+        
+        
         
     } 

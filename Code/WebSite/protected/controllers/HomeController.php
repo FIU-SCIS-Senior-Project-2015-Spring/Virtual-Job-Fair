@@ -160,7 +160,7 @@
         {
             return array(
                 array('allow', // allow authenticated users to perform these actions
-                    'actions' => array('NotificationAdmin', 'MergeSkills',
+                    'actions' => array('MergeSkills',
                         'AddSkill', 'Search', 'Search2',
                         'Employersearch', 'New', 'Hello', 'AdminHome',
                         'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob',
@@ -170,28 +170,34 @@
                     'users' => array('@')
                     ),
                 
-                 // Rules for the employer.
-                 array('allow',
+                 // Rules for the Employer.
+                array('allow',
                     'actions' => array('EmployerHome',),
                         'users' => array('@'),
                         'expression' => 'User::getCurrentUser()->FK_usertype == 2',
                      ),
                 
-                // Rules for the student or guest.
-                 array('allow',
+                // Rules for the Student or Guest.
+                array('allow',
                     'actions' => array('StudentHome',),
                         'users' => array('@'),
                         'expression' => 'User::getCurrentUser()->FK_usertype == 1 || User::getCurrentUser()->FK_usertype == 4',
                      ),
                 
                 
+                // Rules for Admin.
+                array('allow',
+                    'actions' => array('NotificationAdmin',),
+                        'users' => array('@'),
+                        'expression' => 'User::getCurrentUser()->FK_usertype == 3',
+                     ),
+                
+                
                 array('deny', //deny all users anything not specified
                     'users' => array('*'),
-                    'message' => 'Access Denied. Site is unbreakable'),
+                    'message' => 'Access Denied. You are not authorized to perform this action.'),
             );
         }
-        
-        //'expression' => 'User::getCurrentUser()->FK_usertype == 2',),
         
         
         public function filters()
