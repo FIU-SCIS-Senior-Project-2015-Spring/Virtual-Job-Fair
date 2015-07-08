@@ -73,29 +73,6 @@
             $this->render('contact', array('model' => $model));
         }
 
-        public function actionDashboardCreate()
-        {
-
-            $model = new User;
-
-            $total = $model->countUsers();
-            $stu2 = $model->countStudents();
-            $emp = $model->countEmployers();
-            $admin = $model->countAdmin();
-
-            $stu = ($stu2 / $total) * 100;
-            $emp = ($emp / $total) * 100;
-            $admin = ($admin / $total) * 100;
-
-            $activestu = $model->countactiveStudents();
-            $jobs = $model->countJobs();
-            $activejobs = $model->countactiveJobs();
-
-
-            $this->render('dashboard', array(
-                'model' => $model, 'stu' => $stu, 'total' => $total, 'emp' => $emp, 'admin' => $admin, 'activestu' => $activestu, 'activejobs' => $activejobs, 'jobs' => $jobs, 'stu2' => $stu2,
-            ));
-        }
 
         /**
          * Displays the login page
@@ -174,33 +151,49 @@
             return $string;
         }
 
+        /**
+         * Changes the password and emails it.
+         * @return type
+         */
         public function actionForgotPassword()
         {
+           // $errorMsg = '';
+           // $confirmationMsg = '';
+            
+            $userModel = new User();
+            
             if (isset($_POST['User']))
             {
                 $email = $_POST['User']['email'];
                 $model = User::model()->find("email=:email", array(':email' => $email));
+                
+                // Check if email is in the system.
                 if ($model == null)
                 {
-                    $error = 'Email does not exist in our records';
-                    $this->render('forgotPassword', array('error' => $error));
+                    $errorMsg = 'The email does not exist in our records';
+                    $this->render('forgotPassword', array('userModel' => $userModel, 'errorMsg' => $errorMsg));
                     return;
                 }
+                
                 $password = $this->genRandomString(10);
                 $hasher = new PasswordHash(8, false);
                 $model->password = $hasher->HashPassword($password);
                 $model->save(false);
+                
+                // Send email.
                 $link = CHtml::link('here', 'http://' . Yii::app()->request->getServerName() . '/JobFair/');
                 $message = '<br/>Username: ' . $model->username . '<br/>Password: ' . $password . '<br/>Login: ' . $link;
                 User::sendEmail($email, "Your new password", "Your password has been reset", $message);
-                //User::sendEmailWithNewPassword($email, $password, $model->username);
-                $error = 'Email has been sent';
-                $this->render('forgotPassword', array('error' => $error));
+
+                //$error = 'Email has been sent';
+                $confirmationMsg = 'A new password has been sent to your email. <br> Click '. $link .' to return to login page';
+                
+                $this->render('forgotPassword', array('confirmationMsg' => $confirmationMsg));
                 return;
             }
 
-            $error = '';
-            $this->render('forgotPassword', array('error' => $error));
+
+            $this->render('forgotPassword', array('userModel' => $userModel));
         }
 
     }
