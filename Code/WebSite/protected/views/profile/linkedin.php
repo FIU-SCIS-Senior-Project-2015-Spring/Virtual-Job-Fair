@@ -2,8 +2,10 @@
 require_once("OAuth.php");
 
 class LinkedIn {
-	public $base_url = "http://api.linkedin.com";
-	public $secure_base_url = "https://api.linkedin.com";
+	//public $base_url = "http://api.linkedin.com";
+	//public $secure_base_url = "https://api.linkedin.com";
+        public $base_url = "https://api.linkedin.com/v1";
+	public $secure_base_url = "https://www.linkedin.com/uas/oauth2";
 	public $oauth_callback = "oob";
 	public $consumer;
 	public $request_token;
