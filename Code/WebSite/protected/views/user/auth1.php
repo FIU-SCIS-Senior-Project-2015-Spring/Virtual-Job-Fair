@@ -5,8 +5,8 @@
     //edit by Manuel making the link dynamic, using Yii
  	$config['base_url']             =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/user/auth1.php';
  	$config['callback_url']         =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/user/RegisterLinkedIn';
-    $config['linkedin_access']      =   '2rtmn93gu2m4';
-    $config['linkedin_secret']      =   'JV0fYG9ls3rclP8v';
+    $config['linkedin_access']      =   '78u1o4v00gjudi';
+    $config['linkedin_secret']      =   'z7OHk1oW9I0NaOPk';
 
     include_once "linkedin.php";
 
