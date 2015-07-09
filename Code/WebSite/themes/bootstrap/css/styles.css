@@ -1984,16 +1984,16 @@ box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;
 #login{
 float: left;
 width: 250px;
-margin-left: 50px;
+margin-left: 0px;
 }
 
 #altlogin{
-float: left;
+float: right;
 width: 200px;
 font-size: 12px;
 border-left: solid;
-margin-left: -40px;
-padding-left: 40px;
+margin-left: 55px;
+padding-left: 20px;
 }
 
 

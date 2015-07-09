@@ -12,6 +12,7 @@
 <br><br>
 
 <?php
+    // Confirmation message.
     if (!empty($confirmationMsg))
     {
         echo '<div class="alert alert-success" style="text-align:center; width:800px; margin:auto;">' . $confirmationMsg . '</div>';
@@ -19,6 +20,7 @@
     }
     else
     {
+        // First error message.
         if (!empty($errorMsg))
         {
             echo '<div class="alert alert-danger" style="text-align:center; width:800px; margin:auto;">' . $errorMsg . '</div>';
@@ -37,6 +39,7 @@
                 ),
             ));
             
+            // Model validation error message.
             echo $form->errorSummary($userModel,NULL,NULL,array('class'=>'alert alert-error', 'style' => 'text-align:center; width:800px; margin:auto;'));
             echo '<br>';
 
