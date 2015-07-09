@@ -134,12 +134,15 @@
                                         'class' => 'bootstrap.widgets.TbMenu',
                                         'htmlOptions' => array('class' => 'pull-right'),
                                         
+                                        // Multiple login options drop down menu.
                                         'items' => array('',
                                             array('label' => 'Other Login Options', 'url' => '#', 'visible' => Yii::app()->user->isGuest, 
                                                 'items' => array(
                                                     array('label' => 'Guest Login', 'url' => array('user/GuestAuth'), 'visible' => Yii::app()->user->isGuest),
                                                     array('label' => 'Google Login', 'url' => array('profile/googleAuth'), 'visible' => Yii::app()->user->isGuest), 
                                                     array('label' => 'FIU Login', 'url' => array('profile/fiuAuth'), 'visible' => Yii::app()->user->isGuest), 
+                                                    array('label' => 'FIU CS Login', 'url' => array('profile/fiuCsSeniorAuth'), 'visible' => Yii::app()->user->isGuest), 
+                                                    array('label' => 'LinkedIn Login', 'url' => array( 'user/auth1'), 'visible' => Yii::app()->user->isGuest),
                                                     )
                                                 ),
                                             
