@@ -530,53 +530,76 @@
         }
 
         public function actionRegisterLinkedIn()
-        {
-            // if user canceled, redirect to home page
-            if (isset($_GET['oauth_problem']))
-            {
-                $problem = $_GET['oauth_problem'];
-                if ($problem == 'user_refused')
-                    $this->redirect('/JobFair/index.php');
-            }
+        {   
+           // echo "Hello";
+          
+            //session_start();
+            //include Yii::app()->basePath . "/views/user/linkedin.php";
 
-            if (!isset($_SESSION))
-                session_start();
+            //$linkedin = new LinkedIn();
+            // $linkedin->fnLinkedInConnect();
+            //$token = serialize($_SESSION['_oauth_token']);
+            
+            //echo $token;
+            //$LinkedIn_OAuth2 = new LinkedInOAuth2($token);
+            //$response = $LinkedIn_OAuth2->getProfile();  
+            
+            //var_dump($response);
+
+            //$data = simplexml_load_string($response);
+            
+            //print_r($data);
+            
+            
+           /*   
+            // if user canceled, redirect to home page
+            //if (isset($_GET['oauth_problem']))
+            //{
+            //   $problem = $_GET['oauth_problem'];
+            //    if ($problem == 'user_refused')
+            //        $this->redirect('/JobFair/index.php');
+            //}
+
+            //if (!isset($_SESSION))
+             //   session_start();
 
             //edit by Manuel making the link dynamic, using Yii
-            $config['base_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/auth1.php';
-            $config['callback_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/RegisterLinkedIn';
-            $config['linkedin_access'] = '78u1o4v00gjudi';
-            $config['linkedin_secret'] = 'z7OHk1oW9I0NaOPk';
+            //$config['base_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/auth1.php';
+            //$config['callback_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/RegisterLinkedIn';
+            //$config['linkedin_access'] = '78u1o4v00gjudi';
+            //$config['linkedin_secret'] = 'z7OHk1oW9I0NaOPk';
 
-            include_once Yii::app()->basePath . "/views/user/linkedin.php";
+            //include_once Yii::app()->basePath . "/views/user/linkedin.php";
 
             # First step is to initialize with your consumer key and secret. We'll use an out-of-band oauth_callback
-            $linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url']);
+            //$linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url']);
             //$linkedin->debug = true;
 
-            if (isset($_REQUEST['oauth_verifier']))
-            {
-                $_SESSION['oauth_verifier'] = $_REQUEST['oauth_verifier'];
+            //if (isset($_REQUEST['oauth_verifier']))
+            //{
+            //   $_SESSION['oauth_verifier'] = $_REQUEST['oauth_verifier'];
 
-                $linkedin->request_token = unserialize($_SESSION['requestToken']);
-                $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
-                $linkedin->getAccessToken($_REQUEST['oauth_verifier']);
+            //    $linkedin->request_token = unserialize($_SESSION['requestToken']);
+            //    $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
+            //    $linkedin->getAccessToken($_REQUEST['oauth_verifier']);
 
-                $_SESSION['oauth_access_token'] = serialize($linkedin->access_token);
-                header("Location: " . $config['callback_url']);
-                exit;
-            }
-            else
-            {
-                $linkedin->request_token = unserialize($_SESSION['requestToken']);
-                $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
-                $linkedin->access_token = unserialize($_SESSION['oauth_access_token']);
-            }
+            //    $_SESSION['oauth_access_token'] = serialize($linkedin->access_token);
+            //    header("Location: " . $config['callback_url']);
+            //    exit;
+            //}
+            //else
+            //{
+            //    $linkedin->request_token = unserialize($_SESSION['requestToken']);
+            //    $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
+            //    $linkedin->access_token = unserialize($_SESSION['oauth_access_token']);
+            //}
+            
+                
 
             # You now have a $linkedin->access_token and can make calls on behalf of the current member
-            $xml_response = $linkedin->getProfile("~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))");
-            $data = simplexml_load_string($xml_response);
-
+            //$xml_response = $linkedin->fnGetLinkedUserProfile("~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))");
+            //$data = simplexml_load_string($xml_response);
+            
             // get user by linkedinid
             $model = new User();
             $user = User::model()->findByAttributes(array('linkedinid' => $data->id));
@@ -926,7 +949,7 @@
                     Yii::app()->user->login($identity);
                 }
                 $this->redirect("/JobFair/index.php/user/ChangeFirstPassword");
-            }
+            } */
         }
 
         public function actionChangeFirstPassword()
@@ -1104,7 +1127,7 @@
 
         public function actionAuth1()
         {
-            $this->render('auth1');
+            $this->render('linkedin');
         }
 
         /*

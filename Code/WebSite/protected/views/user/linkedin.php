@@ -1,137 +1,134 @@
 <?php
-require_once("OAuth.php");
 
-class LinkedIn {
-	public $base_url = "http://api.linkedin.com";
-	public $secure_base_url = "https://api.linkedin.com";
-	public $oauth_callback = "oob";
-	public $consumer;
-	public $request_token;
-	public $access_token;
-	public $oauth_verifier;
-	public $signature_method;
-	public $request_token_path;
-	public $access_token_path;
-	public $authorize_path;
+// Change these
+define('API_KEY','78u1o4v00gjudi');
+define('API_SECRET','z7OHk1oW9I0NaOPk');
+// You must pre-register your redirect_uri at https://www.linkedin.com/secure/developer
+// Original code define('REDIRECT_URI', 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME']);
+//define('REDIRECT_URI', 'http://localhost/JobFair/index.php/user/auth1');
+define('REDIRECT_URI', 'http://vjf-dev.cs.fiu.edu/JobFair/index.php/user/auth1');
 
-	function __construct($consumer_key, $consumer_secret, $oauth_callback = NULL)
-	{
-
-		if($oauth_callback) {
-			$this->oauth_callback = $oauth_callback;
-		}
-
-		$this->consumer = new OAuthConsumer($consumer_key, $consumer_secret, $this->oauth_callback);
-		$this->signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-		$this->request_token_path = $this->secure_base_url . "/uas/oauth/requestToken?scope=r_basicprofile+r_fullprofile+r_emailaddress+r_contactinfo";
-		$this->access_token_path = $this->secure_base_url . "/uas/oauth/accessToken";
-		$this->authorize_path = $this->secure_base_url . "/uas/oauth/authorize";
-	}
-
-	function getRequestToken()
-	{
-		$consumer = $this->consumer;
-		$request = OAuthRequest::from_consumer_and_token($consumer, NULL, "GET", $this->request_token_path);
-		$request->set_parameter("oauth_callback", $this->oauth_callback);
-		$request->sign_request($this->signature_method, $consumer, NULL);
-		$headers = Array();
-		$url = $request->to_url();
-		$response = $this->httpRequest($url, 'Content-type: text/xml', "GET");
-		parse_str($response, $response_params);
-		$this->request_token = new OAuthConsumer($response_params['oauth_token'], $response_params['oauth_token_secret'], 1);
-	}
-
-	function generateAuthorizeUrl()
-	{
-		$consumer = $this->consumer;
-		$request_token = $this->request_token;
-		return $this->authorize_path . "?oauth_token=" . $request_token->key;
-	}
-
-	function getAccessToken($oauth_verifier)
-	{
-		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->request_token, "GET", $this->access_token_path);
-		$request->set_parameter("oauth_verifier", $oauth_verifier);
-		$request->sign_request($this->signature_method, $this->consumer, $this->request_token);
-		$headers = Array();
-		$url = $request->to_url();
-		$response = $this->httpRequest($url, 'Content-type: text/xml', "GET");
-		parse_str($response, $response_params);
-		$this->access_token = new OAuthConsumer($response_params['oauth_token'], $response_params['oauth_token_secret'], 1);
-	}
-
-	function getProfile($resource = "~")
-	{
-		$profile_url = $this->base_url . "/v1/people/" . $resource;
-		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $profile_url);
-		$request->sign_request($this->signature_method, $this->consumer, $this->access_token);
-		$auth_header = $request->to_header("https://api.linkedin.com"); # this is the realm
-		# This PHP library doesn't generate the header correctly when a realm is not specified.
-		# Make sure there is a space and not a comma after OAuth
-		// $auth_header = preg_replace("/Authorization\: OAuth\,/", "Authorization: OAuth ", $auth_header);
-		// # Make sure there is a space between OAuth attribute
-		// $auth_header = preg_replace('/\"\,/', '", ', $auth_header);
-
-		// $response will now hold the XML document
-		$response = $this->httpRequest($profile_url, $auth_header, "GET");
-		return $response;
-	}
-
-	function setStatus($status)
-	{
-		$profile_url = $this->base_url . "/v1/people/~";
-		$status_url = $this->base_url . "/v1/people/~/current-status";
-		echo "Setting status...\n";
-		$xml = "<current-status>" . htmlspecialchars($status, ENT_NOQUOTES, "UTF-8") . "</current-status>";
-		echo $xml . "\n";
-		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "PUT", $status_url);
-		$request->sign_request($this->signature_method, $this->consumer, $this->access_token);
-		$auth_header = $request->to_header("https://api.linkedin.com");
-
-		$response = $this->httpRequest($profile_url, $auth_header, "GET");
-		return $response;
-	}
-
-	# Parameters should be a query string starting with "?"
-	# Example search("?count=10&start=10&company=LinkedIn");
-	function search($parameters)
-	{
-		$search_url = $this->base_url . "/v1/people-search:(people:(id,first-name,last-name,picture-url,site-standard-profile-request,headline),num-results)" . $parameters;
-		//$search_url = $this->base_url . "/v1/people-search?keywords=facebook";
-
-		echo "Performing search for: " . $parameters . "<br />";
-		echo "Search URL: $search_url <br />";
-		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->access_token, "GET", $search_url);
-		$request->sign_request($this->signature_method, $this->consumer, $this->access_token);
-		$auth_header = $request->to_header("https://api.linkedin.com");
-		$response = $this->httpRequest($search_url, $auth_header, "GET");
-		return $response;
-	}
-
-	function httpRequest($url, $auth_header, $method, $body = NULL)
-	{
-		if (!$method) {
-			$method = "GET";
-		};
-
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_HEADER, 0);
-        //edit by Manuel, to make my curl version run since the verification of PEER do not happen  automatically.
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header)); // Set the headers.
-
-		if ($body) {
-			curl_setopt($curl, CURLOPT_POST, 1);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-			curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header, "Content-Type: text/xml;charset=utf-8"));
-		}
-
-		$data = curl_exec($curl);
-		curl_close($curl);
-		return $data;
-	}
-
+define('SCOPE','r_basicprofile r_emailaddress');
+ 
+// You'll probably use a database
+session_name('linkedin');
+session_start();
+ 
+// OAuth 2 Control Flow
+if (isset($_GET['error'])) {
+    // LinkedIn returned an error
+    print $_GET['error'] . ': ' . $_GET['error_description'];
+    exit;
+} elseif (isset($_GET['code'])) {
+    // User authorized your application
+    if ($_SESSION['state'] == $_GET['state']) {
+        // Get token so you can make API calls
+        getAccessToken();
+    } else {
+        // CSRF attack? Or did you mix up your states?
+        exit;
+    }
+} else { 
+    if ((empty($_SESSION['expires_at'])) || (time() > $_SESSION['expires_at'])) {
+        // Token has expired, clear the state
+        $_SESSION = array();
+    }
+    if (empty($_SESSION['access_token'])) {
+        // Start authorization process
+        getAuthorizationCode();
+    }
+}
+ 
+// Congratulations! You have a valid token. Now fetch your profile 
+$user = fetch('GET', '/v1/people/~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))');
+print_r($user);
+/*
+echo 'Hello'.$user->first-name.'<br/>';
+echo 'ID:'.$user->id.'<br/>';
+echo 'Skill:'.$user->skills.'<br/>';
+echo 'Education:'.$user->educations.'<br/>';
+echo 'Languages'.$user->languages.'<br/>';
+echo 'Twitter Accounts'.$user->twitter-accounts.'<br/>';*/
+exit;
+ 
+function getAuthorizationCode() {
+    $params = array(
+        'response_type' => 'code',
+        'client_id' => API_KEY,
+        'scope' => SCOPE,
+        'state' => uniqid('', true), // unique long string
+        'redirect_uri' => REDIRECT_URI,
+    );
+ 
+    // Authentication request
+    $url = 'https://www.linkedin.com/uas/oauth2/authorization?' . http_build_query($params);
+     
+    // Needed to identify request when it returns to us
+    $_SESSION['state'] = $params['state'];
+ 
+    // Redirect user to authenticate
+    header("Location: $url");
+    exit;
+}
+     
+function getAccessToken() {
+    $params = array(
+        'grant_type' => 'authorization_code',
+        'client_id' => API_KEY,
+        'client_secret' => API_SECRET,
+        'code' => $_GET['code'],
+        'redirect_uri' => REDIRECT_URI,
+    );
+     
+    // Access Token request
+    $url = 'https://www.linkedin.com/uas/oauth2/accessToken?' . http_build_query($params);
+     
+    // Tell streams to make a POST request
+    $context = stream_context_create(
+        array('http' => 
+            array('method' => 'POST',
+            )
+        )
+    );
+ 
+    // Retrieve access token information
+    $response = file_get_contents($url, false, $context);
+ 
+    // Native PHP object, please
+    $token = json_decode($response);
+ 
+    // Store access token and expiration time
+    $_SESSION['access_token'] = $token->access_token; // guard this! 
+    $_SESSION['expires_in']   = $token->expires_in; // relative time (in seconds)
+    $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
+     
+    return true;
+}
+ 
+function fetch($method, $resource, $body = '') {
+    print $_SESSION['access_token'];
+    $params[]="";
+ 
+    $opts = array(
+        'http'=>array(
+            'method' => $method,
+            'header' => "Authorization: Bearer " . $_SESSION['access_token'] . "\r\n" . "x-li-format: json\r\n"
+        )
+    );
+ 
+    // Need to use HTTPS
+    $url = 'https://api.linkedin.com' . $resource;
+ 
+    // Append query parameters (if there are any)
+    if (count($params)) { $url .= '?' . http_build_query($params); }
+ 
+    // Tell streams to make a (GET, POST, PUT, or DELETE) request
+    // And use OAuth 2 access token as Authorization
+    $context = stream_context_create($opts);
+ 
+    // Hocus Pocus
+    $response = file_get_contents($url, false, $context);
+ 
+    // Native PHP object, please
+    return json_decode($response);
 }
