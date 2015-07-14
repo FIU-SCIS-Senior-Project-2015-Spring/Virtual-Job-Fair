@@ -76,36 +76,40 @@
             
             try
             {
-                $key = file_get_contents(Yii::app()->basePath . '/youtube_subsystem/the_key.txt');
-
-                $application_name = 'VirtualJobFair'; 
-                $client_secret = 'b_D_XmQJEs9oZJwXVxvNL3bn';
-                $client_id = '499416543715-taun1hsg9901oghtgjvf6ov79kn2aof5.apps.googleusercontent.com';
-                $scope = array('https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtubepartner');
-
-                // Client init
-                $client = new Google_Client();
-                $client->setApplicationName($application_name);
-                $client->setClientId($client_id);
-                $client->setAccessType('offline');
-                $client->setAccessToken($key);
-                $client->setScopes($scope);
-                $client->setClientSecret($client_secret);
- 
-                if($client->getAccessToken()) 
+                // Check if video actually exists.
+                if($this->doesVideoExist($vidresume->video_path))
                 {
-                    // Check to see if our access token has expired. 
-                    // If so, get a new one and save it to file for future use.         
-                    if($client->isAccessTokenExpired()) 
+                    $key = file_get_contents(Yii::app()->basePath . '/youtube_subsystem/the_key.txt');
+
+                    $application_name = 'VirtualJobFair'; 
+                    $client_secret = 'b_D_XmQJEs9oZJwXVxvNL3bn';
+                    $client_id = '499416543715-taun1hsg9901oghtgjvf6ov79kn2aof5.apps.googleusercontent.com';
+                    $scope = array('https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtubepartner');
+
+                    // Client init
+                    $client = new Google_Client();
+                    $client->setApplicationName($application_name);
+                    $client->setClientId($client_id);
+                    $client->setAccessType('offline');
+                    $client->setAccessToken($key);
+                    $client->setScopes($scope);
+                    $client->setClientSecret($client_secret);
+
+                    if($client->getAccessToken()) 
                     {
-                        $newToken = json_decode($client->getAccessToken());
-                        $client->refreshToken($newToken->refresh_token);
-                        file_put_contents(Yii::app()->basePath . '/youtube_subsystem/the_key.txt', $client->getAccessToken());
+                        // Check to see if our access token has expired. 
+                        // If so, get a new one and save it to file for future use.         
+                        if($client->isAccessTokenExpired()) 
+                        {
+                            $newToken = json_decode($client->getAccessToken());
+                            $client->refreshToken($newToken->refresh_token);
+                            file_put_contents(Yii::app()->basePath . '/youtube_subsystem/the_key.txt', $client->getAccessToken());
+                        }
+
+                        $youtube = new Google_Service_YouTube($client);
+
+                        $youtube->videos->delete($vidresume->video_path);
                     }
-
-                    $youtube = new Google_Service_YouTube($client);
-
-                    $youtube->videos->delete($vidresume->video_path);
                 }
             }
             
@@ -116,6 +120,20 @@
 
             $vidresume->video_path = NULL;
             $vidresume->save(true);
+        }
+        
+        // Helper function that checks if a video exists.
+        private function doesVideoExist($videoID) 
+        {
+            $theURL = "http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=$videoID&format=json";
+            $headers = get_headers($theURL);
+
+            if (substr($headers[0], 9, 3) !== "404") 
+                return true;
+            
+             else 
+                return false;
+            
         }
 
         

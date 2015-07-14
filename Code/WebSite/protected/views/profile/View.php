@@ -660,7 +660,7 @@
                     {
                         ?>  
                         <!-- YouTube video upload. -->
-
+                        
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitVideoResume-Modal">
                             <?php echo $uploadButtonText; ?>
@@ -676,7 +676,7 @@
                                     </div>
                                     <div class="modal-body">  
                                         <div>
-
+                                           
                                             <!--
                                             Video upload form.
                                             Rene
@@ -722,9 +722,8 @@
                             </div>
                         </div>
                         </form>
-
+             
                     <?php } // end of else. ?>
-
 
                 <?php
                     /*
