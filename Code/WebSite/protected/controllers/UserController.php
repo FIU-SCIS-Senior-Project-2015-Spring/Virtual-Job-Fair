@@ -529,77 +529,44 @@
                 redirect();
         }
 
-        public function actionRegisterLinkedIn()
-        {   
-           // echo "Hello";
+    public function actionRegisterLinkedIn()
+    { 
+        
+    include "linkedin.php";
+    
+        $linkedIn = new Linkedin;
+         
+    // OAuth 2 Control Flow
+      if (isset($_GET['error'])) {
+          // LinkedIn returned an error
+          // print $_GET['error'] . ': ' . $_GET['error_description'];
+          $this->redirect('/JobFair/index.php'); 
           
-            //session_start();
-            //include Yii::app()->basePath . "/views/user/linkedin.php";
+      } elseif (isset($_GET['code'])) {
+          // User authorized your application
+          if ($_SESSION['state'] == $_GET['state']) {
+              // Get token so you can make API calls
+              $linkedIn->getAccessToken();
+          } else {
+              // CSRF attack? Or did you mix up your states?
+              exit;
+          }
+      } else { 
+          if ((empty($_SESSION['expires_at'])) || (time() > $_SESSION['expires_at'])) {
+              // Token has expired, clear the state
+              $_SESSION = array();
+          }
+          if (empty($_SESSION['access_token'])) {
+              // Start authorization process
+              $linkedIn->getAuthorizationCode();
+          }
+      }
+      
+        # You now have a $linkedin->access_token and can make calls on behalf of the current member
+        $data = $linkedIn->fetch('GET', '/v1/people/~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))');        
+        //print_r($data);
 
-            //$linkedin = new LinkedIn();
-            // $linkedin->fnLinkedInConnect();
-            //$token = serialize($_SESSION['_oauth_token']);
-            
-            //echo $token;
-            //$LinkedIn_OAuth2 = new LinkedInOAuth2($token);
-            //$response = $LinkedIn_OAuth2->getProfile();  
-            
-            //var_dump($response);
-
-            //$data = simplexml_load_string($response);
-            
-            //print_r($data);
-            
-            
-           /*   
-            // if user canceled, redirect to home page
-            //if (isset($_GET['oauth_problem']))
-            //{
-            //   $problem = $_GET['oauth_problem'];
-            //    if ($problem == 'user_refused')
-            //        $this->redirect('/JobFair/index.php');
-            //}
-
-            //if (!isset($_SESSION))
-             //   session_start();
-
-            //edit by Manuel making the link dynamic, using Yii
-            //$config['base_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/auth1.php';
-            //$config['callback_url'] = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/user/RegisterLinkedIn';
-            //$config['linkedin_access'] = '78u1o4v00gjudi';
-            //$config['linkedin_secret'] = 'z7OHk1oW9I0NaOPk';
-
-            //include_once Yii::app()->basePath . "/views/user/linkedin.php";
-
-            # First step is to initialize with your consumer key and secret. We'll use an out-of-band oauth_callback
-            //$linkedin = new LinkedIn($config['linkedin_access'], $config['linkedin_secret'], $config['callback_url']);
-            //$linkedin->debug = true;
-
-            //if (isset($_REQUEST['oauth_verifier']))
-            //{
-            //   $_SESSION['oauth_verifier'] = $_REQUEST['oauth_verifier'];
-
-            //    $linkedin->request_token = unserialize($_SESSION['requestToken']);
-            //    $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
-            //    $linkedin->getAccessToken($_REQUEST['oauth_verifier']);
-
-            //    $_SESSION['oauth_access_token'] = serialize($linkedin->access_token);
-            //    header("Location: " . $config['callback_url']);
-            //    exit;
-            //}
-            //else
-            //{
-            //    $linkedin->request_token = unserialize($_SESSION['requestToken']);
-            //    $linkedin->oauth_verifier = $_SESSION['oauth_verifier'];
-            //    $linkedin->access_token = unserialize($_SESSION['oauth_access_token']);
-            //}
-            
-                
-
-            # You now have a $linkedin->access_token and can make calls on behalf of the current member
-            //$xml_response = $linkedin->fnGetLinkedUserProfile("~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))");
-            //$data = simplexml_load_string($xml_response);
-            
+        
             // get user by linkedinid
             $model = new User();
             $user = User::model()->findByAttributes(array('linkedinid' => $data->id));
@@ -632,18 +599,15 @@
             else
             {
 
-// 			print "<pre>"; print_r('user is null');print "</pre>";
+                // print "<pre>"; print_r('user is null');print "</pre>";
                 // check that there is no duplicate user if so link to that account
-                $duplicateUser = User::model()->findByAttributes(array('email' => $data->{'email-address'}));
+                $duplicateUser = User::model()->findByAttributes(array('email' => $data->emailAddress));
                 if ($duplicateUser != null)
                 {
-
-
-
                     // get username and link the accounts
                     $username = $duplicateUser->username;
                     $user = User::model()->find("username=:username", array(':username' => $username));
-                    $user->linkedinid = $data->{'id'};
+                    $user->linkedinid = $data->id;
                     $user->save(false);
                     $user_id = $user->id;
 
@@ -651,14 +615,15 @@
                     // ------------------BASIC INFO---------------
                     $basic_info = null;
                     $basic_info = BasicInfo::model()->findByAttributes(array('userid' => $user_id));
-                    if ($basic_info == null)
-                        $basic_info = new BasicInfo();
+                    if ($basic_info == null){
+                    $basic_info = new BasicInfo();
                     $basic_info->userid = $user_id;
                     $basic_info->save(false);
+                    }
                     // ------------------BASIC INFO -----------------
                     // -----------------EDUCATION ----------------------
                     // get number of educations to add
-                    $educ_count = $data->educations['total'];
+                    $educ_count = $data->educations->total;
 
                     // delete current educations
                     $delete_educs = Education::model()->findAllByAttributes(array('FK_user_id' => $user_id));
@@ -811,11 +776,15 @@
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
                 $model->activation_string = 'linkedin';
-                $model->username = $data->{'email-address'}[0];
-                $model->first_name = $data->{'first-name'};
-                $model->last_name = $data->{'last-name'};
-                $model->email = $data->{'email-address'};
-                $model->image_url = $data->{'picture-urls'}->{'picture-url'}[0];
+                $model->username = $data->emailAddress;
+                $model->first_name = $data->firstName;
+                $model->last_name = $data->lastName;
+                $model->email = $data->emailAddress;
+                if(!empty($data->pictureUrl)){
+                    $model->image_url = $data->pictureUrl;
+                } else {
+                    $model->image_url = '/JobFair/images/profileimages/user-default.png';
+                }               
                 $model->linkedinid = $data->id;
                 //Hash the password before storing it into the database
                 $hasher = new PasswordHash(8, false);
@@ -830,16 +799,18 @@
                 if ($basic_info == null)
                     $basic_info = new BasicInfo();
                 $basic_info->userid = $model->id;
-                $basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
+                //$basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
                 $basic_info->city = $data->location->name;
                 $basic_info->state = '';
                 $basic_info->about_me = $data->headline;
 
                 $basic_info->save(false);
+                
+                // WAITING FOR LINKEDIN DEVELOPER ACCOUNT UPGRADE TO ACCESS r_fullprofile 
                 // ------------------BASIC INFO -----------------
                 // -----------------EDUCATION ----------------------
                 // get number of educations to add
-                $educ_count = $data->educations['total'];
+                /*$educ_count = $data->educations['total'];
 
                 // delete current educations
                 $delete_educs = Education::model()->findAllByAttributes(array('FK_user_id' => $model->id));
@@ -939,7 +910,7 @@
                         $new_sdnt_skill->ordering = $i + 1;
                         $new_sdnt_skill->save(false);
                     }
-                }
+                }*/
                 // ----------------------SKILLS----------------------
                 // LOGIN
                 $user = User::model()->find("username=:username", array(':username' => $model->username));
@@ -949,7 +920,7 @@
                     Yii::app()->user->login($identity);
                 }
                 $this->redirect("/JobFair/index.php/user/ChangeFirstPassword");
-            } */
+            } 
         }
 
         public function actionChangeFirstPassword()
@@ -1127,7 +1098,7 @@
 
         public function actionAuth1()
         {
-            $this->render('linkedin');
+            $this->actionRegisterLinkedIn();
         }
 
         /*

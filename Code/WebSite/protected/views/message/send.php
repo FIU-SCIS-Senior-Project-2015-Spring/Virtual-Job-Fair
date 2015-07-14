@@ -195,7 +195,7 @@ $this->breadcrumbs = array(
             <div id="top-nav" class="span8" style="margin-bottom: 15px;">
             <h4> <strong>
                     <span style="margin-left: 330px"></span>
-                    <span style="margin-left: -70px">| Compose Message: </span>
+                    <span style="margin-left: -70px"> Compose Message: </span>
                     <span style="margin-left: 350px"></span>
                 </strong>
             </h4>
