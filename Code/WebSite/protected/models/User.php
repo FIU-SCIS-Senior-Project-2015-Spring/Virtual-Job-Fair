@@ -272,140 +272,148 @@
         {
             $id = $this->id;
 
-            // Delete Cover Letter.
-            $coverletter = CoverLetter::model()->findByPk($id);
-            if(isset($coverletter))
+            try
             {
-                $path = $coverletter->file_path;
-            
-                // Check if file exists before trying to delete it.
-                if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
-                    unlink(Yii::app()->basePath.'/..'.substr($path, 8));
-                
-                $coverletter->delete();
-            }
-        
-            // Delete Resume.
-            $resume = Resume::model()->findByPk($id);
-            if(isset($resume))
-            {
-                // Delete file from system.
-                $path = $resume->resume;
-                
-                if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
-                    unlink(Yii::app()->basePath.'/..'.substr($path, 8));
-                
-                $resume->delete();
-            }
-            
-            // Delete Video Resume.
-            $vidResume = VideoResume::model()->findByPk($id);
-            if(isset($vidResume))
-            {
-                // Check if user has a video resume on YouTube.
-                if(!empty($vidResume->video_path))
+                // Delete Cover Letter.
+                $coverletter = CoverLetter::model()->findByPk($id);
+                if(isset($coverletter))
                 {
-                    include Yii::app()->basePath . '/youtube_subsystem/YouTubeHandler.php';
-                    
-                    // Delete the video resume from youtube.
-                    $yHandler = new YouTubeHandler();
-                    $yHandler->deleteVideo($vidResume);
+                    $path = $coverletter->file_path;
+
+                    // Check if file exists before trying to delete it.
+                    if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
+                        unlink(Yii::app()->basePath.'/..'.substr($path, 8));
+
+                    $coverletter->delete();
+                }
+
+                // Delete Resume.
+                $resume = Resume::model()->findByPk($id);
+                if(isset($resume))
+                {
+                    // Delete file from system.
+                    $path = $resume->resume;
+
+                    if(file_exists(Yii::app()->basePath.'/..'.substr($path, 8)))
+                        unlink(Yii::app()->basePath.'/..'.substr($path, 8));
+
+                    $resume->delete();
+                }
+
+                // Delete Video Resume.
+                $vidResume = VideoResume::model()->findByPk($id);
+                if(isset($vidResume))
+                {
+                    // Check if user has a video resume on YouTube.
+                    if(!empty($vidResume->video_path))
+                    {
+                        include Yii::app()->basePath . '/youtube_subsystem/YouTubeHandler.php';
+
+                        // Delete the video resume from youtube.
+                        $yHandler = new YouTubeHandler();
+                        $yHandler->deleteVideo($vidResume);
+
+                    }       
+
+                    $vidResume->delete();
+                }
+
+                // Profile picture.
+                $profileImagePath = $this->image_url;
+                if(strcmp($profileImagePath, "/JobFair/images/profileimages/user-default.png") != 0 && file_exists(Yii::app()->basePath.'/..'.substr($profileImagePath, 8)))
+                    unlink(Yii::app()->basePath.'/..'.substr($profileImagePath, 8));
+
+
+                // delete basic info mappings
+                $basic_info = BasicInfo::model()->findByAttributes(array('userid' => $id));
+                if (isset($basic_info))
+                    $basic_info->delete();
+
+                // delete company info mapping
+                $comp_info = CompanyInfo::model()->findByAttributes(array('FK_userid' => $id));
+                if (isset($comp_info))
+                    $comp_info->delete();
+
+                // delete sms mappings
+                $sms_mappings = SMS::model()->findAll("sender_id=:id OR receiver_id=:id ", array(':id' => $id));
+                foreach ($sms_mappings as $sms_mapping)
+                {
+                    $sms_mapping->delete();
+                }
+
+                // delete education mapping
+                $edu_mappings = Education::model()->findAllByAttributes(array('FK_user_id' => $id));
+                foreach ($edu_mappings as $edu_mapping)
+                {
+                    $edu_mapping->delete();
+                }
+
+                // delete skills mappings
+                $skills_mappings = StudentSkillMap::model()->findAllByAttributes(array('userid' => $id));
+                foreach ($skills_mappings as $skills_mapping)
+                {
+                    $skills_mapping->delete();
+                }
+
+                // delete application mappings
+                $app_mappings = Application::model()->findAllByAttributes(array('userid' => $id));
+                foreach ($app_mappings as $app_mapping)
+                {
+                    $app_mapping->delete();
+                }
+
+                // delete jobs mappings
+                $job_mappings = Job::model()->findAllByAttributes(array('FK_poster' => $id));
+                foreach ($job_mappings as $job_mapping)
+                {
+                    $job_mapping->cascade_delete();
+                }
+
+                //deletes saved queries
+                $saved_queries = SavedQuery::model()->findAllByAttributes(array('FK_userid' => $id));
+                foreach ($saved_queries as $saved_query)
+                {
+                    $saved_query->delete();
+                }
+
+                //deletes experience
+                $experience = Experience::model()->findAllByAttributes(array('FK_userid' => $id));
+                foreach ($experience as $exp)
+                {
+                    $exp->delete();
+                }
+
+                //deletes messages
+                $saved_messages = Message::model()->findAllByAttributes(array('FK_receiver' => $this->username));
+                foreach ($saved_messages as $saved_message)
+                {
+                    $saved_message->delete();
+                }
+                $saved_messages = Message::model()->findAllByAttributes(array('FK_sender' => $this->username));
+                foreach ($saved_messages as $saved_message)
+                {
+                    $saved_message->delete();
+                }
+
+                //deletes handshake
+                $saved_handshakes = Handshake::model()->findAllByAttributes(array('studentid' => $id));
+                foreach ($saved_handshakes as $saved_handshake)
+                {
+                    $saved_handshake->delete();
+                }
+                $saved_handshakes = Handshake::model()->findAllByAttributes(array('employerid' => $id));
+                foreach ($saved_handshakes as $saved_handshake)
+                {
+                    $saved_handshake->delete();
+                }
+
+                $this->delete();
+            }
+            
+            catch(Exception $e)
+            {
                 
-                }       
-                
-                $vidResume->delete();
             }
-            
-            // Profile picture.
-            $profileImagePath = $this->image_url;
-            if(strcmp($profileImagePath, "/JobFair/images/profileimages/user-default.png") != 0 && file_exists(Yii::app()->basePath.'/..'.substr($profileImagePath, 8)))
-                unlink(Yii::app()->basePath.'/..'.substr($profileImagePath, 8));
-            
-            
-            // delete basic info mappings
-            $basic_info = BasicInfo::model()->findByAttributes(array('userid' => $id));
-            if (isset($basic_info))
-                $basic_info->delete();
-
-            // delete company info mapping
-            $comp_info = CompanyInfo::model()->findByAttributes(array('FK_userid' => $id));
-            if (isset($comp_info))
-                $comp_info->delete();
-
-            // delete sms mappings
-            $sms_mappings = SMS::model()->findAll("sender_id=:id OR receiver_id=:id ", array(':id' => $id));
-            foreach ($sms_mappings as $sms_mapping)
-            {
-                $sms_mapping->delete();
-            }
-
-            // delete education mapping
-            $edu_mappings = Education::model()->findAllByAttributes(array('FK_user_id' => $id));
-            foreach ($edu_mappings as $edu_mapping)
-            {
-                $edu_mapping->delete();
-            }
-
-            // delete skills mappings
-            $skills_mappings = StudentSkillMap::model()->findAllByAttributes(array('userid' => $id));
-            foreach ($skills_mappings as $skills_mapping)
-            {
-                $skills_mapping->delete();
-            }
-
-            // delete application mappings
-            $app_mappings = Application::model()->findAllByAttributes(array('userid' => $id));
-            foreach ($app_mappings as $app_mapping)
-            {
-                $app_mapping->delete();
-            }
-
-            // delete jobs mappings
-            $job_mappings = Job::model()->findAllByAttributes(array('FK_poster' => $id));
-            foreach ($job_mappings as $job_mapping)
-            {
-                $job_mapping->cascade_delete();
-            }
-
-            //deletes saved queries
-            $saved_queries = SavedQuery::model()->findAllByAttributes(array('FK_userid' => $id));
-            foreach ($saved_queries as $saved_query)
-            {
-                $saved_query->delete();
-            }
-
-            //deletes experience
-            $experience = Experience::model()->findAllByAttributes(array('FK_userid' => $id));
-            foreach ($experience as $exp)
-            {
-                $exp->delete();
-            }
-
-            //deletes messages
-            $saved_messages = Message::model()->findAllByAttributes(array('FK_receiver' => $this->username));
-            foreach ($saved_messages as $saved_message)
-            {
-                $saved_message->delete();
-            }
-            $saved_messages = Message::model()->findAllByAttributes(array('FK_sender' => $this->username));
-            foreach ($saved_messages as $saved_message)
-            {
-                $saved_message->delete();
-            }
-
-            //deletes handshake
-            $saved_handshakes = Handshake::model()->findAllByAttributes(array('studentid' => $id));
-            foreach ($saved_handshakes as $saved_handshake)
-            {
-                $saved_handshake->delete();
-            }
-            $saved_handshakes = Handshake::model()->findAllByAttributes(array('employerid' => $id));
-            foreach ($saved_handshakes as $saved_handshake)
-            {
-                $saved_handshake->delete();
-            }
-
-            $this->delete();
         }
 
         /**
