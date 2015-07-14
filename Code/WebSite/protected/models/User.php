@@ -320,7 +320,7 @@
 
                 // Profile picture.
                 $profileImagePath = $this->image_url;
-                if(strcmp($profileImagePath, "/JobFair/images/profileimages/user-default.png") != 0 && file_exists(Yii::app()->basePath.'/..'.substr($profileImagePath, 8)))
+                if(!empty($profileImagePath) && strcmp($profileImagePath, "/JobFair/images/profileimages/user-default.png") != 0 && file_exists(Yii::app()->basePath.'/..'.substr($profileImagePath, 8)))
                     unlink(Yii::app()->basePath.'/..'.substr($profileImagePath, 8));
 
 
