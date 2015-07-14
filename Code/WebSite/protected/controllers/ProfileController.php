@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class that controls the logic for the profile.
+ */
 class ProfileController extends Controller 
 {
     // Keeps track of the missing components in the profile.
@@ -578,20 +581,10 @@ class ProfileController extends Controller
         }
         
         $this->redirect('/JobFair/index.php/profile/view');
-        //$this->actionView();
-//              MODIFIED BY ROGELIO  
-//              EXTRA CODE NOT NECESSARY AND REPLACED BY ABOVE LINE   
-//		$user = User::model()->find("username=:username",array(':username'=>$username));
-//		$utype = $user->FK_usertype;
-//			if($utype==1){
-//			$this->redirect('/JobFair/index.php/profile/view');
-//			}
-//			if($utype==2){
-//				$this->redirect('/JobFair/index.php/profile/viewEmployer');
-//			}
-//			else{$this->actionView();}
+
     }
 
+    
     //To properly function make sure your PHP.ini file have a post_max_file equal or greater than the size of the file being uploaded
     public function actionUploadVideo() {
 

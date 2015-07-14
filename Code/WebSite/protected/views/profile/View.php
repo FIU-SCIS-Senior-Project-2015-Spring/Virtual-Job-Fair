@@ -1,9 +1,7 @@
-
-
 <?php
     /* this ProfileController */
 
-    require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeManager.php';
+    require_once Yii::app()->basePath . '/youtube_subsystem/YouTubeHelper.php';
 
     $this->breadcrumbs = array('Profile' => array('/profile'),'View',);
     
@@ -703,20 +701,13 @@
                                                 // Check if the parsing worked, ie, we have the videoID.
                                                 if (!empty($videoID['id']))
                                                 {
+                                                    $yHandler = new YouTubeHandler();
+                                                    
                                                     // Check if there is a previous video resume that needs to be removed.
                                                     if(isset($videoresume->video_path))
-                                                    {
-                                                        $yHandler = new YouTubeHandler();
                                                         $yHandler->deleteVideo($videoresume);
-                                                    }
                                                     
-                                                    $yHandler = new YouTubeHandler();
                                                     $yHandler->storeVideoPath($videoresume, $user->id, $videoID);
-
-                                                    // Save the video to the model VideoResume
-                                                   // $videoresume->id = $user->id;
-                                                   // $videoresume->video_path = $videoID['id'];
-                                                   // $videoresume->save(true);
 
                                                     $this->redirect('/JobFair/index.php/profile/view');
                                                 }
@@ -904,8 +895,6 @@
     }
     $experience = new Experience;
 ?>
-
-
 
                 <div class="one" id="div1">
                     <p><a href="javascript:void(0);" id="addExperience">+ Add Experience</a></p>
