@@ -147,8 +147,6 @@
                                                 ),
                                             
                                             
-                                            
-                                            
                                             array('label' => '(' . Yii::app()->user->name . ')', 'url' => '#', 'visible' => !Yii::app()->user->isGuest, 'items' => array(
                                                     array('label' => 'My Profile', 'url' => array($profile), 'visible' => !Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                                                     array('label' => 'Merge Accounts', 'visible' => (User::isCurrentUserStudent(Yii::app()->user->name)), 'url' => '/JobFair/index.php/user/MergeAccounts'),
@@ -178,6 +176,7 @@
                                         array('label' => 'ADMINISTRATION'),
                                         //   array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
                                         array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
+                                        array('label' => 'Add Admin', 'icon' => 'plus', 'url' => $this->createUrl('user/createAdmin'), 'active' => in_array($actionid, array('user/createAdmin'))),
                                         array('label' => 'Add Student', 'icon' => 'plus', 'url' => $this->createUrl('user/create'), 'active' => in_array($actionid, array('user/create'))),
                                         array('label' => 'Add Employer', 'icon' => 'plus', 'url' => $this->createUrl('user/CreateEmployer'), 'active' => in_array($actionid, array('user/CreateEmployer'))),
                                         array('label' => 'Website Statistics', 'icon' => 'globe', 'url' => $this->createUrl('userCrud/DashboardCreate'), 'active' => in_array($actionid, array('site/DashboardCreate'))),

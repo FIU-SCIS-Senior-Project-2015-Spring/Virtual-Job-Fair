@@ -28,7 +28,9 @@
                     'actions' => array('admin', 'delete', 'update', 'index', 'toggleActivateButton', 
                         'DashboardCreate', ),
                     
-                    'users' => array('admin', 'administrator'),
+                    //'users' => array('admin', 'administrator'),
+                    'users' => array('@'),
+                    'expression' => 'User::getCurrentUser()->FK_usertype == 3',
                 ),
                 array('deny', // deny all users
                     'users' => array('*'),

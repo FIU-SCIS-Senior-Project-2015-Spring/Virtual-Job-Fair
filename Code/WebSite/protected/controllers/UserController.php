@@ -16,12 +16,123 @@
 
             $this->render('index', array('username' => $this->username, 'email' => $this->email));
         }
+        
+        
+        /**
+         * Specifies the access control rules.
+         * This method is used by the 'accessControl' filter.
+         * @return array access control rules
+         */
+        public function accessRules()
+        {
+            return array(
+                
+                // Rules for admin.
+                array('allow', 
+                    'actions' => array('CreateAdmin', 'AdminRegister', 'VerifyAdminRegistration', 'NewAdmin'),
+                    
+                    //'users' => array('admin', 'administrator'),
+                    'users' => array('@'),
+                    'expression' => 'User::getCurrentUser()->FK_usertype == 3',
+                ),
+  
+            );
+        }
 
         public function actionRegister()
         {
             $this->render('register');
         }
         
+        
+        // Creates an admin.
+        public function actionCreateAdmin()
+        {                        
+            if(User::isCurrentUserAdmin())
+            {
+                $model = new User;
+
+                                
+                if (isset($_POST['User']))
+                {
+                    $model->attributes = $_POST['User'];
+
+                    $this->actionAdminRegister();
+                }
+
+                $this->render('AdminRegister', array('model' => $model,));
+            }
+        }
+        
+        /**
+         * Register admin account.
+         */
+        public function actionAdminRegister()
+        {
+            $model = new User;
+
+            
+            if (isset($_POST['User']))
+            {
+                $model->attributes = $_POST['User'];
+                $model->activated = '1';
+                
+                if($model->validate())
+                {
+                    if ($this->actionVerifyAdminRegistration() != "")
+                        $this->render('AdminRegister');
+                  
+                    //Form inputs are valid
+                    //Populate user attributes
+                    $model->FK_usertype = 3;
+                    $model->registration_date = new CDbExpression('NOW()');
+                    $model->activation_string = $this->genRandomString(10);
+                    $model->image_url = '/JobFair/images/profileimages/user-default.png';
+
+                    //Hash the password before storing it into the database
+                    $hasher = new PasswordHash(8, false);
+                    $model->password = $hasher->HashPassword($model->password);
+
+                    //Save user into database. Account still needs to be activated
+                    if($model->save($runValidation = false))
+                    {
+                        $basicInfo = new BasicInfo;
+                        $basicInfo->attributes = $_POST['BasicInfo'];
+                        
+                        $basicInfo->userid = $model->id;
+                        $basicInfo->city = '';
+                        $basicInfo->state = '';
+
+                        $basicInfo->save(false);
+                    }
+
+                    $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin' . $model->username;
+                    
+                    $message = $model->username . " just joined VJF, click here to view their profile.";
+                    
+           
+                    $message1 = "There is a new admin named " . $model->username . " that is waiting for activation";
+                    $admins = User::model()->findAllByAttributes(array('FK_usertype' => 3));
+                    
+                    User::sendAdminNotificationNewEmpolyer($model, $admins, $link, $message1);
+                    
+                    $message = "You have successfully registered. Once your account has been approved, you will receive an email stating your account is active.";
+                    $message .= "<br/>Your username: $model->username";
+                    
+                    // Comment this line below if you are using a local machine. 
+                    // Sends an email.
+                    User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
+
+                    // Redirect to confirmation page.
+                    $this->redirect('NewAdmin?byAdmin='. $model->first_name);
+                    
+                    return;
+                }
+            }
+            
+          //  $errorMsg = 'Something failed.';
+            $this->render('AdminRegister', array('model' => $model)); //'errorMsg' => $errorMsg));
+        }
 
         // Admin function that creates employers.
         public function actionCreateEmployer()
@@ -202,7 +313,12 @@
                     User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
 
                     // Redirect to confirmation page.
-                    $this->redirect(array('user/newEmployer', 'name'=> $model->first_name));
+                    if(User::isCurrentUserAdmin())
+                        $this->redirect('NewEmployer?byAdmin='. $model->first_name);
+                    
+                    else
+                        $this->redirect(array('user/newEmployer', 'name'=> $model->first_name));
+                    
                     return;
                 }
             }
@@ -232,6 +348,21 @@
 
             $this->render('NewEmployer');
                 
+        }
+        
+        public function actionNewAdmin()
+        {
+            if(isset($_REQUEST['name']))
+            {
+                $name = $_REQUEST['name'];
+                
+                // Check if registration was done by admin.
+                if(User::getCurrentUser()->FK_usertype == 3)  
+                    $this->redirect('NewAdmin?byAdmin='.$name);
+                 
+            }     
+            
+            $this->render('NewAdmin');
         }
 
         
@@ -364,6 +495,43 @@
             }
 
             print $error;
+            return $error;
+        }
+        
+        public function actionVerifyAdminRegistration()
+        {
+            $user = $_POST['User'];
+            $basicInfo = $_POST['BasicInfo'];
+            $error = "";
+
+            $username = $user['username'];
+            $password = $user['password'];
+            $password2 = $user['password_repeat'];
+            $email = $user['email'];
+
+            $phone = $basicInfo['phone'];
+
+            if ((strlen($username) < 4) || (!ctype_alnum($username)))
+                $error .= "Username must me alphanumeric and at least 4 characters.<br />";
+            
+            if (User::model()->find("username=:username", array(':username' => $username)))
+                $error .= "Username is taken<br />";
+            
+            if (User::model()->find("email=:email", array(':email' => $email)))
+                $error .= "Email is taken<br />";
+            
+            if($password != $password2)
+                $error .= "Passwords do not match<br />";
+            
+            if (strlen($password) < 6)
+                $error .= "Password must be more than 5 characters<br />";
+
+            if (!$this->check_email_address($email))
+                $error .= "Email is not correct format<br />";
+
+            
+            print $error;
+
             return $error;
         }
 

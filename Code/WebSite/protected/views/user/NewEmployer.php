@@ -7,11 +7,11 @@ $this->breadcrumbs=array('User',);
 
 <?php 
     // Check if registration was done by admin.
-    if(isset($byAdmin))
+    if(!empty($_GET['byAdmin']))
     { ?>
         <div id="adminMSG">
             <?php
-                echo '<div class="alert alert-success" style="text-align: center;" role="alert">  <h3> Employer, ' . $byAdmin . ', was registered successfully. </h3>   </div>'; 
+                echo '<div class="alert alert-success" style="text-align: center;" role="alert">  <h3> Employer ' . $_GET['byAdmin'] . ' was registered successfully. </h3>   </div>'; 
             ?>
         </div>
     <?php } 
