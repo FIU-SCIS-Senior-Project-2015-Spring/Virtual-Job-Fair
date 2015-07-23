@@ -71,7 +71,6 @@
         {
             $model = new User;
 
-            
             if (isset($_POST['User']))
             {
                 $model->attributes = $_POST['User'];
@@ -91,6 +90,7 @@
 
                     //Hash the password before storing it into the database
                     $hasher = new PasswordHash(8, false);
+                    $unHashedPass = $model->password;
                     $model->password = $hasher->HashPassword($model->password);
 
                     //Save user into database. Account still needs to be activated
@@ -106,7 +106,7 @@
                         $basicInfo->save(false);
                     }
 
-                    $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin' . $model->username;
+                    $link = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/UserCrud/admin';
                     
                     $message = $model->username . " just joined VJF, click here to view their profile.";
                     
@@ -114,10 +114,12 @@
                     $message1 = "There is a new admin named " . $model->username . " that is waiting for activation";
                     $admins = User::model()->findAllByAttributes(array('FK_usertype' => 3));
                     
-                    User::sendAdminNotificationNewEmpolyer($model, $admins, $link, $message1);
+                    User::sendAdminNotificationNewEmpolyer($model, $admins, ($link . $model->username), $message1);
                     
-                    $message = "You have successfully registered. Once your account has been approved, you will receive an email stating your account is active.";
+                    $message = "Congratulations you have been successfully registered by another Admin. You are now an Admin of the system.";
                     $message .= "<br/>Your username: $model->username";
+                    $message .= "<br>Your temporary password: $unHashedPass";
+                    $message .= "<br>Login link: $link";
                     
                     // Comment this line below if you are using a local machine. 
                     // Sends an email.
@@ -788,6 +790,7 @@
                     $basic_info->userid = $user_id;
                     $basic_info->save(false);
                     }
+                }/*
                     // ------------------BASIC INFO -----------------
                     // -----------------EDUCATION ----------------------
                     // get number of educations to add
@@ -939,7 +942,7 @@
                         return;
                     }
                 }
-
+                */
                 // Populate user attributes
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
@@ -973,7 +976,7 @@
                 $basic_info->about_me = $data->headline;
 
                 $basic_info->save(false);
-                
+                /*
                 // WAITING FOR LINKEDIN DEVELOPER ACCOUNT UPGRADE TO ACCESS r_fullprofile 
                 // ------------------BASIC INFO -----------------
                 // -----------------EDUCATION ----------------------
