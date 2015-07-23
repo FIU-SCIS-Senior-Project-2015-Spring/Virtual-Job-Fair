@@ -979,16 +979,19 @@ class ProfileController extends Controller
      */
 
     public function actionAuth() {
-        $this->render('auth');
+        //$this->render('auth');
+        $this->redirect('/JobFair/index.php/user/auth1');
     }
 
     // 		print "<pre>"; print_r($user->id);print "</pre>";return;
     public function actionDemo() {
+        
+        
         // if user canceled, redirect to home page
         if (isset($_GET['oauth_problem'])) {
             $problem = $_GET['oauth_problem'];
             if ($problem == 'user_refused')
-                $this->redirect('/JobFair/index.php');
+                $this->redirect('c/index.php');
         }
 
         if (!isset($_SESSION))
