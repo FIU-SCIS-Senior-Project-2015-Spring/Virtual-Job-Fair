@@ -128,7 +128,7 @@
                 $m = Message::model()->find("id=:id", array('id' => $notification->msgID));
 
                 // Check if Message was read.
-                if ($m->been_read != null && $m->been_read = 1)
+                if ($m->been_read != null && $m->been_read == 1)
                     $notification->been_read = 1;
             }
             else // For other type of notifications.

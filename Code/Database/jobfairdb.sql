@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 23, 2015 at 06:51 AM
+-- Generation Time: Jul 29, 2015 at 09:23 AM
 -- Server version: 5.6.19
 -- PHP Version: 5.4.32
 
@@ -88,7 +88,10 @@ CREATE TABLE IF NOT EXISTS `application` (
 --
 
 INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES
-(157, 71, '2015-07-10 17:03:50', NULL);
+(157, 71, '2015-07-10 17:03:50', NULL),
+(158, 15, '2015-07-28 00:40:36', NULL),
+(158, 16, '2015-07-28 00:41:07', NULL),
+(158, 71, '2015-07-28 00:44:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -118,7 +121,6 @@ CREATE TABLE IF NOT EXISTS `basic_info` (
 
 INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about_me`, `hide_phone`, `allowSMS`, `validated`, `smsCode`, `tries`) VALUES
 (5, NULL, 'Miami/Fort Lauderdale Area', NULL, '0', 'Attended Florida International University', NULL, NULL, NULL, NULL, 0),
-(8, NULL, NULL, NULL, '0', 'Laura Alonso, From: Progressive Insurance (Other)', 1, 0, 1, NULL, 0),
 (9, '', 'Alaska', 'Alaska', '99676', '', NULL, 0, 0, NULL, 0),
 (11, '', 'Miami', 'FL', '0', 'Just checking out your site. Yii sucks.', 0, 0, NULL, NULL, 0),
 (12, '', 'Miami', 'Florida', '0', 'This is my Bio.', 0, 0, 0, NULL, 0),
@@ -130,15 +132,10 @@ INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about
 (23, '(305) 348-2744', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0),
 (26, NULL, 'Miami/Fort Lauderdale Area', NULL, NULL, 'Director of Professional Master of Science in Information Technology Program at Florida International University', NULL, NULL, NULL, NULL, 0),
 (55, '13054955901', 'Miami/Fort Lauderdale Area', '', '33196', 'Student at Florida International University', NULL, 0, 0, NULL, 0),
-(56, '', 'Miami', 'Florida', NULL, 'This is a test employer.', 0, 0, NULL, NULL, 0),
-(57, '', 'Miami', 'Florida', NULL, 'This is a test employer', 0, 0, NULL, NULL, 0),
-(60, '1111111111', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
-(61, '2222222222', 'Miami', 'Florida', NULL, 'I am a test automated recruited @ VJF', 0, 0, NULL, NULL, 0),
-(71, '3053334444', 'Miami', 'FL', '33172', 'I am a Computer Science student.', 1, 1, 0, 6349, 0),
+(71, '305-333-4444', 'Miami', 'FL', '33172', 'I am a Computer Science student.', 1, 1, 0, 6349, 0),
 (72, '3055554444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
-(73, '3052224444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
 (74, '3053334444', 'Miami', 'FL', NULL, 'We are interested in offering students a wonderful opportunity in the field of Android APP development.', 1, 1, 0, NULL, 0),
-(87, '305-789-6325', 'Miami', 'FL', '33172', '', NULL, NULL, 0, NULL, 0);
+(99, '3053054848', 'Miami', 'Florida', NULL, 'Human Resources Manager at VJF', 1, 0, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -158,20 +155,17 @@ CREATE TABLE IF NOT EXISTS `company_info` (
   `description` text,
   PRIMARY KEY (`FK_userid`),
   KEY `idx_FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=91 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=100 ;
 
 --
 -- Dumping data for table `company_info`
 --
 
 INSERT INTO `company_info` (`FK_userid`, `name`, `street`, `street2`, `city`, `state`, `zipcode`, `website`, `description`) VALUES
-(8, 'Progressive Insurance', NULL, NULL, NULL, NULL, NULL, 'http://www.progressive.com', '<p>Join a place where you can apply your hard-earned skills, test your limits and love what you do.&nbsp;</p>\r\n\r\n<p><strong>Why Progressive?</strong>&nbsp; From day one, you&rsquo;ll contribute to projects integral to company success.&nbsp; We work hard as a team, and our employees are invested in each other&rsquo;s success as much as their own.</p>\r\n\r\n<p>&nbsp;</p>\r\n'),
 (11, 'Coplat', '7131 SW 142PL', '', 'Miami', 'FL', '33183', '', 'Stuff blah blah blah'),
 (12, 'asdasd', '92919', '', 'Miami', 'florida', '33125', 'employertwo.cis.fiu.edu', 'This is my company name.'),
-(56, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
-(57, 'FIU', '11200 SW 8th St.', '', 'Miami', 'Florida', '33199', 'www.cis.fiu.edu', 'This is FIU.'),
-(61, 'Virtual Company for Testing', '123 main', '', 'Miami', 'Florida', '330178', 'www.vjf.cis.fiu.edu', 'This is a virtual company for system testing purposes'),
-(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', 'www.google.com', 'Hello.');
+(74, 'Android Fake Studio', '123 Main Street', '', 'Miami', 'FL', '33174', 'www.google.com', 'Hello.'),
+(99, 'VJF', '1234 NW', '22nd Ave', 'Miami', 'Florida', '33172', 'http://vjf-dev.cs.fiu.edu', 'Virtual Job Fair is an efficient way to make a connection between employers and job seeking students. Recruiting high quality employees or finding the perfect job is no easy task; Virtual Job Fair provides a simple and efficient solution to this.');
 
 -- --------------------------------------------------------
 
@@ -327,14 +321,16 @@ CREATE TABLE IF NOT EXISTS `job` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_poster` (`FK_poster`),
   FULLTEXT KEY `type` (`type`,`title`,`description`,`comp_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=158 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=163 ;
 
 --
 -- Dumping data for table `job`
 --
 
 INSERT INTO `job` (`id`, `type`, `title`, `FK_poster`, `post_date`, `deadline`, `description`, `compensation`, `other_requirements`, `email_notification`, `active`, `matches_found`, `posting_url`, `comp_name`, `poster_email`) VALUES
-(157, 'Full Time', 'Software Engineer', 74, '2015-07-01 22:08:23', '2015-08-31 00:00:00', 'If you are a Android Developer with experience, please read on!<br /><br />Based in Miami, we are a mobile application start up that has been gaining some newsworthy attention. Our flagship photo-editing app has seen a lot of commercial success and we''re looking to expand our portfolio. We currently have a need for a developer that can help us expand on the Android platform.<br /><br />Top Reasons to Work with Us<br />-Great tight-knit team<br />-Be on the ground floor of a growing startup<br />-Competitive salary<br /><br />What You Need for this Position<br />At Least 1 Year of experience and knowledge of:<br /><br />- Android SDK<br />- Java<br />- API<br /><br />So, if you are a Android Developer with experience, please apply today!', '80000', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL);
+(157, 'Full Time', 'Software Engineer', 74, '2015-07-01 22:08:23', '2015-08-31 00:00:00', 'If you are a Android Developer with experience, please read on!<br /><br />Based in Miami, we are a mobile application start up that has been gaining some newsworthy attention. Our flagship photo-editing app has seen a lot of commercial success and we''re looking to expand our portfolio. We currently have a need for a developer that can help us expand on the Android platform.<br /><br />Top Reasons to Work with Us<br />-Great tight-knit team<br />-Be on the ground floor of a growing startup<br />-Competitive salary<br /><br />What You Need for this Position<br />At Least 1 Year of experience and knowledge of:<br /><br />- Android SDK<br />- Java<br />- API<br /><br />So, if you are a Android Developer with experience, please apply today!', '80000', NULL, NULL, 1, NULL, NULL, 'Android Fake Studio', NULL),
+(158, 'Full Time', 'Experience Yii Developer', 12, '2015-07-28 00:38:46', '2015-08-07 00:00:00', 'We are looking for a senior Yii developer. Candidate must have at least 5 years of experince working with  PHP, JavaScript and MySql.', '54,000', NULL, NULL, 1, NULL, NULL, 'asdasd', NULL),
+(159, 'Full Time', 'Web Developer', 99, '2015-07-28 01:16:46', '2015-08-25 00:00:00', 'Sql, Php ', '62,000', NULL, NULL, 1, NULL, NULL, 'VJF', NULL);
 
 -- --------------------------------------------------------
 
@@ -348,7 +344,37 @@ CREATE TABLE IF NOT EXISTS `job_match` (
   `studentID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_jobid` (`jobID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+
+--
+-- Dumping data for table `job_match`
+--
+
+INSERT INTO `job_match` (`id`, `jobID`, `studentID`) VALUES
+(25, 157, 71),
+(26, 157, 26),
+(27, 157, 55),
+(28, 157, 14),
+(29, 158, 55),
+(30, 158, 14),
+(31, 158, 15),
+(32, 158, 17),
+(33, 159, 15),
+(34, 159, 14),
+(35, 159, 26),
+(36, 159, 55),
+(37, 160, 14),
+(38, 160, 55),
+(39, 160, 16),
+(40, 160, 17),
+(41, 161, 16),
+(42, 161, 14),
+(43, 161, 17),
+(44, 161, 15),
+(45, 162, 15),
+(46, 162, 55),
+(47, 162, 16),
+(48, 162, 71);
 
 -- --------------------------------------------------------
 
@@ -365,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `job_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_jobid` (`jobid`),
   KEY `idx_skillid` (`skillid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2358 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2377 ;
 
 --
 -- Dumping data for table `job_skill_map`
@@ -377,7 +403,14 @@ INSERT INTO `job_skill_map` (`id`, `jobid`, `skillid`, `level`, `ordering`) VALU
 (2354, 157, 1, NULL, 3),
 (2355, 157, 57, NULL, 4),
 (2356, 157, 32, NULL, 5),
-(2357, 157, 63, NULL, 6);
+(2357, 157, 63, NULL, 6),
+(2358, 158, 30, NULL, 1),
+(2359, 158, 3, NULL, 2),
+(2360, 158, 16, NULL, 3),
+(2361, 158, 14, NULL, 4),
+(2362, 159, 2, NULL, 1),
+(2363, 159, 3, NULL, 2),
+(2364, 159, 50, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -402,7 +435,9 @@ INSERT INTO `match_notification` (`userid`, `status`, `date_modified`) VALUES
 (2, 0, '2014-12-11 15:36:35'),
 (2, 1, '2014-12-11 15:36:35'),
 (2, 0, '2014-12-11 15:58:32'),
-(2, 1, '2014-12-11 15:58:33');
+(2, 1, '2014-12-11 15:58:33'),
+(2, 0, '2015-07-28 09:19:51'),
+(2, 1, '2015-07-28 09:19:52');
 
 -- --------------------------------------------------------
 
@@ -424,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_receiver` (`FK_receiver`),
   KEY `idx_FK_sender` (`FK_sender`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -444,14 +479,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `msgID` int(11) DEFAULT NULL,
   `jobMatchID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1076 ;
-
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `sender_id`, `receiver_id`, `datetime`, `been_read`, `message`, `link`, `importancy`, `msgID`, `jobMatchID`) VALUES
-(1040, 12, 15, '15:18:44', 0, 'employer10 scheduled a video interview with you on: 2015-07-18 at: 8:25pm Good Luck!', 'employer10', 4, NULL, NULL);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1245 ;
 
 -- --------------------------------------------------------
 
@@ -471,7 +499,6 @@ CREATE TABLE IF NOT EXISTS `resume` (
 
 INSERT INTO `resume` (`id`, `resume`) VALUES
 (55, '/JobFair/resumes/55-Rogelio Alonso Resume.pdf'),
-(60, '/JobFair/resumes/60-Student.pdf'),
 (71, '/JobFair/resumes/71-StudentResume.pdf');
 
 -- --------------------------------------------------------
@@ -489,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `saved_queries` (
   `active` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_userid` (`FK_userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
 
 --
 -- Dumping data for table `saved_queries`
@@ -505,7 +532,9 @@ INSERT INTO `saved_queries` (`id`, `FK_userid`, `query_tag`, `query`, `location`
 (29, 12, '', '~ZIPcode:true ~major:Computer Science ', '', 0),
 (31, 12, '', '~school:Florida International University ', '', 0),
 (52, 26, 'JavaWeb', 'Java + Web ', 'Miami, Florida', 0),
-(53, 23, 'JavaWeb', 'Java + Web ', 'Miami, Florida', 0);
+(53, 23, 'JavaWeb', 'Java + Web ', 'Miami, Florida', 0),
+(55, 99, '', '~skills:Html ', '', 0),
+(56, 99, '', '~skills:MySQL ', '', 0);
 
 -- --------------------------------------------------------
 
@@ -551,7 +580,7 @@ CREATE TABLE IF NOT EXISTS `skillset` (
   `name` varchar(45) NOT NULL,
   `FK_general_skills` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=127 ;
 
 --
 -- Dumping data for table `skillset`
@@ -735,7 +764,7 @@ CREATE TABLE IF NOT EXISTS `student_skill_map` (
   PRIMARY KEY (`id`),
   KEY `idx_skillid` (`skillid`),
   KEY `idx_userid` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=328 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=336 ;
 
 --
 -- Dumping data for table `student_skill_map`
@@ -757,15 +786,6 @@ INSERT INTO `student_skill_map` (`id`, `userid`, `skillid`, `level`, `ordering`)
 (55, 9, 52, NULL, 3),
 (56, 9, 49, NULL, 4),
 (57, 9, 18, NULL, 5),
-(58, 18, 2, NULL, 1),
-(59, 18, 7, NULL, 2),
-(60, 18, 12, NULL, 3),
-(61, 18, 51, NULL, 4),
-(62, 18, 33, NULL, 5),
-(63, 18, 17, NULL, 6),
-(64, 18, 39, NULL, 7),
-(65, 18, 28, NULL, 8),
-(66, 18, 49, NULL, 9),
 (194, 26, 83, NULL, 1),
 (195, 26, 84, NULL, 2),
 (196, 26, 85, NULL, 3),
@@ -846,10 +866,8 @@ INSERT INTO `student_skill_map` (`id`, `userid`, `skillid`, `level`, `ordering`)
 (286, 15, 53, NULL, 2),
 (287, 15, 50, NULL, 3),
 (288, 15, 30, NULL, 4),
-(324, 71, 1, NULL, 1),
-(325, 71, 124, NULL, 2),
-(326, 71, 123, NULL, 3),
-(327, 71, 57, NULL, 4);
+(334, 71, 123, NULL, 1),
+(335, 71, 1, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -912,16 +930,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_usertype` (`FK_usertype`),
   KEY `idx_FK_username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=111 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `registration_date`, `activation_string`, `activated`, `image_url`, `first_name`, `last_name`, `disable`, `has_viewed_profile`, `linkedinid`, `googleid`, `fiucsid`, `hide_email`, `job_notification`, `fiu_account_id`, `looking_for_job`, `job_int_date`) VALUES
-(2, 'admin', '$2a$08$UovPrdGi/NfiYryxCAbEAeS3XvScYmkEx51QeTxNE6N2tXm7HWwBq', 3, 'admin@mail.com', '2014-06-10 06:57:27', '', 1, '/JobFair/images/profileimages/user-default.png', 'Admin', 'Admin', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(2, 'admin', '$2a$08$aNHFJKJRwmcX6F0KRJZf5uxIxdlbpxMIubKGTgSFec95uVWFKoVBi', 3, 'admin@mail.com', '2014-06-10 06:57:27', '', 1, '/JobFair/images/profileimages/user-default.png', 'Admin', 'Admin', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (5, 'earen003@fiu.edu', '$2a$08$UovPrdGi/NfiYryxCAbEAeS3XvScYmkEx51QeTxNE6N2tXm7HWwBq', 1, 'earen003123@fiu.edu', '2014-10-04 15:37:55', 'google', 1, 'https://media.licdn.com/mpr/mprx/0_Gj0mWYPz0DWq_3q5iYr8oxrMUpvN6Cq5iaTi70GUveqBC_QITDYCDzvdlhm', 'Erick', 'Arenas', 0, 1, 'DywORbIHTc', '107193070609153671555', NULL, NULL, 1, NULL, 1, 5),
-(8, 'test_cis_fiu_edu', '$2a$08$0L3h//kusVHOdsX1.63B5.eZsXumUFCzudt1EVJCEGFTowlIyRIIG', 2, 'test@cis.fiu.edu', '2014-10-11 20:36:39', NULL, 1, '/JobFair/images/profileimages/user-default.png', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (9, 'student8', '$2a$08$lc0rNoh.imE0DMCJPjqyGObn3m4ztqECqE2kKbmBgkX9oudrg0dHi', 1, 'arenaserick123@yahoo.com', '2014-11-06 13:30:00', '3vlsgjawyq', 1, '/JobFair/images/profileimages/user-default.png', 'erickkk', 'arenass', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 5),
 (11, 'nmad43', '$2a$08$41tQbGBVPNnLRY5pQxUicOqtmLy2t/SqbMuzJ4z7DAHdt3QfJtosK', 2, 'nmada002@fiu.edu', '2014-11-13 13:10:32', 'vihzwtsplq', NULL, '/JobFair/images/profileimages/user-default.png', 'Nicholas', 'Madariaga', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
 (12, 'employer10', '$2a$08$oLylkwLN2eMvx.B9AtLVhu4dSoLvAvVc7oWTSTGhKt2pDlZY8uBB.', 2, 'employertwo@mail.com', '2014-11-23 17:33:16', '5qjanjsv5n', 1, '/JobFair/images/profileimages/user-default.png', 'emp', 'two', 0, NULL, NULL, NULL, NULL, 0, 0, NULL, 1, 5),
@@ -935,16 +952,11 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (23, 'Guest', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', 4, 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Account', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (26, 'sadjadis@gmail.com', '$2a$08$czIQv8g6mh2xH/m/UlpPFOfJv1ksBHaFA4XIe1XgEcGtZ3/HvYy4W', 1, 'sadjadi@cs.fiu.edu', '2015-02-18 09:19:11', 'google', 1, 'https://lh3.googleusercontent.com/-QnmiMU0SQEQ/AAAAAAAAAAI/AAAAAAAAMtw/6TS6oscVgj8/photo.jpg', 'Masoud', 'Sadjadi', 0, 1, '-q_utmm44e', '110291442056614091691', NULL, NULL, 1, NULL, 1, 0),
 (55, 'RogerSTU', '$2a$08$NG1FTRUINW7fwsajTe06/eGjJ9uvKLIJAFGoUEMq78TJkrkXlX50m', 1, 'ralon038@fiu.edu', '2015-03-03 00:07:12', 'srxnpcjlcz', 1, '/JobFair/images/profileimages/RogerSTUavatar.JPG', 'Rogelio', 'Alonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(56, 'testemployer', '$2a$08$A0EViiZBj42D2UfBAhMxyOXy/BxulKDLuQR3HntZfkt9P/3XO32sC', 2, 'sadjadi@cis.fiu.edu', '2015-03-04 12:05:40', 'nt0tjgeiv3', 1, '/JobFair/images/profileimages/user-default.png', 'Test', 'Employer', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
-(57, 'testemployer1', '$2a$08$dGfD0MmHskr6esTPXYx1m.w2L0p1f0U48UGWwP8bITiYoeZMEY4Ey', 2, 'sadjadi@fiu.edu', '2015-03-04 12:08:41', '2qxr3xbbb4', 1, '/JobFair/images/profileimages/user-default.png', 'Test', 'Employer', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
-(60, 'RogerStuTest1', '$2a$08$xRtI.tW7PieXx/zuVdKVhOMlmNZ2FfQhtozopEJdgE0trTT6t/rJ.', 1, 'rog.stu.001@gmail.com', '2015-03-04 12:18:09', 'la4k5nqbbv', 1, '/JobFair/images/profileimages/RogerStuTest1avatar.JPG', 'RogerTest', 'StudentTest', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(61, 'RogerEmpTest', '$2a$08$7JQwicSIr3u9kl.IwlZ.X.DWboOqTvuNLbe6VqsoyH/xUlUPLwDAy', 2, 'rog.emp.001@gmail.com', '2015-03-04 12:18:17', 'hgk9neax66', 1, '/JobFair/images/profileimages/user-default.png', 'RogerTest', 'EmployerTest', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (63, 'hgutierrez.jobs@gmail.com', '$2a$08$HYwdV8.ws5pUCgnL0RUh0ONXun0Km2gH5ihMMsreTW6rKps8972OK', 1, 'hgutierrez.jobs@gmail.com', '2015-04-06 23:27:15', 'google', 1, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', 'Heidy', 'Gutierrez', 0, NULL, NULL, '105478010618083573451', NULL, NULL, 1, NULL, 1, 0),
-(71, 'ralfo028', '$2a$08$XZSaUloujoyvTQv2zPoGYeTe1fVAf0mXSSpv2kT4TgrR9jcF4mBUO', 1, 'ralfo0282@fiu.edu', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
+(71, 'ralfo028', '$2a$08$ReLLS5nRliHeJ3aaPPFVJ.8OSliAq8b2AdT4llPo8PR97WUhZ5/QW', 1, 'ralfo028@fiu.edu', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
 (72, 'student15', '$2a$08$XoClsAqz7SUAWGP70Ho2yu9dlls6dIs41e45jkZ3yk5EX0FJZVREe', 1, 'student15@mail.com', '2015-06-12 00:38:37', '70luwuk0hc', NULL, '/JobFair/images/profileimages/user-default.png', 'Student', 'Fifteen', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(73, 'newstudent', '$2a$08$3AEZmYlRVVrVmxYSC5QQ1u8G8Hj8R9DnSipD3byrm5tB4YiJNXM52', 1, 'newstu@mail.com', '2015-06-12 01:10:56', '0fnx8phdcs', 0, '/JobFair/images/profileimages/user-default.png', 'NewStudent', 'DeleteMe', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (74, 'android', '$2a$08$HcWWf.a.A81YQwmrwlCb4eUsl/Vyn9vXIKAN/AD1KaXtq/g/QywDK', 2, 'androidfake@mail.com', '2015-06-12 04:54:18', '54d847sv48', 1, '/JobFair/images/profileimages/androidavatar.png', 'Android', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 1),
-(87, 'vjftester@gmail.com', '$2a$08$7FRVurQEQsHynUgvE3gFcu9hLNcK8ih4PG.MNkRzgXmm2H3SoDV1S', 1, 'vjftester@gmail.com', '2015-07-08 01:25:32', 'google', 1, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', 'Virtual', 'Tester', 0, 1, NULL, '110355973612586638156', NULL, NULL, 1, NULL, 1, 0);
+(99, 'ymalagon', '$2a$08$E.RAuhaKtoUeT7Dz03ieuOytb3mZLt4063TGBk7Bv1wryS2xmjRtW', 2, 'vjftester@gmail.com', '2015-07-28 01:10:15', '37sjn2yrg9', 1, '/JobFair/images/profileimages/user-default.png', 'Yanniel', 'Malagon', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1006,7 +1018,7 @@ CREATE TABLE IF NOT EXISTS `video_interview` (
   `ScreenShareView` varchar(90) NOT NULL,
   `sharingscreen` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `video_interview`
@@ -1017,7 +1029,8 @@ INSERT INTO `video_interview` (`id`, `FK_employer`, `FK_student`, `date`, `time`
 (2, 12, 15, '2015-07-03', '08:45:00', '2VJFID4159950', '1035', '', 0),
 (3, 74, 71, '2015-07-07', '08:45:00', '3VJFID9969094', '1037', '', 0),
 (4, 12, 15, '2015-07-18', '08:25:00', '4VJFID3321554', '1041', '', 0),
-(5, 74, 71, '2015-07-31', '08:45:00', '5VJFID4812780', '1049', '', 0);
+(5, 74, 71, '2015-07-31', '08:45:00', '5VJFID4812780', '1049', '', 0),
+(6, 74, 71, '2015-08-05', '09:00:00', '6VJFID5241908', '1093', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1037,7 +1050,8 @@ CREATE TABLE IF NOT EXISTS `video_resume` (
 --
 
 INSERT INTO `video_resume` (`id`, `video_path`, `publish_video`) VALUES
-(71, 'YtV9zNqi_t0', 1);
+(18, '0Ac0SLRZ8ic', 0),
+(71, '4ccDCq0YW-w', 1);
 
 -- --------------------------------------------------------
 
