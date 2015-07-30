@@ -1,1 +1,1 @@
-In this folder you will find current documentation for the Virtual job Fair project.
+In this folder you will find new and previous documentation for the Virtual Job Fair project.
