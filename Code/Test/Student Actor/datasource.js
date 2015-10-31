@@ -1,0 +1,102 @@
+resourcesBasePath = "C:\wamp\www\Virtual-Job-Fair-Ver-5.002\Code\Test\Test Resources\jobfairdb-DUMP-Before.sql"
+path1 = "C:"
+path2= "wamp"
+path3 = "www"
+path4 = "Virtual-Job-Fair-Ver-5.002"
+path5 = "Code"
+path6 = "Test"
+path7 = "Test Resources"
+path8 = "jobfairdb-DUMP-Before.sql"
+
+userNameAdmin = "admin"
+passAdmin = "123456"
+
+devUserName = "vjfuser"
+devPassword = "s3n10rpr0j3ct"
+
+test001Name = "RogerTest"
+test001LastName = "StudentTest"
+test001UserName = "RogerStuTest1"
+test001Password = "RogerStuTest1"
+test001Email = "rog.stu.001@gmail.com"
+test001EmailPass = "VirtualStu"
+test001Phone = "1111111111"
+test001Phone2 = "3333333333"
+
+test001EmpName = "RogerTest"
+test001EmpLastName = "EmployerTest"
+test001EmpUserName = "RogerEmpTest"
+test001EmpPassword = "RogerEmpTest"
+test001EmpEmail = "rog.emp.001@gmail.com"
+test001EmpEmailPass = "VirtualEmp"
+test001EmpPhone = "2222222222"
+test001EmpDescription = "I am a test automated recruited @ VJF"
+test001CompName = "Virtual Company for Testing"
+test001CompStreet = "123 main"
+test001CompCity = "Miami"
+test001CompState = "Florida"
+test001CompZip = "330178"
+test001Compwww = "www.vjf.cis.fiu.edu"
+test001CompInfo = "This is a virtual company for system testing purposes"
+
+test002Name = "RogerTest"
+test002LastName = "SstudentTest2"
+test002LastName2 = "StudentTest"
+test002UserName = "RogerStuTest2"
+test002Password = "RogerStuTest2"
+test002Email = "rog.stu.002@gmail.com"
+test002EmailPass = "VirtualStu"
+test002Phone = "2222222222"
+
+test003Name = "RogerTest"
+test003LastName = "StudentTest"
+test003UserName = "RogerStuTest"
+test003Password = "RogerStuTest"
+test003Email = "rog.stu.001@gmail.com"
+test003EmailPass = "VirtualStu"
+test003Phone = "3333333333"
+
+test004UserName = "RogerStuTest3"
+test004PassTry1 = "1234"
+test004PassTry2 = "12345"
+test004PassTry3 = "123456"
+test004PassTry4 = "123457"
+test004PassFinal = "123456"
+test004EmailTry1 = "RogerStuTest3"
+test004EmailTry2 = "RogerStuTest3.com"
+test004EmailTry3 = "RogerStuTest3@.com"
+test004EmailFinal = "RogerStuTest3@mail.com"
+
+test005email = "ralon039@fiu.edu"
+
+test006email = "ralon039@fiu.edu"
+test006pass = "ENvision26"
+
+test007email = "ralon039@fiu.edu"
+test007pass = "Rog01er!"
+
+test009pantheremail = "ralon039@fiu.edu"
+test009pantherID = "3010827"
+
+test010pantheremail = "ralon039@fiu.edu"
+test010pantherID = "3010827"
+
+test011email = "ralon039@fiu.edu"
+
+test013emailposition = "choose-account-0"
+test013email = "ralon039@fiu.edu"
+
+test018newpass = "123456"
+
+test019username = "Rogelio"
+test019lastname = "Alonso"
+test019password = "t3i2q1mguz"
+test019email = "rogeloco@gmail.com"
+test019newusername = "rogeloco"
+
+test036username = "RogerStuTest1"
+test36ToValue = "RogerTest StudentTest"
+
+test037username = "rogemp001"
+test037password = "rogemp001"
+

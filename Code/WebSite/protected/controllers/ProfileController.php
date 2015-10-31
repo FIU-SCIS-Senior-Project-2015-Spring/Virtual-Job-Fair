@@ -1,5 +1,8 @@
 <?php
 
+// Import OAuth class files
+require_once 'vendor/autoload.php';
+use OAuth_io\OAuth;
 /**
  * Class that controls the logic for the profile.
  */
@@ -7,6 +10,11 @@ class ProfileController extends Controller
 {
     // Keeps track of the missing components in the profile.
     private $incompleteComponents = '';
+    
+    // Holds array of Google user data recieved after authentication
+    private $result = array();
+    // Google authentication status
+    private $accAuthenticated = false;
     
     /**
      * The function that is responsible for displaying the student's profile
@@ -948,7 +956,7 @@ class ProfileController extends Controller
                 ),
             
             array('allow',
-                'actions' => array('videoemployer', 'videostudent', 'googleAuth', 'fiuCsSeniorAuth', 'fiuAuth',),
+                'actions' => array('videoemployer', 'videostudent', 'googleAuth', 'GetResult', 'fiuCsSeniorAuth', 'fiuAuth',),
                 'users' => array('*')),
             
             array('deny', //deny all users anything not specified
@@ -1196,6 +1204,7 @@ class ProfileController extends Controller
      */
 
     public function actionGoogleAuth() {
+        /*
         ########## Google Settings.. Client ID, Client Secret #############
         //edit by Manuel, making the links dynamic, using Yii
         //To access the google API console to be able to change the setting
@@ -1261,12 +1270,42 @@ class ProfileController extends Controller
         if (isset($authUrl)) { //user is not logged in, show login button
             $this->redirect($authUrl);
         }
-
+         * 
+         */
+        
+        // OAuth Daemon Control Flow
+        // Begin authentication
+        
+        if(!$this->accAuthenticated)
+        {
+            $this->authAcc();
+            return;
+        }
+        else if($this->accAuthenticated && empty($this->result))
+        {
+            // Error ocurred, no data was received
+            $this->redirect('/JobFair/index.php');
+        }
+        else if(!empty($this->result))
+        {
+            // Data received
+            $user = $this->result;
+            $user_id = $user['id'];
+            $user_name = filter_var($user['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
+        }
+        else
+        {
+            // Something went wrong...
+            $this->redirect('/JobFair/index.phpp');
+        }
+        
+        
         //link google account to the current one
         $currentUser = User::getCurrentUser();
         if (($currentUser != null) && ($currentUser->FK_usertype == 1)) {
             // check that there is no duplicate id
-            $duplicateUser = User::model()->findByAttributes(array('googleid' => $user["id"]));
+            $duplicateUser = User::model()->findByAttributes(array('googleid' => $user['id']));
             if ($duplicateUser != null) {
                 $this->actionDuplicationError();
                 return;
@@ -1283,12 +1322,12 @@ class ProfileController extends Controller
             $city = null;
             $state = null;
             $about_me = null;
-            $this->actionLinkToo($email, $user['given_name'], $user['family_name'], $user['picture'], $mesg, $phone, $city, $state, $about_me);
+            $this->actionLinkToo($email, $user['firstname'], $user['lastname'], $user['avatar'], $mesg, $phone, $city, $state, $about_me);
             return;
         } else { // user logged in succesfully to google, now check if we register or login to JobFair, link
 
 
-            $userExists = User::model()->findByAttributes(array('googleid' => $user["id"]));
+            $userExists = User::model()->findByAttributes(array('googleid' => $user['id']));
             // if user exists with googleid, login
             if ($userExists != null) {
 
@@ -1328,7 +1367,7 @@ class ProfileController extends Controller
                         $city = null;
                         $state = null;
                         $about_me = null;
-                        $this->actionLinkToo($email, $user['given_name'], $user['family_name'], $user['picture'], $mesg, $phone, $city, $state, $about_me);
+                        $this->actionLinkToo($email, $user['firstname'], $user['lastname'], $user['avatar'], $mesg, $phone, $city, $state, $about_me);
                         return;
                     } else {
                         $this->redirect("/JobFair/index.php/site/page?view=disableUser");
@@ -1341,12 +1380,12 @@ class ProfileController extends Controller
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
                 $model->activation_string = 'google';
-                $model->username = $user["email"];
-                $model->first_name = $user['given_name'];
-                $model->last_name = $user['family_name'];
-                $model->email = $user["email"];
-                $model->googleid = $user["id"];
-                $model->image_url = $user['picture'];
+                $model->username = $user['email'];
+                $model->first_name = $user['firstname'];
+                $model->last_name = $user['lastname'];
+                $model->email = $user['email'];
+                $model->googleid = $user['id'];
+                $model->image_url = $user['avatar'];
                 //Hash the password before storing it into the database
                 $hasher = new PasswordHash(8, false);
                 $model->password = $hasher->HashPassword('tester');
@@ -1367,6 +1406,34 @@ class ProfileController extends Controller
                 $this->redirect("/JobFair/index.php/user/ChangeFirstPassword");
             }
         }
+    }
+    
+    // Create oauth object, redirect user to Google for authentication,
+    // redirect to API endpoint
+    private function authAcc()
+    {
+        $oauth = new OAuth(null, false);
+        $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
+        $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+        $oauth->redirect('google', '/JobFair/index.php/Profile/GetResult');
+    }
+
+    // Handle request object if it exists and retrieve data,
+    // attempt to register user's Google account
+    public function actionGetResult()
+    {
+        $oauth = new OAuth(null, false);
+        $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
+        $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+
+        $google_requester = $oauth->auth('google', array(
+           'redirect' => true
+        ));
+        $this->accAuthenticated = true;
+        $google_result = $google_requester->me();
+        $this->result = $google_result;
+
+        $this->actionGoogleAuth();
     }
 
     /*

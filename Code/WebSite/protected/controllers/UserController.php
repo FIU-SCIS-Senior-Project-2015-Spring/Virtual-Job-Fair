@@ -1,12 +1,20 @@
 <?php
 
     require ('PasswordHash.php');
+    
+    // Import OAuth class files
+    require_once 'vendor/autoload.php';
+    use OAuth_io\OAuth;
 
     class UserController extends Controller
     {
 
         public $username = '';
         public $email = '';
+        // Holds array of LinkedIn user data recieved after authentication
+        private $result = array();
+        // LinkedIn authentication status
+        private $accAuthenticated = false;
 
         public function actionIndex()
         {
@@ -701,11 +709,12 @@
 
     public function actionRegisterLinkedIn()
     { 
-        
+    /*    
     include "linkedin.php";
     
         $linkedIn = new Linkedin;
-         
+     
+        
     // OAuth 2 Control Flow
       if (isset($_GET['error'])) {
           // LinkedIn returned an error
@@ -731,15 +740,41 @@
               $linkedIn->getAuthorizationCode();
           }
       }
-      
+      */
+        // OAuth Daemon Control Flow
+        // Begin authentication
+        if(!$this->accAuthenticated)
+        {
+            $this->authAcc();
+            return;
+        }
+        else if($this->accAuthenticated && empty($this->result))
+        {
+            // Error ocurred, no data was received
+            $this->redirect('/JobFair/index.php');
+        }
+        else if(!empty($this->result))
+        {
+            // Data received
+            $data = $this->result;
+        }
+        else
+        {
+            // Something went wrong...
+            $this->redirect('/JobFair/index.php');
+        }
+        
+        
+            
+        /*    
         # You now have a $linkedin->access_token and can make calls on behalf of the current member
         $data = $linkedIn->fetch('GET', '/v1/people/~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))');        
         //print_r($data);
-
+        */
         
             // get user by linkedinid
             $model = new User();
-            $user = User::model()->findByAttributes(array('linkedinid' => $data->id));
+            $user = User::model()->findByAttributes(array('linkedinid' => $data['id']));
 
 
             // check if user exits in database, if so login
@@ -771,13 +806,13 @@
 
                 // print "<pre>"; print_r('user is null');print "</pre>";
                 // check that there is no duplicate user if so link to that account
-                $duplicateUser = User::model()->findByAttributes(array('email' => $data->emailAddress));
+                $duplicateUser = User::model()->findByAttributes(array('email' => filter_var($data['email'], FILTER_SANITIZE_EMAIL)));
                 if ($duplicateUser != null)
                 {
                     // get username and link the accounts
                     $username = $duplicateUser->username;
                     $user = User::model()->find("username=:username", array(':username' => $username));
-                    $user->linkedinid = $data->id;
+                    $user->linkedinid = $data['id'];
                     $user->save(false);
                     $user_id = $user->id;
 
@@ -947,16 +982,18 @@
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
                 $model->activation_string = 'linkedin';
-                $model->username = $data->emailAddress;
-                $model->first_name = $data->firstName;
-                $model->last_name = $data->lastName;
-                $model->email = $data->emailAddress;
-                if(!empty($data->pictureUrl)){
-                    $model->image_url = $data->pictureUrl;
+                $model->username = $data['email'];
+                $model->first_name = $data['firstname'];
+                $model->last_name = $data['lastname'];
+                $model->email = $data['email'];
+                
+                if(!empty($data['avatar'])){
+                    $model->image_url = $data['avatar'];
                 } else {
                     $model->image_url = '/JobFair/images/profileimages/user-default.png';
-                }               
-                $model->linkedinid = $data->id;
+                }
+                           
+                $model->linkedinid = $data['id'];
                 //Hash the password before storing it into the database
                 $hasher = new PasswordHash(8, false);
                 $model->password = $hasher->HashPassword('tester');
@@ -971,9 +1008,13 @@
                     $basic_info = new BasicInfo();
                 $basic_info->userid = $model->id;
                 //$basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
-                $basic_info->city = $data->location->name;
+                
+                $basic_info->city = strip_tags($data['location']);
                 $basic_info->state = '';
-                $basic_info->about_me = $data->headline;
+                
+                $basic_info->about_me = $data['raw']['headline'];
+                 
+                 
 
                 $basic_info->save(false);
                 /*
@@ -1092,6 +1133,38 @@
                 }
                 $this->redirect("/JobFair/index.php/user/ChangeFirstPassword");
             } 
+        }
+        // Create oauth object, redirect user to LinkedIn for authentication,
+        // redirect to API endpoint
+        private function authAcc()
+        {
+            $oauth = new OAuth(null, false);
+            $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
+            $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+            $oauth->redirect('linkedin2', '/JobFair/index.php/User/GetResult');
+        }
+        
+        // Handle request object if it exists and retrieve data,
+        // attempt to register user's LinkedIn account
+        public function actionGetResult()
+        {
+            $oauth = new OAuth(null, false);
+            $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
+            $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+        
+            $linkedin_requester = $oauth->auth('linkedin2', array(
+               'redirect' => true
+            ));
+            $this->accAuthenticated = true;
+            
+            $linkedin_result = $linkedin_requester->me();
+            // Make a second API call to retrieve the user's location from LinkedIn
+            $location = $linkedin_requester->get('https://api.linkedin.com/v1/people/id=' . $linkedin_result['id'] . ':(location:(name))');
+            $linkedin_result['location'] = $location;
+            
+            $this->result = $linkedin_result;
+            
+            $this->actionRegisterLinkedIn();
         }
 
         public function actionChangeFirstPassword()
