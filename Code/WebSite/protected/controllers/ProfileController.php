@@ -1429,7 +1429,7 @@ class ProfileController extends Controller
     {
         $oauth = new OAuth(null, false);
         $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-        $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+        $oauth->initialize('V93oy-uxCdwqJ4Htd1YZ0zX_nho', 'yc2iS1HJm0FMCIGcroZvVhD6Pdc');
 
         $google_requester = $oauth->auth('google', array(
            'redirect' => true
