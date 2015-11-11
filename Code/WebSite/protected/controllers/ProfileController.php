@@ -1273,6 +1273,11 @@ class ProfileController extends Controller
          * 
          */
         
+        // Edit by Christopher Jones. Refer to the Google Developers Console
+        // site https://console.developers.google.com/project. OAuth Daemon
+        // handles all Google API work and can be accessed through http://vjf-dev.cis.fiu.edu:6284/login
+        // Credentials for both accounts are provided in JobFair/useful accounts.txt
+ 
         // OAuth Daemon Control Flow
         // Begin authentication
         
@@ -1414,7 +1419,7 @@ class ProfileController extends Controller
     {
         $oauth = new OAuth(null, false);
         $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-        $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+        $oauth->initialize('V93oy-uxCdwqJ4Htd1YZ0zX_nho', 'yc2iS1HJm0FMCIGcroZvVhD6Pdc');
         $oauth->redirect('google', '/JobFair/index.php/Profile/GetResult');
     }
 

@@ -1,0 +1,48 @@
+This file contains all useful login credentials for different online
+accounts which are currently being used by Virtual Job Fair.
+
+
+OAuth Accounts
+===========================================================
+
+Google Developer Console:
+email: oauthd.vjf@gmail.com
+password: s3n10rpr0j3ct
+
+LinkedIn Developer Network:
+email: oauthd.vjf@gmail.com
+password: s3n10rpr0j3ct
+
+YouTube Developer Account (Google Developer Console):
+email: vjfuploads@gmail.com
+password: virtualjobfair
+
+OAuth Daemon Location: http://vjf-dev.cis.fiu.edu:6284/login
+email: sadjadi@cs.fiu.edu
+password: seniorproject
+
+
+Database Accounts
+===========================================================
+
+Database for both development and production websites:
+   username: vjfuser
+   password: s3n10rpr0j3ct
+
+You can manage the database through phpMyAdmin on both sites, 
+example: vjf-dev.cs.fiu.edu/phpMyAdmin
+   
+Admin Accounts
+===========================================================
+VJF Admin account passwords:
+vjf-dev.cs.fiu.edu
+   username: admin
+   password: 123456
+
+vjf.cs.fiu.edu
+   username: admin
+   password: s3n10rpr0j3ct
+
+Test Cases
+============================================================
+The password is always 123456

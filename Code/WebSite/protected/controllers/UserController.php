@@ -741,6 +741,11 @@
           }
       }
       */
+        // Edit by Christopher Jones. Refer to the LinkedIn Developer Network
+        // site https://developer.linkedin.com/. OAuth Daemon
+        // handles all LinkedIn API work and can be accessed through http://vjf-dev.cis.fiu.edu:6284/login
+        // Credentials for both accounts are provided in JobFair/useful accounts.txt
+        
         // OAuth Daemon Control Flow
         // Begin authentication
         if(!$this->accAuthenticated)
@@ -1140,7 +1145,7 @@
         {
             $oauth = new OAuth(null, false);
             $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-            $oauth->initialize('g1e6Sg93vb9rPklSO_8QMmuL2Y0', 'DDeQkhG1bbEFjFZvhzOKiEG_OC4');
+            $oauth->initialize('V93oy-uxCdwqJ4Htd1YZ0zX_nho', 'yc2iS1HJm0FMCIGcroZvVhD6Pdc');
             $oauth->redirect('linkedin2', '/JobFair/index.php/User/GetResult');
         }
         
