@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 29, 2015 at 09:23 AM
+-- Generation Time: Nov 15, 2015 at 03:52 AM
 -- Server version: 5.6.19
 -- PHP Version: 5.4.32
 
@@ -19,6 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobfairdb`
 --
+
+CREATE DATABASE IF NOT EXISTS jobfairdb;
+USE jobfairdb;
 
 -- --------------------------------------------------------
 
@@ -135,7 +138,11 @@ INSERT INTO `basic_info` (`userid`, `phone`, `city`, `state`, `zip_code`, `about
 (71, '305-333-4444', 'Miami', 'FL', '33172', 'I am a Computer Science student.', 1, 1, 0, 6349, 0),
 (72, '3055554444', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0),
 (74, '3053334444', 'Miami', 'FL', NULL, 'We are interested in offering students a wonderful opportunity in the field of Android APP development.', 1, 1, 0, NULL, 0),
-(99, '3053054848', 'Miami', 'Florida', NULL, 'Human Resources Manager at VJF', 1, 0, NULL, NULL, 0);
+(99, '3053054848', 'Miami', 'Florida', NULL, 'Human Resources Manager at VJF', 1, 0, NULL, NULL, 0),
+(111, '3333333333', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0),
+(112, '', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0),
+(118, NULL, '\n\n  \n    Miami/Fort Lauderdale Area\n  \n\n', '', NULL, 'Director of Professional Master of Science in Information Technology Program at Florida International University', NULL, 0, NULL, NULL, 0),
+(120, NULL, '\n\n  \n    Miami/Fort Lauderdale Area\n  \n\n', '', NULL, 'Student at Florida International University', NULL, 0, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -480,6 +487,17 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `jobMatchID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1245 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portal_sites`
+--
+
+CREATE TABLE IF NOT EXISTS `portal_sites` (
+  `name` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -930,7 +948,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `idx_FK_usertype` (`FK_usertype`),
   KEY `idx_FK_username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=111 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
 
 --
 -- Dumping data for table `user`
@@ -950,13 +968,17 @@ INSERT INTO `user` (`id`, `username`, `password`, `FK_usertype`, `email`, `regis
 (19, 'student10', '$2a$08$vwEAweAqJJMnewbed.YVZOycFb4nvS9UdRGcWYcwPfg1RTE8dp2aG', 1, 'student10@mail.com', '2014-12-11 10:06:13', 'bosv3vqir3', NULL, '/JobFair/images/profileimages/user-default.png', 'student', 'ten', 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 0),
 (22, 'jtrav029@fiu.edu', '$2a$08$igvNQYv.yFI.3JrqELQXte2srqEr0sytDBPrfaNLQpkSRZCO/G9di', 1, 'jtrav029@fiu.edu', '2015-02-01 04:43:13', 'fiu', 1, 'https://lh3.googleusercontent.com/-xjXKxJLmagc/AAAAAAAAAAI/AAAAAAAAACI/8JbHCPrKBYM/photo.jpg', 'Jorge', 'Travieso', 0, NULL, NULL, NULL, NULL, NULL, 1, '116231147857551021368', 1, 0),
 (23, 'Guest', '$2a$08$8PspUXq1ggIuTn8.92.qG.rbCwv55mh9irvpfrQY2JiWy4r44k6Pe', 4, 'gueststudent@cs.fiu.edu', '2015-02-07 16:51:19', 'h6c5hy7r70', 1, '/JobFair/images/profileimages/user-default.png', 'Guest', 'Account', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
-(26, 'sadjadis@gmail.com', '$2a$08$czIQv8g6mh2xH/m/UlpPFOfJv1ksBHaFA4XIe1XgEcGtZ3/HvYy4W', 1, 'sadjadi@cs.fiu.edu', '2015-02-18 09:19:11', 'google', 1, 'https://lh3.googleusercontent.com/-QnmiMU0SQEQ/AAAAAAAAAAI/AAAAAAAAMtw/6TS6oscVgj8/photo.jpg', 'Masoud', 'Sadjadi', 0, 1, '-q_utmm44e', '110291442056614091691', NULL, NULL, 1, NULL, 1, 0),
+(26, 'sadjadis@gmail.com', '$2a$08$czIQv8g6mh2xH/m/UlpPFOfJv1ksBHaFA4XIe1XgEcGtZ3/HvYy4W', 1, 'sadjadi@cs.fiu.edu', '2015-02-18 09:19:11', 'google', 1, 'https://lh3.googleusercontent.com/-QnmiMU0SQEQ/AAAAAAAAAAI/AAAAAAAAMtw/6TS6oscVgj8/photo.jpg', 'Masoud', 'Sadjadi', 0, 1, 'YZQfQDmyus', '110291442056614091691', NULL, NULL, 1, NULL, 1, 0),
 (55, 'RogerSTU', '$2a$08$NG1FTRUINW7fwsajTe06/eGjJ9uvKLIJAFGoUEMq78TJkrkXlX50m', 1, 'ralon038@fiu.edu', '2015-03-03 00:07:12', 'srxnpcjlcz', 1, '/JobFair/images/profileimages/RogerSTUavatar.JPG', 'Rogelio', 'Alonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (63, 'hgutierrez.jobs@gmail.com', '$2a$08$HYwdV8.ws5pUCgnL0RUh0ONXun0Km2gH5ihMMsreTW6rKps8972OK', 1, 'hgutierrez.jobs@gmail.com', '2015-04-06 23:27:15', 'google', 1, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', 'Heidy', 'Gutierrez', 0, NULL, NULL, '105478010618083573451', NULL, NULL, 1, NULL, 1, 0),
 (71, 'ralfo028', '$2a$08$ReLLS5nRliHeJ3aaPPFVJ.8OSliAq8b2AdT4llPo8PR97WUhZ5/QW', 1, 'ralfo028@fiu.edu', '2015-06-12 00:28:58', '0mztifdaxz', 1, '/JobFair/images/profileimages/ralfo028avatar.jpg', 'Rene', 'Alfonso', 0, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
 (72, 'student15', '$2a$08$XoClsAqz7SUAWGP70Ho2yu9dlls6dIs41e45jkZ3yk5EX0FJZVREe', 1, 'student15@mail.com', '2015-06-12 00:38:37', '70luwuk0hc', NULL, '/JobFair/images/profileimages/user-default.png', 'Student', 'Fifteen', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
 (74, 'android', '$2a$08$HcWWf.a.A81YQwmrwlCb4eUsl/Vyn9vXIKAN/AD1KaXtq/g/QywDK', 2, 'androidfake@mail.com', '2015-06-12 04:54:18', '54d847sv48', 1, '/JobFair/images/profileimages/androidavatar.png', 'Android', 'Employer', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 1),
-(99, 'ymalagon', '$2a$08$E.RAuhaKtoUeT7Dz03ieuOytb3mZLt4063TGBk7Bv1wryS2xmjRtW', 2, 'vjftester@gmail.com', '2015-07-28 01:10:15', '37sjn2yrg9', 1, '/JobFair/images/profileimages/user-default.png', 'Yanniel', 'Malagon', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0);
+(99, 'ymalagon', '$2a$08$E.RAuhaKtoUeT7Dz03ieuOytb3mZLt4063TGBk7Bv1wryS2xmjRtW', 2, 'vjftester@gmail.com', '2015-07-28 01:10:15', '37sjn2yrg9', 1, '/JobFair/images/profileimages/user-default.png', 'Yanniel', 'Malagon', 0, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 0),
+(111, 'RogerStuTest', '$2a$08$8YjRNjm.NVqLzPLtT/m2oeiKK1tMqXuwlHXxkLpqwcUELG3ZeGE9q', 1, 'rog.stu.001@gmail.com', '2015-09-25 01:28:48', 'xiquvcp4ws', NULL, '/JobFair/images/profileimages/user-default.png', 'RogerTest', 'StudentTest', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(112, 'Rogelio', '$2a$08$oAH6OSHgszPBqw8srM7Pc.izsXeO7zdglA1q62ZHxK5V9K.hs5FL2', 1, 'rogeloco@gmail.com', '2015-09-25 01:29:12', 'p8lrs4ej6y', NULL, '/JobFair/images/profileimages/user-default.png', 'Rogelio', 'Alonso', 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 0),
+(118, 'sadjadi@cs.fiu.edu', '$2a$08$dmuHiTM5ITbTP7KSNodBlutZX8Dh6jpd7RsVHxT6tQd.442PINVZG', 1, 'sadjadi@cs.fiu.edu', '2015-11-01 10:09:05', 'linkedin', 1, 'https://media.licdn.com/mpr/mprx/0_-FJjC-f7MxFYZ_BcK8UGClSKJyA14_BcrhDCClpr6MLGFF8BY3dA2AeOc-lDUknR1XRiS9atTudB', 'Masoud', 'Sadjadi', 0, 1, 'YZQfQDmyus', NULL, NULL, NULL, 1, NULL, 1, 0),
+(120, 'cjone089@fiu.edu', '$2a$08$yNbZHWojF11gvOdmyCKSd.G5vhP5XyLEdszGcPWI8oYADesc6Vlre', 1, 'cjone089@fiu.edu', '2015-11-06 13:40:12', 'linkedin', 1, 'https://media.licdn.com/mpr/mprx/0_abYbNeif2B96MEV_F96F1ZTa2vXR0enaFbHblyuf2Bps0ZXtk9k60yTaoXvQpE9Gb9odKfGm3qBVyugabqUUyyiCkqBUyu8GGqUkBg977zCcnsUYm5Docd4YXTSwzuc1wB0wr7aUtLq', 'Christopher', 'Jones', 0, 1, 'xfuI8MnBZm', '108592330065703210200', NULL, NULL, 1, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1074,7 +1096,7 @@ CREATE TABLE IF NOT EXISTS `whiteboard_sessions` (
 --
 DROP TABLE IF EXISTS `solr`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`vjfuser`@`localhost` SQL SECURITY DEFINER VIEW `solr` AS select concat(`user`.`id`,`job`.`id`) AS `id`,`user`.`username` AS `username`,`user`.`email` AS `email`,`user`.`registration_date` AS `registration_date`,`user`.`first_name` AS `first_name`,`user`.`last_name` AS `last_name`,`user`.`image_url` AS `image_url`,`job`.`type` AS `type`,`job`.`title` AS `title`,`job`.`post_date` AS `post_date`,`job`.`deadline` AS `deadline`,`job`.`description` AS `description`,`job`.`compensation` AS `compensation`,`job`.`other_requirements` AS `other_requirements`,`job`.`email_notification` AS `email_notification`,`job`.`matches_found` AS `matches_found`,`job`.`posting_url` AS `posting_url`,`job`.`comp_name` AS `comp_name`,`job`.`poster_email` AS `poster_email` from (`user` join `job`) where (`user`.`id` = `job`.`FK_poster`);
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `solr` AS select concat(`user`.`id`,`job`.`id`) AS `id`,`user`.`username` AS `username`,`user`.`email` AS `email`,`user`.`registration_date` AS `registration_date`,`user`.`first_name` AS `first_name`,`user`.`last_name` AS `last_name`,`user`.`image_url` AS `image_url`,`job`.`type` AS `type`,`job`.`title` AS `title`,`job`.`post_date` AS `post_date`,`job`.`deadline` AS `deadline`,`job`.`description` AS `description`,`job`.`compensation` AS `compensation`,`job`.`other_requirements` AS `other_requirements`,`job`.`email_notification` AS `email_notification`,`job`.`matches_found` AS `matches_found`,`job`.`posting_url` AS `posting_url`,`job`.`comp_name` AS `comp_name`,`job`.`poster_email` AS `poster_email` from (`user` join `job`) where (`user`.`id` = `job`.`FK_poster`);
 
 --
 -- Constraints for dumped tables
