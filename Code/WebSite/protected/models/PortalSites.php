@@ -91,7 +91,7 @@ class PortalSites extends CActiveRecord
         public function row_delete()
         {
             $id = $this->id;
-
+        
             try
             {
                 // Delete current row

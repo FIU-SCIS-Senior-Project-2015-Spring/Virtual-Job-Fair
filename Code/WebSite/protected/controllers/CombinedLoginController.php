@@ -48,7 +48,55 @@ class CombinedLoginController extends Controller
         
         public function actionLogin()
 	{
-                $this->render('login');
+            $model = new LoginForm;
+
+            // if it is ajax validation request
+            if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
+            {
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+            }
+
+            // collect user input data
+            if (isset($_POST['LoginForm']))
+            {
+                //$model->attributes=$_POST['LoginForm'];
+                $model->attributes = Yii::app()->request->getPost('LoginForm');
+                // validate user input and redirect to the previous page if valid
+                if ($model->validate())
+                {
+                    $username = $model->username;
+                    $user = User::model()->find("username=:username", array(':username' => $username));
+                    if ($user->disable != 1 && $user->activated != 0)
+                    {
+                        $model->login();
+                        if (Yii::app()->user->returnUrl == "/JobFair/index.php")
+                        {
+                            if ($user->isAStudent())
+                            {
+                                $this->redirect("/JobFair/index.php/home/studenthome");
+                            }
+                            elseif ($user->isAEmployer())
+                            {
+                                $this->redirect("/JobFair/index.php/home/employerhome");
+                            }
+                            else
+                            {
+                                $this->redirect("/JobFair/index.php/CombinedLogin/admin");
+                            }
+                        }
+                        else
+                        {
+                            $this->redirect('/JobFair/index.php/CombinedLogin/login');
+                        }
+                    }
+                    
+                    else // Show the disabled page.
+                        $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+                }
+            }
+            // display the login form
+            $this->render('login', array('model' => $model));
 	}
         
         public function actionGoogleAuth() {
@@ -334,6 +382,7 @@ class CombinedLoginController extends Controller
             ));
         }
 
+        
         /**
          * Creates a new model.
          * If creation is successful, the browser will be redirected to the 'view' page.
@@ -356,7 +405,7 @@ class CombinedLoginController extends Controller
                 'model' => $model,
             ));
         }
-
+        
         /**
          * Updates a particular model.
          * If update is successful, the browser will be redirected to the 'view' page.
@@ -438,7 +487,14 @@ class CombinedLoginController extends Controller
             return $model;
         }
         
-        
+        /**
+         * Logs out the current user and redirect to homepage.
+         */
+        public function actionLogout()
+        {
+            Yii::app()->user->logout();
+            $this->redirect('/JobFair/index.php/CombinedLogin/login');
+        }
         
         
         

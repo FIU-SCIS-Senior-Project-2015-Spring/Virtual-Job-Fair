@@ -1,3 +1,9 @@
+<?php if(!User::isCurrentUserAdmin())
+        {
+            $this->redirect('/JobFair/index.php/CombinedLogin/login');
+        }
+ ?>
+
 <script>
     $(document).ready(function()
     {
