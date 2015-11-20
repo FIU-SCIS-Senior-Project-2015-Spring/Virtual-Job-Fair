@@ -27,7 +27,7 @@
                     body {
                         padding-top: 60px;
                         padding-bottom: 40px;
-                        background-image: url("/JobFair/images/background.jpg");
+                        background-image: url("/JobFair/images/background.gif");
                         background-color: white;
                         background-size: cover;
                     }
