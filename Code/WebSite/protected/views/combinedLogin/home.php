@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
             // The scrolling image.
             $this->beginWidget('bootstrap.widgets.TbCarousel', array(
                 'items' => array(
-                    array('image' => '/JobFair/images/spt_images/vjf.JPG', 'link' => 'http://vjf.cs.fiu.edu/', 'label' => 'Virtual Job Fair', 'caption' => 'Provides an efficient way to make a connection between employers and job seeking students. Provides easy access to job postings, and supplies other reseources such as the ability to upload a video resume.'),
+                    array('image' => '/JobFair/images/spt_images/vjf.JPG', 'link' => 'http://vjf-dev.cis.fiu.edu/', 'label' => 'Virtual Job Fair', 'caption' => 'Provides an efficient way to make a connection between employers and job seeking students. Provides easy access to job postings, and supplies other reseources such as the ability to upload a video resume.'),
                     array('image' => '/JobFair/images/spt_images/cp.JPG', 'link' => '/JobFair/index.php/site/requestLogin', 'label' => 'Collaborative Platform', 'caption' => 'Provides students an effective way to communicate with mentors and project team members.'),
                     array('image' => '/JobFair/images/spt_images/mj.JPG', 'link' => 'http://mj.cis.fiu.edu/#login', 'label' => 'Mobile Judge', 'caption' => 'Mobile application which allows senior project judges to provide student evaluations.'),
                     array('image' => '/JobFair/images/spt_images/spw.JPG', 'link' => 'http://spws.cis.fiu.edu/', 'label' => 'Senior Project Website', 'caption' => 'An important tool allowing users to propose mew projects, and explore/join ongoing projects.'),
