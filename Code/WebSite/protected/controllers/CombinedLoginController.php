@@ -43,7 +43,12 @@ class CombinedLoginController extends Controller
 
 	public function actionHome()
 	{
-		$this->render('home');
+            $model = new PortalSites('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['PortalSites']))
+                $model->attributes = $_GET['PortalSites'];
+
+            $this->render('home', array('model' => $model));
 	}
         
         public function actionLogin()
@@ -99,8 +104,7 @@ class CombinedLoginController extends Controller
             $this->render('login', array('model' => $model));
 	}
         
-        public function actionGoogleAuth() {
-        /*
+        public function actionFiuAuth() {
         ########## Google Settings.. Client ID, Client Secret #############
         //edit by Manuel, making the links dynamic, using Yii
         //To access the google API console to be able to change the setting
@@ -109,12 +113,12 @@ class CombinedLoginController extends Controller
         //PASS: cis49112014
         $google_client_id = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
         $google_client_secret = 'RsCRTYbGC4VZc40ppLR-4L5h';
-        $google_redirect_url = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/googleAuth/oauth2callback';
+        $google_redirect_url = 'http://' . Yii::app()->request->getServerName() . '/JobFair/index.php/profile/fiuAuth/oauth2callback';
         $google_developer_key = 'AIzaSyBRvfT7Djj4LZUrHqLdZfJRWBLubk51ARA';
 
         //include google api files
-        require_once Yii::app()->basePath . "/google/Google_Client.php";
-        require_once Yii::app()->basePath . "/google/contrib/Google_Oauth2Service.php";
+        require_once Yii::app()->basePath . "/fiu/Google_Client.php";
+        require_once Yii::app()->basePath . "/fiu/contrib/Google_Oauth2Service.php";
 
         $gClient = new Google_Client();
         $gClient->setApplicationName('Login to JobFair');
@@ -166,51 +170,12 @@ class CombinedLoginController extends Controller
         if (isset($authUrl)) { //user is not logged in, show login button
             $this->redirect($authUrl);
         }
-         * 
-         */
-        
-        // Edit by Christopher Jones. Refer to the Google Developers Console
-        // site https://console.developers.google.com/project. OAuth Daemon
-        // handles all Google API work and can be accessed through http://vjf-dev.cis.fiu.edu:6284/login
-        // Credentials for both accounts are provided in JobFair/useful accounts.txt
- 
-        // OAuth Daemon Control Flow
-        // Begin authentication
-        
-        if(!$this->accAuthenticated)
-        {
-            $this->authAcc();
-            return;
-        }
-        else if($this->accAuthenticated && empty($this->result))
-        {
-            // Error ocurred, no data was received
-            $this->redirect('/JobFair/index.php/CombinedLogin/login');
-        }
-        else if(!empty($this->result))
-        {
-            // Data received
-            $user = $this->result;
-            $user_id = $user['id'];
-            $user_name = filter_var($user['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $email = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
-        }
-        else
-        {
-            // Something went wrong...
-            $this->redirect('/JobFair/index.php/CombinedLogin/login');
-        }
-        
-        
-        if (strpos($a,'are') !== false) {
-    echo 'true';
-}
-        
-        //link google account to the current one
+
+        //link Fiu Account account to the current one
         $currentUser = User::getCurrentUser();
         if (($currentUser != null) && ($currentUser->FK_usertype == 1)) {
             // check that there is no duplicate id
-            $duplicateUser = User::model()->findByAttributes(array('googleid' => $user['id']));
+            $duplicateUser = User::model()->findByAttributes(array('fiu_account_id' => $user_id));
             if ($duplicateUser != null) {
                 $this->actionDuplicationError();
                 return;
@@ -218,22 +183,22 @@ class CombinedLoginController extends Controller
 
             $username = Yii::app()->user->name;
             $userLink = User::model()->find("username=:username", array(':username' => $username));
-            $userLink->googleid = $user_id;
+            $userLink->fiu_account_id = $user_id;
             $userLink->save(false);
 
             //get variables
-            $mesg = "Google";
+            $mesg = "FIU Email";
             $phone = null;
             $city = null;
             $state = null;
             $about_me = null;
-            $this->actionLinkToo($email, $user['firstname'], $user['lastname'], $user['avatar'], $mesg, $phone, $city, $state, $about_me);
+            $this->actionLinkToo($email, $user['given_name'], $user['family_name'], $user['picture'], $mesg, $phone, $city, $state, $about_me);
             return;
-        } else { // user logged in succesfully to google, now check if we register or login to JobFair, link
+        } else { // user logged in succesfully to google, now check if we register or login to JobFair
 
 
-            $userExists = User::model()->findByAttributes(array('googleid' => $user['id']));
-            // if user exists with googleid, login
+            $userExists = User::model()->findByAttributes(array('fiu_account_id' => $user["id"]));
+            // if user exists with fiu_account_id, login
             if ($userExists != null) {
 
                 if ($userExists->disable != 1) {
@@ -242,7 +207,7 @@ class CombinedLoginController extends Controller
                         Yii::app()->user->login($identity);
                     }
 
-                    $this->redirect("/JobFair/index.php/CombinedLogin/index");
+                    $this->redirect("/JobFair/index.php/combinedLogin/home");
                     return;
                 } else {
                     $this->redirect("/JobFair/index.php/site/page?view=disableUser");
@@ -253,12 +218,12 @@ class CombinedLoginController extends Controller
             // register
             else {
 
-                // check that there is no duplicate user, if so ask if he want to link the accounts
+                // check that there is no duplicate user
                 $duplicateUser = User::model()->findByAttributes(array('email' => $user['email']));
                 if ($duplicateUser != null) {
 
                     //populate db
-                    $duplicateUser->googleid = $user_id;
+                    $duplicateUser->fiu_account_id = $user_id;
                     $duplicateUser->save(false);
 
                     if ($duplicateUser->disable != 1) {
@@ -267,44 +232,39 @@ class CombinedLoginController extends Controller
                             Yii::app()->user->login($identity);
                         }
                         //get variables
-                        $mesg = "Google";
+                        $mesg = "FIU Email";
                         $phone = null;
                         $city = null;
                         $state = null;
                         $about_me = null;
-                        $this->actionLinkToo($email, $user['firstname'], $user['lastname'], $user['avatar'], $mesg, $phone, $city, $state, $about_me);
+                        $this->actionLinkToo($email, $user['given_name'], $user['family_name'], $user['picture'], $mesg, $phone, $city, $state, $about_me);
                         return;
                     } else {
                         $this->redirect("/JobFair/index.php/site/page?view=disableUser");
                         return;
                     }
                 }
+
                 $model = new User();
-                
                 //Populate user attributes
                 $model->FK_usertype = 1;
                 $model->registration_date = new CDbExpression('NOW()');
-                $model->activation_string = 'google';
-                $model->username = $user['email'];
-                $model->first_name = $user['firstname'];
-                $model->last_name = $user['lastname'];
-                $model->email = $user['email'];
-                $model->googleid = $user['id'];
-                $model->image_url = $user['avatar'];
+                $model->activation_string = 'fiu';
+                $model->username = $user["email"];
+                $model->first_name = $user['given_name'];
+                $model->last_name = $user['family_name'];
+                $model->email = $user["email"];
+                $model->fiu_account_id = $user["id"];
+                $model->image_url = $user['picture'];
                 //Hash the password before storing it into the database
                 $hasher = new PasswordHash(8, false);
                 $model->password = $hasher->HashPassword('tester');
                 $model->activated = 1;
                 $model->save(false);
-                // Add user basic Info to create the VJF user profile sucessfully
-                $basicInfo = new BasicInfo();
-                $basicInfo->userid = $model->id;
-                // $basicInfo->about_me = "";
-                $basicInfo->save(false);
 
                 // LOGIN
-                $model = User::model()->find("username=:username", array(':username' => $model->email));
-                $identity = new UserIdentity($model->username, 'tester');
+                $model2 = User::model()->find("username=:username", array(':username' => $model->email));
+                $identity = new UserIdentity($model2->username, 'tester');
                 if ($identity->authenticate()) {
                     Yii::app()->user->login($identity);
                 }
@@ -319,7 +279,7 @@ class CombinedLoginController extends Controller
     {
         $oauth = new OAuth(null, false);
         $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-        $oauth->initialize('PHtcqcCsbpgSopXIIW83APDsJiM', '8u3jCjIkWfuKF9WlybLN-pgZWag');
+        $oauth->initialize('8boH6TCiWWz3GAUDAN6jXtZ1Hg4', '1VWCLveBtnwmIqhM_SJZvjxmjDs');
         $oauth->redirect('google', '/JobFair/index.php/CombinedLogin/GetResult');
     }
 
@@ -329,7 +289,7 @@ class CombinedLoginController extends Controller
     {
         $oauth = new OAuth(null, false);
         $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-        $oauth->initialize('PHtcqcCsbpgSopXIIW83APDsJiM', '8u3jCjIkWfuKF9WlybLN-pgZWag');
+        $oauth->initialize('8boH6TCiWWz3GAUDAN6jXtZ1Hg4', '1VWCLveBtnwmIqhM_SJZvjxmjDs');
         
         $google_requester = $oauth->auth('google', array(
            'redirect' => true
@@ -494,6 +454,25 @@ class CombinedLoginController extends Controller
         {
             Yii::app()->user->logout();
             $this->redirect('/JobFair/index.php/CombinedLogin/login');
+        }
+        
+        private function get_domain($email)
+        {
+            if (strrpos($email, '.') == strlen($email) - 3)
+                $num_parts = 3;
+            else
+                $num_parts = 2;
+
+             $domain = implode('.',
+             array_slice( preg_split("/(\.|@)/", $email), - $num_parts)
+        );
+        return strtolower($domain);
+        }
+        
+        public function actionGoogleLogin()
+        {
+            $this->actionFiuAuth();
+            $this->redirect('/JobFair/index.php');
         }
         
         

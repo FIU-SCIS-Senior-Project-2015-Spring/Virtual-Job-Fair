@@ -6,15 +6,26 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<?php if(User::isCurrentUserAdmin())
-        {
-            $this->redirect('/JobFair/index.php/CombinedLogin/admin');
-        }
- ?>
+<?php 
+// Redirect user if they are currently logged in. Log them out if they are using
+// an unsupported Virtual Job Fair account
+echo stristr(Yii::app()->request->urlReferrer, 'CombinedLogin') == true;
+
+if(User::isCurrentUserAdmin())
+{
+    $this->redirect('/JobFair/index.php/CombinedLogin/admin');
+}
+else if(User::isCurrentUserGoogleFIU()) {
+    $this->redirect('/JobFair/index.php/CombinedLogin/home');
+}
+else if (!Yii::app()->user->isGuest) {
+    $this->redirect('/JobFair/index.php/CombinedLogin/logout');
+}
+?>
 
 <style>
-    div.login-box       { width: 900px; height: 500px; margin: auto; position: 
-                    absolute; top: 0; left: 0; bottom: 0; right: 0; border-radius: 25px; border: 10px solid; background-color : white;}
+    div.login-box       { width: 500px; height: 400px; margin: auto; position: 
+                    absolute; top: 0; left: 0; bottom: 0; right: 0; border-radius: 25px; border: 15px black; background-color : white;}
 </style>
 
 <div class="login-box" style = "text-align: center">
@@ -49,7 +60,6 @@ $this->breadcrumbs=array(
 
             <p style="float:left; margin-left:5px">Remember Me</p>
             <br>
-            <br>
             <div>
                 <?php
                     $this->widget('bootstrap.widgets.TbButton', array(
@@ -61,18 +71,16 @@ $this->breadcrumbs=array(
 
             </div>
         </div>
-        
+ 
+        <div style="float: left">
         <?php $this->endWidget(); ?>
-            <br>
-            <br>
-            <br>
-            <h3>Or you can also sign in with...</h3>
-            <br><br>
-            <?php
-        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/google_login2.jpg');
-        echo CHtml::link($image, array('combinedLogin/googleAuth'));
+           <h3 style="float: right">Or you can also sign in with...</h3>
+           <br><br>
+        <?php
+        $image = CHtml::image(Yii::app()->baseUrl . '/images/imgs/google_login.png','', array('width'=>'55%', 'style'=>'float: right;'));
+        echo CHtml::link($image, array('combinedLogin/GoogleLogin'));
         ?>
-        <br><br>
+        </div>
 </div>
 
 

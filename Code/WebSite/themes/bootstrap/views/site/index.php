@@ -1,6 +1,11 @@
 <?php
     /* @var $this SiteController */
-
+/*
+    // Check if user came from portal, if so, keep them there
+    if( false)
+        $this->redirect("/JobFair/index.php/CombinedLogin/login");
+ * 
+ */
     // Check if user is logged in; if so, then redirect accordingly. 
     if (User::isCurrentUserAdmin())
         $this->redirect("/JobFair/index.php/home/adminhome");

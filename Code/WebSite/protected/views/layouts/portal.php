@@ -27,8 +27,9 @@
                     body {
                         padding-top: 60px;
                         padding-bottom: 40px;
-                        /*background-image: url("/JobFair/images/imgs/congruent_outline.png");*/
+                        background-image: url("/JobFair/images/background.jpg");
                         background-color: white;
+                        background-size: cover;
                     }
                     .sidebar-nav {
                         padding: 9px 0;
@@ -87,7 +88,7 @@
                                         'items' => array('',
                                             array('label' => 'Other Login Options', 'url' => '#', 'visible' => Yii::app()->user->isGuest, 
                                                 'items' => array(
-                                                    array('label' => 'Google Login', 'url' => array('profile/googleAuth'), 'visible' => Yii::app()->user->isGuest),
+                                                    array('label' => 'Google Login', 'url' => array('combinedLogin/FiuAuth'), 'visible' => Yii::app()->user->isGuest),
                                                     )
                                                 ),
                                             

@@ -1145,7 +1145,7 @@
         {
             $oauth = new OAuth(null, false);
             $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-            $oauth->initialize('V93oy-uxCdwqJ4Htd1YZ0zX_nho', 'yc2iS1HJm0FMCIGcroZvVhD6Pdc');
+            $oauth->initialize('8boH6TCiWWz3GAUDAN6jXtZ1Hg4', '1VWCLveBtnwmIqhM_SJZvjxmjDs');
             $oauth->redirect('linkedin2', '/JobFair/index.php/User/GetResult');
         }
         
@@ -1155,7 +1155,7 @@
         {
             $oauth = new OAuth(null, false);
             $oauth->setOAuthdUrl('http://vjf-dev.cis.fiu.edu:6284', $base='/auth');
-            $oauth->initialize('V93oy-uxCdwqJ4Htd1YZ0zX_nho', 'yc2iS1HJm0FMCIGcroZvVhD6Pdc');
+            $oauth->initialize('8boH6TCiWWz3GAUDAN6jXtZ1Hg4', '1VWCLveBtnwmIqhM_SJZvjxmjDs');
         
             $linkedin_requester = $oauth->auth('linkedin2', array(
                'redirect' => true

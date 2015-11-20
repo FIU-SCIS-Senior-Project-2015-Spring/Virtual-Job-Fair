@@ -4,19 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/layouts/portal.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/portalSites/siteCreate.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/index.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/home/studenthome.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/themes/bootstrap/views/site/index.php</file>
             <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/models/User.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/UserCrudController.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/combinedLogin/home.php</file>
             <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/CombinedLoginController.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/user/StudentRegister.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/user/EmployerRegister.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/PortalSitesController.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/combinedLogin/admin.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/profile/duplicationError.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/models/LinkTooForm.php</file>
             <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/combinedLogin/login.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/user/AdminRegister.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/themes/bootstrap/views/layouts/main.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/views/layouts/column1.php</file>
-            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/UserController.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/ProfileController.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/config/main.php</file>
+            <file>file:/C:/wamp/www/Demo/Code/WebSite/protected/controllers/SiteController.php</file>
         </group>
     </open-files>
 </project-private>

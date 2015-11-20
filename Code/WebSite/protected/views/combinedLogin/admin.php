@@ -1,11 +1,11 @@
-<h2>Manage Site List</h2>
+<h2 style="color: white">Manage Site List</h2>
 
 <?php if(!User::isCurrentUserAdmin())
         {
             $this->redirect('/JobFair/index.php/CombinedLogin/login');
         }
  ?>
-
+<div style="background-color: white">
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed well',
     'dataProvider'=>$model->search(),
@@ -36,4 +36,5 @@
     ),
 )); 
 ?>
+</div>
 

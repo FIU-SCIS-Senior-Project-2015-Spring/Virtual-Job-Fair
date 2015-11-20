@@ -44,6 +44,15 @@ class PortalSites extends CActiveRecord
 			array('name, url', 'safe', 'on'=>'search'),
 		);
 	}
+        
+        public static function listAllSites()
+        {
+            $model = PortalSites::model();
+            $trips = $model->getCommandBuilder()
+               ->createFindCommand($model->tableSchema, $model->dbCriteria)
+               ->queryAll();
+            return $trips;
+        }
 
 	/**
 	 * @return array relational rules.

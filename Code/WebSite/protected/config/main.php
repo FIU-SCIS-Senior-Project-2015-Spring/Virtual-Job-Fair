@@ -18,6 +18,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'bootstrap.helpers.TbHtml',
+                'bootstrap.helpers.TbArray',
+                'bootstrap.behaviors.TbWidget',
+                'bootstrap.widgets.*',
         'ext.YiiMailer.YiiMailer',
 	),
     
@@ -60,6 +64,7 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
+                        'returnUrl'=>array('/JobFair/index.php'),
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
@@ -75,8 +80,7 @@ return array(
 
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',              
 			),
 		),
                 'chartjs'=>array( 'class' => 'chartjs.components.ChartJs', ),

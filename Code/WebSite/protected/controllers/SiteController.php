@@ -2,7 +2,7 @@
 
     class SiteController extends Controller
     {
-
+        
         /**
          * Declares class-based actions.
          */
@@ -105,20 +105,21 @@
                         {
                             if ($user->isAStudent())
                             {
-                                $this->redirect("/JobFair/index.php/home/studenthome");
+                                $this->redirect("/JobFair/index.php");
                             }
                             elseif ($user->isAEmployer())
                             {
-                                $this->redirect("/JobFair/index.php/home/employerhome");
+                                $this->redirect("/JobFair/index.php");
                             }
                             else
                             {
-                                $this->redirect("/JobFair/index.php/home/adminhome");
+                                $this->redirect("/JobFair/index.php");
                             }
                         }
                         else
                         {
-                            $this->redirect(Yii::app()->user->returnUrl);
+                            //$this->redirect(Yii::app()->user->returnUrl);
+                            $this->redirect("/JobFair/index.php");
                         }
                     }
                     
@@ -194,6 +195,17 @@
 
             $this->render('forgotPassword', array('userModel' => $userModel));
         }
+        
+        public function actionRequestLogin()
+        {
+            $username = User::model()->getCurrentUser()->username;
+            $username = preg_replace('/([^@]*).*/', '$1', $username);
+            
+            $password = User::model()->getCurrentUser()->password;
+            
+            $this->redirect("http://cp-dev.cis.fiu.edu/coplat/index.php/site/portalLogin?user=$username&pass=$password");
+        }
+        
 
     }
     

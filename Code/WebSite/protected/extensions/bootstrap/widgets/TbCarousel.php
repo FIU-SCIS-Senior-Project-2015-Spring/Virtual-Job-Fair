@@ -150,7 +150,11 @@ class TbCarousel extends CWidget
 			{
 				if (!isset($item['captionOptions']))
 					$item['captionOptions'] = array();
-
+                                if(isset($item['link']))
+                                {
+                                    if(!is_array($item['link'])) $item['link'] = array('href'=>$item['link']);
+                                        echo CHtml::openTag('a', $item['link']);
+                                 }        
 				if (isset($item['captionOptions']['class']))
 					$item['captionOptions']['class'] .= ' carousel-caption';
 				else
@@ -163,7 +167,8 @@ class TbCarousel extends CWidget
 
 				if (isset($item['caption']))
 					echo '<p>'.$item['caption'].'</p>';
-
+                                
+                                if(isset($item['link'])) echo CHtml::closeTag('a');
 				echo '</div>';
 			}
 

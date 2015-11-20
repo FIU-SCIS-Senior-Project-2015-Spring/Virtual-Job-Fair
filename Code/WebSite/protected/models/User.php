@@ -515,6 +515,15 @@
             }
             return ($user->FK_usertype == 1);
         }
+        
+        public static function isCurrentUserGoogleFIU()
+        {
+            $username = Yii::app()->user->name;
+            $user = User::model()->find("username=:username", array(':username' => $username));
+            if ($user == null)
+                return false;
+            return ($user->fiu_account_id != null);
+        }
 
         //adds comments to here from down 
         //Note that this function does not take into account Guest users (students or employers)
