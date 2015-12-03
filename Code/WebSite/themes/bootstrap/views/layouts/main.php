@@ -127,7 +127,7 @@
                                             array('label' => 'Jobs', 'url' => array("/job/home"), 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserAdmin() && !User::isCurrentUserEmployer()),
                                             array('label' => 'Message', 'url' => array($messagePageUrl), 'visible' => !Yii::app()->user->isGuest),
                                             array('label' => 'Advanced Student Search', 'url' => array("/job/emphome"), 'visible' => User::isCurrentUserEmployer()),
-                                            array('label' => 'Senior Project Tools Portal', 'url' => array('combinedLogin/login'), 'visible' => true),
+                                            array('label' => 'Senior Project Tools Portal', 'url' => 'http://sp-portal-dev.cis.fiu.edu', 'visible' => true),
                                         ),
                                     ), $search,
                                     
@@ -144,7 +144,7 @@
                                                     array('label' => 'FIU Login', 'url' => array('profile/fiuAuth'), 'visible' => Yii::app()->user->isGuest), 
                                                     array('label' => 'FIU CS Login', 'url' => array('profile/fiuCsSeniorAuth'), 'visible' => Yii::app()->user->isGuest), 
                                                     array('label' => 'LinkedIn Login', 'url' => array( 'user/auth1'), 'visible' => Yii::app()->user->isGuest),
-                                                    array('label' => 'Senior Project Tools Portal', 'url' => array('combinedLogin/login'), 'visible' => true),
+                                                    array('label' => 'Senior Project Tools Portal', 'url' => 'http://sp-portal-dev.cis.fiu.edu', 'visible' => true),
                                                     )
                                                 ),
                                             
@@ -153,7 +153,7 @@
                                                     array('label' => 'My Profile', 'url' => array($profile), 'visible' => !Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                                                     array('label' => 'Merge Accounts', 'visible' => (User::isCurrentUserStudent(Yii::app()->user->name)), 'url' => '/JobFair/index.php/user/MergeAccounts'),
                                                     array('label' => 'Change Password', 'visible' => !Yii::app()->user->isGuest && !User::isCurrentUserGuestEmployer() && !User::isCurrentUserGuestStudent(), 'url' => '/JobFair/index.php/user/ChangePassword'),
-                                                    array('label' => 'Senior Project Tools Portal', 'url' => array('combinedLogin/login'), 'visible' => true),
+                                                    array('label' => 'Senior Project Tools Portal', 'url' => 'http://sp-portal-dev.cis.fiu.edu', 'visible' => true),
                                                     '----',
                                                     array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
                                                     array('label' => 'Login', 'url' => array('/site/login'), 'visible' => false),
