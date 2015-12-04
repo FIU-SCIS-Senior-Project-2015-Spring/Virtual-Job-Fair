@@ -105,11 +105,11 @@
                         {
                             if ($user->isAStudent())
                             {
-                                $this->redirect("/JobFair/index.php");
+                                $this->redirect("/JobFair/index.php/home/studenthome");
                             }
                             elseif ($user->isAEmployer())
                             {
-                                $this->redirect("/JobFair/index.php");
+                                $this->redirect("/JobFair/index.php/home/employerhome");
                             }
                             else
                             {
