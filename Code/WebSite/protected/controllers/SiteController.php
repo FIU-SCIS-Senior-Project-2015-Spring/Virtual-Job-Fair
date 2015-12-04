@@ -196,16 +196,6 @@
             $this->render('forgotPassword', array('userModel' => $userModel));
         }
         
-        public function actionRequestLogin()
-        {
-            $username = User::model()->getCurrentUser()->username;
-            $username = preg_replace('/([^@]*).*/', '$1', $username);
-            
-            $password = User::model()->getCurrentUser()->password;
-            
-            $this->redirect("http://cp-dev.cis.fiu.edu/coplat/index.php/site/portalLogin?user=$username&pass=$password");
-        }
-        
 
     }
     
